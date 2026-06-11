@@ -1,0 +1,14 @@
+﻿.next/
+node_modules/
+out/
+dist/
+.env*
+*.log
+coverage/
+.video-work/
+.data/
+.codex-screenshots/
+.verification/
+artifacts/
+86款城市航拍合集/
+86*/
