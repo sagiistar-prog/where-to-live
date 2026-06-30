@@ -37,7 +37,7 @@ export type PaymentGateResult = {
   listingTitle: string;
   status: ReportStatus;
   score: number;
-  verdict: "可以付款" | "谨慎小额" | "先别付款";
+  verdict: "可以付款" | "谨慎小额" | "不建议付款";
   summary: string;
   paymentType: string;
   amount: number;
@@ -68,6 +68,26 @@ function hasAny(text: string, keys: string[]) {
   return keys.some((key) => text.includes(key));
 }
 
+function amountFromText(text: string) {
+  const match = text.replace(/,/g, "").match(/(\d+(?:\.\d+)?)\s*(万|w|W|k|K|千|元)?/);
+  if (!match) return 0;
+
+  const value = Number(match[1]);
+  if (!Number.isFinite(value)) return 0;
+  const unit = match[2]?.toLowerCase();
+  if (unit === "万" || unit === "w") return money(value * 10000);
+  if (unit === "k" || unit === "千") return money(value * 1000);
+  return money(value);
+}
+
+function inferPaymentType(text: string, fallback: string) {
+  return (
+    ["定金", "订金", "意向金", "押金", "服务费", "中介费", "首笔租金", "租金"].find((item) =>
+      text.includes(item),
+    ) ?? fallback
+  );
+}
+
 function addRisk(
   risks: PaymentRiskItem[],
   score: { value: number },
@@ -87,30 +107,28 @@ function statusFrom(score: number, highCount: number): ReportStatus {
 function verdictFrom(status: ReportStatus): PaymentGateResult["verdict"] {
   if (status === "recommend") return "可以付款";
   if (status === "caution") return "谨慎小额";
-  return "先别付款";
+  return "不建议付款";
 }
 
 export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
   const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "候选房源";
-  const paymentType = input.paymentType?.trim() || "定金";
-  const monthlyRent = money(numberOr(input.monthlyRent, 5200));
-  const amount = money(numberOr(input.amount, 2000));
-  const stage = input.stage?.trim() || "看房后，未签合同";
-  const contractStatus = input.contractStatus?.trim() || "未看到合同";
-  const identityStatus = input.identityStatus?.trim() || "未确认身份证明";
-  const authorizationStatus = input.authorizationStatus?.trim() || "未看到产权/转租授权";
-  const payeeType = input.payeeType?.trim() || "中介个人账户";
-  const payeeMatchesContract = input.payeeMatchesContract?.trim() || "主体不一致";
-  const refundRule = input.refundRule?.trim() || "口头承诺可退";
-  const receiptStatus = input.receiptStatus?.trim() || "只说转账截图即可";
-  const paymentChannel = input.paymentChannel?.trim() || "微信/支付宝私人转账";
-  const urgencyPressure = input.urgencyPressure?.trim() || "对方催今天必须付";
-  const notes =
-    input.notes?.trim() || "中介说房子很抢手，先交定金锁房，合同和授权明天再补。";
+  const monthlyRent = money(numberOr(input.monthlyRent, 0));
+  const stage = input.stage?.trim() || "不确定";
+  const contractStatus = input.contractStatus?.trim() || "不确定";
+  const identityStatus = input.identityStatus?.trim() || "不确定";
+  const authorizationStatus = input.authorizationStatus?.trim() || "不确定";
+  const payeeType = input.payeeType?.trim() || "不确定";
+  const payeeMatchesContract = input.payeeMatchesContract?.trim() || "不确定";
+  const refundRule = input.refundRule?.trim() || "不确定";
+  const receiptStatus = input.receiptStatus?.trim() || "不确定";
+  const paymentChannel = input.paymentChannel?.trim() || "不确定";
+  const urgencyPressure = input.urgencyPressure?.trim() || "不确定";
+  const notes = input.notes?.trim() || "";
   const reportContext = input.reportContext?.trim() || "";
+  const basePaymentType = input.paymentType?.trim() || "待确认付款";
   const context = [
-    paymentType,
+    basePaymentType,
     stage,
     contractStatus,
     identityStatus,
@@ -124,13 +142,16 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     notes,
     reportContext,
   ].join(" ");
+  const paymentType = inferPaymentType(context, basePaymentType);
+  const amount = money(numberOr(input.amount, 0)) || amountFromText(context);
+  const mentions = (keys: string[]) => hasAny(context, keys);
 
   const score = { value: 94 };
   const riskItems: PaymentRiskItem[] = [];
 
-  if (hasAny(stage, ["未看房", "线上", "没看"]) || hasAny(notes, ["没看房", "视频看房"])) {
+  if (hasAny(stage, ["未看房", "线上", "没看"]) || mentions(["没看房", "未看房", "视频看房", "线上看房", "没实地"])) {
     addRisk(riskItems, score, 18, {
-        title: "还没实地看房就要求付款",
+      title: "还没实地看房就要求付款",
       level: "高",
       why: "未看房付款会放大虚假房源、临时换房和定金不退风险。",
       action: "先实地看房，至少完成门牌、房屋状态、出租方身份和授权链确认。",
@@ -138,7 +159,10 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (hasAny(contractStatus, ["未看到", "没合同", "明天补", "口头"]) || hasAny(notes, ["合同明天", "先付后签"])) {
+  if (
+    hasAny(contractStatus, ["未看到", "没合同", "明天补", "口头", "不确定"]) ||
+    mentions(["合同明天", "先付后签", "没合同", "未看到合同", "没看到合同", "合同没给", "合同还没发", "口头承诺", "只口头"])
+  ) {
     addRisk(riskItems, score, 18, {
       title: "合同未确认就先付款",
       level: "高",
@@ -148,7 +172,11 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (hasAny(authorizationStatus, ["未看到", "没有", "拒绝", "不清"]) || hasAny(identityStatus, ["未确认", "不清"])) {
+  if (
+    hasAny(authorizationStatus, ["未看到", "没有", "拒绝", "不清", "不确定"]) ||
+    hasAny(identityStatus, ["未确认", "不清", "不确定"]) ||
+    mentions(["二房东", "转租", "授权不清", "没有授权", "未看到授权", "产权不清", "房东身份不清", "身份证没看", "拒绝提供授权"])
+  ) {
     addRisk(riskItems, score, 17, {
       title: "出租权和身份未确认",
       level: "高",
@@ -158,7 +186,11 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (hasAny(payeeMatchesContract, ["不一致", "未知", "不清", "待确认"]) || hasAny(payeeType, ["个人", "中介个人", "室友", "朋友"])) {
+  if (
+    hasAny(payeeMatchesContract, ["不一致", "未知", "不清", "待确认", "不确定"]) ||
+    hasAny(payeeType, ["个人", "中介个人", "室友", "朋友"]) ||
+    mentions(["收款人不一致", "收款主体不一致", "收款主体不清", "收款人不清", "打给个人", "私人账户", "中介个人", "账号不是房东", "代收"])
+  ) {
     addRisk(riskItems, score, 16, {
       title: "收款主体与签约主体不一致",
       level: "高",
@@ -168,7 +200,10 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (hasAny(refundRule, ["口头", "不退", "没写", "不清", "可退但"])) {
+  if (
+    hasAny(refundRule, ["口头", "不退", "没写", "不清", "可退但", "不确定"]) ||
+    mentions(["退款没写", "退款不清", "不退", "口头说可退", "没写可退", "定金不退", "订金不退", "服务费不退"])
+  ) {
     addRisk(riskItems, score, 13, {
       title: "退款条件没有写清",
       level: "中",
@@ -178,7 +213,10 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (hasAny(urgencyPressure, ["今天必须", "马上", "不付就没", "催", "倒计时"]) || hasAny(notes, ["很抢手", "锁房"])) {
+  if (
+    hasAny(urgencyPressure, ["今天必须", "马上", "不付就没", "催", "倒计时"]) ||
+    mentions(["今天必须", "马上付款", "不付就没", "催付款", "催我付款", "很抢手", "锁房", "倒计时"])
+  ) {
     addRisk(riskItems, score, 10, {
       title: "对方用稀缺和限时催付",
       level: "中",
@@ -188,7 +226,11 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (hasAny(receiptStatus, ["转账截图即可", "没有", "不开发票", "不收据"]) || hasAny(paymentChannel, ["现金", "私人", "微信", "支付宝"])) {
+  if (
+    hasAny(receiptStatus, ["转账截图即可", "没有", "不开发票", "不收据", "不确定"]) ||
+    hasAny(paymentChannel, ["现金", "私人", "微信", "支付宝"]) ||
+    mentions(["没有收据", "不收据", "不开发票", "现金", "微信转账", "支付宝转账", "私人转账", "转账截图"])
+  ) {
     addRisk(riskItems, score, 9, {
       title: "收据和付款记录不足",
       level: "中",
@@ -198,8 +240,8 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  const maxReasonableHold = money(Math.min(monthlyRent * 0.2, 1000));
-  if (hasAny(paymentType, ["定金", "意向金", "订金"]) && amount > maxReasonableHold) {
+  const maxReasonableHold = monthlyRent > 0 ? money(Math.min(monthlyRent * 0.2, 1000)) : 0;
+  if (amount > 0 && maxReasonableHold > 0 && hasAny(paymentType, ["定金", "意向金", "订金"]) && amount > maxReasonableHold) {
     addRisk(riskItems, score, 10, {
       title: "锁房金额偏高",
       level: "中",
@@ -209,11 +251,11 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     });
   }
 
-  if (amount >= monthlyRent) {
+  if (amount > 0 && monthlyRent > 0 && amount >= monthlyRent) {
     addRisk(riskItems, score, 8, {
       title: "付款金额已接近或超过一个月租金",
       level: "中",
-      why: "大额付款应进入合同签署和正式押租金步骤，不能只靠口头锁房。",
+      why: "大额付款应进入合同签署和正式押租金步骤，不能仅依据口头锁房承诺。",
       action: "金额接近月租时，必须同步合同、收款主体、押金条款和交割清单。",
       proof: "保存合同、收款主体、押金条款、房屋交割和收据。",
     });
@@ -221,7 +263,7 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
 
   if (riskItems.length === 0) {
     riskItems.push({
-      title: "基础付款凭据",
+      title: "基础付款材料",
       level: "低",
       why: "即使风险较低，也要让每笔钱能对应房源、用途和租期。",
       action: "付款前再次核对合同主体、房源地址、金额、租期和退款条件。",
@@ -247,7 +289,7 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     verdict,
     summary:
       status === "recommend"
-        ? "当前付款条件基本可控，但仍需保留付款备注、收据、合同和授权凭据。"
+        ? "当前付款条件基本可控，但仍需保留付款备注、收据、合同和授权材料。"
         : status === "caution"
           ? "当前付款存在中等风险，建议补充退款条件、收款主体和收据，再考虑小额付款。"
           : "当前不建议付款。合同、授权、收款主体或退款条件存在高风险信息待补充，补充材料再谈钱。",
@@ -255,7 +297,7 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
     amount,
     maxReasonableHold,
     riskItems,
-    blockers: blockers.length ? blockers : ["暂无高优先级付款前待确认事项，但仍需保存基础付款凭据。"],
+    blockers: blockers.length ? blockers : ["暂无高优先级付款前待确认事项，但仍需保存基础付款材料。"],
     beforePayChecklist: [
       "看过真实房屋，并保存门牌、房屋视频和联系人信息。",
       "看过合同草稿，房源地址、租期、租金、押金、费用和退款条件完整。",
@@ -264,7 +306,7 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
       "付款金额、款项性质、可退条件、退还时间和账户已写清。",
       "付款备注和收据能对应房源、用途、租期和合同主体。",
     ],
-    paymentNoteTemplate: `支付${listingTitle}${paymentType}，房源城市：${city}，房源地址/门牌以合同为准，款项用途：${paymentType}，金额：${amount.toLocaleString()} 元，租期和退款条件以双方确认的合同/聊天记录为准。`,
+    paymentNoteTemplate: `支付${listingTitle}${paymentType}，房源城市：${city}，房源地址/门牌以合同为准，款项用途：${paymentType}，金额：${amount > 0 ? `${amount.toLocaleString()} 元` : "待确认"}，租期和退款条件以双方确认的合同/聊天记录为准。`,
     receiptChecklist: [
       "收款人姓名、账号、手机号或公司主体。",
       "付款金额、付款日期、款项性质和房源地址。",
@@ -279,14 +321,14 @@ export function buildPaymentGate(input: PaymentGateInput): PaymentGateResult {
       "付款备注我会写清房源地址、款项用途和租期，请确认这笔款的性质和退款条件。",
     ],
     nextActions: [
-      status === "reject" ? "先别付款，把高风险事项逐条补充。" : "补充中风险凭据，再决定是否小额付款。",
-      "把付款备注、收据、授权链同步到凭据材料。",
+      status === "reject" ? "不建议付款，把高风险事项逐条补充。" : "补充中风险材料，再决定是否小额付款。",
+      "把付款备注、收据、授权链同步到材料清单。",
       "进入入住预算，确认付款后不会打穿安全垫。",
       "进入合同确认，确认合同里的押金、退租、维修和费用边界。",
     ],
     assumptions: [
-      `城市：${city}；房源：${listingTitle}；月租：${monthlyRent.toLocaleString()} 元。`,
-      `拟付款项：${paymentType} ${amount.toLocaleString()} 元；当前阶段：${stage}。`,
+      `城市：${city}；房源：${listingTitle}；月租：${monthlyRent > 0 ? `${monthlyRent.toLocaleString()} 元` : "待确认"}。`,
+      `拟付款项：${paymentType} ${amount > 0 ? `${amount.toLocaleString()} 元` : "金额待确认"}；当前阶段：${stage}。`,
       "这里基于用户主动输入做付款前风险判断；重大争议建议回到合同、法律意见或官方查询结果。",
       `输入背景：${context}`,
     ],

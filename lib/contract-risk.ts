@@ -225,8 +225,8 @@ export function buildFallbackContractCheck(
       overallLevel === "高"
         ? "检测到可能造成直接现金损失或租期不稳定的高风险条款。建议先改条款，再考虑付款。"
         : overallLevel === "中"
-          ? "检测到若干需要补充或改写的条款。建议签约前逐条确认，不要只接受口头承诺。"
-          : "未识别到明显高风险表达，但仍需补充身份、押金、维修、费用和交割凭据。",
+          ? "检测到若干需要补充或改写的条款。建议签约前逐条确认，并保留书面记录。"
+          : "未识别到明显高风险表达，但仍需补充身份、押金、维修、费用和交割记录。",
     findings,
     missingClauses,
     evidenceChecklist: defaultChecklist,

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -42,7 +42,7 @@ type OfficialSeed = Partial<OfficialVerificationInput> & {
 const statusCopy = {
   recommend: { label: "可继续确认", variant: "success" as const },
   caution: { label: "补充材料", variant: "warning" as const },
-  reject: { label: "先别签约", variant: "destructive" as const },
+  reject: { label: "不建议签约", variant: "destructive" as const },
 };
 
 function priorityVariant(priority: VerificationTask["priority"]) {
@@ -73,7 +73,7 @@ function buildEvidenceHref(
     deposit: "押金和付款方式待确认",
     paymentCycle: "付款周期、收款主体和退款条件待确认",
     risks: [
-  "官方查询提示需要补充出租权、备案办理办法、合同底线和付款主体凭据。",
+  "官方查询提示需要补充出租权、备案办理办法、合同要求和付款主体材料。",
       ...result.warnings,
       ...proofLines,
     ].join("\n"),
@@ -94,20 +94,20 @@ function buildPaymentHref(
     city: result.city,
     listingTitle: input.title || "官方查询带入房源",
     paymentType: "定金",
-    amount: "1000",
-    monthlyRent: "5200",
+    amount: "0",
+    monthlyRent: "0",
     stage: input.stage || "签约前",
     contractStatus: input.contractStatus || "未看到合同",
     identityStatus: "未确认身份证明",
     authorizationStatus: input.landlordType?.includes("二房东")
       ? "未看到产权/转租授权"
       : "未看到产权/转租授权",
-    payeeType: "中介个人账户",
+    payeeType: "待确认",
     payeeMatchesContract: "暂不清楚",
     refundRule: "没写清",
     receiptStatus: "只说转账截图即可",
-    paymentChannel: "微信/支付宝私人转账",
-    urgencyPressure: "对方催今天必须付",
+    paymentChannel: "待确认",
+    urgencyPressure: "对方要求先付款或先签约",
     notes: "官方查询风险点未确认前，不建议先付款。",
     reportContext: [input.reportContext, ...result.warnings, ...result.nextActions]
       .filter(Boolean)
@@ -175,7 +175,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
         const proofHighlights = data.sections
           .flatMap((section) => section.tasks)
           .filter((task) => task.priority === "高")
-          .map((task) => `保存凭据：${task.title} - ${task.proofToSave}`);
+          .map((task) => `保存材料：${task.title} - ${task.proofToSave}`);
         setResult(data);
         setCheckedOfficialTasks([]);
         setState("idle");
@@ -188,7 +188,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
           summary:
             data.status === "reject"
               ? data.summary
-              : `${data.summary} 已整理计划不等于已确认，下一步需要逐项确认高优先级事项。`,
+              : `${data.summary} 已整理计划不等于已确认，后续需要逐项确认高优先级事项。`,
           highlights: [
             "待确认：高优先级官方信息",
             ...data.warnings,
@@ -218,7 +218,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
         contractStatus: initialInput.contractStatus,
         concerns: seedValue(
           initialInput.concerns,
-          "报告提示需要确认出租权、转租授权、备案办理办法、合同底线和付款主体。",
+          "报告提示需要确认出租权、转租授权、备案办理办法、合同要求和付款主体。",
         ),
         reportContext: initialInput.reportContext,
       },
@@ -253,7 +253,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
   async function syncOfficialGate() {
     if (!result) return;
 
-    await recordCaseEvent({
+    const saved = await recordCaseEvent({
       reportId: initialInput?.reportId || "workspace",
       type: "official",
       title: "官方查询关键事项",
@@ -262,10 +262,10 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
         ? "高优先级官方查询事项已确认，可以继续确认付款条件或合同条款。"
         : `仍有 ${missingOfficialGateTasks.length} 项高优先级官方查询待确认，当前不建议付款或签约。`,
       highlights: (missingOfficialGateTasks.length
-        ? missingOfficialGateTasks.map((task) => `未确认：${task.title}；需保存凭据：${task.proofToSave}`)
+        ? missingOfficialGateTasks.map((task) => `未确认：${task.title}；需保存材料：${task.proofToSave}`)
         : [
-            "出租权、备案办理办法、合同底线和付款主体等高优先级官方查询已确认。",
-            ...officialGateTasks.map((task) => `已保存凭据：${task.title} - ${task.proofToSave}`),
+            "出租权、备案办理办法、合同要求和付款主体等高优先级官方查询已确认。",
+            ...officialGateTasks.map((task) => `已保存材料：${task.title} - ${task.proofToSave}`),
           ]
       ).slice(0, 6),
       href:
@@ -274,15 +274,17 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
           : undefined,
     });
     setMessage(
-      initialInput?.reportId
-        ? "官方查询必须确认状态已保存到房源记录。"
-        : "官方查询必须确认状态已保存到工作台。",
+      saved
+        ? initialInput?.reportId
+          ? "官方查询必须确认状态已保存到房源记录。"
+          : "官方查询必须确认状态已保存到工作台。"
+        : "已带入官方核验信息，请先查看本页确认项。",
     );
   }
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="grid gap-4 xl:grid-cols-[0.42fr_0.58fr]">
+      <form onSubmit={handleSubmit} className="grid max-w-3xl gap-4">
         <Card className="p-6">
           <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -319,16 +321,23 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
                 <option>退租前</option>
               </select>
             </div>
-            <Field label="目标城市" name="city" defaultValue={seedValue(initialInput?.city, "上海")} />
+            <Field
+              label="目标城市"
+              name="city"
+              defaultValue={seedValue(initialInput?.city, "")}
+              placeholder="填写目标城市"
+            />
             <Field
               label="房源地址"
               name="address"
-              defaultValue={seedValue(initialInput?.address, "徐汇区万体馆附近")}
+              defaultValue={seedValue(initialInput?.address, "")}
+              placeholder="填写小区、楼栋、门牌或明确地标"
             />
             <Field
               label="出租方类型"
               name="landlordType"
-              defaultValue={seedValue(initialInput?.landlordType, "二房东 / 代理")}
+              defaultValue={seedValue(initialInput?.landlordType, "")}
+              placeholder="填写房东、中介、代理或你不确定的情况"
             />
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="contractStatus">合同状态</Label>
@@ -337,8 +346,9 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
                 name="contractStatus"
                 defaultValue={seedValue(
                   initialInput?.contractStatus,
-                  "中介说可以先付定金，合同明天补",
+                  "",
                 )}
+                placeholder="填写当前合同、补充协议或聊天确认情况"
               />
             </div>
             <div className="space-y-2 sm:col-span-2">
@@ -347,10 +357,8 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
                 id="concerns"
                 name="concerns"
                 className="min-h-[128px]"
-                defaultValue={seedValue(
-                  initialInput?.concerns,
-                  "担心转租授权、押金私人微信转账、备案影响居住证、老小区是否有安全问题。",
-                )}
+                defaultValue={seedValue(initialInput?.concerns, "")}
+                placeholder="填写你担心的出租权、备案、收款主体、合同或其他官方确认问题"
               />
             </div>
           </div>
@@ -382,6 +390,9 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
           </Button>
         </Card>
 
+      </form>
+
+      {result ? (
         <Card className="p-6">
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -397,8 +408,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
             ) : null}
           </div>
 
-          {result ? (
-            <div className="space-y-5">
+          <div className="space-y-5">
               <p className="text-sm leading-7 text-muted-foreground">{result.summary}</p>
               <div className="grid gap-3 sm:grid-cols-3">
                 <SummaryTile icon={FileSearch} label="确认事项" value={`${tasks.length} 项`} />
@@ -408,7 +418,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
               <div className="rounded-md border border-border bg-secondary p-4">
                 <div className="mb-3 flex items-center gap-2 text-primary">
                   <BadgeCheck className="h-4 w-4" />
-                  <h3 className="font-semibold">产品边界</h3>
+                  <h3 className="font-semibold">使用范围</h3>
                 </div>
                 <p className="text-sm leading-6 text-muted-foreground">{result.limitation}</p>
               </div>
@@ -451,7 +461,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
                           {taskItem.sourceName} · 通过信号：{taskItem.passSignal}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          保存凭据：{taskItem.proofToSave}
+                          保存材料：{taskItem.proofToSave}
                         </span>
                       </span>
                     </label>
@@ -487,33 +497,22 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
                   <Button asChild variant="outline" className="w-full">
                     <Link href={buildEvidenceHref(submittedInput, result, initialInput?.reportId)}>
                       <Archive className="mr-2 h-4 w-4" />
-                      同步到凭据材料
+                      同步到材料清单
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button asChild variant="outline" className="w-full">
                     <Link href={buildPaymentHref(submittedInput, result, initialInput?.reportId)}>
                       <BadgeDollarSign className="mr-2 h-4 w-4" />
-                      进入付款前确认
+                      进入付款咨询
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
               ) : null}
-            </div>
-          ) : (
-            <div className="flex min-h-[460px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
-              <Badge variant="secondary" className="mb-4 w-fit">
-                签约前置
-              </Badge>
-              <h3 className="text-xl font-semibold">官方结果仍要亲自确认</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                但它可以把“该去哪里查、该查什么、对方不配合时意味着什么”整理出来。本页只使用官方公开入口和你主动填写的信息。
-              </p>
-            </div>
-          )}
+          </div>
         </Card>
-      </form>
+      ) : null}
 
       {result ? (
         <>
@@ -535,7 +534,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
 
           <section className="grid gap-4 lg:grid-cols-[0.58fr_0.42fr]">
             <Card className="p-5">
-              <h3 className="font-semibold">下一步</h3>
+              <h3 className="font-semibold">后续确认</h3>
               <div className="mt-3 grid gap-2 text-sm leading-6 text-muted-foreground">
                 {result.nextActions.map((action) => (
                   <p key={action} className="rounded-md border border-border bg-secondary p-3">
@@ -563,15 +562,17 @@ function Field({
   label,
   name,
   defaultValue,
+  placeholder,
 }: {
   label: string;
   name: string;
   defaultValue: string;
+  placeholder?: string;
 }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} defaultValue={defaultValue} />
+      <Input id={name} name={name} defaultValue={defaultValue} placeholder={placeholder} />
     </div>
   );
 }
@@ -636,7 +637,7 @@ function TaskCard({ task }: { task: VerificationTask }) {
           {task.redFlag}
         </p>
         <p>
-          <span className="text-foreground/90">应保存凭据：</span>
+          <span className="text-foreground/90">应保存材料：</span>
           {task.proofToSave}
         </p>
       </div>

@@ -20,7 +20,6 @@ const eventTypeHref: Record<CaseEventType, string> = {
   area: "/area",
   commute: "/commute",
   life: "/life",
-  buy: "/buy",
   visit: "/visit",
   official: "/official",
   evidence: "/evidence",
@@ -115,13 +114,13 @@ export function StandaloneDecisionRecords({
             <ClipboardList className="h-5 w-5" />
           </div>
           <p className="text-sm text-primary/80">
-            近期判断
+            判断记录
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-normal">
-            先保存的判断，也能回头继续确认
+            已保存的判断
           </h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
-            这些城市、片区、付款、合同或押金判断暂未关联具体房源，但会保存在工作台。你可以先把真实问题判断清楚，后面再把合适的房源接进来。
+            城市、片区、买房、付款和合同判断会保存在这里。需要继续处理时，直接打开对应记录。
           </p>
 
           <div className="mt-5 grid grid-cols-3 gap-2">
@@ -133,12 +132,15 @@ export function StandaloneDecisionRecords({
           <div className="mt-5 flex flex-col gap-2 sm:flex-row">
             <Button asChild>
               <Link href="/city">
-                继续城市成本
+                继续生活成本
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="secondary">
-              <Link href="/analyze">评估具体房源</Link>
+              <Link href="/city?mode=buy">买房大致判断</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/analyze">房源体检</Link>
             </Button>
           </div>
         </div>

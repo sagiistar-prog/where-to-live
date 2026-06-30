@@ -166,11 +166,11 @@ export async function enhanceLifeRadiusWithAmap(input: LifeRadiusInput): Promise
   const listingTitle = input.listingTitle?.trim();
 
   if (!amapEnabled) {
-    return manualResult(input, "设置页已关闭地图实时数据，本次按你手动输入的配套距离判断。");
+    return manualResult(input, "本次先按你填写的配套距离判断。看房时请再确认买菜、医疗、快递、夜间路线和噪音。");
   }
 
   if (!key) {
-    return manualResult(input, "实时周边查询暂不可用，本次按你手动输入的配套距离判断。");
+    return manualResult(input, "本次先按你填写的配套距离判断。看房时请再确认买菜、医疗、快递、夜间路线和噪音。");
   }
 
   if (!usageState?.canCall) {
@@ -189,10 +189,10 @@ export async function enhanceLifeRadiusWithAmap(input: LifeRadiusInput): Promise
     provider: "amap",
     feature: "房源位置解析",
     status: location ? "live" : "failed",
-    label: location ? "高德位置解析" : "位置解析失败",
+    label: location ? "位置解析" : "位置解析失败",
     detail: location
       ? `已解析到 ${location.formattedAddress ?? listingTitle} 附近。`
-      : "高德未返回可用坐标，请补充更具体的小区、门牌或地标。",
+      : "实时地图未返回可用坐标，请补充更具体的小区、门牌或地标。",
   });
 
   if (!location?.location) {

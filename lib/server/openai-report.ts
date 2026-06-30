@@ -124,11 +124,11 @@ function buildPreflightWarnings(input: ListingAnalysisInput) {
 
 function reportDepthInstruction(depth: ListingAnalysisInput["reportDepth"]) {
   if (depth === "pre-sign") {
-    return "签约前确认：结果必须更保守，重点确认合同主体、收款主体、出租/转租授权、押金退还、维修责任、提前退租、付款备注和待补充凭据；未补充必须确认时不要给出可付款或可签约暗示。";
+    return "签约前确认：结果必须更保守，重点确认合同主体、收款主体、出租/转租授权、押金退还、维修责任、提前退租、付款备注和待补充材料；未补充必须确认时不要给出可付款或可签约暗示。";
   }
 
   if (depth === "deep-risk") {
-    return "深度风险提示：结果必须优先说清高损失风险，包括押金、维修、授权、噪音、潮湿、低楼层、晚归安全和合租边界；结论要给出补充凭据和现场确认事项。";
+    return "深度风险提示：结果必须优先说清高损失风险，包括押金、维修、授权、噪音、潮湿、低楼层、晚归安全和合租边界；结论要给出补充材料和现场确认事项。";
   }
 
     return "标准评估：重点覆盖预算、通勤、生活配套、舒适度、基础合同风险和看房清单，保持简洁并能直接参考。";
@@ -187,7 +187,7 @@ export async function generateReportPayload(
       text: JSON.stringify(
         {
           product: "住哪儿 AI",
-          task: "生成面向中国年轻租客的房源评估报告",
+          task: "生成面向中国年轻租客的房源体检报告",
           reportDepth: input.reportDepth ?? "standard",
           reportDepthInstruction: reportDepthInstruction(input.reportDepth),
           officialPromptEnabled: input.dataSourceSettings?.officialPromptEnabled !== false,
@@ -198,7 +198,7 @@ export async function generateReportPayload(
           externalContext: context,
           constraints: [
             "不要假装知道未提供的信息",
-    "必须站在租客立场，不替房源平台或中介背书",
+    "必须站在租客立场，不替出租相关方或中介背书",
     "结果必须直白、能直接参考、能帮助签约前避坑",
             "风险提示要具体到看房和合同确认事项",
     "必须单独说明生活配套与夜间可用性，判断买菜、餐饮、药店、医疗、快递、夜路和噪音是否长期顺手",

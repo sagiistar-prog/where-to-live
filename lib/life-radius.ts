@@ -123,7 +123,7 @@ function hasAny(value: string, keywords: string[]) {
 }
 
 export function buildLifeRadius(input: LifeRadiusInput): LifeRadiusResult {
-  const city = input.city?.trim() || "上海";
+  const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "当前候选房源";
   const radiusMinutes = asNumber(input.radiusMinutes, 15);
   const groceryMinutes = asNumber(input.groceryMinutes, 12);
@@ -293,7 +293,7 @@ export function buildLifeRadius(input: LifeRadiusInput): LifeRadiusResult {
     verdict: verdictFromStatus(status),
     summary:
       status === "recommend"
-        ? "这套房的生活配套比较完整，适合进入房源评估和签约前确认。"
+        ? "这套房的生活配套比较完整，适合进入房源体检和签约前确认。"
         : status === "caution"
           ? "这套房的基础生活能覆盖，但存在买菜、医疗、夜间或噪音短板，需要看房时实测。"
           : "这套房的日常生活支持不足，不建议只因为租金合适就长期接受。",
@@ -323,7 +323,7 @@ export function buildLifeRadius(input: LifeRadiusInput): LifeRadiusResult {
       "如果楼下餐饮或主干道噪音明显，优先谈短租期或可提前退租条款。",
     ],
     nextActions: [
-      status === "reject" ? "先回到片区筛选，找生活配套更完整的替代片区。" : "把这套房加入房源评估，继续确认通勤和合同风险。",
+      status === "reject" ? "先回到片区筛选，找生活配套更完整的替代片区。" : "把这套房加入房源体检，继续确认通勤和合同风险。",
       "进入看房清单，按生活配套短板整理现场确认事项。",
       "如果夜间照明或晚归路线有问题，进入独居安全确认。",
       "把这套房和生活配套更完整的房源放进多房源对比。",

@@ -97,7 +97,7 @@ async function amapTransit(origin?: string, destination?: string, city?: string)
       : undefined,
     walkingDistanceMeters: Number(first.walking_distance) || undefined,
     segments: first.segments?.length,
-  summary: "高德公交/地铁路线规划估算",
+  summary: "实时公交/地铁路线规划估算",
   };
 }
 
@@ -171,6 +171,10 @@ export async function collectExternalAnalysisContext(
 ): Promise<ExternalAnalysisContext> {
   const dataQuality: DataQualitySignal[] = [];
   const degradationNotes: string[] = [];
+  const locationFallbackDetail =
+    "本次先按你填写的地址、工作地和通勤要求估算。付款或签约前，请再用现场路线和周边步行确认。";
+  const weatherFallbackDetail =
+    "本次先按城市气候、楼层朝向和居住偏好做保守判断。看房时请重点确认通风、潮湿、采光和噪音。";
   const addSignal = (signal: DataQualitySignal) => {
     dataQuality.push(signal);
     if (signal.status !== "live") degradationNotes.push(signal.detail);
@@ -188,35 +192,35 @@ export async function collectExternalAnalysisContext(
   if (!amapEnabled) {
     addSignal({
       provider: "amap",
-      feature: "地图增强",
+      feature: "位置与通勤判断",
       status: "fallback",
-      label: "地图实时数据已关闭",
-      detail: "设置页已关闭实时地图数据，本次改用用户输入信息估算地址、通勤和周边生活。",
+      label: "按已填写信息估算",
+      detail: locationFallbackDetail,
     });
   } else if (!amapKey) {
     addSignal({
       provider: "amap",
-      feature: "地图增强",
+      feature: "位置与通勤判断",
       status: "fallback",
-      label: "实时地图数据暂不可用",
-      detail: "本次改用用户输入信息估算地址、通勤和周边生活。",
+      label: "按已填写信息估算",
+      detail: locationFallbackDetail,
     });
   } else if (!canUseAmap) {
     addSignal({
       provider: "amap",
-      feature: "地图增强",
+      feature: "位置与通勤判断",
       status: "skipped_limit",
-      label: "实时地图数据暂不可用",
+      label: "按已填写信息估算",
       detail:
-        amapUsageState?.reason ??
-        "实时地图查询暂不可用，本次改用你填写的信息估算。",
+        amapUsageState?.reason?.replaceAll("实时地图", "位置与通勤信息") ??
+        locationFallbackDetail,
     });
   } else if (amapUsageState?.reason) {
     addSignal({
       provider: "amap",
-      feature: "地图增强",
+      feature: "位置与通勤判断",
       status: "live",
-      label: "实时地图数据可用",
+      label: "位置与通勤信息已参考",
       detail: amapUsageState.reason,
     });
   }
@@ -224,35 +228,35 @@ export async function collectExternalAnalysisContext(
   if (!qweatherEnabled) {
     addSignal({
       provider: "qweather",
-      feature: "天气舒适度",
+      feature: "居住舒适度判断",
       status: "fallback",
-      label: "天气实时数据已关闭",
-      detail: "设置页已关闭天气与环境开放数据，本次跳过实时天气，改用城市气候常识和居住偏好做保守判断。",
+      label: "按居住条件保守判断",
+      detail: weatherFallbackDetail,
     });
   } else if (!qweatherKey) {
     addSignal({
       provider: "qweather",
-      feature: "天气舒适度",
+      feature: "居住舒适度判断",
       status: "fallback",
-      label: "天气未配置",
-      detail: "未配置 QWEATHER_API_KEY，本次跳过实时天气，改用城市气候常识和用户偏好做保守判断。",
+      label: "按居住条件保守判断",
+      detail: weatherFallbackDetail,
     });
   } else if (!canUseQweather) {
     addSignal({
       provider: "qweather",
-      feature: "天气舒适度",
+      feature: "居住舒适度判断",
       status: "skipped_limit",
-      label: "天气额度保护",
+      label: "按居住条件保守判断",
       detail:
-        qweatherUsageState?.reason ??
-        "天气产品侧用量已接近提醒线，本次跳过实时天气调用。",
+        qweatherUsageState?.reason?.replaceAll("实时天气", "天气与环境信息") ??
+        weatherFallbackDetail,
     });
   } else if (qweatherUsageState?.reason) {
     addSignal({
       provider: "qweather",
-      feature: "天气舒适度",
+      feature: "居住舒适度判断",
       status: "live",
-      label: "天气继续调用",
+      label: "天气与环境信息已参考",
       detail: qweatherUsageState.reason,
     });
   }
@@ -365,12 +369,12 @@ export async function collectExternalAnalysisContext(
   if (canUseQweather) {
     addSignal({
       provider: "qweather",
-      feature: "实时天气",
+      feature: "天气与环境信息",
       status: weather ? "live" : "fallback",
-      label: weather ? "和风天气实时天气" : "天气未实时查询",
+      label: weather ? "天气与环境信息已参考" : "按居住条件保守判断",
       detail: weather
-        ? `已获得实时天气：${weather.text ?? "未知天气"}，湿度 ${weather.humidity ?? "-"}%。`
-        : "天气接口未返回可用结果，舒适度会按城市气候和怕潮/怕热偏好保守判断。",
+        ? `已参考当前天气：${weather.text ?? "未知天气"}，湿度 ${weather.humidity ?? "-"}%。`
+        : weatherFallbackDetail,
     });
   }
 

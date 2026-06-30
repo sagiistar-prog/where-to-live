@@ -113,7 +113,7 @@ export async function screenAreas(input: AreaScreenInput): Promise<AreaScreenRes
   const warnings =
     allCandidates.length > candidates.length
       ? [
-          `为保护高德免费个人额度，本次只实时增强前 ${AMAP_REALTIME_AREA_LIMIT} 个片区；其余片区可分批再筛。`,
+          `本次只实时增强前 ${AMAP_REALTIME_AREA_LIMIT} 个片区；其余片区可分批再筛。`,
         ]
       : [];
   const enrichedOptions = await Promise.all(
@@ -147,7 +147,7 @@ export async function screenAreas(input: AreaScreenInput): Promise<AreaScreenRes
         commuteMinutes: minutes,
         tags: [
           score >= 80 ? "优先" : score >= 65 ? "备选" : "谨慎",
-          minutes ? "高德通勤" : "通勤待确认",
+          minutes ? "实时通勤" : "通勤待确认",
           metroCount ? "近轨交" : "轨交待确认",
         ],
         evidence: [
@@ -165,9 +165,9 @@ export async function screenAreas(input: AreaScreenInput): Promise<AreaScreenRes
   return {
     ...fallback,
     mode: "amap",
-    summary: `已结合高德地图对 ${city} 的 ${enrichedOptions.length} 个候选片区做好初步筛选。`,
+    summary: `已结合实时地图信息对 ${city} 的 ${enrichedOptions.length} 个候选片区做好初步筛选。`,
     options: plannedOptions,
     viewingQueue: buildViewingQueue(plannedOptions),
-    warnings,
+    warnings: [...fallback.warnings, ...warnings],
   };
 }

@@ -34,7 +34,7 @@ export function buildReportMarkdown(report: ReportData, context: ReportExportCon
     : new Date().toLocaleString("zh-CN");
   const dataSources = context.dataSources?.length
     ? context.dataSources.join("、")
-    : "用户输入、截图/手动信息或已配置的数据服务";
+    : "用户输入、截图、手动补充信息和公开可核验信息";
   const warnings = firstItems(context.warnings, 5);
   const preflightIssues = firstItems(
     [
@@ -84,10 +84,10 @@ export function buildReportMarkdown(report: ReportData, context: ReportExportCon
     lines.push(
       "",
       "## 现在先做什么",
-      `- 下一步：${nextAction.label}`,
+      `- 后续确认：${nextAction.label}`,
       `- 原因：${nextAction.reason}`,
       `- 做到什么程度：${nextAction.doneCriteria}`,
-      `- 付款底线：${nextAction.stopRule}`,
+      `- 付款咨询：${nextAction.stopRule}`,
     );
   }
 
@@ -139,5 +139,5 @@ export function reportMarkdownFilename(report: ReportData, generatedAt?: string)
     .replace(/\s+/g, "-")
     .slice(0, 40);
 
-  return `住哪儿AI-房源评估-${safeTitle || "报告"}-${date}.md`;
+  return `住哪儿AI-房源体检-${safeTitle || "报告"}-${date}.md`;
 }

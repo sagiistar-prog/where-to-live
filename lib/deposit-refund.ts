@@ -109,18 +109,18 @@ function evidencePenalty(level: string) {
 
 export function buildDepositRefundPlan(input: DepositRefundInput): DepositRefundResult {
   const city = input.city?.trim() || "目标城市";
-  const monthlyRent = numberOr(input.monthlyRent, 5200);
+  const monthlyRent = numberOr(input.monthlyRent, 0);
   const depositAmount = numberOr(input.depositAmount, monthlyRent);
-  const requiredNoticeDays = numberOr(input.requiredNoticeDays, 30);
-  const contractReturnDays = numberOr(input.contractReturnDays, 7);
+  const requiredNoticeDays = numberOr(input.requiredNoticeDays, 0);
+  const contractReturnDays = numberOr(input.contractReturnDays, 0);
   const unpaidRent = money(numberOr(input.unpaidRent, 0));
-  const utilityBalance = money(numberOr(input.utilityBalance, 260));
+  const utilityBalance = money(numberOr(input.utilityBalance, 0));
   const cleaningFee = money(numberOr(input.cleaningFee, 0));
-  const damageClaim = money(numberOr(input.damageClaim, 1800));
+  const damageClaim = money(numberOr(input.damageClaim, 0));
   const penaltyClaim = money(numberOr(input.penaltyClaim, 0));
-  const evidenceLevel = input.evidenceLevel?.trim() || "部分凭据";
+  const evidenceLevel = input.evidenceLevel?.trim() || "不确定";
   const landlordReason =
-    input.landlordReason?.trim() || "出租方称墙面、家具和卫生未恢复，需要从押金里扣。";
+    input.landlordReason?.trim() || "对方扣款理由待补充。";
 
   const noticeDate = parseDate(input.noticeDate, -15);
   const moveOutDate = parseDate(input.moveOutDate, 7);
@@ -190,9 +190,9 @@ export function buildDepositRefundPlan(input: DepositRefundInput): DepositRefund
   const risks = [
     noticeShort ? `提前通知期不足：当前 ${noticeGapDays} 天，合同要求 ${requiredNoticeDays} 天。` : "",
     damageClaim > 0 ? "出租方提出维修扣款，需要逐项确认损坏、责任和报价。" : "",
-    cleaningFee > 0 ? "清洁费需要合同或交割约定支持，不能只凭口头扣。" : "",
+    cleaningFee > 0 ? "清洁费需要合同或交割约定支持，应提供书面依据。" : "",
     penaltyClaim > 0 ? "提前退租违约金需要核对上限和减损义务。" : "",
-    evidenceLevel.includes("几乎") ? "凭据较弱，优补充交割确认、退租视频和聊天确认。" : "",
+    evidenceLevel.includes("几乎") ? "材料较弱，优先补充交割确认、退租视频和聊天确认。" : "",
     claimedDeduction > depositAmount ? "对方拟扣款超过押金金额，必须要求明细和依据。" : "",
   ].filter(Boolean);
 
@@ -213,13 +213,13 @@ export function buildDepositRefundPlan(input: DepositRefundInput): DepositRefund
     },
     {
       dateLabel: "退租当天",
-      title: "保存交割凭据",
+      title: "保存交割记录",
       action: "拍全屋视频、表读数、钥匙门禁和家具家电状态，让对方在聊天里确认。",
     },
     {
       dateLabel: formatDate(returnDeadline),
       title: "押金返还截止提醒",
-      action: `按合同约定 ${contractReturnDays} 天内返还。未返还时发送书面催告并附凭据材料。`,
+      action: `按合同约定 ${contractReturnDays} 天内返还。未返还时发送书面催告并附材料清单。`,
     },
     {
       dateLabel: "逾期后 3 天",
@@ -244,8 +244,8 @@ export function buildDepositRefundPlan(input: DepositRefundInput): DepositRefund
       status === "recommend"
         ? `当前押金退还风险可控，目标退还约 ${targetRefund.toLocaleString()} 元。按时间线办理交割和书面确认。`
         : status === "caution"
-          ? `当前押金退还存在争议项，建议目标退还 ${targetRefund.toLocaleString()} 元，谈判底线不低于 ${suggestedRefundFloor.toLocaleString()} 元。`
-          : `当前押金退还风险较高，对方拟扣款或待补充凭据可能明显侵蚀押金，补充材料并要求扣款依据。`,
+          ? `当前押金退还存在争议项，建议目标退还 ${targetRefund.toLocaleString()} 元，最低可接受退还不低于 ${suggestedRefundFloor.toLocaleString()} 元。`
+          : `当前押金退还风险较高，对方拟扣款或待补充材料可能明显侵蚀押金，补充材料并要求扣款依据。`,
     depositAmount: money(depositAmount),
     claimedDeduction,
     clearDeduction,
@@ -255,20 +255,20 @@ export function buildDepositRefundPlan(input: DepositRefundInput): DepositRefund
     noticeGapDays,
     returnDeadlineText: `${formatDate(returnDeadline)} 前`,
     deductions,
-    risks: risks.length ? risks : ["当前未发现明显押金退还风险，但仍需补充交割凭据和书面确认。"],
+    risks: risks.length ? risks : ["当前未发现明显押金退还风险，但仍需补充交割记录和书面确认。"],
     evidenceChecklist,
     timeline,
     messageTemplates,
     nextActions: [
-      "先把扣款分成明确费用和争议费用，不要接受一笔糊涂账。",
+      "先把扣款分成明确费用和争议费用，不接受未拆分的扣款明细。",
       "退租当天完成全屋视频、表读数、钥匙门禁和聊天确认。",
       "要求出租方对每项扣款提供合同依据、照片、报价或票据。",
-      status === "reject" ? "凭据未补充前不要签署放弃押金或确认扣款的文字。" : "按返还截止日设置提醒，逾期后升级催告。",
+      status === "reject" ? "材料未补充前不要签署放弃押金或确认扣款的文字。" : "按返还截止日设置提醒，逾期后升级催告。",
     ],
     assumptions: [
       `城市：${city}，月租：${monthlyRent.toLocaleString()} 元，押金：${depositAmount.toLocaleString()} 元。`,
       `退租通知期：当前 ${noticeGapDays} 天，合同要求 ${requiredNoticeDays} 天。`,
-      "这里会整理押金退还计划和凭据材料；重大争议建议咨询律师或官方调解渠道。",
+      "本结果用于整理押金退还计划和材料清单；重大争议建议咨询律师或官方调解渠道。",
     ],
   };
 }

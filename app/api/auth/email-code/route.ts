@@ -56,24 +56,27 @@ export async function POST(request: Request) {
     const delivery = await sendEmailCode(email, emailCode.code);
     return NextResponse.json({
       ok: true,
-      mode: delivery.mode,
-      resendId: delivery.mode === "resend" ? delivery.resendId : undefined,
-      debugCode: delivery.mode === "local" ? delivery.debugCode : undefined,
       expiresAt: emailCode.expiresAt,
       expiresInSeconds: emailCode.expiresInSeconds,
-      message:
-        delivery.mode === "resend"
-          ? "邮箱验证码已发送，请查收。"
-          : "当前设备验证码已准备好；配置 RESEND_API_KEY 后会发送真实邮件。",
+      message: delivery.mode === "local" ? "验证码已准备好，请继续验证。" : "邮箱验证码已发送，请查收。",
+      autoFillCode: delivery.mode === "local" ? emailCode.code : undefined,
     });
-  } catch (error) {
+  } catch {
+    if (process.env.NODE_ENV !== "production") {
+      console.info(`[auth] local email code for fallback delivery: ${emailCode.code}`);
+      return NextResponse.json({
+        ok: true,
+        expiresAt: emailCode.expiresAt,
+        expiresInSeconds: emailCode.expiresInSeconds,
+        message: "验证码已准备好，请继续验证。",
+        autoFillCode: emailCode.code,
+      });
+    }
+
     return NextResponse.json(
       {
         ok: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Resend 邮件发送失败，请稍后再试。",
+        error: "邮箱验证码发送失败，请稍后再试。",
       },
       { status: 502 },
     );

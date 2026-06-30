@@ -114,17 +114,17 @@ function scenarioStatus(rentRatio: number, hasHighRisk: boolean): ReportStatus {
 export function buildRenewalDecision(input: RenewalDecisionInput): RenewalDecisionResult {
   const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "当前房源";
-  const currentRent = money(numberOr(input.currentRent, 5200));
-  const proposedRent = money(numberOr(input.proposedRent, 5900));
-  const marketRent = money(numberOr(input.marketRent, 5600));
-  const monthlyIncome = money(numberOr(input.monthlyIncome, 18000));
-  const movingCost = money(numberOr(input.movingCost, 2600));
-  const agencyFee = money(numberOr(input.agencyFee, 2500));
-  const depositRisk = money(numberOr(input.depositRisk, 1800));
-  const commuteMinutes = numberOr(input.commuteMinutes, 35);
-  const alternativeCommuteMinutes = numberOr(input.alternativeCommuteMinutes, 45);
-  const contractLengthMonths = Math.max(1, Math.round(numberOr(input.contractLengthMonths, 12)));
-  const noticeDays = Math.max(0, Math.round(numberOr(input.noticeDays, 30)));
+  const currentRent = money(numberOr(input.currentRent, 0));
+  const proposedRent = money(numberOr(input.proposedRent, 0));
+  const marketRent = money(numberOr(input.marketRent, 0));
+  const monthlyIncome = money(numberOr(input.monthlyIncome, 0));
+  const movingCost = money(numberOr(input.movingCost, 0));
+  const agencyFee = money(numberOr(input.agencyFee, 0));
+  const depositRisk = money(numberOr(input.depositRisk, 0));
+  const commuteMinutes = numberOr(input.commuteMinutes, 0);
+  const alternativeCommuteMinutes = numberOr(input.alternativeCommuteMinutes, 0);
+  const contractLengthMonths = Math.max(0, Math.round(numberOr(input.contractLengthMonths, 0)));
+  const noticeDays = Math.max(0, Math.round(numberOr(input.noticeDays, 0)));
   const houseIssues = input.houseIssues?.trim() || "卫生间潮湿、空调老旧、楼道噪音";
   const landlordBehavior = input.landlordBehavior?.trim() || "维修响应慢，但愿意沟通";
   const renewalTerms = input.renewalTerms?.trim() || "涨租 700 元，要求再签 12 个月，押金不变";
@@ -237,7 +237,7 @@ export function buildRenewalDecision(input: RenewalDecisionInput): RenewalDecisi
       title: "搬家替代也有明显代价",
       level: "低",
       why: "如果替代房通勤明显变长且搬家成本高，续租谈判仍有价值。",
-      action: "把搬家成本和通勤损耗作为谈判底线，避免情绪化搬走。",
+      action: "把搬家成本和通勤损耗作为谈判条件，避免情绪化搬走。",
       proof: "替代房通勤时间、搬家预算和中介费估算。",
     });
   }
@@ -338,7 +338,7 @@ export function buildRenewalDecision(input: RenewalDecisionInput): RenewalDecisi
       "同时准备 2-3 套同片区替代房源，避免谈判时没有退路。",
       "估算搬家费、中介费、清洁费、添置费和押金退还风险。",
       "提前检查退租通知期，避免因为犹豫错过合法通知窗口。",
-      "用交割确认、维修记录和押金条款准备退租凭据。",
+      "用交割确认、维修记录和押金条款准备退租材料。",
       "比较替代房通勤、配套、押付方式和签约风险。",
     ],
     nextActions: [
@@ -351,7 +351,7 @@ export function buildRenewalDecision(input: RenewalDecisionInput): RenewalDecisi
       `城市：${city}；当前房源：${listingTitle}；当前租金：${currentRent.toLocaleString()} 元；拟续租：${proposedRent.toLocaleString()} 元。`,
       `同片区替代租金按 ${marketRent.toLocaleString()} 元估算；搬家一次性成本约 ${switchUpfrontCost.toLocaleString()} 元。`,
       `当前通勤 ${commuteMinutes} 分钟；替代房通勤约 ${alternativeCommuteMinutes} 分钟。`,
-      "这里只基于用户主动输入做续租和搬家成本判断，不爬取租房平台数据，也不承诺市场价格准确。",
+      "这里只根据你输入的信息做续租和搬家成本判断，市场价格仍需要你结合实际房源确认。",
       `输入背景：${context}`,
     ],
   };

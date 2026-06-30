@@ -54,29 +54,29 @@ const riskCopy: Record<
   }
 > = {
   clear: {
-    label: "材料较清楚",
+    label: "合同收款清楚",
     score: 100,
     badge: "success",
-    note: "出租权、收款主体和合同条款看起来比较容易确认。",
+    note: "合同版本、收款主体和付款条件已经基本看清。",
   },
   review: {
     label: "需要再确认",
     score: 72,
     badge: "warning",
-    note: "有些信息还没写清，适合保留但不能直接付款。",
+    note: "合同、收款或退款条件还没有完全写清。",
   },
   stop: {
-    label: "先别继续",
+    label: "不建议付款",
     score: 38,
     badge: "destructive",
-    note: "授权、收款或付款条件存在明显不确定，暂不继续。",
+    note: "付款条件存在明显不确定，暂不继续推进。",
   },
 };
 
 function createCandidate(index: number): QuickCandidate {
   return {
     id: `candidate-${Date.now()}-${index}`,
-    name: `候选 ${String.fromCharCode(65 + index)}`,
+    name: "",
     rent: "",
     extraMonthly: "",
     commuteMinutes: "",
@@ -85,6 +85,76 @@ function createCandidate(index: number): QuickCandidate {
     notes: "",
   };
 }
+
+const comparisonScenarioTemplates: Array<{
+  label: string;
+  candidates: Omit<QuickCandidate, "id">[];
+}> = [
+  {
+    label: "通勤预算取舍",
+    candidates: [
+      {
+        name: "白石洲一房一厅",
+        rent: "6800",
+        extraMonthly: "650",
+        commuteMinutes: "25",
+        depositMonths: "4",
+        risk: "review",
+        notes: "离公司近，但押一付三，合同和退款条件还要确认。",
+      },
+      {
+        name: "宝安中心整租一居",
+        rent: "5200",
+        extraMonthly: "500",
+        commuteMinutes: "55",
+        depositMonths: "2",
+        risk: "clear",
+        notes: "月成本低，但通勤时间长，晚归和雨天需要单独确认。",
+      },
+      {
+        name: "西丽近地铁单间",
+        rent: "5900",
+        extraMonthly: "450",
+        commuteMinutes: "38",
+        depositMonths: "2",
+        risk: "review",
+        notes: "租金和通勤相对均衡，需要现场看噪音和采光。",
+      },
+    ],
+  },
+  {
+    label: "便宜但风险高",
+    candidates: [
+      {
+        name: "低价转租主卧",
+        rent: "3300",
+        extraMonthly: "350",
+        commuteMinutes: "35",
+        depositMonths: "1",
+        risk: "stop",
+        notes: "二房东转租，出租授权、押金返还和收款主体都没写清。",
+      },
+      {
+        name: "正规中介一居",
+        rent: "5200",
+        extraMonthly: "500",
+        commuteMinutes: "42",
+        depositMonths: "2",
+        risk: "clear",
+        notes: "合同和收款主体比较清楚，但月租更高。",
+      },
+      {
+        name: "老小区低楼层",
+        rent: "4500",
+        extraMonthly: "450",
+        commuteMinutes: "48",
+        depositMonths: "2",
+        risk: "review",
+        notes: "价格适中，但潮湿、噪音和维修责任要现场确认。",
+      },
+    ],
+  },
+];
 
 function parseNumber(value: string) {
   const match = value.replace(/,/g, "").match(/\d+(\.\d+)?/);
@@ -105,21 +175,22 @@ function formatDelta(value: number) {
 }
 
 function buildAnalyzeHref(candidate: RankedCandidate) {
+  const displayName = candidate.name || `候选 ${candidate.rank || ""}`.trim();
   const context = compactContext([
-    "来自多房源快速对比：把这套候选转成完整房源评估。",
-    `候选名称：${candidate.name}`,
+    "来自多房源快速对比：把这套候选转成完整房源体检。",
+    `候选名称：${displayName}`,
     candidate.rentValue ? `月租：${candidate.rentValue} 元` : undefined,
     candidate.trueMonthlyCost ? `估算真实月成本：${candidate.trueMonthlyCost} 元` : undefined,
     candidate.commuteValue ? `通勤：${candidate.commuteValue} 分钟` : undefined,
     candidate.depositValue ? `押付压力：约 ${candidate.depositValue} 个月租金` : undefined,
-    `材料状态：${riskCopy[candidate.risk].label}`,
+    `付款与合同：${riskCopy[candidate.risk].label}`,
     candidate.notes ? `备注：${candidate.notes}` : undefined,
-    "下一步请补充地址、截图或中介描述，保存完整评估后再决定是否付款或签约。",
+    "当前行动：补充地址、截图或中介描述，保存完整体检后再决定是否付款或签约。",
   ]);
 
   return buildFlowHref("/analyze", {
     from: "compare",
-    title: candidate.name,
+    title: displayName,
     rent: candidate.rentValue ? `${candidate.rentValue} 元/月` : candidate.rent,
     commuteLimit: candidate.commuteValue ? `${candidate.commuteValue} 分钟` : undefined,
     description: context,
@@ -191,7 +262,7 @@ function rankCandidates(candidates: QuickCandidate[]) {
         typeof candidate.depositValue === "number"
           ? `押付：约 ${candidate.depositValue} 个月租金`
           : "押付压力还要补充",
-        `材料：${riskCopy[candidate.risk].label}`,
+        `付款与合同：${riskCopy[candidate.risk].label}`,
       ];
 
       const ranked = {
@@ -258,6 +329,15 @@ export function ManualComparisonBuilder() {
     setCandidates((current) => [...current, createCandidate(current.length)].slice(0, 5));
   }
 
+  function applyComparisonScenario(template: (typeof comparisonScenarioTemplates)[number]) {
+    setCandidates(
+      template.candidates.map((candidate, index) => ({
+        ...candidate,
+        id: `scenario-${Date.now()}-${index}`,
+      })),
+    );
+  }
+
   function removeCandidate(id: string) {
     setCandidates((current) =>
       current.length <= 2 ? current.map((item) => (item.id === id ? createCandidate(current.indexOf(item)) : item)) : current.filter((item) => item.id !== id),
@@ -265,37 +345,52 @@ export function ManualComparisonBuilder() {
   }
 
   return (
-    <section className="rounded-lg border border-border bg-card p-5 sm:p-6">
+    <section id="quick-compare" className="rounded-lg border border-border bg-card p-5 sm:p-6">
       <div className="grid gap-6 xl:grid-cols-[0.34fr_0.66fr]">
         <div className="min-w-0">
           <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-primary/15 text-primary">
             <GitCompareIcon />
           </div>
-          <p className="text-sm text-primary">快速真实对比</p>
+          <p className="text-sm text-primary">快速候选对比</p>
           <h2 className="mt-2 text-2xl font-semibold">
-            手上有两三套房，先快速排个序
+            手上有两三套房，用关键字段排个序
           </h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
-            不必等每套都做完整评估。先填月租、额外月支出、通勤、押付压力和材料状态，马上看哪套值得继续深挖，哪套暂不继续。
+            填写月租、固定支出、通勤、押付压力和付款与合同情况。排序只用于初筛，值得继续的房源再转成完整体检。
           </p>
           <div className="mt-5 grid gap-3">
             <QuickMetric
               icon={WalletCards}
-              label="先看真实月成本"
+              label="真实月成本"
               value={hasEnoughInput ? formatMoney(rankedCandidates[0]?.trueMonthlyCost) : "填满两套后排序"}
             />
             <QuickMetric
               icon={Clock3}
-              label="再看通勤损耗"
-              value={hasEnoughInput ? rankedCandidates[0]?.commuteValue ? `${rankedCandidates[0].commuteValue} 分钟` : "待补充" : "别只看房租"}
+              label="通勤损耗"
+              value={hasEnoughInput ? rankedCandidates[0]?.commuteValue ? `${rankedCandidates[0].commuteValue} 分钟` : "待补充" : "待综合判断"}
             />
             <QuickMetric
               icon={ShieldAlert}
-              label="最后看付款风险"
-              value={hasEnoughInput ? riskCopy[rankedCandidates[0]?.risk ?? "review"].label : "材料不清先别付"}
+              label="付款与合同"
+              value={hasEnoughInput ? riskCopy[rankedCandidates[0]?.risk ?? "review"].label : "未确认清楚不付款"}
             />
           </div>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row xl:flex-col">
+          <div className="mt-5 space-y-3">
+            <div>
+              <p className="mb-2 text-xs font-medium text-muted-foreground">常见对比场景</p>
+              <div className="flex max-w-full gap-2 overflow-x-auto pb-1 xl:flex-col">
+                {comparisonScenarioTemplates.map((template) => (
+                  <button
+                    key={template.label}
+                    type="button"
+                    onClick={() => applyComparisonScenario(template)}
+                    className="shrink-0 rounded-full border border-border bg-secondary px-3 py-2 text-sm font-medium transition hover:border-primary/40 hover:text-primary xl:rounded-md"
+                  >
+                    {template.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <Button type="button" onClick={addCandidate} disabled={candidates.length >= 5}>
               <Plus className="mr-2 h-4 w-4" />
               添加候选
@@ -323,7 +418,7 @@ export function ManualComparisonBuilder() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium">真实候选</p>
+                      <p className="text-sm font-medium">候选房源</p>
                       <p className="text-xs text-muted-foreground">填你正在看的具体房源</p>
                     </div>
                   </div>
@@ -343,7 +438,7 @@ export function ManualComparisonBuilder() {
                     <Input
                       value={candidate.name}
                       onChange={(event) => updateCandidate(candidate.id, { name: event.target.value })}
-                      placeholder="例如：科技园一居室"
+                      placeholder="填写房源名称或位置"
                     />
                   </Field>
                   <Field label="月租">
@@ -351,7 +446,7 @@ export function ManualComparisonBuilder() {
                       value={candidate.rent}
                       onChange={(event) => updateCandidate(candidate.id, { rent: event.target.value })}
                       inputMode="numeric"
-                      placeholder="例如：6200"
+                      placeholder="填写月租金额"
                     />
                   </Field>
                   <Field label="其他月支出">
@@ -367,7 +462,7 @@ export function ManualComparisonBuilder() {
                       value={candidate.commuteMinutes}
                       onChange={(event) => updateCandidate(candidate.id, { commuteMinutes: event.target.value })}
                       inputMode="numeric"
-                      placeholder="例如：45"
+                      placeholder="填写单程分钟数"
                     />
                   </Field>
                   <Field label="押付压力">
@@ -378,7 +473,7 @@ export function ManualComparisonBuilder() {
                       placeholder="约几个月租金"
                     />
                   </Field>
-                  <Field label="材料状态">
+                  <Field label="付款与合同">
                     <div className="grid grid-cols-3 gap-1.5">
                       {(["clear", "review", "stop"] as CandidateRisk[]).map((risk) => (
                         <button
@@ -401,7 +496,7 @@ export function ManualComparisonBuilder() {
                   <Input
                     value={candidate.notes}
                     onChange={(event) => updateCandidate(candidate.id, { notes: event.target.value })}
-                    placeholder="例如：楼下施工、房东催付、离地铁近但楼龄老"
+                    placeholder="填写影响判断的补充信息"
                   />
                 </Field>
               </article>
@@ -414,14 +509,36 @@ export function ManualComparisonBuilder() {
                 <p className="text-sm font-semibold text-primary">快速排序结果</p>
                 <p className="mt-1 text-xs leading-5 text-muted-foreground">
                   {hasEnoughInput
-                    ? "排序用于先筛方向；付款、合同和押金仍要进完整报告确认。"
-                    : "至少填满两套候选的月租和通勤，排序才有参考价值。"}
+                    ? "排序用于判断方向；付款、合同和押金仍要通过完整报告确认。"
+                    : "至少填满两套候选的月租和通勤，排序才有参考价值。填完后会给出优先处理候选。"}
                 </p>
               </div>
               <Badge variant={hasEnoughInput ? "success" : "warning"}>
                 已填 {completeCount} 套
               </Badge>
             </div>
+
+            {hasEnoughInput && rankedCandidates[0] ? (
+              <div className="mb-4 rounded-md border border-primary/20 bg-card/80 p-4">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-primary">优先处理候选</p>
+                    <h3 className="mt-1 text-lg font-semibold">
+                      {rankedCandidates[0].name || "第一套候选"}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                      {rankedCandidates[0].verdict}。先把地址、截图、合同和付款信息补齐成完整体检，再决定是否继续谈。
+                    </p>
+                  </div>
+                  <Button asChild className="shrink-0">
+                    <Link href={rankedCandidates[0].analyzeHref}>
+                      转成完整体检
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            ) : null}
 
             <div className="grid gap-3">
               {rankedCandidates.map((candidate) => (
@@ -457,7 +574,7 @@ function RankedRow({
             <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/15 text-sm font-semibold text-primary">
               {candidate.rank}
             </span>
-            <h3 className="font-semibold">{candidate.name || "未命名候选"}</h3>
+            <h3 className="font-semibold">{candidate.name || `候选 ${candidate.rank}`}</h3>
             <Badge variant={usable ? verdictVariant : "outline"}>
               {usable ? candidate.verdict : "待补充信息"}
             </Badge>
@@ -475,7 +592,7 @@ function RankedRow({
           </div>
           <Button asChild variant="secondary" size="sm">
             <Link href={candidate.analyzeHref}>
-              转成完整评估
+              转成完整体检
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

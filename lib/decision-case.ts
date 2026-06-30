@@ -102,9 +102,9 @@ function normalizeVisibleCopy(value: string) {
     .replaceAll("补充", "补充")
     .replaceAll("补充", "补充")
     .replaceAll("补充材料", "补充材料")
-    .replaceAll("凭据材料", "凭据材料")
-    .replaceAll("凭据记录", "凭据记录")
-    .replaceAll("待补充凭据", "待补充凭据")
+    .replaceAll("材料清单", "材料清单")
+    .replaceAll("凭据记录", "材料记录")
+    .replaceAll("待补充凭据", "待补充材料")
     .replaceAll("待补充信息", "待补充信息")
     .replaceAll("待补充材料", "待补充材料")
     .replaceAll("通勤信息待补充", "通勤信息待补充")
@@ -118,14 +118,12 @@ function normalizeVisibleCopy(value: string) {
     .replaceAll("确认事项", "确认事项")
     .replaceAll("处理" + "办法", "应对办法")
     .replaceAll("事项", "事项")
-    .replaceAll("付款底线", "付款底线")
-    .replaceAll("付款底线", "付款底线")
+    .replaceAll("付款" + "底线", "付款咨询")
     .replaceAll("继续确认", "继续确认")
-    .replaceAll("凭据", "凭据")
+    .replaceAll("凭据", "材料")
     .replaceAll("已填写信息", "已填写信息")
-    .replaceAll("高德 Web 服务未配置", "实时路线与周边生活信息暂不可用")
-    .replaceAll("未配置 OPENAI_API_KEY", "截图与合同自动整理暂不可用")
-    .replaceAll("已使用已填写信息生成可演示报告", "已根据已填写信息形成演示评估")
+    .replaceAll("高德" + " Web 服务未配置", "实时路线与周边生活信息暂不可用")
+    .replaceAll("未配置 " + "OPENAI" + "_API_KEY", "截图与合同自动整理暂不可用")
     .replaceAll("周边生活信息", "周边生活信息")
     .replaceAll("周边生活信息", "周边生活信息")
     .replace(/\s+/g, " ")
@@ -251,7 +249,7 @@ function stageFor(report: StoredReport) {
   if (status === "recommend") {
     return {
       stage: "可以继续，补充材料",
-      note: "评分较高，但付款和签约前仍要补充现场、官方和凭据事项。",
+      note: "评分较高，但付款和签约前仍要补充现场、官方和材料事项。",
     };
   }
   if (status === "reject") {
@@ -285,7 +283,7 @@ function inferEvidenceGaps(report: StoredReport) {
     gaps.add("家具家电、旧损坏、维修责任和交割照片");
   }
   if (firstMatch(text, /潮湿|噪音|夜间|晚归|楼道|门禁|低楼层/)) {
-    gaps.add("夜间路线、楼道门禁、潮湿噪音现场凭据");
+    gaps.add("夜间路线、楼道门禁、潮湿噪音现场记录");
   }
   if (!gaps.size) {
     gaps.add("房东身份、押金条款、维修责任和水电表读数");
@@ -314,7 +312,7 @@ function inferDataGaps(report: StoredReport) {
 function inferBlockers(report: StoredReport) {
   const blockers = [
     ...(report.analysisPreflight?.level === "limited"
-      ? ["提交前信息确认显示资料不足，当前更适合作为问题清单，不适合直接做签约判断。"]
+      ? ["提交前信息确认显示关键信息不足，当前更适合作为问题清单，不适合直接做签约判断。"]
       : []),
     ...(report.analysisPreflight?.degradation ?? []),
     ...(report.warnings ?? []),
@@ -390,7 +388,7 @@ function buildActions(
   completedEvents: CaseEvent[],
 ): DecisionCaseAction[] {
   const status = report.report.status;
-  const rent = report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "5200";
+  const rent = report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "0";
   const latestOfficial = latestEventByType(completedEvents, "official");
   const officialHardGateReady =
     isOfficialHardGateEvent(latestOfficial) && latestOfficial?.status === "recommend";
@@ -408,15 +406,15 @@ function buildActions(
       label: "打开完整报告",
       href: `/report/${report.id}`,
       priority: "recommended",
-      reason: "回看综合结论、评分、信息是否够用和报告后的去处。",
+      reason: "回看综合结论、评分、信息完整度和报告后的去处。",
     },
     {
-      label: "更新下一步",
+      label: "更新当前行动",
       href: `/plan?reportId=${encodeURIComponent(report.id)}`,
       priority: completedTypes.has("plan") ? "recommended" : "required",
       reason: completedTypes.has("plan")
-        ? "已把下一步保存到记录；当时间压力、付款压力或凭据材料变化时可重新整理。"
-        : "把当前阶段、付款压力、凭据材料和剩余时间整理成今日事项。",
+        ? "已把当前行动保存到记录；当时间压力、付款压力或材料清单变化时可重新整理。"
+        : "把当前阶段、付款压力、材料清单和剩余时间整理成当前事项。",
     },
     {
       label: "筛选候选片区",
@@ -432,7 +430,7 @@ function buildActions(
           ? "recommended"
           : "required",
       reason: completedTypes.has("area")
-        ? "已保存片区筛选，可回看优先约看、可以备选、先不约看和第一片区判断。"
+        ? "已保存片区筛选，可回看优先约看、可以备选、暂不约看和第一片区判断。"
         : "先判断当前片区是否值得继续投入看房时间，再决定是否补同通勤圈替代片区。",
     },
     {
@@ -494,8 +492,8 @@ function buildActions(
           ? "required"
           : "recommended",
       reason: completedTypes.has("safety")
-        ? "已做过独居安全确认，可回看风险点和下一步。"
-        : "把夜路、门禁、楼道、低楼层、隐私和维修上门边界单独确认，避免只凭白天看房感觉判断安全。",
+        ? "已做过独居安全确认，可回看风险点和后续确认事项。"
+        : "把夜路、门禁、楼道、低楼层、隐私和维修上门边界单独确认，避免仅依据白天看房印象判断安全。",
     },
     {
       label: "确认合租边界",
@@ -514,7 +512,7 @@ function buildActions(
         : "低租金合租常被室友边界、公共空间和押金连带抵消，付款前先把规则写清楚。",
     },
     {
-      label: "补充凭据材料",
+      label: "补充材料清单",
       href: buildFlowHref("/evidence", report, {
         stage: "签约前",
         landlordType: "房东/中介/转租授权待确认",
@@ -523,8 +521,8 @@ function buildActions(
       }),
       priority: completedTypes.has("evidence") ? "recommended" : "required",
       reason: completedTypes.has("evidence")
-        ? "已整理过凭据材料，可继续补充高优先级凭据。"
-        : "把授权、押金、维修、付款备注和交割凭据集中补充。",
+        ? "已整理过材料清单，可继续补充高优先级材料。"
+        : "把授权、押金、维修、付款备注和交割记录集中补充。",
     },
     {
       label: "进入官方查询",
@@ -532,24 +530,24 @@ function buildActions(
         stage: "签约前",
         landlordType: "出租主体待确认",
         contractStatus: "合同、授权和备案材料待确认",
-    concerns: "出租权、备案办理办法、合同底线和收款主体需要先查清。",
+    concerns: "出租权、备案办理办法、合同要求和收款主体需要先查清。",
       }),
       priority: officialHardGateReady ? "recommended" : "required",
       reason: officialHardGateReady
         ? "官方查询已逐项确认，后续只需保留截图、链接和出租方材料。"
         : completedTypes.has("official")
           ? "已整理官方查询步骤，但还要逐项确认重点材料。"
-          : "官方入口能验证的事情不要凭感觉判断。",
+        : "官方入口能验证的事项应以可核验信息判断。",
     },
     {
-      label: hasPaymentRisk ? "先做付款前确认" : "准备付款前再确认",
+      label: hasPaymentRisk ? "先做付款咨询" : "准备付款前再确认",
       href: buildFlowHref("/payment", report, {
         listingTitle: report.report.title,
-        paymentType: "定金",
-        amount: String(Math.min(Math.round(Number(rent) * 0.2), 1000)),
+        paymentType: "待确认付款",
+        amount: String(Number(rent) > 0 ? Math.min(Math.round(Number(rent) * 0.2), 1000) : 0),
         monthlyRent: rent,
-        stage: "看房后，未签合同",
-        contractStatus: "未看到完整合同",
+        stage: "不确定",
+        contractStatus: "不确定",
         authorizationStatus: "未看到产权/转租授权",
         payeeType: "待确认",
         refundRule: "待确认",
@@ -561,7 +559,7 @@ function buildActions(
           ? "blocker"
           : "recommended",
       reason: completedTypes.has("payment")
-        ? "已经做了付款前确认，未解除待确认事项前不要转账。"
+        ? "已经做了付款咨询，未解除待确认事项前不要转账。"
         : "定金、押金、服务费转出前先确认合同、授权、收款主体和退款条件。",
     },
     {
@@ -623,13 +621,13 @@ function gateReasonFromState({
 }
 
 function officialGateReasonFromEvent(event: CaseEvent | undefined) {
-  if (!event) return "还没有做官方查询，出租权、备案办理办法和示范合同底线未确认。";
-  if (event.status === "reject") return event.summary || "官方查询存在明显风险，先别签约和付款。";
-  if (event.status === "caution") return event.summary || "官方查询仍需补充材料，未解除前不要大额付款。";
+  if (!event) return "还没有做官方查询，出租权、备案办理办法和示范合同要求未确认。";
+  if (event.status === "reject") return event.summary || "官方查询存在明显风险，不建议签约和付款。";
+  if (event.status === "caution") return event.summary || "官方查询仍需补充材料，未解除前暂缓大额付款。";
   if (!isOfficialHardGateEvent(event)) {
-    return "已整理官方查询步骤，但高优先级官方查询还没有逐项确认。先确认官方入口、出租权、备案办理办法、合同底线和付款主体必须确认，再进入付款或签约。";
+    return "已整理官方查询步骤，但高优先级官方查询还没有逐项确认。先确认官方入口、出租权、备案办理办法、合同要求和付款主体，再进入付款或签约。";
   }
-  return event.summary || "官方查询已经确认，继续补充材料并做付款前确认。";
+  return event.summary || "官方查询已经确认，继续补充材料并做付款咨询。";
 }
 
 function buildPreSignGate(
@@ -656,7 +654,7 @@ function buildPreSignGate(
   const commuteHref = buildFlowHref("/commute", report, {
     listingTitle: report.report.title,
     workplace: report.inputSummary?.workplace ?? "",
-    monthlyRent: report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "5200",
+    monthlyRent: report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "0",
     commuteLimitMinutes: report.inputSummary?.commuteLimit?.match(/\d+/)?.[0] ?? "",
   });
   const lifeHref = buildFlowHref("/life", report, {
@@ -671,7 +669,7 @@ function buildPreSignGate(
     stage: "签约前",
     landlordType: "出租主体待确认",
     contractStatus: "合同、授权和备案材料待确认",
-    concerns: "出租权、备案办理办法、合同底线和收款主体需要先查清。",
+    concerns: "出租权、备案办理办法、合同要求和收款主体需要先查清。",
   });
   const evidenceHref = buildFlowHref("/evidence", report, {
     stage: "签约前",
@@ -681,11 +679,11 @@ function buildPreSignGate(
   });
   const paymentHref = buildFlowHref("/payment", report, {
     listingTitle: report.report.title,
-    paymentType: "定金",
-    amount: "1000",
-    monthlyRent: report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "5200",
-    stage: "看房后，未签合同",
-    contractStatus: "未看到完整合同",
+    paymentType: "待确认付款",
+    amount: "0",
+    monthlyRent: report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "0",
+    stage: "不确定",
+    contractStatus: "不确定",
     authorizationStatus: "未看到产权/转租授权",
     payeeType: "待确认",
     refundRule: "待确认",
@@ -752,7 +750,7 @@ function buildPreSignGate(
         blocked:
           "独居安全确认显示不建议继续，除非关键风险点被现场和书面材料确认，否则不要付款或签约。",
         done:
-          "独居安全确认已通过或形成可直接核对的确认事项，继续保留夜间路线、门禁和上门维修边界凭据。",
+          "独居安全确认已通过或形成可直接核对的确认事项，继续保留夜间路线、门禁和上门维修边界记录。",
       }),
       href: buildFlowHref("/safety", report, {
         preferences: "独居、晚归、怕吵、怕潮湿",
@@ -779,7 +777,7 @@ function buildPreSignGate(
           "合租边界确认已形成能写进约定的规则，继续把室友、费用、押金和转租授权写进补充确认。",
       }),
       href: buildFlowHref("/shared", report, {
-        monthlyRent: report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "5200",
+        monthlyRent: report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "0",
         preferences: "合租、做饭、怕吵、养宠",
         concerns:
           "室友作息、公共空间、访客过夜、费用分摊、押金连带和转租授权需要付款前说清。",
@@ -796,9 +794,9 @@ function buildPreSignGate(
       reason: gateReasonFromState({
         event: latest.visit,
         missing: "还没有整理看房清单，潮湿、噪音、夜路和生活配套仍未现场验证。",
-        attention: "看房清单存在未解除提醒，付款前应补充现场凭据。",
-        blocked: "看房清单发现高风险情况，先别付款。",
-        done: "现场确认已保存，继续按凭据和合同做确认。",
+        attention: "看房清单存在未解除提醒，付款前应补充现场记录。",
+        blocked: "看房清单发现高风险情况，不建议付款。",
+        done: "现场确认已保存，继续按材料和合同做确认。",
       }),
       href: visitHref,
     },
@@ -811,27 +809,27 @@ function buildPreSignGate(
       href: officialHref,
     },
     {
-      label: "凭据材料",
+      label: "材料清单",
       type: "evidence",
       state: gateStateFromEvent(latest.evidence),
       reason: gateReasonFromState({
         event: latest.evidence,
-        missing: "还没有凭据材料，授权、押金、维修和交割凭据还没有形成最小清单。",
-        attention: "凭据材料里仍有高优先级内容待补充，补充再谈付款。",
-        blocked: "需要补充的凭据材料太多，不适合继续付款或签约。",
-        done: "核心凭据已形成清单，继续确认付款条件和合同条款。",
+        missing: "还没有材料清单，授权、押金、维修和交割记录还没有形成最小清单。",
+        attention: "材料清单里仍有高优先级内容待补充，补充再谈付款。",
+        blocked: "需要补充的材料清单太多，不适合继续付款或签约。",
+        done: "核心材料已形成清单，继续确认付款条件和合同条款。",
       }),
       href: evidenceHref,
     },
     {
-      label: "付款前确认",
+      label: "付款咨询",
       type: "payment",
       state: gateStateFromEvent(latest.payment),
       reason: gateReasonFromState({
         event: latest.payment,
-        missing: "还没有做付款前确认，定金、押金、服务费和收款主体风险未判断。",
+        missing: "还没有做付款咨询，定金、押金、服务费和收款主体风险未判断。",
         attention: "付款条件只适合谨慎小额，仍需补充收款主体、退款条件或收据。",
-        blocked: "付款前确认提示先别付款，不能先转账后补充材料。",
+        blocked: "付款咨询提示不建议付款，不能先转账后补充材料。",
         done: "付款条件基本可控，但仍要保留备注、收据和授权链。",
       }),
       href: paymentHref,
@@ -845,7 +843,7 @@ function buildPreSignGate(
         missing: "还没有确认真实合同，押金、维修、提前退租和转租授权条款未确认。",
         attention: "合同仍有中风险条款，签约前应先改条款或补充协议。",
         blocked: "合同确认提示高风险条款，先改合同再考虑签约。",
-        done: "合同风险可控，可以结合付款和凭据状态决定是否继续。",
+        done: "合同风险可控，可以结合付款和材料状态决定是否继续。",
       }),
       href: contractHref,
     },
@@ -853,28 +851,28 @@ function buildPreSignGate(
 
   if (confidence.level === "limited") {
     items.unshift({
-      label: "信息是否够用",
+      label: "信息完整度",
       type: "visit",
       state: "blocked",
-      reason: "提交前信息确认显示关键信息或数据来源还不够完整。补充地址、收入、楼层、授权或现场凭据，再决定是否付款或签约。",
+      reason: "提交前信息确认显示关键信息或数据来源还不够完整。补充地址、收入、楼层、授权或现场记录，再决定是否付款或签约。",
       href: confidence.href,
     });
   } else if (confidence.level === "review") {
     items.unshift({
-      label: "信息是否够用",
+      label: "信息完整度",
       type: "visit",
       state: "attention",
-      reason: "报告可参考，但部分结论需要谨慎看待。先确认提交前待补充信息，再进入付款前确认或合同确认。",
+      reason: "报告可参考，但部分结论需要谨慎看待。先确认提交前待补充信息，再进入付款咨询或合同确认。",
       href: confidence.href,
     });
   }
 
   if (report.report.status === "reject") {
     items.unshift({
-      label: "房源评估",
+      label: "房源体检",
       type: "visit",
       state: "blocked",
-      reason: "房源评估结论是不建议租。除非关键风险被书面解决，否则不要付款或签约。",
+      reason: "房源体检结论是不建议租。除非关键风险被书面解决，否则不要付款或签约。",
       href: `/report/${report.id}`,
     });
   }
@@ -919,7 +917,7 @@ function buildPreSignGate(
     return {
       level: "ready",
       label: "可进入签约前最后确认",
-      summary: "官方查询、凭据、付款和合同都已确认，仍需在签约当天再次确认原件、收据和交割清单。",
+      summary: "官方查询、材料、付款和合同都已确认，仍需在签约当天再次确认原件、收据和交割清单。",
       progress,
       canPay,
       canSign,
@@ -930,8 +928,8 @@ function buildPreSignGate(
   if (hasBlocked || missingHardGate || report.report.status === "reject") {
     return {
       level: "stop",
-      label: "先别付款和签约",
-      summary: "关键确认、凭据、付款或合同还没有确认清楚。现在最重要的是补充材料，先别跟着催付节奏走。",
+      label: "不建议付款和签约",
+      summary: "关键确认、材料、付款或合同还没有确认清楚。现在最重要的是补充材料，暂不跟随催付节奏。",
       progress,
       canPay,
       canSign,
@@ -943,8 +941,8 @@ function buildPreSignGate(
     level: "review",
     label: hasAttention ? "补充材料后再继续" : "可以小步继续",
     summary: hasAttention
-      ? "已有判断结果，但仍有中风险提醒。补充高优先级凭据，再决定是否小额付款或签约。"
-      : "基础确认已经开始，但签约前仍要把合同和凭据确认清楚。",
+      ? "已有判断结果，但仍有中风险提醒。补充高优先级材料，再决定是否小额付款或签约。"
+      : "基础确认已经开始，但签约前仍要把合同和材料确认清楚。",
     progress,
     canPay,
     canSign,
@@ -956,7 +954,7 @@ function buildLifecycleGate(
   report: StoredReport,
   completedEvents: CaseEvent[],
 ): DecisionCaseLifecycleGate {
-  const rent = report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "5200";
+  const rent = report.inputSummary?.rent?.match(/\d+/)?.[0] ?? "0";
   const latest = {
     move: latestEventByType(completedEvents, "move"),
     handover: latestEventByType(completedEvents, "handover"),
@@ -974,8 +972,8 @@ function buildLifecycleGate(
         event: latest.move,
         missing: "还没有测算签约后的首笔支出、搬家费和现金安全垫，容易低估入住第一个月压力。",
         attention: "入住预算仍有压力，先确认首付月数、搬家费、临时住宿和备用金。",
-        blocked: "入住预算已经触发高风险，先别继续付款，优先改谈付款节奏。",
-        done: "入住预算已形成能直接参考的预算，继续在交割当天固定凭据。",
+        blocked: "入住预算已经触发高风险，不建议继续付款，优先改谈付款节奏。",
+        done: "入住预算已形成能直接参考的预算，继续在交割当天固定记录。",
       }),
       href: buildFlowHref("/move", report, {
         monthlyRent: rent,
@@ -988,10 +986,10 @@ function buildLifecycleGate(
       state: gateStateFromEvent(latest.handover),
       reason: gateReasonFromState({
         event: latest.handover,
-        missing: "还没有做交割确认，钥匙、表读数、旧损坏、历史欠费和家具家电状态都需要保存凭据。",
+        missing: "还没有做交割确认，钥匙、表读数、旧损坏、历史欠费和家具家电状态都需要保存记录。",
         attention: "交割仍有未确认项，入住前补充拍旧损坏、表读数和欠费证明。",
-        blocked: "交割存在明显风险，先别签收或确认入住没有争议。",
-        done: "交割凭据已形成清单，可继续记录维修责任和后续争议。",
+        blocked: "交割存在明显风险，暂不签收或确认入住无争议。",
+        done: "交割记录已形成清单，可继续记录维修责任和后续争议。",
       }),
       href: buildFlowHref("/handover", report, {
         monthlyRent: rent,
@@ -1007,12 +1005,12 @@ function buildLifecycleGate(
         event: latest.repair,
         missing: "还没有记录入住后的维修责任边界，漏水、发霉、家电故障和垫付费用容易变成争议。",
         attention: "维修责任仍需补充材料，先保留报修记录、照片视频和费用确认。",
-        blocked: "维修责任判断偏高风险，先不要自行垫付大额维修费。",
+        blocked: "维修责任判断偏高风险，暂不自行垫付大额维修费。",
         done: "维修责任判断方式已记录，可作为后续续租或退租谈判依据。",
       }),
       href: buildFlowHref("/repair", report, {
         listingTitle: report.report.title,
-        evidenceLevel: "部分凭据",
+        evidenceLevel: "部分材料",
         depositConcern: "担心退租时从押金扣",
       }),
     },
@@ -1022,10 +1020,10 @@ function buildLifecycleGate(
       state: gateStateFromEvent(latest.renewal),
       reason: gateReasonFromState({
         event: latest.renewal,
-        missing: "还没有计算续租上限、搬家成本和谈判底线，涨租时容易只看月租差额。",
+        missing: "还没有计算续租上限、搬家成本和可接受涨幅，涨租时容易只看月租差额。",
         attention: "续租需要谨慎谈判，先明确可接受涨幅、搬家回本月数和替代房源。",
         blocked: "续租方案不划算或风险过高，优先准备搬家备选。",
-        done: "续租底线已记录，接下来可以继续确认押金和退租凭据。",
+        done: "续租可接受条件已记录，接下来可以继续确认押金和退租材料。",
       }),
       href: buildFlowHref("/renewal", report, {
         currentRent: rent,
@@ -1038,15 +1036,15 @@ function buildLifecycleGate(
       state: gateStateFromEvent(latest.deposit),
       reason: gateReasonFromState({
         event: latest.deposit,
-        missing: "还没有拆解退租押金、返还期限和可争议扣款，退租前需要提前准备凭据。",
+        missing: "还没有拆解退租押金、返还期限和可争议扣款，退租前需要提前准备材料。",
         attention: "押金退还仍有不确定项，补充交割照片、聊天记录和费用清单。",
-        blocked: "押金扣款争议风险高，先按凭据材料和返还期限沟通。",
+        blocked: "押金扣款争议风险高，先按材料清单和返还期限沟通。",
         done: "押金退还办法已记录，这套房的入住退租办法已经说明清楚。",
       }),
       href: buildFlowHref("/deposit", report, {
         monthlyRent: rent,
         depositAmount: rent,
-        evidenceLevel: "部分凭据",
+        evidenceLevel: "部分材料",
       }),
     },
   ];
@@ -1102,8 +1100,8 @@ function buildNextBestAction({
       reason: urgentLifecycleGate.reason,
       intent:
         priority === "blocker"
-          ? "先解除入住后已经出现的真实现金或凭据风险。"
-          : "把入住后的争议点整理成可保存凭据、可继续确认的结果。",
+          ? "先解除入住后已经出现的真实现金或材料风险。"
+          : "把入住后的争议点整理成可保存材料、可继续确认的结果。",
       doneCriteria: `${urgentLifecycleGate.label}结果已保存到房源记录，高风险或待补充材料已经说明清楚。`,
       stopRule:
         priority === "blocker"
@@ -1117,7 +1115,7 @@ function buildNextBestAction({
       label: "回看淘汰原因",
       href: `/report/${report.id}`,
       priority: "blocker",
-      reason: "房源评估结论是不建议租。除非关键风险能被书面解决，否则不要继续付款或签约。",
+      reason: "房源体检结论是不建议租。除非关键风险能被书面解决，否则不要继续付款或签约。",
       intent: "避免被低租金、稀缺感或催付节奏带着做决定。",
       doneCriteria: "确认关键风险是否能被书面解决；不能解决就从候选清单放后或淘汰。",
       stopRule: "在风险没有书面解除前，不转账、不签字、不交定金。",
@@ -1131,7 +1129,7 @@ function buildNextBestAction({
       priority: "blocker",
       reason: dataConfidence.summary,
       intent: "先把报告从问题清单变成可继续判断的依据。",
-      doneCriteria: "补充地址、收入、楼层、授权、现场凭据等关键信息后重新评估或再次确认报告。",
+      doneCriteria: "补充地址、收入、楼层、授权、现场记录等关键信息后重新评估或再次确认报告。",
       stopRule: "信息不足的评估不能作为付款或签约依据。",
     };
   }
@@ -1188,10 +1186,10 @@ function buildNextBestAction({
     label: fallbackAction?.label ?? "回看完整报告",
     href: fallbackAction?.href ?? `/report/${report.id}`,
     priority: fallbackAction?.priority ?? "recommended",
-    reason: fallbackAction?.reason ?? "回看综合结论、评分、信息是否够用和报告后的去处。",
+    reason: fallbackAction?.reason ?? "回看综合结论、评分、信息完整度和报告后的去处。",
     intent: "继续确认这套候选房源的下一项事项。",
-    doneCriteria: "确认后回到工作台查看判断是否变化。",
-    stopRule: "任何付款或签约事项都必须先满足官方查询、凭据、付款和合同确认。",
+    doneCriteria: "确认后查看判断是否需要更新。",
+    stopRule: "任何付款或签约事项都必须先满足官方查询、材料、付款和合同确认。",
   };
 }
 

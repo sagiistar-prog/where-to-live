@@ -8,6 +8,7 @@ import {
 import type { ListingAnalysisInput } from "@/lib/report-builder";
 import type { ReportData } from "@/lib/mock-data";
 import { localGuestOwnerId } from "@/lib/server/current-owner";
+import { parseJsonText } from "@/lib/server/json-utils";
 
 export type StoredReport = GeneratedReportPayload & {
   id: string;
@@ -46,7 +47,7 @@ async function readReports(): Promise<StoredReport[]> {
   await ensureStore();
   try {
     const raw = await readFile(reportsPath, "utf8");
-    const reports = JSON.parse(raw) as StoredReport[];
+    const reports = parseJsonText(raw) as StoredReport[];
     return Array.isArray(reports) ? reports.map(normalizeStoredReport) : [];
   } catch {
     return [];
@@ -174,12 +175,6 @@ export async function getStoredReport(id: string, ownerId?: string) {
       (report) => report.id === id && getReportOwnerId(report) === normalizedOwnerId,
     ) ?? null
   );
-}
-
-export async function clearReports(ownerId?: string) {
-  const normalizedOwnerId = normalizeOwnerId(ownerId);
-  const reports = await readReports();
-  await writeReports(reports.filter((report) => getReportOwnerId(report) !== normalizedOwnerId));
 }
 
 export async function transferReportsOwner(fromOwnerId: string, toOwnerId: string) {

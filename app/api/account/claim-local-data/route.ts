@@ -1,20 +1,17 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
-import { claimLocalGuestDataForOwner } from "@/lib/server/current-owner";
+import {
+  claimLocalGuestDataForOwner,
+  getCurrentOwnerId,
+  localGuestOwnerId,
+} from "@/lib/server/current-owner";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function getSessionOwnerId(session: { user?: { id?: unknown } } | null) {
-  const userId = session?.user?.id;
-  return typeof userId === "string" && userId.trim() ? userId.trim() : "";
-}
-
 export async function POST() {
-  const session = await auth();
-  const ownerId = getSessionOwnerId(session);
+  const ownerId = await getCurrentOwnerId();
 
-  if (!ownerId) {
+  if (ownerId === localGuestOwnerId) {
     return NextResponse.json(
       {
         authenticated: false,
@@ -31,5 +28,6 @@ export async function POST() {
     authenticated: true,
     movedReports: result.movedReports,
     movedEvents: result.movedEvents,
+    movedStartIntents: result.movedStartIntents,
   });
 }

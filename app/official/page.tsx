@@ -2,6 +2,7 @@ import { Archive, BadgeDollarSign, Landmark, Scale } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { OfficialVerificationPanel } from "@/components/official-verification-panel";
 import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { buildFlowHref } from "@/lib/flow-links";
 import type { OfficialVerificationInput } from "@/lib/official-verification";
 
@@ -19,8 +20,8 @@ function firstParam(value: string | string[] | undefined) {
 const sourceLabels: Record<string, string> = {
   report: "已从报告带入",
   case: "已从房源记录带入",
-  payment: "已从付款前确认带入",
-  evidence: "已从凭据材料带入",
+  payment: "已从付款咨询带入",
+  evidence: "已从材料清单带入",
   contract: "已从合同确认带入",
   visit: "已从看房清单带入",
   safety: "已从独居安全带入",
@@ -30,7 +31,7 @@ const sourceLabels: Record<string, string> = {
   repair: "已从维修责任带入",
   renewal: "已从续租方案带入",
   deposit: "已从押金退还带入",
-  plan: "已从下一步带入",
+  plan: "已从当前行动带入",
   home: "已从首页输入带入",
   dashboard: "已从工作台输入带入",
 };
@@ -80,7 +81,7 @@ export default async function OfficialPage({
     stage,
     risks:
       concerns ||
-      "出租权、备案入口、收款主体和合同示范文本需要在付款或签约前保存凭据。",
+      "出租权、备案入口、收款主体和合同示范文本需要在付款或签约前保存材料。",
     reportContext,
   });
   const paymentHref = buildFlowHref("/payment", {
@@ -127,25 +128,20 @@ export default async function OfficialPage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
         <ProductPageHeader
           eyebrow="签约前确认"
-          title="出租权、备案和收款主体，先回到官方入口确认"
-          description="很多租房坑不靠感觉解决。出租权、网签备案、合同示范文本、非居住空间和公共服务材料，都要回到官方入口、出租方材料和可留存凭据。"
+          title="官方核验"
+          description="核对出租权、网签备案、合同示范文本、非居住空间和公共服务材料，保留可追溯的确认记录。"
           icon={Landmark}
-          sideTitle="免费公开入口优先"
-          sideDescription="本页只整理政府、住建、市场监管等官方公开入口，并把确认事项转成询问话术和凭据清单；不爬取租房平台，不读取私人账号，也不承诺替代官方查询结果。"
-          facts={[
-            { label: "查主体", value: "出租方身份、授权关系和收款主体是否一致" },
-            { label: "查材料", value: "备案入口、示范文本、产权或转租授权" },
-            { label: "查底线", value: "非居住空间、群租限制和异常收费" },
-          ]}
           actions={[
-            { label: "保存凭据", href: evidenceHref, icon: Archive },
-            { label: "付款前确认", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
+            { label: "保存材料", href: evidenceHref, icon: Archive },
+            { label: "付款咨询", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
             { label: "合同确认", href: contractHref, icon: Scale, variant: "secondary" },
           ]}
         />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <OfficialVerificationPanel initialInput={initialInput} />
       </div>

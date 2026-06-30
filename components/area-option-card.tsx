@@ -73,7 +73,7 @@ export function AreaOptionCard({
       {area.viewingPlan?.verify.length ? (
         <div className="mt-4 space-y-2 rounded-md border border-border bg-secondary p-3">
           <p className="text-xs text-muted-foreground">
-            现场确认
+            现场核验
           </p>
           {area.viewingPlan.verify.map((item) => (
             <p key={item} className="text-xs leading-5 text-muted-foreground">
@@ -88,7 +88,7 @@ export function AreaOptionCard({
       {area.evidence?.length ? (
         <div className="mt-4 space-y-2 border-t border-border pt-4">
           <p className="text-xs text-muted-foreground">
-            判断理由
+            判断依据
           </p>
           {area.evidence.map((item) => (
             <p key={item} className="text-xs leading-5 text-muted-foreground">
@@ -112,7 +112,7 @@ export function AreaOptionCard({
         </Button>
         <Button asChild className="w-full" variant="secondary" size="sm">
           <Link href={analyzeHref(area, reportId)}>
-            房源评估
+            房源体检
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
@@ -129,8 +129,8 @@ function areaReportContext(area: AreaOption) {
     `生活配套：${area.lifeRadius}`,
     `风险提示：${area.risk}`,
     area.viewingPlan ? `看房安排：${area.viewingPlan.label}。${area.viewingPlan.reason}` : "",
-    area.viewingPlan ? `现场确认：${area.viewingPlan.verify.join("；")}` : "",
-    area.viewingPlan ? `先不约看的情况：${area.viewingPlan.stopRule}` : "",
+    area.viewingPlan ? `现场核验：${area.viewingPlan.verify.join("；")}` : "",
+    area.viewingPlan ? `暂停条件：${area.viewingPlan.stopRule}` : "",
   ]);
 }
 

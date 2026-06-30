@@ -9,18 +9,21 @@ export function numberFromPreference(value: string, fallback: number) {
 }
 
 export function yuanPerMonth(value: string, fallback: number) {
+  if (!value.trim()) return "";
   return `${numberFromPreference(value, fallback)} 元/月`;
 }
 
 export function budgetPreferenceSummary(preferences: UserPreferences) {
-  const min = numberFromPreference(preferences.budgetMin, 3500);
-  const max = numberFromPreference(preferences.budgetMax, 6500);
+  const min = numberFromPreference(preferences.budgetMin, 0);
+  const max = numberFromPreference(preferences.budgetMax, 0);
 
   if (min && max && min !== max) {
     return `${min}-${max} 元/月`;
   }
 
-  return `${max || min} 元/月`;
+  if (max || min) return `${max || min} 元/月`;
+
+  return "待设置";
 }
 
 export function commuteLimitMinutes(preferences: UserPreferences, fallback = 45) {
@@ -28,18 +31,17 @@ export function commuteLimitMinutes(preferences: UserPreferences, fallback = 45)
 }
 
 export function profileDefaultSummary(preferences: UserPreferences) {
-  return [
-    `城市 ${preferences.defaultCity}`,
-    `工作地 ${preferences.defaultWorkplace}`,
-    `预算 ${budgetPreferenceSummary(preferences)}`,
-    `通勤 ${preferences.commuteLimit}`,
-  ]
-    .filter(Boolean)
-    .join(" / ");
+  const budget = budgetPreferenceSummary(preferences);
+  const parts = [
+    preferences.defaultCity ? `城市 ${preferences.defaultCity}` : "",
+    preferences.defaultWorkplace ? `工作地 ${preferences.defaultWorkplace}` : "",
+    budget !== "待设置" ? `预算 ${budget}` : "",
+    preferences.commuteLimit ? `通勤 ${preferences.commuteLimit}` : "",
+  ].filter(Boolean);
+
+  return parts.length ? parts.join(" / ") : "未设置";
 }
 
 export function livingPreferenceText(preferences: UserPreferences) {
-  return preferences.livingPreferences.length
-    ? preferences.livingPreferences.join("、")
-    : "独居、近地铁、怕潮湿";
+  return preferences.livingPreferences.length ? preferences.livingPreferences.join("、") : "";
 }

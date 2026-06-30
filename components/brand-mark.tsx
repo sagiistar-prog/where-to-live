@@ -49,7 +49,7 @@ export function BrandMark({
         )}
         aria-hidden="true"
       />
-      <span className="flex min-w-0 items-baseline gap-1.5">
+      <span className="flex shrink-0 items-baseline gap-1.5 whitespace-nowrap">
         <span
           className={cn("brand-wordmark", sizeClass[size].word, wordClassName)}
           aria-label="住哪儿"
@@ -80,14 +80,17 @@ export function BrandMark({
 
   if (href) {
     return (
-      <Link href={href} className={cn("flex min-w-0 items-center", sizeClass[size].wrap, className)}>
+      <Link
+        href={href}
+        className={cn("flex shrink-0 items-center whitespace-nowrap", sizeClass[size].wrap, className)}
+      >
         {content}
       </Link>
     );
   }
 
   return (
-    <span className={cn("flex min-w-0 items-center", sizeClass[size].wrap, className)}>
+    <span className={cn("flex shrink-0 items-center whitespace-nowrap", sizeClass[size].wrap, className)}>
       {content}
     </span>
   );

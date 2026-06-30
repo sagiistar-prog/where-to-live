@@ -1,6 +1,7 @@
-import { Archive, BadgeDollarSign, ClipboardCheck, ShieldCheck, UsersRound } from "lucide-react";
+import { Archive, ClipboardCheck, ShieldCheck, UsersRound } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { VisitCheckPanel } from "@/components/visit-check-panel";
 import { buildFlowHref } from "@/lib/flow-links";
 import type { VisitCheckInput } from "@/lib/visit-check";
@@ -68,18 +69,7 @@ export default async function VisitPage({
     title,
     address,
     stage: "看房后，付款前",
-    risks: "看房现场发现的问题、口头承诺、维修责任和房屋现状，需要在付款或签约前保存凭据。",
-    reportContext,
-  });
-  const paymentHref = buildFlowHref("/payment", {
-    from: "visit",
-    reportId,
-    city,
-    listingTitle: title,
-    stage: "看房后，未签合同",
-    contractStatus: "看房后仍需确认合同、出租权和付款条件",
-    receiptStatus: "现场承诺和房屋现状需要先保存凭据",
-    notes: "来自看房清单：高优先级项目没有确认前，不建议先交定金。",
+    risks: "看房现场发现的问题、口头承诺、维修责任和房屋现状，需要在付款或签约前保存记录。",
     reportContext,
   });
   const canPrefill =
@@ -98,7 +88,7 @@ export default async function VisitPage({
       : source === "area"
         ? "已从片区筛选带入"
         : source === "plan"
-          ? "已从下一步带入"
+          ? "已从当前行动带入"
           : source === "home"
             ? "已从首页输入带入"
             : source === "dashboard"
@@ -131,26 +121,20 @@ export default async function VisitPage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
         <ProductPageHeader
           eyebrow="签约前确认"
-          title="看房现场先确认这些事"
-          description="看房前先列好要测、要问、要拍的内容。也可以从评估报告带入风险点，形成现场确认清单和凭据提醒。"
+          title="看房清单"
+          description="整理现场要测、要问、要拍的内容，也可以从评估报告带入风险点，形成现场确认清单。"
           icon={ClipboardCheck}
-          sideTitle="现场原则"
-          sideDescription="高优先级项目没有确认前，不交定金；不能写进合同或聊天记录的承诺，先不算数。"
-          facts={[
-            { label: "先测", value: "水压、排水、采光、噪音、门锁和楼道" },
-            { label: "再问", value: "维修责任、旧损坏、费用边界和交割方式" },
-            { label: "最后", value: "把现场问题带到凭据、付款和合同页" },
-          ]}
           actions={[
             { label: "独居安全", href: safetyHref, icon: ShieldCheck },
             { label: "合租边界", href: sharedHref, icon: UsersRound, variant: "secondary" },
-            { label: "保存凭据", href: evidenceHref, icon: Archive, variant: "secondary" },
-            { label: "付款前确认", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
+            { label: "保存材料", href: evidenceHref, icon: Archive, variant: "secondary" },
           ]}
         />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <VisitCheckPanel initialInput={initialInput} />
       </div>

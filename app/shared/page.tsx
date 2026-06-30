@@ -2,6 +2,7 @@ import { Archive, BadgeDollarSign, Scale, UsersRound } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ProductPageHeader } from "@/components/product-page-header";
 import { SharedLivingPanel, type SharedLivingSeed } from "@/components/shared-living-panel";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { buildFlowHref } from "@/lib/flow-links";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -15,11 +16,11 @@ const sourceLabels: Record<string, string> = {
   case: "已从房源记录带入",
   safety: "已从独居安全带入",
   visit: "已从看房清单带入",
-  plan: "已从下一步带入",
+  plan: "已从当前行动带入",
   home: "已从首页输入带入",
-  payment: "已从付款前确认带入",
+  payment: "已从付款咨询带入",
   contract: "已从合同确认带入",
-  evidence: "已从凭据材料带入",
+  evidence: "已从材料清单带入",
   dashboard: "已从工作台输入带入",
 };
 
@@ -52,7 +53,7 @@ export default async function SharedLivingPage({
     city,
     title,
     stage: "签约前",
-    risks: "合租室友规则、公共空间、访客过夜、费用分摊、押金连带和转租授权需要在付款前保存凭据。",
+    risks: "合租室友规则、公共空间、访客过夜、费用分摊、押金连带和转租授权需要在付款前保存材料。",
     reportContext,
   });
   const paymentHref = buildFlowHref("/payment", {
@@ -86,25 +87,20 @@ export default async function SharedLivingPage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
         <ProductPageHeader
           eyebrow="签约前确认"
-          title="合租先谈边界，再谈性价比"
-          description="合租的低租金经常被室友作息、公共卫生、访客过夜、水电分摊和押金连带责任抵消。先把规则说清、写清、留痕，再决定这间房是否真的值得住。"
+          title="合租边界"
+          description="核对室友作息、公共卫生、访客过夜、水电分摊和押金连带责任，确认规则是否清楚并可留存。"
           icon={UsersRound}
-          sideTitle="不读取私人聊天或室友账号"
-          sideDescription="只根据用户主动输入整理合租风险、必须问清的问题和可复制的合租约定。"
-          facts={[
-            { label: "人", value: "实际入住人数、作息、访客和维修上门" },
-            { label: "钱", value: "水电网费、押金连带和公共区扣款" },
-            { label: "规则", value: "卫生、噪音、转租授权和提前退租" },
-          ]}
           actions={[
             { label: "继续合同确认", href: contractHref, icon: Scale },
-            { label: "保存合租凭据", href: evidenceHref, icon: Archive, variant: "secondary" },
-            { label: "付款前确认", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
+            { label: "保存合租材料", href: evidenceHref, icon: Archive, variant: "secondary" },
+            { label: "付款咨询", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
           ]}
         />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <SharedLivingPanel initialInput={initialInput} />
       </div>

@@ -64,9 +64,9 @@ const nationalSources: OfficialSource[] = [
   {
     title: "住房租赁条例公开信息",
     provider: "中华人民共和国司法部",
-    scope: "租赁底线与监管规则",
+    scope: "租赁要求与监管规则",
     url: "https://www.moj.gov.cn/pub/sfbgwapp/bnywapp/202507/t20250721_522919.html",
-    note: "用于核对实名签约、房屋安全、非居住空间不得单独出租用于居住等底线。",
+    note: "用于核对实名签约、房屋安全、非居住空间不得单独出租用于居住等要求。",
   },
 ];
 
@@ -135,7 +135,7 @@ function includesAny(value = "", patterns: string[]) {
 }
 
 function normalizeCity(city?: string) {
-  const value = city?.trim() || "上海";
+  const value = city?.trim() || "目标城市";
   if (value.includes("北京")) return "北京";
   if (value.includes("深圳")) return "深圳";
   if (value.includes("广州")) return "广州";
@@ -288,7 +288,7 @@ export function buildOfficialVerificationPlan(
   const contractTasks = [
     task(
       "model-contract",
-      "合同与法规底线",
+      "合同与法规要求",
       "用示范文本对照合同条款",
       "高",
       nationalSources[0].title,
@@ -302,12 +302,12 @@ export function buildOfficialVerificationPlan(
     ),
     task(
       "rental-regulation",
-      "合同与法规底线",
-      "核对住房租赁底线",
+      "合同与法规要求",
+      "核对住房租赁要求",
       hasUnsafeUseRisk ? "高" : "中",
       nationalSources[1].title,
       nationalSources[1].url,
-      "核对房屋是否符合居住用途、安全、消防和健康底线；非居住空间、明显隔断和群租风险要谨慎。",
+      "核对房屋是否符合居住用途、安全、消防和健康要求；非居住空间、明显隔断和群租风险要谨慎。",
       "房间用途、户型、隔断情况、消防通道、厨房卫生间和通风采光。",
       "出租空间为合法居住空间，安全和消防条件没有明显异常。",
       "地下室、车库、厨房、卫生间、阳台、过道等非居住空间被单独出租居住。",
@@ -319,10 +319,10 @@ export function buildOfficialVerificationPlan(
   const evidenceTasks = [
     task(
       "payment-proof",
-      "付款与凭据",
+      "付款与材料",
       "付款前确认收款主体和备注",
       hasPaymentRisk ? "高" : "中",
-      "用户主动留存凭据",
+      "用户主动留存材料",
       undefined,
       "付款备注写清房源地址、款项用途、租期和合同主体；付款截图与合同、聊天确认一起保存。",
       "收款人姓名、账号、合同主体、房源地址、款项用途。",
@@ -335,8 +335,8 @@ export function buildOfficialVerificationPlan(
 
   const warnings = [
     hasSubleaseRisk ? "存在二房东、转租、代理或托管风险，必须补充授权链。" : "",
-    hasNoContractRisk ? "出现不签合同或先付款倾向，建议先别付款。" : "",
-    hasUnsafeUseRisk ? "疑似非居住空间、隔断或群租风险，需要优先确认房屋用途和安全底线。" : "",
+    hasNoContractRisk ? "出现不签合同或先付款倾向，不建议付款。" : "",
+    hasUnsafeUseRisk ? "疑似非居住空间、隔断或群租风险，需要优先确认房屋用途和安全要求。" : "",
     needsPublicService ? "你可能需要备案材料办理公共服务，签约前必须确认当地办理办法。" : "",
     hasPaymentRisk ? "涉及押金、定金或私人转账，付款备注和收款主体必须确认。" : "",
   ].filter(Boolean);
@@ -351,9 +351,9 @@ export function buildOfficialVerificationPlan(
     generatedAt: new Date().toISOString(),
     city,
     status,
-    summary: `已为${city}${stage}整理官方查询步骤，共 ${highCount} 项高优先级事项。先确认出租权、备案办理办法、合同底线和付款主体，再决定是否付款或签约。`,
+    summary: `已为${city}${stage}整理官方查询步骤，共 ${highCount} 项高优先级事项。先确认出租权、备案办理办法、合同要求和付款主体，再决定是否付款或签约。`,
     limitation:
-      "住哪儿会整理官方入口、确认事项和先别签约的情况；所有材料仍需用户和出租方共同确认。",
+      "本结果整理官方入口、确认事项和暂不签约的情况；所有材料仍需用户和出租方共同确认。",
     sections: [
       {
         title: "主体与授权",
@@ -366,13 +366,13 @@ export function buildOfficialVerificationPlan(
         tasks: filingTasks,
       },
       {
-        title: "合同与法规底线",
-        summary: "用官方示范文本和租赁底线规则校准合同，避免只听口头承诺。",
+        title: "合同与法规要求",
+        summary: "用官方示范文本和租赁要求校准合同，避免只听口头承诺。",
         tasks: contractTasks,
       },
       {
-        title: "付款与凭据",
-        summary: "把每笔钱和每个承诺都变成可追溯凭据。",
+        title: "付款与材料",
+        summary: "把每笔钱和每个承诺都变成可追溯记录。",
         tasks: evidenceTasks,
       },
     ],
@@ -383,7 +383,7 @@ export function buildOfficialVerificationPlan(
     nextActions: [
       "先确认主体与授权，再进入合同条款确认。",
         "打开对应城市官方入口，确认备案办理办法和材料要求。",
-      "复制确认话术发给出租方，把回复、截图、链接、办理时间和对方确认同步到凭据材料。",
+      "复制确认话术发给出租方，把回复、截图、链接、办理时间和对方确认同步到材料清单。",
       status === "reject" ? "关键风险点确认前不要付款或签约。" : "关键风险点确认后再进入付款和签约事项。",
     ],
   };

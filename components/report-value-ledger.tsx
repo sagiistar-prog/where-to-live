@@ -20,10 +20,12 @@ function inferRent(report: ReportData) {
   if (direct) return Number(direct[1]);
 
   const numbers = extractNumbers(text).filter((value) => value >= 1000 && value <= 50000);
-  return numbers[0] ?? 5200;
+  return numbers[0] ?? 0;
 }
 
 function inferTrueMonthlyCost(report: ReportData, rent: number) {
+  if (rent <= 0) return 0;
+
   const text = report.livingCost.points.join(" ");
   const numbers = extractNumbers(text).filter((value) => value >= rent && value <= 50000);
   if (!numbers.length) return Math.round(rent * 1.18);
@@ -41,6 +43,10 @@ function inferCommuteMinutes(report: ReportData) {
 
 function formatMoney(value: number) {
   return `${Math.round(value).toLocaleString("zh-CN")} 元`;
+}
+
+function formatMaybeMoney(value: number) {
+  return value > 0 ? formatMoney(value) : "待确认";
 }
 
 function statusMultiplier(status: ReportData["status"]) {
@@ -61,13 +67,16 @@ export function ReportValueLedger({
   const monthlyCommuteHours = Math.round((commuteMinutes * 2 * 22) / 60);
   const depositExposure = Math.round(rent * statusMultiplier(report.status));
   const prepayExposure = Math.round(depositExposure + Math.min(rent * 0.2, 1000));
+  const hasRent = rent > 0;
 
   const items = [
     {
       icon: ReceiptText,
       label: "隐藏月成本",
-      value: formatMoney(hiddenMonthlyCost),
-      detail: `真实月成本约 ${formatMoney(trueMonthlyCost)}，还要看通勤和固定开销。`,
+      value: formatMaybeMoney(hasRent ? hiddenMonthlyCost : 0),
+      detail: hasRent
+        ? `真实月成本约 ${formatMoney(trueMonthlyCost)}，还要看通勤和固定开销。`
+        : "补充月租、物业、水电、网费和固定支出后再判断。",
     },
     {
       icon: Clock3,
@@ -77,15 +86,19 @@ export function ReportValueLedger({
     },
     {
       icon: HandCoins,
-      label: "付款前风险",
-      value: formatMoney(prepayExposure),
-      detail: "以定金/押金参考额估算，材料未齐前不要先转大额。",
+      label: "付款风险敞口",
+      value: formatMaybeMoney(prepayExposure),
+      detail: hasRent
+        ? "以定金和押金参考额估算，材料未确认前暂缓大额付款。"
+        : "补充定金、押金或首笔付款金额后再判断。",
     },
     {
       icon: ShieldAlert,
       label: "押金争议风险",
-      value: formatMoney(depositExposure),
-      detail: "押金、维修、交割和提前退租条款没有确认时最容易变成损失。",
+      value: formatMaybeMoney(depositExposure),
+      detail: hasRent
+        ? "押金、维修、交割和提前退租条款没有确认时最容易变成损失。"
+        : "补充押金金额、退款条件和维修责任后再判断。",
     },
   ];
 
@@ -94,24 +107,24 @@ export function ReportValueLedger({
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="min-w-0">
           <p className="text-sm text-primary/80">
-            报告价值
+            关键成本与风险
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-normal">
-            这份报告帮你先守住的钱和时间
+            付款或签约前确认成本与风险
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">
-            年轻租客真正愿意为报告付费，是因为它能提前看清押金、付款顺序、通勤损耗和隐藏月成本，避免在催促里做错决定。
+            把隐藏月成本、通勤时间、押金争议和付款风险放在一起，帮助你判断是否继续谈、是否需要补充材料。
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button asChild>
             <Link href={paymentHref}>
-              先做付款前确认
+              进入付款咨询
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
           <Button asChild variant="secondary">
-            <Link href={evidenceHref}>补充凭据材料</Link>
+            <Link href={evidenceHref}>补充材料</Link>
           </Button>
         </div>
       </div>

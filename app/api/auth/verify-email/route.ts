@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { isValidEmail, verifyEmailCode } from "@/lib/server/auth-verification";
+import { upsertAuthUser } from "@/lib/server/auth-users";
+import { claimLocalGuestDataForOwner } from "@/lib/server/current-owner";
 
 export const dynamic = "force-dynamic";
 
@@ -26,8 +28,30 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
   }
 
-  return NextResponse.json({
-    ok: true,
-    message: "邮箱已验证，可以继续保存居住偏好。",
+  const user = await upsertAuthUser({
+    email,
+    provider: "email",
+    emailVerified: true,
   });
+  const claimed = await claimLocalGuestDataForOwner(user.id).catch(() => null);
+
+  const response = NextResponse.json({
+    ok: true,
+    user: {
+      id: user.id,
+      email: user.email,
+      provider: user.provider,
+      emailVerified: user.emailVerified,
+    },
+    message: "邮箱已验证，可以继续使用。",
+    claimed,
+  });
+  response.cookies.set("zhunaar_owner_id", user.id, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365,
+  });
+
+  return response;
 }

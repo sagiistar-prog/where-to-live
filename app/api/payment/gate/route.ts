@@ -15,6 +15,19 @@ function asNumber(value: unknown) {
 function parseInput(body: unknown): PaymentGateInput | null {
   if (!body || typeof body !== "object") return null;
   const value = body as Record<string, unknown>;
+  const hasMeaningfulInput = [
+    value.notes,
+    value.reportContext,
+    value.amount,
+    value.monthlyRent,
+    value.contractStatus,
+    value.authorizationStatus,
+    value.payeeType,
+    value.refundRule,
+    value.urgencyPressure,
+  ].some((item) => String(item ?? "").trim().length > 0);
+
+  if (!hasMeaningfulInput) return null;
 
   return {
     city: asString(value.city),
@@ -44,7 +57,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: "INVALID_PAYMENT_GATE_INPUT",
-          message: "请输入付款类型、金额、合同状态、授权、收款主体、退款规则和付款记录信息。",
+          message: "请输入您担心的合同及其他法律风险。",
         },
         { status: 400 },
       );
@@ -55,7 +68,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error: "PAYMENT_GATE_FAILED",
-        message: "付款前确认失败，请稍后重试。",
+        message: "付款咨询失败，请稍后重试。",
       },
       { status: 500 },
     );

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: "INVALID_REPAIR_INPUT",
-          message: "请输入维修问题、发现时间、合同条款、出租方响应、预估费用和凭据情况。",
+          message: "请输入维修问题、发现时间、合同条款、出租方响应、预估费用和材料情况。",
         },
         { status: 400 },
       );

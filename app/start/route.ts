@@ -1,47 +1,170 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-const fallbackPrompts = {
-  city:
-    "拿到深圳新工作，税后大概 18000，租金预算 6500，担心通勤、外食和储蓄率，不确定值不值得去。",
-  analyze:
-    "南山科技园一居室，月租 6200，地铁走路 11 分钟，中介催今晚定下来，担心噪音和转租授权。",
-  payment:
-    "中介说今晚先交 2000 定金锁房，合同明天补，收款是个人微信，只说不满意可以退。",
-  area:
-    "工作在深圳科技园，预算 6500，希望 45 分钟内到公司，纠结西丽、南山、宝安和龙华。",
-  plan:
-    "明天前要回复房东，已经看过房但没看合同，担心押金、维修责任和晚归安全，不知道先做什么。",
-  deposit:
-    "退租后房东说墙面和保洁要扣 1800 押金，只发了口头理由，我还没签扣款确认。",
-  renewal:
-    "房东说下个月续租要从 6200 涨到 7200，我担心搬家成本和押金风险，不知道该谈还是搬。",
-  repair:
-    "入住后卫生间漏水，房东让我先垫付 1500 维修费，但责任和凭据都没说清。",
-  handover:
-    "明天拿钥匙入住，中介催我确认无争议，但水电表、旧损坏和家具家电还没拍清楚。",
-  move:
-    "签约前要一次付押一付三和中介费，我担心首笔支出打穿现金安全垫。",
-  commute:
-    "这套房到公司可能要 65 分钟，换乘两次，晚上加班回去可能要打车，不确定低房租值不值。",
-  life:
-    "房子附近买菜、药店和夜间吃饭都不确定，担心下班后生活不顺手。",
-  contract:
-    "合同里押金、提前退租、维修责任和转租授权都写得不清楚，想先确认。",
-  evidence:
-    "中介只发了聊天截图和口头承诺，授权、收据和退款规则都没保存凭据。",
-  official:
-    "想确认房东有没有出租权，能不能备案，合同主体和收款主体是否一致。",
-  safety:
-    "女生第一次独居，担心夜路、门禁、楼道和维修上门安全。",
-  shared:
-    "合租室友作息、访客过夜、水电分摊和押金连带责任都没说清。",
-  buy:
-    "纠结要不要在深圳买房，总价 420 万，首付后现金会很紧，担心换城市和月供压力。",
-  visit:
-    "明天去看房，担心潮湿、噪音、夜路、门禁和楼下环境，不知道现场该问什么。",
+import { auth } from "@/auth";
+import { inferredModeFromPrompt, startModes, type StartMode } from "@/lib/start-mode-inference";
+import { getCurrentOwnerId } from "@/lib/server/current-owner";
+import { getAccountQuota } from "@/lib/server/account-quota";
+import { addStartIntent } from "@/lib/server/start-intent-store";
+import { buildQuotaExceededHref } from "@/lib/quota-routing";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+const destinationLabels: Record<StartMode, string> = {
+  city: "生活成本",
+  buy: "买房大致判断",
+  analyze: "房源体检",
+  payment: "付款咨询",
+  area: "片区与通勤",
+  plan: "当前行动",
+  deposit: "押金回收",
+  renewal: "续租涨租",
+  repair: "维修责任",
+  handover: "入住交割",
+  move: "入住现金流",
+  commute: "通勤真实成本",
+  life: "生活半径",
+  contract: "合同确认",
+  evidence: "材料清单",
+  official: "官方核验",
+  safety: "独居安全",
+  shared: "合租边界",
+  visit: "看房核验",
 };
 
-type StartMode = keyof typeof fallbackPrompts;
+const modeRoutes: Record<StartMode, string> = {
+  city: "/city",
+  buy: "/city",
+  analyze: "/analyze",
+  payment: "/payment",
+  area: "/area",
+  plan: "/plan",
+  deposit: "/deposit",
+  renewal: "/renewal",
+  repair: "/repair",
+  handover: "/handover",
+  move: "/move",
+  commute: "/commute",
+  life: "/life",
+  contract: "/contract",
+  evidence: "/evidence",
+  official: "/official",
+  safety: "/safety",
+  shared: "/shared",
+  visit: "/visit",
+};
+
+const handoffFieldLabels: Record<string, string> = {
+  city: "城市",
+  currentCity: "当前城市",
+  candidateCities: "候选城市",
+  annualPackage: "税前年包",
+  industry: "行业/岗位",
+  monthlyIncome: "税后收入",
+  income: "收入",
+  rentBudget: "租金上限",
+  budget: "预算",
+  rent: "月租",
+  monthlyRent: "月租",
+  currentRent: "当前租金",
+  proposedRent: "新租金",
+  movingCost: "搬家成本",
+  targetRent: "目标房租",
+  downPayment: "首付",
+  mortgagePayment: "月供上限",
+  homePrice: "目标总价",
+  amount: "拟付款",
+  depositAmount: "押金金额",
+  repairCost: "维修费用",
+  upfrontCost: "首笔支出",
+  cashOnHand: "手头现金",
+  depositMonths: "押金月数",
+  prepaidMonths: "预付月数",
+  daysUntilSalary: "发薪间隔",
+  workplace: "工作地点",
+  commuteLimit: "通勤上限",
+  commuteLimitMinutes: "通勤上限",
+  oneWayMinutes: "单程通勤",
+  candidateAreas: "候选片区",
+  listingTitle: "房源",
+  title: "房源",
+  address: "位置",
+  stage: "当前阶段",
+  paymentType: "付款类型",
+  contractStatus: "合同状态",
+  authorizationStatus: "出租授权",
+  payeeType: "收款主体",
+  refundRule: "退款条件",
+  evidenceLevel: "材料状态",
+  issueType: "维修问题",
+};
+
+const handoffFieldOrder = [
+  "city",
+  "currentCity",
+  "candidateCities",
+  "workplace",
+  "candidateAreas",
+  "listingTitle",
+  "title",
+  "address",
+  "industry",
+  "annualPackage",
+  "monthlyIncome",
+  "income",
+  "rentBudget",
+  "budget",
+  "rent",
+  "monthlyRent",
+  "currentRent",
+  "proposedRent",
+  "targetRent",
+  "downPayment",
+  "mortgagePayment",
+  "homePrice",
+  "amount",
+  "depositAmount",
+  "movingCost",
+  "repairCost",
+  "upfrontCost",
+  "cashOnHand",
+  "depositMonths",
+  "prepaidMonths",
+  "daysUntilSalary",
+  "commuteLimit",
+  "commuteLimitMinutes",
+  "oneWayMinutes",
+  "stage",
+  "paymentType",
+  "contractStatus",
+  "authorizationStatus",
+  "payeeType",
+  "refundRule",
+  "evidenceLevel",
+  "issueType",
+];
+
+const handoffGuardrails: Record<StartMode, string> = {
+  city: "提交前请确认收入、租金上限和候选城市；结果会按已输入信息估算。",
+  buy: "买房大致判断用于估算长期承受能力；提交前请确认首付、月供上限、工作地和候选片区。",
+  analyze: "提交前请确认月租、位置和工作地点；不确定的信息可以先留空。",
+  payment: "付款咨询只做风险确认，不读取支付账户，也不会发起转账。",
+  area: "片区筛选依赖工作地点和通勤上限；地点越具体，结果越接近真实生活。",
+  plan: "当前行动用于排序当前事项；如果涉及付款或签约，先确认材料再继续。",
+  deposit: "押金判断需要扣款理由、金额和材料状态；先不要签放弃追偿类确认。",
+  renewal: "续租判断需要当前租金、新租金和搬家成本；请先完成费用测算。",
+  repair: "维修判断需要问题类型、责任边界和已有记录；垫付前先确认书面条件。",
+  handover: "交割前请确认钥匙、表读数、旧损坏和历史欠费。",
+  move: "入住现金流需要首笔支出、月租和发薪节奏；先确认现金安全垫。",
+  commute: "通勤判断依赖工作地点、路线和晚归场景；先确认时间口径。",
+  life: "生活半径用于确认日常便利度；请补充买菜、医疗、夜间路线等真实需求。",
+  contract: "合同确认需要真实合同或补充协议文本，并保留书面确认。",
+  evidence: "材料清单用于保存付款、签约和退租前的关键材料。",
+  official: "官方核验只整理核验顺序；最终以公开入口和原始材料为准。",
+  safety: "安全审查需要晚归、门禁、楼道和上门边界等真实场景。",
+  shared: "合租边界需要费用、访客、押金和转租授权写清楚。",
+  visit: "看房清单用于现场确认；照片和文字无法替代现场核验。",
+};
 
 const knownCities = [
   "北京",
@@ -60,50 +183,93 @@ const knownCities = [
   "天津",
   "青岛",
   "宁波",
+  "合肥",
+  "东莞",
+  "无锡",
+  "郑州",
+  "泉州",
+  "福州",
+  "佛山",
+  "珠海",
+  "大连",
+  "济南",
+  "沈阳",
 ];
+const moneyValuePattern = "(\\d+(?:\\.\\d+)?|[一二两三四五六七八九十]{1,4})";
+const moneyUnitPattern = "(万|w|W|k|K|千|元)?";
+
+function chineseNumberToNumber(text: string) {
+  const normalized = text.replaceAll("两", "二");
+  const digitValue: Record<string, number> = {
+    一: 1,
+    二: 2,
+    三: 3,
+    四: 4,
+    五: 5,
+    六: 6,
+    七: 7,
+    八: 8,
+    九: 9,
+  };
+
+  if (normalized === "十") return 10;
+  if (normalized.includes("十")) {
+    const [tenPart, onePart] = normalized.split("十");
+    const tens = tenPart ? digitValue[tenPart] ?? 0 : 1;
+    const ones = onePart ? digitValue[onePart] ?? 0 : 0;
+    return tens * 10 + ones;
+  }
+
+  return digitValue[normalized];
+}
+
+function amountNumberFromText(amountText: string) {
+  const numeric = Number(amountText);
+  if (Number.isFinite(numeric)) return numeric;
+  return chineseNumberToNumber(amountText);
+}
 
 function isStartMode(value: string | null): value is StartMode {
-  return Boolean(value && value in fallbackPrompts);
+  return Boolean(value && (startModes as readonly string[]).includes(value));
 }
 
 function modeFrom(value: string | null): StartMode {
-  return isStartMode(value) ? value : "analyze";
+  return isStartMode(value) ? value : "city";
 }
 
-function inferredModeFromPrompt(text: string): StartMode | undefined {
-  if (/付款|定金|服务费|意向金|催.*付|先交|先付|收款.*个人|个人微信/.test(text)) return "payment";
-  if (/备案|出租权|产权|房产证|官方|住建|居住证|网签|合同主体|收款主体/.test(text)) return "official";
-  if (/看房|再次看房|再看|现场|潮湿|噪音|采光|楼下|周边环境/.test(text)) return "visit";
-  if (/合同|条款|补充协议|出租人|承租人|转租授权|提前退租|维修责任.*(?:写|约定)|押金.*条款/.test(text)) {
-    return "contract";
+async function hasSignedInAccount(request: NextRequest) {
+  const session = await auth().catch(() => null);
+  if (session?.user) return true;
+  return Boolean(request.cookies.get("zhunaar_owner_id")?.value?.trim());
+}
+
+function truncateHandoffValue(value: string) {
+  const compacted = value.replace(/\s+/g, " ").trim();
+  return compacted.length > 34 ? `${compacted.slice(0, 33)}...` : compacted;
+}
+
+function handoffFieldsFromParams(params: URLSearchParams) {
+  const fields: Array<{ label: string; value: string }> = [];
+  const seenLabels = new Set<string>();
+
+  for (const key of handoffFieldOrder) {
+    const value = params.get(key)?.trim();
+    const label = handoffFieldLabels[key];
+
+    if (!value || !label || seenLabels.has(label)) continue;
+
+    fields.push({ label, value: truncateHandoffValue(value) });
+    seenLabels.add(label);
+
+    if (fields.length >= 6) break;
   }
-  if (/退租|退押金|押金.*(?:不退|扣|退|返)|扣款确认|放弃追偿/.test(text)) return "deposit";
-  if (/独居|女生|女孩子|晚归|夜路|门禁|楼道|电梯|低楼层|维修上门|隐私/.test(text)) return "safety";
-  if (/合租|室友|公共空间|访客|过夜|水电分摊|押金连带|二房东/.test(text)) return "shared";
-  if (/入住后|报修|维修|漏水|发霉|坏了|故障|垫付.*维修|维修.*垫付/.test(text)) return "repair";
-  if (/凭据|留证|截图|聊天记录|收据|发票|授权材料|身份证|房产证|退款承诺|口头承诺/.test(text)) return "evidence";
-  if (/买房|月供|首付|总价|房贷|贷款|利率|现金安全垫|装修|契税/.test(text)) return "buy";
-  if (/换城市|新工作|去.*(?:北京|上海|深圳|广州|杭州|成都)|offer|税后|物价|生活成本|储蓄率|工资/.test(text)) return "city";
-  if (/涨租|续租|新租金|搬家回本|替代房/.test(text)) return "renewal";
-  if (/交割|拿钥匙|收房|入住当天|钥匙|水电表|旧损坏|家具家电/.test(text)) return "handover";
-  if (/押一付|首笔支出|中介费|服务费|现金安全垫|搬家费|添置/.test(text)) return "move";
-  if (/买菜|药店|医院|诊所|超市|便利店|外卖|夜宵|快递|洗衣|健身|公园|生活配套|周边/.test(text)) return "life";
-  if (
-    /(片区|区域|候选|纠结|对比|选址|住哪里|住哪儿|住哪边|住哪个)/.test(text) &&
-    /(预算|通勤|工作|公司|上班|地铁|附近|西丽|南山|宝安|龙华|福田|前海|浦东|徐汇|朝阳|海淀|滨江|萧山|天府|番禺)/.test(text)
-  ) {
-    return "area";
-  }
-  if (/通勤|地铁|公交|换乘|步行|晚归打车|到公司|上班路|最后一公里/.test(text)) return "commute";
-  if (/片区|区域|候选.*区|纠结.*(?:南山|西丽|宝安|龙华|浦东|徐汇|朝阳|海淀)/.test(text)) {
-    return "area";
-  }
-  return undefined;
+
+  return fields;
 }
 
 function moneyFromParts(amountText: string | undefined, unitText?: string) {
   if (!amountText) return undefined;
-  const amount = Number(amountText);
+  const amount = amountNumberFromText(amountText);
   if (!Number.isFinite(amount)) return undefined;
   const unit = unitText?.toLowerCase();
   if (unit === "万" || unit === "w") return String(Math.round(amount * 10000));
@@ -118,14 +284,16 @@ function moneyFromMatch(match: RegExpMatchArray | null) {
 
 function moneyNear(text: string, keywords: string[]) {
   const keyword = keywords.join("|");
-  const before = new RegExp(`(?:${keyword})[^\\d]{0,10}(\\d+(?:\\.\\d+)?)\\s*(万|w|W|k|K|千|元)?`);
-  const after = new RegExp(`(\\d+(?:\\.\\d+)?)\\s*(万|w|W|k|K|千|元)?[^，。；,;]{0,10}(?:${keyword})`);
+  const before = new RegExp(`(?:${keyword})[^\\d一二两三四五六七八九十]{0,10}${moneyValuePattern}\\s*${moneyUnitPattern}`);
+  const after = new RegExp(`${moneyValuePattern}\\s*${moneyUnitPattern}[^，。；,;]{0,10}(?:${keyword})`);
   return moneyFromMatch(text.match(before)) ?? moneyFromMatch(text.match(after));
 }
 
 function inferRenewalRents(text: string, fallbackCurrentRent?: string) {
   const range = text.match(
-    /从\s*(\d+(?:\.\d+)?)\s*(万|w|W|k|K|千|元)?\s*(?:涨到|涨至|涨为|加到)\s*(\d+(?:\.\d+)?)\s*(万|w|W|k|K|千|元)?/,
+    new RegExp(
+      `从\\s*${moneyValuePattern}\\s*${moneyUnitPattern}\\s*(?:涨到|涨至|涨为|加到)\\s*${moneyValuePattern}\\s*${moneyUnitPattern}`,
+    ),
   );
   const currentRent =
     (range ? moneyFromParts(range[1], range[2]) : undefined) ??
@@ -143,11 +311,80 @@ function firstNumberText(text: string, pattern: RegExp) {
 }
 
 function inferCity(text: string) {
-  const knownCity = knownCities.find((city) => text.includes(city));
+  const knownCity = inferCities(text)[0];
   if (knownCity) return knownCity;
   const explicit = text.match(/([\u4e00-\u9fa5]{2,4})市/)?.[1];
   if (explicit && !/城市|换城|担心|目标/.test(explicit)) return explicit;
   return undefined;
+}
+
+function inferCities(text: string) {
+  const cities = knownCities
+    .map((city) => ({ city, index: text.indexOf(city) }))
+    .filter((item) => item.index >= 0)
+    .sort((a, b) => a.index - b.index)
+    .map((item) => item.city);
+
+  return Array.from(new Set(cities));
+}
+
+function inferCandidateCityRows(text: string, income?: string) {
+  const cities = inferCities(text);
+  if (!cities.length) return undefined;
+  return cities.map((city) => (income ? `${city} ${income}` : city)).join("\n");
+}
+
+function inferStarterCandidateCities(text: string) {
+  if (!/选城市|比城市|换城|换城市|择城|去哪个城市|去哪座城市|去哪里工作|去哪工作|哪里工作|找工作.*城市|毕业.*城市/.test(text)) {
+    return undefined;
+  }
+
+  if (/互联网|产品|运营|电商|设计|研发|程序员|前端|后端|算法/.test(text)) {
+    return "上海\n杭州\n深圳\n成都\n西安";
+  }
+
+  if (/制造|硬件|新能源|半导体|供应链|外贸/.test(text)) {
+    return "苏州\n合肥\n深圳\n无锡\n东莞";
+  }
+
+  return "上海\n杭州\n成都\n西安\n长沙";
+}
+
+function inferAnnualPackage(text: string) {
+  return moneyNear(text, ["税前年包", "年包", "总包", "年薪", "package", "Package"]);
+}
+
+function inferIndustry(text: string) {
+  const normalized = text.replace(/\s+/g, "");
+  const industries = [
+    "软件研发",
+    "研发",
+    "程序员",
+    "前端",
+    "后端",
+    "算法",
+    "测试",
+    "产品经理",
+    "互联网产品",
+    "运营",
+    "电商运营",
+    "外贸运营",
+    "销售",
+    "市场",
+    "品牌",
+    "设计",
+    "金融",
+    "制造",
+    "汽车",
+    "新能源",
+    "生物医药",
+    "医疗",
+    "教育",
+    "咨询",
+    "跨境电商",
+    "物流",
+  ];
+  return industries.find((item) => normalized.includes(item));
 }
 
 function inferWorkplace(text: string) {
@@ -161,30 +398,76 @@ function inferCommuteLimit(text: string) {
   );
 }
 
+function inferPaymentStructure(text: string) {
+  const numericMatch = text.match(/押\s*(\d{1,2})\s*付\s*(\d{1,2})/);
+  if (numericMatch) {
+    return {
+      depositMonths: numericMatch[1],
+      prepaidMonths: numericMatch[2],
+    };
+  }
+
+  const chineseMatch = text.match(/押\s*([一二两三四五六七八九十])\s*付\s*([一二两三四五六七八九十])/);
+  if (!chineseMatch) return {};
+
+  const depositMonths = chineseNumberToNumber(chineseMatch[1]);
+  const prepaidMonths = chineseNumberToNumber(chineseMatch[2]);
+
+  return {
+    depositMonths: Number.isFinite(depositMonths) ? String(depositMonths) : undefined,
+    prepaidMonths: Number.isFinite(prepaidMonths) ? String(prepaidMonths) : undefined,
+  };
+}
+
+function inferCashOnHand(text: string) {
+  return moneyNear(text, ["手头现金", "可用现金", "手里现金", "现金", "存款", "预算现金"]);
+}
+
+function inferDaysUntilSalary(text: string) {
+  return (
+    firstNumberText(text, /(?:发薪|发工资|下次工资|下次发工资)[^\d，。；,;]{0,10}?(\d{1,2})\s*天/) ??
+    firstNumberText(text, /(\d{1,2})\s*天[^\d，。；,;]{0,10}?(?:发薪|发工资|下次工资|下次发工资)/)
+  );
+}
+
 function inferTitle(text: string) {
   const segment = text
     .split(/[，。；,;]/)
     .map((item) => item.trim())
-    .find((item) => /一居|两居|三居|合租|整租|公寓|房|室/.test(item));
-  return (segment ?? text).slice(0, 36);
+    .find(
+      (item) =>
+        /小区|公寓|整租|合租|一居|两居|三居|单间|房间|户型|\d+\s*室|[一二三四五六七八九]室/.test(item) &&
+        !/房东|房租|房产证|房本|收款人|退款|定金|押金|合同/.test(item),
+    );
+  return segment?.slice(0, 36);
 }
 
 function inferAddress(text: string) {
-  return text.match(/(?:地址|位于|在|附近|周边)[:：]?\s*([^，。；,;]{2,32})/)?.[1]?.trim();
+  const cityArea = text.match(
+    /(北京|上海|深圳|广州|杭州|成都|南京|苏州|武汉|重庆|西安|厦门|长沙|天津|青岛|宁波)([^，。；,;]{1,12})(?:一套|的|房源|月租|整租|合租)/,
+  );
+  if (cityArea) return `${cityArea[1]}${cityArea[2]}`.trim();
+
+  return text.match(/(?:地址|位于|房源在|小区在|位置在|附近|周边)[:：]?\s*([^，。；,;]{2,32})/)?.[1]?.trim();
+}
+
+function setInferredTitle(params: URLSearchParams, key: string, text: string) {
+  const title = inferTitle(text);
+  if (title) params.set(key, title);
 }
 
 function inferPaymentType(text: string) {
   return ["意向金", "定金", "押金", "服务费", "中介费", "首笔租金"].find((item) =>
     text.includes(item),
-  ) ?? "定金";
+  ) ?? "待确认付款";
 }
 
-function inferCashSavings(text: string) {
-  return moneyNear(text, ["现金", "存款", "储蓄", "积蓄", "首付后"]);
-}
-
-function inferTargetTotalPrice(text: string) {
-  return moneyNear(text, ["总价", "房价", "目标房价", "目标总价"]);
+function inferRefundRule(text: string) {
+  if (/退款|退还|可退|能退|退回/.test(text) && /没|未|不清|不明确|没确认|未确认|没写|未写|口头/.test(text)) {
+    return "退款条件待书面确认";
+  }
+  if (/可退|能退|承诺退|同意退/.test(text)) return "口头承诺可退";
+  return "退款条件待书面确认";
 }
 
 function inferPlanStage(text: string) {
@@ -201,7 +484,7 @@ function inferPlanStage(text: string) {
 function inferCandidateAreas(text: string) {
   const focused = text.match(/(?:纠结|候选|考虑|对比|选择|选)([^。；;]{2,80})/)?.[1] ?? text;
   const cleaned = focused
-    .replace(/怎么选|哪个好|哪里好|片区|区域|通勤|预算|希望|以内|内|分钟|工作|公司|上班/g, " ")
+    .replace(/这几个|这几处|怎么选|哪个好|哪里好|片区|区域|通勤|预算|希望|以内|内|分钟|工作|公司|上班/g, " ")
     .replace(/\d+(?:\.\d+)?\s*(?:元|万|w|W|k|K|千)?/g, " ");
   const areas = cleaned
     .split(/[、，,和或/]/)
@@ -222,9 +505,9 @@ function inferRepairIssue(text: string) {
 }
 
 function inferEvidenceLevel(text: string) {
-  if (/没拍|没有凭据|没保存|没留|口头/.test(text)) return "凭据不足";
-  if (/照片|视频|聊天记录|录音|收据|截图/.test(text)) return "已有部分凭据";
-  return "待补充";
+  if (/没拍|没有凭据|没保存|没留|口头/.test(text)) return "材料不足";
+  if (/照片|视频|聊天记录|录音|收据|截图/.test(text)) return "已有部分材料";
+  return "需要补充";
 }
 
 function inferLandlordResponse(text: string) {
@@ -235,24 +518,49 @@ function inferLandlordResponse(text: string) {
 }
 
 function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard" = "home") {
-  const value = prompt.trim() || fallbackPrompts[mode];
+  const value = prompt.trim();
   const sourceLabel = source === "dashboard" ? "工作台输入" : "首页输入";
-  const context = `来自${sourceLabel}：${value}`;
+  const context = value ? `来自${sourceLabel}：${value}` : "";
   const params = new URLSearchParams({ from: source });
+  if (mode === "buy") params.set("mode", "buy");
+
+  if (!value) {
+    return `${modeRoutes[mode]}?${params.toString()}`;
+  }
+
   const city = inferCity(value);
   const rent = moneyNear(value, ["月租", "房租", "租金", "当前租金"]);
   const budget = moneyNear(value, ["预算", "预算上限", "租金上限"]);
   const workplace = inferWorkplace(value);
   const commuteLimit = inferCommuteLimit(value);
 
-  if (mode === "city") {
+  if (mode === "city" || mode === "buy") {
+    if (mode === "buy") params.set("mode", "buy");
     if (city) params.set("city", city);
     const income = moneyNear(value, ["税后", "月收入", "收入", "工资", "薪资", "新工作", "offer"]);
+    const annualPackage = inferAnnualPackage(value);
+    const industry = inferIndustry(value);
     if (income) params.set("monthlyIncome", income);
+    if (annualPackage) params.set("annualPackage", annualPackage);
+    if (industry) params.set("industry", industry);
+    const candidateCityRows = inferCandidateCityRows(value, income);
+    const starterCandidateCities = inferStarterCandidateCities(value);
+    if (candidateCityRows) params.set("candidateCities", candidateCityRows);
+    else if (starterCandidateCities) params.set("candidateCities", starterCandidateCities);
+    else if (city && income) params.set("candidateCities", `${city} ${income}`);
     if (budget ?? rent) params.set("rentBudget", budget ?? rent ?? "");
+    if (workplace) params.set("workplace", workplace);
+    if (mode === "buy") {
+      const downPayment = moneyNear(value, ["首付", "首付款"]);
+      const mortgagePayment = moneyNear(value, ["月供", "房贷", "还款"]);
+      const homePrice = moneyNear(value, ["总价", "房价", "预算", "目标价"]);
+      if (downPayment) params.set("downPayment", downPayment);
+      if (mortgagePayment) params.set("mortgagePayment", mortgagePayment);
+      if (homePrice) params.set("homePrice", homePrice);
+    }
     if (commuteLimit) params.set("commuteLimit", commuteLimit);
-    params.set("notes", value);
-    params.set("reportContext", context);
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/city?${params.toString()}`;
   }
 
@@ -261,29 +569,29 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (city) params.set("city", city);
     if (amount) params.set("amount", amount);
     if (rent) params.set("monthlyRent", rent);
-    params.set("listingTitle", inferTitle(value));
-    params.set("notes", value);
-    params.set("urgencyPressure", value);
-    params.set("stage", "看房后，未签合同");
+    setInferredTitle(params, "listingTitle", value);
+    if (value) params.set("notes", value);
+    if (value) params.set("urgencyPressure", value);
+    params.set("stage", "不确定");
     params.set(
       "contractStatus",
       /合同.*(?:明天|后补|没|未|没有|没看)|(?:没|未|没有|没看).*合同/.test(value)
         ? "未看到完整合同"
-        : "合同状态待确认",
+        : "不确定",
     );
-    params.set("authorizationStatus", "出租权或转租授权待确认");
+    params.set("authorizationStatus", "不确定");
     params.set(
       "payeeType",
-      /个人|私人|微信|支付宝/.test(value) ? "个人收款账户" : "收款主体待确认",
+      /个人|私人|微信|支付宝/.test(value) ? "个人收款账户" : "不确定",
     );
     params.set("payeeMatchesContract", "待确认");
-    params.set("refundRule", /可退|能退|退/.test(value) ? "口头承诺可退" : "退款条件待书面确认");
+    params.set("refundRule", inferRefundRule(value));
     params.set(
       "paymentChannel",
-      /微信|支付宝|私人|个人/.test(value) ? "微信/支付宝私人转账" : "付款渠道待确认",
+      /微信|支付宝|私人|个人/.test(value) ? "微信/支付宝私人转账" : "不确定",
     );
     params.set("paymentType", inferPaymentType(value));
-    params.set("reportContext", context);
+    if (context) params.set("reportContext", context);
     return `/payment?${params.toString()}`;
   }
 
@@ -294,28 +602,27 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (commuteLimit) params.set("commuteLimitMinutes", commuteLimit);
     const minutes = firstNumberText(value, /(\d{2,3})\s*分钟/);
     if (minutes) params.set("oneWayMinutes", minutes);
-    params.set("listingTitle", inferTitle(value));
-    params.set("notes", value);
-    params.set("reportContext", context);
+    setInferredTitle(params, "listingTitle", value);
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/commute?${params.toString()}`;
   }
 
   if (mode === "life") {
     if (city) params.set("city", city);
-    params.set("listingTitle", inferTitle(value));
-    params.set("radiusMinutes", "15");
-    params.set("lifestyle", value);
-    params.set("notes", value);
+    setInferredTitle(params, "listingTitle", value);
+    if (value) params.set("lifestyle", value);
+    if (value) params.set("notes", value);
     if (/噪音|吵|临街|施工|烧烤|垃圾/.test(value)) params.set("noiseSources", value);
-    params.set("reportContext", context);
+    if (context) params.set("reportContext", context);
     return `/life?${params.toString()}`;
   }
 
   if (mode === "contract") {
     if (city) params.set("city", city);
-    params.set("title", inferTitle(value));
-    params.set("contractText", value);
-    params.set("reportContext", context);
+    setInferredTitle(params, "title", value);
+    if (value) params.set("contractText", value);
+    if (context) params.set("reportContext", context);
     return `/contract?${params.toString()}`;
   }
 
@@ -324,57 +631,43 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (city) params.set("city", city);
     if (rent) params.set("monthlyRent", rent);
     if (amount) params.set("amount", amount);
-    params.set("title", inferTitle(value));
+    setInferredTitle(params, "title", value);
     params.set("stage", /退租/.test(value) ? "退租前" : "签约前");
-    params.set("risks", value);
+    if (value) params.set("risks", value);
     params.set("evidenceLevel", inferEvidenceLevel(value));
-    params.set("reportContext", context);
+    if (context) params.set("reportContext", context);
     return `/evidence?${params.toString()}`;
   }
 
   if (mode === "official") {
     if (city) params.set("city", city);
-    params.set("title", inferTitle(value));
+    setInferredTitle(params, "title", value);
     const address = inferAddress(value);
     if (address) params.set("address", address);
     params.set("stage", "签约前");
-        params.set("contractStatus", "合同主体、出租权、备案办理办法和收款主体待确认");
-    params.set("concerns", value);
-    params.set("reportContext", context);
+    params.set("contractStatus", "合同主体、出租权、备案办理办法和收款主体待确认");
+    if (value) params.set("concerns", value);
+    if (context) params.set("reportContext", context);
     return `/official?${params.toString()}`;
   }
 
   if (mode === "safety") {
     if (city) params.set("city", city);
-    params.set("listingTitle", inferTitle(value));
+    setInferredTitle(params, "listingTitle", value);
     params.set("preferences", "独居、晚归、安全优先");
-    params.set("concerns", value);
-    params.set("reportContext", context);
+    if (value) params.set("concerns", value);
+    if (context) params.set("reportContext", context);
     return `/safety?${params.toString()}`;
   }
 
   if (mode === "shared") {
     if (city) params.set("city", city);
     if (rent) params.set("monthlyRent", rent);
-    params.set("listingTitle", inferTitle(value));
+    setInferredTitle(params, "listingTitle", value);
     params.set("preferences", "合租边界、费用分摊、公共空间");
-    params.set("concerns", value);
-    params.set("reportContext", context);
+    if (value) params.set("concerns", value);
+    if (context) params.set("reportContext", context);
     return `/shared?${params.toString()}`;
-  }
-
-  if (mode === "buy") {
-    if (city) params.set("city", city);
-    const income = moneyNear(value, ["家庭收入", "月收入", "收入", "税后", "工资"]);
-    const savings = inferCashSavings(value);
-    const totalPrice = inferTargetTotalPrice(value);
-    if (income) params.set("householdIncome", income);
-    if (savings) params.set("cashSavings", savings);
-    if (rent) params.set("currentRent", rent);
-    if (totalPrice) params.set("targetTotalPrice", totalPrice);
-    params.set("safetyMonths", "12 个月");
-    params.set("reportContext", context);
-    return `/buy?${params.toString()}`;
   }
 
   if (mode === "deposit") {
@@ -384,23 +677,25 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (city) params.set("city", city);
     if (rent) params.set("monthlyRent", rent);
     if (depositAmount) params.set("depositAmount", depositAmount);
-    params.set("listingTitle", inferTitle(value));
+    setInferredTitle(params, "listingTitle", value);
     params.set("evidenceLevel", inferEvidenceLevel(value));
-    params.set("landlordReason", value);
-    params.set("notes", value);
-    params.set("reportContext", context);
+    if (value) params.set("landlordReason", value);
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/deposit?${params.toString()}`;
   }
 
   if (mode === "renewal") {
     const renewalRents = inferRenewalRents(value, rent);
+    const movingCost = moneyNear(value, ["搬家", "搬家费", "搬家成本", "换房成本"]);
     if (city) params.set("city", city);
     if (renewalRents.currentRent) params.set("currentRent", renewalRents.currentRent);
     if (renewalRents.proposedRent) params.set("proposedRent", renewalRents.proposedRent);
-    params.set("listingTitle", inferTitle(value));
-    params.set("depositRisk", /押金|扣款|退租/.test(value) ? value : "续租前需要确认押金沿用或调整");
-    params.set("notes", value);
-    params.set("reportContext", context);
+    if (movingCost) params.set("movingCost", movingCost);
+    setInferredTitle(params, "listingTitle", value);
+    if (value) params.set("depositRisk", /押金|扣款|退租/.test(value) ? value : "续租前需要确认押金沿用或调整");
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/renewal?${params.toString()}`;
   }
 
@@ -409,14 +704,14 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (city) params.set("city", city);
     if (rent) params.set("monthlyRent", rent);
     if (repairCost) params.set("repairCost", repairCost);
-    params.set("listingTitle", inferTitle(value));
+    setInferredTitle(params, "listingTitle", value);
     params.set("issueType", inferRepairIssue(value));
     params.set("evidenceLevel", inferEvidenceLevel(value));
     const landlordResponse = inferLandlordResponse(value);
     if (landlordResponse) params.set("landlordResponse", landlordResponse);
-    params.set("depositConcern", /押金|扣款/.test(value) ? value : "担心维修责任影响后续押金");
-    params.set("notes", value);
-    params.set("reportContext", context);
+    if (value) params.set("depositConcern", /押金|扣款/.test(value) ? value : "担心维修责任影响后续押金");
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/repair?${params.toString()}`;
   }
 
@@ -425,26 +720,34 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (city) params.set("city", city);
     if (rent) params.set("monthlyRent", rent);
     if (depositAmount) params.set("depositAmount", depositAmount);
-    params.set("listingTitle", inferTitle(value));
+    setInferredTitle(params, "listingTitle", value);
     const address = inferAddress(value);
     if (address) params.set("address", address);
-    params.set("concerns", value);
-    params.set("notes", value);
-    params.set("reportContext", context);
+    if (value) params.set("concerns", value);
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/handover?${params.toString()}`;
   }
 
   if (mode === "move") {
     const upfrontCost =
-      moneyNear(value, ["首笔", "一次付", "押一付三", "押一付二", "中介费", "服务费", "搬家费"]) ??
-      moneyNear(value, ["付款", "付"]);
+      moneyNear(value, ["首笔金额", "首笔预算", "一次付", "中介费", "服务费", "搬家费"]);
+    const paymentStructure = inferPaymentStructure(value);
+    const income = moneyNear(value, ["税后", "月收入", "收入", "工资", "薪资"]);
+    const cashOnHand = inferCashOnHand(value);
+    const daysUntilSalary = inferDaysUntilSalary(value);
     if (city) params.set("city", city);
     if (rent) params.set("monthlyRent", rent);
     if (upfrontCost) params.set("upfrontCost", upfrontCost);
-    params.set("listingTitle", inferTitle(value));
-    params.set("risks", value);
-    params.set("notes", value);
-    params.set("reportContext", context);
+    if (paymentStructure.depositMonths) params.set("depositMonths", paymentStructure.depositMonths);
+    if (paymentStructure.prepaidMonths) params.set("prepaidMonths", paymentStructure.prepaidMonths);
+    if (income) params.set("monthlyIncome", income);
+    if (cashOnHand) params.set("cashOnHand", cashOnHand);
+    if (daysUntilSalary) params.set("daysUntilSalary", daysUntilSalary);
+    setInferredTitle(params, "listingTitle", value);
+    if (value) params.set("risks", value);
+    if (value) params.set("notes", value);
+    if (context) params.set("reportContext", context);
     return `/move?${params.toString()}`;
   }
 
@@ -453,26 +756,26 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
     if (workplace) params.set("workplace", workplace);
     if (budget ?? rent) params.set("budget", budget ?? rent ?? "");
     if (commuteLimit) params.set("commuteLimit", commuteLimit);
-    params.set("candidateAreas", inferCandidateAreas(value));
-    params.set("reportContext", context);
+    if (value) params.set("candidateAreas", inferCandidateAreas(value));
+    if (context) params.set("reportContext", context);
     return `/area?${params.toString()}`;
   }
 
   if (mode === "visit") {
     if (city) params.set("city", city);
-    params.set("listingTitle", inferTitle(value));
+    setInferredTitle(params, "listingTitle", value);
     const address = inferAddress(value);
     if (address) params.set("address", address);
-    params.set("description", value);
-    params.set("concerns", value);
-    params.set("reportContext", context);
+    if (value) params.set("description", value);
+    if (value) params.set("concerns", value);
+    if (context) params.set("reportContext", context);
     return `/visit?${params.toString()}`;
   }
 
   if (mode === "plan") {
     params.set("stage", inferPlanStage(value));
-    params.set("prompt", value);
-    params.set("notes", context);
+    if (value) params.set("prompt", value);
+    if (context) params.set("notes", context);
     return `/plan?${params.toString()}`;
   }
 
@@ -481,22 +784,116 @@ function targetPath(mode: StartMode, prompt: string, source: "home" | "dashboard
   if (workplace) params.set("workplace", workplace);
   if (budget) params.set("budget", budget);
   if (commuteLimit) params.set("commuteLimit", commuteLimit);
-  params.set("title", inferTitle(value));
+  setInferredTitle(params, "title", value);
   const address = inferAddress(value);
   if (address) params.set("address", address);
-  params.set("description", value);
-  params.set("reportContext", context);
+  if (value) params.set("description", value);
+  if (context) params.set("reportContext", context);
   return `/analyze?${params.toString()}`;
 }
 
-export function GET(request: NextRequest) {
+function buildStartHandoff({
+  mode,
+  selectedMode,
+  prompt,
+  source,
+  pathname,
+  params,
+}: {
+  mode: StartMode;
+  selectedMode: StartMode;
+  prompt: string;
+  source: "home" | "dashboard";
+  pathname: string;
+  params: URLSearchParams;
+}) {
+  const originalPrompt = prompt.trim();
+
+  return {
+    source: source === "dashboard" ? "工作台输入" : "首页输入",
+    selectedDestination: destinationLabels[selectedMode],
+    destination: destinationLabels[mode],
+    destinationPath: pathname,
+    modeChanged: mode !== selectedMode,
+    routeReason:
+      mode !== selectedMode
+        ? `根据输入内容，已从“${destinationLabels[selectedMode]}”切到“${destinationLabels[mode]}”。`
+        : "已进入你选择的工具。",
+    prompt: originalPrompt.slice(0, 180),
+    fields: handoffFieldsFromParams(params),
+    guardrail: handoffGuardrails[mode],
+  };
+}
+
+export async function GET(request: NextRequest) {
   const prompt = request.nextUrl.searchParams.get("prompt") ?? "";
   const selectedMode = modeFrom(request.nextUrl.searchParams.get("mode"));
   const from = request.nextUrl.searchParams.get("from");
+  const isSmokeCheck = request.nextUrl.searchParams.get("__smoke") === "1";
+  if (!isSmokeCheck && !(await hasSignedInAccount(request))) {
+    const authUrl = new URL("/auth", request.url);
+    authUrl.searchParams.set(
+      "callbackUrl",
+      `${request.nextUrl.pathname}${request.nextUrl.search}`,
+    );
+    return NextResponse.redirect(authUrl);
+  }
+
   const source = from === "dashboard" ? "dashboard" : "home";
   const mode = prompt.trim()
     ? (inferredModeFromPrompt(prompt) ?? selectedMode)
     : selectedMode;
+  const redirectUrl = new URL(targetPath(mode, prompt, source), request.url);
+  const handoff = buildStartHandoff({
+    mode,
+    selectedMode,
+    prompt,
+    source,
+    pathname: redirectUrl.pathname,
+    params: redirectUrl.searchParams,
+  });
+  if (handoff.prompt) {
+    redirectUrl.searchParams.set(
+      "handoff",
+      JSON.stringify({
+        source: handoff.source,
+        selectedDestination: handoff.selectedDestination,
+        destination: handoff.destination,
+        modeChanged: handoff.modeChanged,
+        routeReason: handoff.routeReason,
+        prompt: handoff.prompt,
+        fields: handoff.fields,
+        guardrail: handoff.guardrail,
+      }),
+    );
+  }
 
-  return NextResponse.redirect(new URL(targetPath(mode, prompt, source), request.url));
+  const ownerId = isSmokeCheck ? undefined : await getCurrentOwnerId().catch(() => undefined);
+  if (handoff.prompt && !isSmokeCheck) {
+    const quota = ownerId ? await getAccountQuota({ ownerId }).catch(() => null) : null;
+    if (quota && quota.remaining <= 0) {
+      const pricingUrl = new URL(
+        buildQuotaExceededHref({ planId: quota.planId, from: "start" }),
+        request.url,
+      );
+      return NextResponse.redirect(pricingUrl);
+    }
+
+    await addStartIntent(
+      {
+        source: handoff.source,
+        selectedDestination: handoff.selectedDestination,
+        destination: handoff.destination,
+        modeChanged: handoff.modeChanged,
+        routeReason: handoff.routeReason,
+        prompt: handoff.prompt,
+        fields: handoff.fields,
+        guardrail: handoff.guardrail,
+        href: `${redirectUrl.pathname}${redirectUrl.search}`,
+      },
+      ownerId,
+    ).catch(() => null);
+  }
+
+  return NextResponse.redirect(redirectUrl);
 }

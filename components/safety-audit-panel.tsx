@@ -7,7 +7,6 @@ import {
   Footprints,
   Loader2,
   LockKeyhole,
-  MessageSquareText,
   Moon,
   ShieldCheck,
   ShieldQuestion,
@@ -82,7 +81,7 @@ function buildSafetyMemo(result: SafetyAuditResult) {
     "五、请明确回复的问题",
     ...questionLines,
     "",
-    "以上内容请尽量用文字确认，尤其是门禁、钥匙数量、能否换锁、维修上门是否预约、快递外卖是否需要送到门口。确认前我会先别付款或签约。",
+    "以上内容请尽量用文字确认，尤其是门禁、钥匙数量、能否换锁、维修上门是否预约、快递外卖是否需要送到门口。确认前暂不付款或签约。",
   ].join("\n");
 }
 
@@ -98,7 +97,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
   const [copiedMemo, setCopiedMemo] = useState(false);
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState(
-    "这里只整理独居安全判断，不读取实时定位、聊天记录或私人账号。",
+    "填写晚归路线、门禁楼道和上门维修等情况，生成独居安全确认事项。",
   );
 
   useEffect(() => {
@@ -113,7 +112,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
   const fearsNoise = preferenceText.includes("怕吵") || preferenceText.includes("晚归");
   const sourceLabel = initialInput?.sourceLabel || "";
   const seedKey = [
-    hasProfile ? "profile" : "demo",
+    hasProfile ? "profile" : "empty",
     profile.defaultCity,
     profile.defaultWorkplace,
     initialInput?.city,
@@ -124,7 +123,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
   const concernsDefault =
     initialInput?.concerns ||
     initialInput?.reportContext ||
-    `当前偏好：${preferenceText}。重点担心夜间回家、门禁楼道、低楼层窗户和维修上门边界。`;
+    (preferenceText ? `当前偏好：${preferenceText}。` : "");
 
   const submitPayload = useCallback(
     async (payload: SafetyAuditInput, loadingMessage = "正在确认独居安全...") => {
@@ -148,7 +147,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
       setResult(data);
       setCopiedMemo(false);
       setState("idle");
-      setMessage("独居安全确认已保存。先确认高优先级风险点，再进入付款和签约。");
+      setMessage("独居安全确认已整理。先确认高优先级风险点，再进入付款和签约。");
       void recordCaseEvent({
         reportId: initialInput?.reportId || "workspace",
         type: "safety",
@@ -171,23 +170,23 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
     autoSubmittedRef.current = true;
     void submitPayload(
       {
-        city: seedValue(initialInput.city, profile.defaultCity || "上海"),
+        city: seedValue(initialInput.city, profile.defaultCity),
         listingTitle: seedValue(initialInput.listingTitle, "首页输入的候选房源"),
-        floor: Number(seedValue(initialInput.floor, "6")),
-        buildingAccess: "有门禁，仍需确认访客和尾随",
-        hallwayLighting: "楼道照明待现场确认",
-        elevatorSecurity: "电梯门禁和监控待确认",
-        nightReturnTime: fearsNoise ? "22:30 后" : "21:30 左右",
-        walkFromTransit: 10,
+        floor: Number(seedValue(initialInput.floor, "0")),
+        buildingAccess: "不确定",
+        hallwayLighting: "不确定",
+        elevatorSecurity: "不确定",
+        nightReturnTime: fearsNoise ? "22:30 后" : "不确定",
+        walkFromTransit: 0,
         routeDescription: seedValue(
           initialInput.concerns || initialInput.reportContext,
           "晚归路线、门禁楼道和维修上门边界需要先确认。",
         ),
-        deliveryMode: "快递外卖送到门口/驿站待确认",
+        deliveryMode: "不确定",
         roommateMode: "独居",
-        landlordContact: "维修上门需提前预约",
-        windowSecurity: "窗锁和低楼层安全待确认",
-        userProfile: seedValue(preferenceText, "独居，晚归安全优先"),
+        landlordContact: "不确定",
+        windowSecurity: "不确定",
+        userProfile: seedValue(preferenceText, ""),
         concerns: concernsDefault,
       },
       `${sourceLabel || "已带入首页输入"}，正在确认独居安全...`,
@@ -227,7 +226,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
     <div className="space-y-6">
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 gap-4 xl:grid-cols-[0.42fr_0.58fr]"
+        className={`grid grid-cols-1 gap-4 ${state === "loading" || result ? "xl:grid-cols-[0.42fr_0.58fr]" : "max-w-3xl"}`}
       >
         <Card className="min-w-0 p-6">
           <div className="mb-6">
@@ -256,45 +255,52 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
               label="城市"
               name="city"
               defaultValue={initialInput?.city || profile.defaultCity}
+              placeholder="填写租房城市"
               type="text"
             />
             <Field
               label="房源名称"
               name="listingTitle"
-              defaultValue={initialInput?.listingTitle || "徐汇老小区一居"}
+              defaultValue={initialInput?.listingTitle || ""}
+              placeholder="填写小区、房源名称或位置"
               type="text"
             />
-            <Field label="楼层" name="floor" defaultValue={initialInput?.floor || "2"} />
-            <Field label="地铁/公交到家步行分钟" name="walkFromTransit" defaultValue="9" />
+            <Field label="楼层" name="floor" defaultValue={initialInput?.floor || ""} placeholder="填写所在楼层" />
+            <Field
+              label="地铁/公交到家步行分钟"
+              name="walkFromTransit"
+              defaultValue=""
+              placeholder="填写夜间步行分钟"
+            />
             <SelectField
               label="门禁情况"
               name="buildingAccess"
-              defaultValue="门禁松散"
-              options={["门禁严格", "有门禁但可尾随", "门禁松散", "开放式楼栋无门禁"]}
+              defaultValue="不确定"
+              options={["不确定", "门禁严格", "有门禁但可尾随", "门禁松散", "开放式楼栋无门禁"]}
             />
             <SelectField
               label="楼道照明"
               name="hallwayLighting"
-              defaultValue="楼道偏暗"
-              options={["照明稳定", "部分楼层偏暗", "楼道偏暗", "照明损坏"]}
+              defaultValue="不确定"
+              options={["不确定", "照明稳定", "部分楼层偏暗", "楼道偏暗", "照明损坏"]}
             />
             <SelectField
               label="电梯/楼梯安全"
               name="elevatorSecurity"
-              defaultValue="电梯无明显监控"
-              options={["电梯有监控", "电梯无明显监控", "楼梯间偏僻", "无电梯且楼梯照明弱"]}
+              defaultValue="不确定"
+              options={["不确定", "电梯有监控", "电梯无明显监控", "楼梯间偏僻", "无电梯且楼梯照明弱"]}
             />
             <SelectField
               label="常见晚归时间"
               name="nightReturnTime"
-              defaultValue={fearsNoise ? "22:30 后" : "21:30 左右"}
-              options={["20:00 前", "21:30 左右", "22:30 后", "经常凌晨"]}
+              defaultValue={fearsNoise ? "22:30 后" : "不确定"}
+              options={["不确定", "20:00 前", "21:30 左右", "22:30 后", "经常凌晨"]}
             />
             <SelectField
               label="快递外卖"
               name="deliveryMode"
-              defaultValue="快递外卖可送到门口"
-              options={["有快递柜/驿站", "小区门口取", "快递外卖可送到门口", "代收混乱"]}
+              defaultValue="不确定"
+              options={["不确定", "有快递柜/驿站", "小区门口取", "快递外卖可送到门口", "代收混乱"]}
             />
             <SelectField
               label="居住关系"
@@ -305,14 +311,14 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
             <SelectField
               label="看房接触"
               name="landlordContact"
-              defaultValue="房东/中介要求单独看房"
-              options={["白天公开看房", "房东/中介要求单独看房", "晚上临时看房", "付款前频繁私聊催促"]}
+              defaultValue="不确定"
+              options={["不确定", "白天公开看房", "房东/中介要求单独看房", "晚上临时看房", "付款前频繁私聊催促"]}
             />
             <SelectField
               label="窗户防护"
               name="windowSecurity"
-              defaultValue="低楼层窗户无额外防护"
-              options={["窗户可反锁且有防护", "普通窗锁", "低楼层窗户无额外防护", "窗外有可攀爬平台"]}
+              defaultValue="不确定"
+              options={["不确定", "窗户可反锁且有防护", "普通窗锁", "低楼层窗户无额外防护", "窗外有可攀爬平台"]}
             />
             <SelectField
               label="居住偏好"
@@ -326,7 +332,8 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
                 id="routeDescription"
                 name="routeDescription"
                 className="min-h-[96px]"
-                defaultValue="地铁口到小区需要步行 9 分钟，中间有一段灯光较暗的小路。"
+                defaultValue=""
+                placeholder="填写夜间从地铁、公交或停车位置回家的路线情况"
               />
             </div>
             <div className="space-y-2 sm:col-span-2">
@@ -336,6 +343,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
                 name="concerns"
                 className="min-h-[96px]"
                 defaultValue={concernsDefault}
+                placeholder="填写你最担心的安全问题，例如门禁、楼道、晚归路线、维修上门或隐私边界"
               />
             </div>
           </div>
@@ -352,18 +360,19 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
           </Button>
         </Card>
 
-        <Card className="min-w-0 p-6">
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <p className="text-sm text-primary/80">
-                安全结果
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold">独居安全结论</h2>
+        {state === "loading" || result ? (
+          <Card className="min-w-0 p-6">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-sm text-primary/80">
+                  安全结果
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold">独居安全结论</h2>
+              </div>
+              {result ? <RiskBadge status={result.status} tone="generic" /> : null}
             </div>
-            {result ? <RiskBadge status={result.status} tone="generic" /> : null}
-          </div>
 
-          {state === "loading" ? (
+            {state === "loading" ? (
             <div className="flex min-h-[560px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
               <Badge variant="secondary" className="mb-4 w-fit">
                 正在整理
@@ -403,44 +412,32 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
                   ))}
                 </div>
               </div>
+
+              <details className="rounded-md border border-border bg-secondary/55 p-4">
+                <summary className="cursor-pointer text-sm font-medium text-foreground">
+                  查看独居安全确认文本
+                </summary>
+                <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    用于确认晚归路线、门禁楼道、钥匙换锁、维修上门、快递外卖和隐私边界。
+                  </p>
+                  <Button type="button" variant="outline" onClick={copySafetyMemo}>
+                    <Copy className="mr-2 h-4 w-4" />
+                    {copiedMemo ? "已复制" : "复制文本"}
+                  </Button>
+                </div>
+                <pre className="mt-4 max-h-[320px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-card p-4 text-sm leading-7 text-muted-foreground">
+                  {buildSafetyMemo(result)}
+                </pre>
+              </details>
             </div>
-          ) : (
-            <div className="flex min-h-[560px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
-              <Badge variant="secondary" className="mb-4 w-fit">
-                独居前置
-              </Badge>
-              <h3 className="text-xl font-semibold">安全要按夜间真实路线判断</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                白天看房、平台照片和中介描述不能替代晚归动线。先确认门禁、楼道、电梯、快递外卖和维修上门边界。
-              </p>
-            </div>
-          )}
-        </Card>
+            ) : null}
+          </Card>
+        ) : null}
       </form>
 
       {result ? (
         <>
-          <Card className="min-w-0 p-5">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div className="min-w-0">
-                <div className="mb-3 flex items-center gap-2">
-                  <MessageSquareText className="h-4 w-4 text-primary" />
-                  <h3 className="font-semibold">独居安全确认清单</h3>
-                </div>
-                <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                  把晚归路线、门禁楼道、钥匙换锁、维修上门、快递外卖和隐私边界整理成可直接发给出租方或中介确认的文本。
-                </p>
-              </div>
-              <Button type="button" variant="outline" onClick={copySafetyMemo}>
-                <Copy className="mr-2 h-4 w-4" />
-                {copiedMemo ? "已复制" : "复制确认清单"}
-              </Button>
-            </div>
-            <pre className="mt-4 max-h-[360px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-secondary p-4 text-sm leading-7 text-muted-foreground">
-              {buildSafetyMemo(result)}
-            </pre>
-          </Card>
-
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-[0.58fr_0.42fr]">
             <Card className="min-w-0 p-5">
               <h3 className="font-semibold">安全确认事项</h3>
@@ -470,7 +467,7 @@ export function SafetyAuditPanel({ initialInput }: { initialInput?: SafetyAuditS
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <InfoPanel title="隐私边界" icon={LockKeyhole} items={result.privacyBoundaries} />
             <InfoPanel title="必须问清" icon={ShieldQuestion} items={result.questions} />
-            <InfoPanel title="下一步" icon={CheckCircle2} items={result.nextActions} />
+            <InfoPanel title="后续确认" icon={CheckCircle2} items={result.nextActions} />
           </section>
         </>
       ) : null}
@@ -482,17 +479,19 @@ function Field({
   label,
   name,
   defaultValue,
+  placeholder,
   type = "number",
 }: {
   label: string;
   name: string;
   defaultValue: string;
+  placeholder?: string;
   type?: string;
 }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} type={type} defaultValue={defaultValue} />
+      <Input id={name} name={name} type={type} defaultValue={defaultValue} placeholder={placeholder} />
     </div>
   );
 }

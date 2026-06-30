@@ -11,37 +11,26 @@ type HeaderAction = {
   variant?: "default" | "secondary" | "outline";
 };
 
-type HeaderFact = {
-  label: string;
-  value: string;
-};
-
 export function ProductPageHeader({
   eyebrow,
   title,
   description,
   icon: Icon,
-  facts = [],
   actions = [],
-  sideTitle,
-  sideDescription,
   children,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   icon: LucideIcon;
-  facts?: HeaderFact[];
   actions?: HeaderAction[];
-  sideTitle?: string;
-  sideDescription?: string;
   children?: ReactNode;
 }) {
   return (
-    <section className="overflow-hidden rounded-lg border border-border/80 bg-card shadow-[0_20px_70px_oklch(var(--foreground)/0.06)]">
-      <div className="grid lg:grid-cols-[minmax(0,0.62fr)_minmax(360px,0.38fr)]">
-        <div className="p-6 sm:p-8">
-          <div className="mb-6 flex flex-wrap items-center gap-3">
+    <section className="border-b border-border pb-6">
+      <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="min-w-0">
+          <div className="mb-5 flex flex-wrap items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-md border border-border bg-secondary text-primary">
               <Icon className="h-5 w-5" />
             </span>
@@ -49,61 +38,36 @@ export function ProductPageHeader({
               {eyebrow}
             </span>
           </div>
-          <h1 className="max-w-3xl text-3xl font-semibold tracking-normal text-foreground sm:text-4xl">
+          <h1 className="max-w-3xl text-3xl font-semibold tracking-normal text-foreground [overflow-wrap:anywhere] sm:text-4xl">
             {title}
           </h1>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground [overflow-wrap:anywhere]">
             {description}
           </p>
-          {actions.length ? (
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              {actions.map((action, index) => {
-                const ActionIcon = action.icon ?? ArrowRight;
-
-                return (
-                  <Button
-                    key={`${action.href}-${action.label}`}
-                    asChild
-                    variant={action.variant ?? (index === 0 ? "default" : "secondary")}
-                  >
-                    <Link href={action.href}>
-                      <ActionIcon className="mr-2 h-4 w-4" />
-                      {action.label}
-                    </Link>
-                  </Button>
-                );
-              })}
-            </div>
-          ) : null}
         </div>
 
-        <aside className="border-t border-border bg-secondary/60 p-6 sm:p-8 lg:border-l lg:border-t-0">
-          {sideTitle || sideDescription ? (
-            <div>
-              {sideTitle ? <h2 className="text-lg font-semibold">{sideTitle}</h2> : null}
-              {sideDescription ? (
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                  {sideDescription}
-                </p>
-              ) : null}
-            </div>
-          ) : null}
-          {facts.length ? (
-            <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-              {facts.map((fact) => (
-                <div
-                  key={`${fact.label}-${fact.value}`}
-                  className="rounded-md border border-border bg-card px-4 py-3"
+        {actions.length ? (
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:flex-wrap lg:max-w-md lg:justify-end">
+            {actions.map((action, index) => {
+              const ActionIcon = action.icon ?? ArrowRight;
+
+              return (
+                <Button
+                  key={`${action.href}-${action.label}`}
+                  asChild
+                  variant={action.variant ?? (index === 0 ? "default" : "secondary")}
                 >
-                  <p className="text-xs text-muted-foreground">{fact.label}</p>
-                  <p className="mt-1 text-sm font-semibold leading-6">{fact.value}</p>
-                </div>
-              ))}
-            </div>
-          ) : null}
-          {children ? <div className="mt-5">{children}</div> : null}
-        </aside>
+                  <Link href={action.href}>
+                    <ActionIcon className="mr-2 h-4 w-4" />
+                    {action.label}
+                  </Link>
+                </Button>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
+      {children ? <div className="mt-5 max-w-3xl">{children}</div> : null}
     </section>
   );
 }

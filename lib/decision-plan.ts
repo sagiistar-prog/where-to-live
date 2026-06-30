@@ -11,8 +11,7 @@ export type DecisionStage =
   | "handover"
   | "living"
   | "renewal"
-  | "deposit"
-  | "buy";
+  | "deposit";
 
 export type DecisionPlanInput = {
   city?: string;
@@ -83,8 +82,8 @@ const stageMeta: Record<
   city: {
     label: "选择工作城市",
     href: "/city",
-    moduleName: "城市账本",
-    baselineTask: "先比较到手收入、房租、通勤和储蓄率。",
+    moduleName: "生活成本",
+    baselineTask: "生活成本。",
   },
   area: {
     label: "筛选居住片区",
@@ -95,7 +94,7 @@ const stageMeta: Record<
   listing: {
     label: "判断候选房源",
     href: "/analyze",
-    moduleName: "房源评估",
+    moduleName: "房源体检",
     baselineTask: "先把房源截图或手输信息转成评估报告。",
   },
   visit: {
@@ -107,7 +106,7 @@ const stageMeta: Record<
   payment: {
     label: "被催先付款",
     href: "/payment",
-    moduleName: "付款前确认",
+    moduleName: "付款咨询",
     baselineTask: "先确认材料、收款主体、退款条件和付款备注。",
   },
   contract: {
@@ -126,31 +125,25 @@ const stageMeta: Record<
     label: "拿钥匙交割",
     href: "/handover",
     moduleName: "交割确认",
-    baselineTask: "先确认钥匙、表读数、旧损坏和历史欠费凭据。",
+    baselineTask: "先确认钥匙、表读数、旧损坏和历史欠费记录。",
   },
   living: {
     label: "入住后出问题",
     href: "/repair",
     moduleName: "维修责任",
-    baselineTask: "先报修、保存凭据、确认责任和费用边界。",
+    baselineTask: "先报修、保存记录、确认责任和费用边界。",
   },
   renewal: {
     label: "租期快到涨租",
     href: "/renewal",
     moduleName: "续租涨租",
-    baselineTask: "先计算续租上限、搬家回本月数和谈判底线。",
+    baselineTask: "先计算续租上限、搬家回本月数和可接受条件。",
   },
   deposit: {
     label: "准备退租",
     href: "/deposit",
     moduleName: "押金退还",
-    baselineTask: "先拆解扣款、凭据、通知期和返还截止日。",
-  },
-  buy: {
-    label: "考虑买房",
-    href: "/buy",
-    moduleName: "买房压力",
-    baselineTask: "先看月供收入比、安全垫和流动性风险。",
+    baselineTask: "先拆解扣款、材料、通知期和返还截止日。",
   },
 };
 
@@ -187,15 +180,15 @@ function includesAny(value: string, keywords: string[]) {
 export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult {
   const stage = input.stage && stageMeta[input.stage] ? input.stage : "listing";
   const meta = stageMeta[stage];
-  const city = input.city?.trim() || "上海";
+  const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "当前候选房源";
-  const daysToDecision = asNumber(input.daysToDecision, 3);
-  const monthlyIncome = asNumber(input.monthlyIncome, 18000);
-  const targetRent = asNumber(input.targetRent, 5600);
-  const rentBudget = asNumber(input.rentBudget, 6500);
+  const daysToDecision = asNumber(input.daysToDecision, 0);
+  const monthlyIncome = asNumber(input.monthlyIncome, 0);
+  const targetRent = asNumber(input.targetRent, 0);
+  const rentBudget = asNumber(input.rentBudget, 0);
   const commuteMinutes = asNumber(input.commuteMinutes, 45);
   const riskFocus = input.riskFocus?.trim() || "通勤、押金、合同、潮湿、噪音";
-  const notes = input.notes?.trim() || "用户正在比较候选房源，希望知道下一步先做什么。";
+  const notes = input.notes?.trim() || "用户正在比较候选房源，希望整理当前最该确认的事项。";
   const combinedConcern = `${riskFocus} ${notes}`;
   const rentRatio = monthlyIncome > 0 ? targetRent / monthlyIncome : 1;
   const overBudget = targetRent > rentBudget;
@@ -214,29 +207,29 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
     `通勤目标约 ${commuteMinutes} 分钟；预算上限约 ${rentBudget.toLocaleString()} 元。`,
   ];
 
-  if (!hasListing && !["city", "area", "buy"].includes(stage)) {
+  if (!hasListing && !["city", "area"].includes(stage)) {
     score -= 12;
     blockers.push("还没有明确候选房源，先不要进入付款或签约。");
   }
 
   if (paymentPressure) {
     score -= 18;
-    blockers.push("对方正在催付款，必须先做付款前确认，不能先转账后补充材料。");
+    blockers.push("对方正在催付款，必须先做付款咨询，不能先转账后补充材料。");
   }
 
   if (!evidenceReady && ["payment", "contract", "move", "handover", "deposit"].includes(stage)) {
     score -= 14;
-    blockers.push("关键凭据待补充，授权、合同、押金和交割记录要先确认。");
+    blockers.push("关键材料待补充，授权、合同、押金和交割记录要先确认。");
   }
 
   if (!hasContract && ["payment", "contract", "move"].includes(stage)) {
     score -= 10;
-    blockers.push("合同或补充协议还不完整，不适合进入大额付款。");
+    blockers.push("合同或补充协议还不完整，暂缓进入大额付款。");
   }
 
   if (tightDeadline) {
     score -= 12;
-    blockers.push("剩余确认时间只剩 1 天以内，必须减少新变化，只做先别付款、确认和底线判断。");
+    blockers.push("剩余确认时间只剩 1 天以内，必须减少新变化，只做暂不付款和关键确认。");
   } else if (shortDeadline) {
     score -= 6;
   }
@@ -272,13 +265,13 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
     status === "recommend"
       ? "可以继续，但要按顺序处理"
       : status === "caution"
-        ? "补充关键凭据，再继续判断"
-        : "先别付款或签约，先拆风险";
+        ? "补充关键材料，再继续判断"
+        : "暂不付款或签约，先拆风险";
 
   const phases: DecisionPlanPhase[] = [
     {
-      title: tightDeadline ? "今天必须确认" : "第一步：先定底线",
-      purpose: "先把会造成真实损失的现金、凭据和时间压力处理清楚。",
+      title: tightDeadline ? "今天必须确认" : "第一步：先确认关键条件",
+      purpose: "先把会造成真实损失的现金、材料和时间压力处理清楚。",
       tasks: [
         task(
           meta.baselineTask,
@@ -286,7 +279,7 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
           meta.moduleName,
           meta.href,
           "用户当前最容易在这个阶段漏掉关键判断。",
-          "整理本阶段结论和下一步确认项。",
+          "整理本阶段结论和后续确认项。",
           tightDeadline ? "30 分钟内" : "今天",
         ),
         task(
@@ -301,25 +294,25 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
       ],
     },
     {
-      title: "第二步：补充凭据和确认",
-      purpose: "把口头承诺、平台截图和付款要求变成可保存凭据。",
+      title: "第二步：补充材料和确认",
+      purpose: "把口头承诺、截图和付款信息整理成可保存记录。",
       tasks: [
         task(
           "补充出租权、押金、维修和聊天确认",
           evidenceReady ? "可按计划" : "必须先做",
-          "凭据材料",
+          "材料清单",
           "/evidence",
-          "签约后的争议通常卡在凭据不足，缺少能证明当时约定的材料。",
-          "整理最小凭据材料和付款备注要求。",
+          "签约后的争议通常卡在材料不足，缺少能证明当时约定的记录。",
+          "整理最小材料清单和付款备注要求。",
           shortDeadline ? "今天" : "1 到 2 天",
         ),
         task(
-          "用公开入口做底线确认",
+          "用公开入口做关键确认",
           "高优先级",
           "官方查询",
           "/official",
           "备案、示范文本和机构信息必须回到公开入口，本页只帮你整理确认顺序。",
-          "得到确认入口、查不到时的应对办法和先别签约的信号。",
+          "得到确认入口、查不到时的应对办法和暂不签约的信号。",
           "30 分钟",
         ),
       ],
@@ -329,14 +322,14 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
       purpose: "根据你的阶段进入更具体的页面，避免所有问题挤在一份报告里。",
       tasks: [
         task(
-          paymentPressure ? "先做付款前确认" : "确认付款、签约和看房下一步",
+          paymentPressure ? "先做付款咨询" : "确认付款、签约和看房后续事项",
           paymentPressure ? "必须先做" : "高优先级",
-          paymentPressure ? "付款前确认" : "合同确认",
+          paymentPressure ? "付款咨询" : "合同确认",
           paymentPressure ? "/payment" : "/contract",
           paymentPressure
             ? "被催付款时，最重要的是先确认材料完整、退款规则和收款主体。"
             : "签约前要把押金、提前退租、维修责任和转租授权写清。",
-          paymentPressure ? "给出可付、先别付或小额保留判断。" : "整理高风险条款和补充协议清单。",
+          paymentPressure ? "给出可付、暂不付款或小额保留判断。" : "整理高风险条款和补充协议清单。",
           "付款或签约前",
         ),
         task(
@@ -345,7 +338,7 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
           "看房清单",
           "/visit",
           "截图和文字无法确认噪音、潮湿、采光、楼道、门禁和家电状态。",
-          "整理现场要问、要测、要拍和先别签约的情况。",
+          "整理现场要问、要测、要拍和暂不签约的情况。",
           "看房前",
         ),
       ],
@@ -411,11 +404,11 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
   if (["handover", "move"].includes(stage)) {
     phases[2].tasks.push(
       task(
-        "拿钥匙当天确认交割凭据",
+        "拿钥匙当天确认交割记录",
         "必须先做",
         "交割确认",
         "/handover",
-        "退租押金争议的凭据起点通常在入住第一天。",
+        "退租押金争议的材料起点通常在入住第一天。",
         "整理钥匙门禁、表读数、旧损坏、历史欠费和视频清单。",
         "拿钥匙当天",
       ),
@@ -468,12 +461,12 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
     (item, index) => `${index + 1}. ${item.title}：${item.output}（${item.timeBox}）`,
   );
   const stopLine = blockers.length
-      ? `说清前先别付款签约：${blockers[0]}`
-    : "付款和签约前仍需确认凭据材料，材料没有确认时暂缓大额转账。";
+      ? `说清前暂不付款签约：${blockers[0]}`
+    : "付款和签约前仍需确认材料清单，材料没有确认时暂缓大额付款。";
   const doneDefinition =
     evidenceReady && hasContract && !paymentPressure
-      ? "今天至少确认本阶段结论、凭据材料归档和付款/签约底线确认，确认没有新增待处理事项后再继续。"
-      : "今天至少拿到出租授权、合同或补充协议、押金/退款规则、收款主体和付款备注确认；少一项就继续先别付款或签约。";
+      ? "今天至少确认本阶段结论、材料清单和付款/签约条件，确认没有新增待处理事项后再继续。"
+      : "今天至少拿到出租授权、合同或补充协议、押金/退款规则、收款主体和付款备注确认；少一项就继续暂不付款或签约。";
 
   return {
     status,
@@ -481,10 +474,10 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
     headline,
     summary:
       status === "recommend"
-        ? "当前信息基本可以继续，但仍要按预算、凭据、确认、签约顺序推进。"
+        ? "当前信息基本可以继续，但仍要按预算、材料、确认、签约顺序推进。"
         : status === "caution"
-          ? "当前可以继续看，但有若干凭据、预算或时间压力需要补充。"
-          : "当前继续容易造成付款、押金或合同损失，建议先别做关键承诺。",
+          ? "当前可以继续看，但有若干材料、预算或时间压力需要补充。"
+          : "当前继续容易造成付款、押金或合同损失，建议暂不做关键承诺。",
     currentStage: meta.label,
     decisionDeadline:
       daysToDecision <= 0
@@ -493,7 +486,7 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
           ? "剩余 1 天"
           : `剩余 ${daysToDecision} 天`,
     guardrails,
-    blockers: blockers.length ? blockers : ["暂无硬性待处理事项，但付款和签约前仍需确认凭据材料。"],
+    blockers: blockers.length ? blockers : ["暂无硬性待处理事项，但付款和签约前仍需确认材料清单。"],
     phases,
     nextModules,
     todayPlan,
@@ -506,11 +499,11 @@ export function buildDecisionPlan(input: DecisionPlanInput): DecisionPlanResult 
       "看房照片、视频、表读数、旧损坏、家具家电状态和门禁钥匙数量。",
     ],
     handoffScript:
-      "我会继续确认，但需要先把出租授权、合同草稿、押金/退款规则和收款主体补充清楚。材料没齐前，我不会先转大额费用。",
+      "我会继续确认，但需要先把出租授权、合同草稿、押金/退款规则和收款主体补充清楚。材料确认前，暂缓大额付款。",
     assumptions: [
       `风险关注点：${riskFocus}。`,
       `补充说明：${notes}`,
-      "本计划只基于你主动输入的信息整理，不读取私人账号，不抓取租房平台。",
+      "本计划只基于你主动输入的信息整理；合同、截图和聊天记录需要你主动补充。",
     ],
   };
 }

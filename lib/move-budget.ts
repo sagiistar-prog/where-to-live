@@ -90,18 +90,18 @@ function scenarioVerdict(status: ReportStatus, label: string) {
 
 export function buildMoveBudget(input: MoveBudgetInput): MoveBudgetResult {
   const city = input.city?.trim() || "目标城市";
-  const monthlyIncome = numberOr(input.monthlyIncome, 18000);
-  const cashOnHand = numberOr(input.cashOnHand, 42000);
-  const monthlyRent = numberOr(input.monthlyRent, 5200);
-  const depositMonths = numberOr(input.depositMonths, 1);
-  const prepaidMonths = numberOr(input.prepaidMonths, 3);
+  const monthlyIncome = numberOr(input.monthlyIncome, 0);
+  const cashOnHand = numberOr(input.cashOnHand, 0);
+  const monthlyRent = numberOr(input.monthlyRent, 0);
+  const depositMonths = numberOr(input.depositMonths, 0);
+  const prepaidMonths = numberOr(input.prepaidMonths, 0);
   const agencyFee = numberOr(input.agencyFee, monthlyRent * 0.35);
   const serviceFee = numberOr(input.serviceFee, 0);
-  const movingCost = numberOr(input.movingCost, 1200);
-  const setupCost = numberOr(input.setupCost, 2600);
-  const utilityDeposit = numberOr(input.utilityDeposit, 600);
-  const fixedMonthlyCost = numberOr(input.fixedMonthlyCost, 6200);
-  const daysUntilSalary = numberOr(input.daysUntilSalary, 18);
+  const movingCost = numberOr(input.movingCost, 0);
+  const setupCost = numberOr(input.setupCost, 0);
+  const utilityDeposit = numberOr(input.utilityDeposit, 0);
+  const fixedMonthlyCost = numberOr(input.fixedMonthlyCost, 0);
+  const daysUntilSalary = numberOr(input.daysUntilSalary, 0);
 
   const deposit = monthlyRent * depositMonths;
   const prepaidRent = monthlyRent * prepaidMonths;
@@ -239,7 +239,7 @@ export function buildMoveBudget(input: MoveBudgetInput): MoveBudgetResult {
   ];
 
   const risks = [
-    cashAfterMove < 0 ? "签约后现金会变成负数，先别付款。" : "",
+    cashAfterMove < 0 ? "签约后现金会变成负数，不建议付款。" : "",
     cashAfterMove < minimumSafeCash ? "签约后安全垫不足 1.5 个月，任何意外支出都会很难受。" : "",
     prepaidMonths >= 3 ? "押一付三会把未来预算提前锁死，可尝试谈月付或押一付一。" : "",
     agencyFee > monthlyRent * 0.5 ? "中介费超过半个月租金，需要确认收费标准和收据。" : "",
@@ -252,7 +252,7 @@ export function buildMoveBudget(input: MoveBudgetInput): MoveBudgetResult {
     "优先谈付款周期：押一付三改押一付一或月付，比砍 200 元月租更能救首月预算。",
     "中介费和服务费必须有收费主体、金额、用途和收据，不接受模糊口头收费。",
     "非必要家具家电延后 2 到 4 周添置，先买安全、卫生和睡眠必需品。",
-    "如果出租方要求先付定金，先确认官方查询、授权链和凭据材料。",
+    "如果出租方要求先付定金，先确认官方查询、授权链和材料清单。",
   ];
 
   return {
@@ -263,7 +263,7 @@ export function buildMoveBudget(input: MoveBudgetInput): MoveBudgetResult {
     score,
     summary:
       status === "recommend"
-        ? `当前入住预算可承受，签约后预计还剩 ${money(cashAfterMove).toLocaleString()} 元现金，仍需确认官方查询和凭据留存。`
+        ? `当前入住预算可承受，签约后预计还剩 ${money(cashAfterMove).toLocaleString()} 元现金，仍需确认官方查询和材料留存。`
         : status === "caution"
           ? `当前入住预算偏紧，签约后预计还剩 ${money(cashAfterMove).toLocaleString()} 元现金，建议先谈付款周期或延后非必要支出。`
           : `当前不建议直接付款，首笔支出约 ${upfrontCost.toLocaleString()} 元，可能打穿你的现金安全垫。`,
@@ -277,15 +277,15 @@ export function buildMoveBudget(input: MoveBudgetInput): MoveBudgetResult {
     risks: risks.length ? risks : ["当前未发现明显预算风险，但仍建议保留至少 1.5 个月安全垫。"],
     negotiationLevers,
     nextActions: [
-      status === "reject" ? "先别付款，重新谈付款周期或换更低首付压力的房源。" : "进入官方查询和合同确认，确认主体、备案和合同条款。",
-      "把押金、首笔租金、中介费、服务费逐项写入凭据材料。",
+      status === "reject" ? "不建议付款，重新谈付款周期或换更低首付压力的房源。" : "进入官方查询和合同确认，确认主体、备案和合同条款。",
+      "把押金、首笔租金、中介费、服务费逐项写入材料清单。",
       "入住当天拍表读数、交割视频和家具家电清单。",
       "非必要添置延后购买，等下一次发薪后再补充。",
     ],
     assumptions: [
       `城市：${city}，月租：${monthlyRent.toLocaleString()} 元，税后月收入：${monthlyIncome.toLocaleString()} 元。`,
       `付款结构：押 ${depositMonths} 付 ${prepaidMonths}，距离下次发薪约 ${Math.round(daysUntilSalary)} 天。`,
-      "这里会整理入住预算测算；签约前仍要确认合同和官方备案信息。",
+      "本结果用于整理入住预算测算；签约前仍要确认合同和官方备案信息。",
     ],
   };
 }

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { caseEventTypes, type CaseEventType } from "@/lib/case-events";
+import { buildQuotaExceededPayload, getAccountQuota } from "@/lib/server/account-quota";
 import { addCaseEvent, listCaseEvents } from "@/lib/server/case-event-store";
 import { getCurrentOwnerId } from "@/lib/server/current-owner";
 import type { ReportStatus } from "@/lib/mock-data";
@@ -44,6 +45,11 @@ export async function POST(request: Request) {
   }
 
   const ownerId = await getCurrentOwnerId();
+  const quota = await getAccountQuota({ ownerId });
+  if (quota.remaining <= 0) {
+    return NextResponse.json(buildQuotaExceededPayload(quota), { status: 402 });
+  }
+
   const event = await addCaseEvent(
     {
       reportId,

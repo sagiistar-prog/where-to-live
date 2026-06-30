@@ -12,7 +12,6 @@ import {
   ClipboardCheck,
   Copy,
   Loader2,
-  MessageSquareText,
   ShieldAlert,
   Timer,
 } from "lucide-react";
@@ -36,8 +35,7 @@ type VisitCheckSeed = Partial<VisitCheckInput> & {
   reportId?: string;
 };
 
-const defaultPreferences = ["独居", "必须近地铁", "怕潮湿"];
-const defaultDescription = "老小区、低楼层、离地铁近，担心潮湿、隔音、押金和维修责任。";
+const defaultPreferences: string[] = [];
 
 function priorityVariant(priority: VisitCheckItem["priority"]) {
   if (priority === "高") return "destructive";
@@ -73,10 +71,10 @@ function buildVisitMemo(result: VisitCheckResult, input?: VisitCheckInput | null
     "二、请现场或聊天中确认的问题",
     ...questionLines,
     "",
-    "三、我会保存的凭据",
+    "三、我会保存的材料",
     ...evidenceLines,
     "",
-    "四、出现以下情况我会先别付定金或签约",
+    "四、出现以下情况暂不付定金或签约",
     ...stopLines,
     "",
   "以上问题请尽量用文字确认，尤其是出租权、押金、维修、费用边界和交割清单。高优先级项说清前，我不会口头确认签约或付款。",
@@ -163,7 +161,7 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
         orientation: initialInput.orientation,
         rent: initialInput.rent,
         commute: initialInput.commute,
-        description: seedValue(initialInput.description, defaultDescription),
+        description: seedValue(initialInput.description, ""),
         reportContext: initialInput.reportContext,
         preferences: initialPreferences,
       },
@@ -230,29 +228,53 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
             <Field
               label="房源标题"
               name="title"
-              defaultValue={seedValue(initialInput?.title, "徐汇万体馆老小区一居")}
+              defaultValue={seedValue(initialInput?.title, "")}
+              placeholder="填写房源名称或户型"
             />
-            <Field label="目标城市" name="city" defaultValue={seedValue(initialInput?.city, "上海")} />
+            <Field
+              label="目标城市"
+              name="city"
+              defaultValue={seedValue(initialInput?.city, "")}
+              placeholder="填写目标城市"
+            />
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="address">房源位置</Label>
               <Input
                 id="address"
                 name="address"
-                defaultValue={seedValue(initialInput?.address, "徐汇区万体馆附近")}
+                defaultValue={seedValue(initialInput?.address, "")}
+                placeholder="填写小区、楼栋、街道、地铁站或明确地标"
               />
             </div>
-            <Field label="楼层" name="floor" defaultValue={seedValue(initialInput?.floor, "2/6 层")} />
+            <Field
+              label="楼层"
+              name="floor"
+              defaultValue={seedValue(initialInput?.floor, "")}
+              placeholder="填写楼层信息"
+            />
             <Field
               label="楼龄"
               name="buildingAge"
-              defaultValue={seedValue(initialInput?.buildingAge, "约 25 年")}
+              defaultValue={seedValue(initialInput?.buildingAge, "")}
+              placeholder="不确定可以留空"
             />
-            <Field label="朝向" name="orientation" defaultValue={seedValue(initialInput?.orientation, "北向")} />
-            <Field label="月租" name="rent" defaultValue={seedValue(initialInput?.rent, "5200 元/月")} />
+            <Field
+              label="朝向"
+              name="orientation"
+              defaultValue={seedValue(initialInput?.orientation, "")}
+              placeholder="不确定可以留空"
+            />
+            <Field
+              label="月租"
+              name="rent"
+              defaultValue={seedValue(initialInput?.rent, "")}
+              placeholder="填写月租金额"
+            />
             <Field
               label="通勤描述"
               name="commute"
-              defaultValue={seedValue(initialInput?.commute, "到徐家汇约 30 分钟")}
+              defaultValue={seedValue(initialInput?.commute, "")}
+              placeholder="填写到工作地的大致通勤情况"
             />
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="description">房源描述和担心点</Label>
@@ -260,7 +282,8 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
                 id="description"
                 name="description"
                 className="min-h-[120px]"
-                defaultValue={seedValue(initialInput?.description, defaultDescription)}
+                placeholder="填写你担心的潮湿、噪音、采光、楼道、门禁、费用或合同问题。"
+                defaultValue={seedValue(initialInput?.description, "")}
               />
             </div>
           </div>
@@ -314,7 +337,7 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
               <div className="grid gap-3 sm:grid-cols-3">
                 <SummaryTile icon={ClipboardCheck} label="确认项" value={`${allItems.length} 项`} />
                 <SummaryTile icon={Timer} label="预计耗时" value={`${result.estimatedMinutes} 分钟`} />
-                <SummaryTile icon={Camera} label="凭据材料" value={`${result.evidencePack.length} 类`} />
+                <SummaryTile icon={Camera} label="材料清单" value={`${result.evidencePack.length} 类`} />
               </div>
               <div className="rounded-md border border-border bg-secondary p-4">
                 <div className="mb-3 flex items-center justify-between gap-4">
@@ -329,7 +352,7 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
               <div className="rounded-md border border-rose-300/20 bg-rose-300/10 p-4">
                 <div className="mb-3 flex items-center gap-2 text-rose-700">
                   <ShieldAlert className="h-4 w-4" />
-                  <h3 className="font-semibold">先别签约的情况</h3>
+                  <h3 className="font-semibold">暂不签约的情况</h3>
                 </div>
                 <div className="grid gap-2 text-sm leading-6 text-rose-900/90">
                   {result.stopSignals.map((item) => (
@@ -341,17 +364,35 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
                 <Button asChild variant="secondary">
                   <Link href={buildEvidenceHref(result, lastInput, initialInput?.reportId)}>
                     <Archive className="mr-2 h-4 w-4" />
-                    把现场问题转成凭据材料
+                    把现场问题转成材料清单
                   </Link>
                 </Button>
                 <Button asChild variant="secondary">
                   <Link href={buildPaymentHref(result, lastInput, initialInput?.reportId)}>
                     <BadgeDollarSign className="mr-2 h-4 w-4" />
-                    带着这些问题做付款前确认
+                    带着这些问题做付款咨询
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
+
+              <details className="rounded-md border border-border bg-secondary/55 p-4">
+                <summary className="cursor-pointer text-sm font-medium text-foreground">
+                  查看现场确认文本
+                </summary>
+                <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    用于看房当天核对高优先级事项、必须问清的问题、材料留存和暂不签约的情况。
+                  </p>
+                  <Button type="button" variant="outline" onClick={copyVisitMemo}>
+                    <Copy className="mr-2 h-4 w-4" />
+                    {copiedMemo ? "已复制" : "复制文本"}
+                  </Button>
+                </div>
+                <pre className="mt-4 max-h-[320px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-card p-4 text-sm leading-7 text-muted-foreground">
+                  {buildVisitMemo(result, lastInput)}
+                </pre>
+              </details>
             </div>
           ) : (
             <div className="flex min-h-[460px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
@@ -360,7 +401,7 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
               </Badge>
               <h3 className="text-xl font-semibold">把经验变成事项</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                看房时不要只凭感觉。住哪儿会按房屋质量、舒适度、安全动线和签约材料整理确认事项，告诉你怎么测、怎么算通过、怎么保存凭据。
+                按房屋质量、舒适度、安全动线和签约材料整理确认事项，明确检查方法、通过标准和记录方式。
               </p>
             </div>
           )}
@@ -369,32 +410,11 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
 
       {result ? (
         <>
-          <Card className="min-w-0 p-5">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div className="min-w-0">
-                <div className="mb-3 flex items-center gap-2">
-                  <MessageSquareText className="h-4 w-4 text-primary" />
-                  <h3 className="font-semibold">现场确认清单</h3>
-                </div>
-                <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                  把高优先级现场事项、必须问清的问题、凭据留存和先别签约的情况整理成一份可带去看房或发给中介确认的文本。
-                </p>
-              </div>
-              <Button type="button" variant="outline" onClick={copyVisitMemo}>
-                <Copy className="mr-2 h-4 w-4" />
-                {copiedMemo ? "已复制" : "复制确认清单"}
-              </Button>
-            </div>
-            <pre className="mt-4 max-h-[360px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-secondary p-4 text-sm leading-7 text-muted-foreground">
-              {buildVisitMemo(result, lastInput)}
-            </pre>
-          </Card>
-
           <section className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold">现场确认事项</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                勾选只保存在当前设备，用于现场确认。真正签约前仍要把关键凭据保存到合同和聊天记录里。
+                勾选只保存在当前设备，用于现场确认。签约前请把关键记录保存到合同和聊天记录里。
               </p>
             </div>
             <div className="grid gap-4 lg:grid-cols-2">
@@ -440,7 +460,7 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
                               {check.passCriteria}
                             </p>
                             <p>
-                              <span className="text-foreground/90">凭据：</span>
+                              <span className="text-foreground/90">记录：</span>
                               {check.evidence}
                             </p>
                           </div>
@@ -455,8 +475,8 @@ export function VisitCheckPanel({ initialInput }: { initialInput?: VisitCheckSee
 
           <section className="grid gap-4 lg:grid-cols-3">
             <InfoPanel title="必须问清的问题" items={result.questions} />
-            <InfoPanel title="凭据清单" items={result.evidencePack} />
-            <InfoPanel title="下一步" items={result.nextSteps} />
+            <InfoPanel title="材料清单" items={result.evidencePack} />
+            <InfoPanel title="后续确认" items={result.nextSteps} />
           </section>
         </>
       ) : null}
@@ -468,15 +488,17 @@ function Field({
   label,
   name,
   defaultValue,
+  placeholder,
 }: {
   label: string;
   name: string;
   defaultValue: string;
+  placeholder?: string;
 }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} defaultValue={defaultValue} />
+      <Input id={name} name={name} defaultValue={defaultValue} placeholder={placeholder} />
     </div>
   );
 }
@@ -493,8 +515,8 @@ function buildVisitContext(result: VisitCheckResult, input?: VisitCheckInput | n
     input?.address ? `房源位置：${input.address}` : "",
     input?.commute ? `通勤描述：${input.commute}` : "",
     ...result.sections.map((section) => `${section.title}：${section.summary}`),
-    ...result.stopSignals.slice(0, 5).map((item) => `先别签约：${item}`),
-    ...result.evidencePack.slice(0, 5).map((item) => `需保存凭据：${item}`),
+    ...result.stopSignals.slice(0, 5).map((item) => `暂不签约：${item}`),
+    ...result.evidencePack.slice(0, 5).map((item) => `需保存材料：${item}`),
   ]
     .filter(Boolean)
     .join("\n");
@@ -531,8 +553,8 @@ function buildPaymentHref(
     city: input?.city ?? "",
     listingTitle: result.title,
     paymentType: "定金",
-    amount: "1000",
-    monthlyRent: rent ? String(rent) : "5200",
+    amount: "0",
+    monthlyRent: rent ? String(rent) : "0",
     stage: "看房后，未签合同",
     contractStatus: "未看到完整合同",
     identityStatus: "未确认身份证明",

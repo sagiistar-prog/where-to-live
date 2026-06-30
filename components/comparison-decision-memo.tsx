@@ -13,17 +13,17 @@ function riskLabel(value: ComparisonListing["risk"]) {
 }
 
 function gateLine(listing: ComparisonListing) {
-  const pay = typeof listing.canPay === "boolean" ? (listing.canPay ? "可付款" : "先别付款") : "付款待确认";
-  const sign = typeof listing.canSign === "boolean" ? (listing.canSign ? "可签约" : "先别签约") : "签约待确认";
+  const pay = typeof listing.canPay === "boolean" ? (listing.canPay ? "可付款" : "不建议付款") : "付款待确认";
+  const sign = typeof listing.canSign === "boolean" ? (listing.canSign ? "可签约" : "不建议签约") : "签约待确认";
   return `${pay}，${sign}`;
 }
 
-type ComparisonMode = "real" | "hybrid" | "demo";
+type ComparisonMode = "real" | "hybrid" | "manual";
 
 function sourceLine(mode: ComparisonMode) {
-  if (mode === "real") return "来源：已保存的真实房源评估报告";
-  if (mode === "hybrid") return "来源：1 份真实报告 + 示例替代方案；请继续补充真实候选";
-  return "来源：展示数据，真实选择前请至少保存两份评估";
+  if (mode === "real") return "来源：已保存的真实房源体检报告";
+  if (mode === "hybrid") return "来源：已保存报告和手动补充候选；请继续保存真实评估";
+  return "来源：手动输入候选；保存两份评估后可生成正式对比";
 }
 
 function buildMemo(listings: ComparisonListing[], comparisonMode: ComparisonMode) {
@@ -46,14 +46,14 @@ function buildMemo(listings: ComparisonListing[], comparisonMode: ComparisonMode
     top.monthlyCostDelta ? `成本取舍：${top.monthlyCostDelta}` : "",
     top.commuteDelta ? `通勤取舍：${top.commuteDelta}` : "",
     "",
-    backup ? `备选：${backup.name}` : "备选：暂无，需要继续评估候选房源",
+    backup ? `备选：${backup.name}` : "备选：暂无，需要继续做房源体检",
     backup ? `成立条件：${backup.decisionSummary ?? backup.reason}` : "",
     backup?.giveUp?.length ? `主要代价：${backup.giveUp.slice(0, 2).join("；")}` : "",
     "",
     blocked ? `先确认或放弃：${blocked.name}` : "先确认或放弃：暂无明显高风险候选",
     blocked ? `卡点：${blocked.blockers?.[0] ?? blocked.giveUp?.[0] ?? blocked.reason}` : "",
     "",
-    "选择底线：不要因为租金便宜、房东催促或位置不错，跳过官方查询、凭据材料、付款前确认和合同确认。",
+    "选择标准：租金、位置和催促信息不能覆盖官方查询、材料清单、付款咨询和合同确认。",
   ];
 
   return lines.filter(Boolean).join("\n");
@@ -106,7 +106,7 @@ export function ComparisonDecisionMemo({
           </p>
           <h2 className="mt-2 text-xl font-semibold">这轮对比怎么跟别人说清楚</h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
-            把推荐、备选、先确认风险和底线压缩成一段能发给同住人、家人或自己复盘的文字，只保留判断理由。
+            汇总推荐、备选、待确认风险和选择标准，方便发给同住人、家人或自己复盘。
           </p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row xl:flex-col">
             <Button type="button" onClick={copyMemo}>
@@ -115,7 +115,7 @@ export function ComparisonDecisionMemo({
             </Button>
             <Button asChild variant="secondary">
               <Link href={top.nextActionHref ?? top.href ?? "/case"}>
-                确认第一选择下一步
+                确认第一选择
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

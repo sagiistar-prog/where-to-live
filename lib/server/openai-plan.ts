@@ -26,7 +26,6 @@ const allowedHrefs = new Set([
   "/repair",
   "/renewal",
   "/deposit",
-  "/buy",
 ]);
 
 const allowedPriorities = new Set<PlanPriority>(["必须先做", "高优先级", "可按计划"]);
@@ -277,7 +276,7 @@ export async function buildDecisionPlanWithOpenAI(
       ...fallback,
       mode: "fallback",
       generatedAt,
-      warnings: ["已先按你填写的信息整理今日确认安排；签约、付款和退租相关事项仍建议回到原始材料逐项核对。"],
+      warnings: ["已先按你填写的信息整理当前确认事项；签约、付款和退租相关事项仍建议回到原始材料逐项核对。"],
     };
   }
 
@@ -294,7 +293,7 @@ export async function buildDecisionPlanWithOpenAI(
           {
             role: "system",
             content:
-    "你是住哪儿 AI 的下一步助手。你站在中国大陆年轻租客立场，把当前阶段、时间压力、付款压力、凭据状态和居住偏好整理成清楚的确认顺序。你不卖房源，不替平台背书，不替代律师或官方查询。",
+    "你是住哪儿 AI 的当前行动助手。你站在中国大陆年轻租客立场，把当前阶段、时间压力、付款压力、材料状态和居住偏好整理成清楚的确认顺序。你不卖房源，不替任何出租相关方背书，不替代律师或官方查询。",
           },
           {
             role: "user",
@@ -303,18 +302,18 @@ export async function buildDecisionPlanWithOpenAI(
                 type: "input_text",
                 text: JSON.stringify(
                   {
-                    task: "优化下一步",
+                    task: "优化当前行动",
                     input,
                     localRuleBaseline: fallback,
                     allowedToolHrefs: Array.from(allowedHrefs),
                     requirements: [
-                      "必须保留用户侧立场，优先减少押金、付款、合同、通勤和凭据损失。",
+                      "必须保留用户侧立场，优先减少押金、付款、合同、通勤和材料缺失带来的损失。",
                       "只能使用 allowedToolHrefs 里的现有工具入口，不要发明新页面。",
-      "必须给出为什么做、做到什么程度、付款底线意识；不要只写泛泛建议。",
-                      "必须返回 todayPlan、stopLine、doneDefinition，让用户可以复制今日事项。",
-                      "被催付款、未见合同、授权缺失、收款主体不明时必须先别付款。",
-                      "不要读取私人账号，不爬取租房平台，不承诺房源真假。",
-    "结果要比基础确认安排更贴合用户输入，但不能弱化必须先确认的风险项。",
+                      "必须给出为什么做、做到什么程度、付款前需要确认的事项，建议需要具体到可执行动作。",
+                      "必须返回 todayPlan、stopLine、doneDefinition，让用户可以复制当前事项。",
+                      "被催付款、未见合同、授权缺失、收款主体不明时必须明确不建议付款。",
+                      "只基于用户提供的信息生成当前行动，不承诺房源真假。",
+                      "结果要比基础确认安排更贴合用户输入，但不能弱化必须先确认的风险项。",
                     ],
                   },
                   null,
@@ -355,7 +354,7 @@ export async function buildDecisionPlanWithOpenAI(
       mode: "fallback",
       generatedAt,
       warnings: [
-        "已先按你填写的信息整理今日确认安排；签约、付款和退租相关事项仍建议回到原始材料逐项核对。",
+        "已先按你填写的信息整理当前确认事项；签约、付款和退租相关事项仍建议回到原始材料逐项核对。",
       ],
     };
   }

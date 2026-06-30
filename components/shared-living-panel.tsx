@@ -8,7 +8,6 @@ import {
   DoorOpen,
   Handshake,
   Loader2,
-  MessageSquareText,
   Scale,
   ShieldAlert,
   UsersRound,
@@ -92,13 +91,13 @@ function buildSharedLivingMemo(result: SharedLivingResult) {
     "三、需要写进合租约定或聊天确认的内容",
     ...clauseLines,
     "",
-    "四、请补充或允许我留存的凭据",
+    "四、请补充或允许我留存的材料",
     ...evidenceLines,
     "",
-    "五、我的下一步",
+    "五、后续确认",
     ...actionLines,
     "",
-    "以上内容请尽量用文字确认，尤其是实际入住人数、转租授权、费用分摊、押金扣款、访客过夜和提前退租责任。确认前我会先别付款或签约。",
+    "以上内容请尽量用文字确认，尤其是实际入住人数、转租授权、费用分摊、押金扣款、访客过夜和提前退租责任。确认前暂不付款或签约。",
   ].join("\n");
 }
 
@@ -114,7 +113,7 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
   const [copiedMemo, setCopiedMemo] = useState(false);
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState(
-    "这里只整理合租边界判断，不读取私人聊天、社交账号或室友信息。",
+    "填写室友、费用、访客、清洁和押金责任，确认合租前必须写清的边界。",
   );
 
   useEffect(() => {
@@ -125,18 +124,18 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
   const preferenceText = [initialInput?.preferences, livingPreferenceText(profile)]
     .filter(Boolean)
     .join("、");
-  const likesCooking = preferenceText.includes("做饭");
-  const fearsNoise = preferenceText.includes("怕吵") || preferenceText.includes("晚归");
-  const hasPet = preferenceText.includes("养宠");
   const sourceLabel = initialInput?.sourceLabel || "";
   const rentDefault =
-    initialInput?.monthlyRent || String(Math.round(numberFromPreference(profile.budgetMax, 6500) * 0.74));
+    initialInput?.monthlyRent ||
+    (profile.budgetMax ? String(Math.round(numberFromPreference(profile.budgetMax, 0) * 0.74)) : "");
   const concernsDefault =
     initialInput?.concerns ||
     initialInput?.reportContext ||
-    `当前偏好：${preferenceText}。重点确认室友作息、公共卫生、访客过夜、费用分摊、押金连带和提前退租边界。`;
+    (preferenceText
+      ? `当前偏好：${preferenceText}。重点确认室友作息、公共卫生、访客过夜、费用分摊、押金连带和提前退租边界。`
+      : "重点确认室友作息、公共卫生、访客过夜、费用分摊、押金连带和提前退租边界。");
   const seedKey = [
-    hasProfile ? "profile" : "demo",
+    hasProfile ? "profile" : "empty",
     profile.defaultCity,
     profile.budgetMax,
     profile.livingPreferences.join("-"),
@@ -168,7 +167,7 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
       setResult(data);
       setCopiedMemo(false);
       setState("idle");
-      setMessage("合租边界确认已保存。先把高风险项写清楚，再进入付款和签约。");
+      setMessage("合租边界确认已整理。先把高风险项写清楚，再进入付款和签约。");
       void recordCaseEvent({
         reportId: initialInput?.reportId || "workspace",
         type: "shared",
@@ -196,31 +195,28 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
     autoSubmittedRef.current = true;
     void submitPayload(
       {
-        city: seedValue(initialInput.city, profile.defaultCity || "上海"),
+        city: seedValue(initialInput.city, profile.defaultCity),
         listingTitle: seedValue(initialInput.listingTitle, "首页输入的合租房源"),
-        monthlyRent: Number(seedValue(rentDefault, "5200")),
-        roommateCount: 2,
-        roomType: "合租次卧",
-        bathroomMode: "共用卫生间",
-        kitchenMode: likesCooking ? "厨房可做饭但规则不清" : "基本不用厨房",
-        cleaningRule: "公共区域清洁规则待确认",
-        guestRule: "访客过夜规则待确认",
-        quietHours: fearsNoise ? "无明确安静时间" : "23:00 后安静",
-        petRule: hasPet ? "养宠且规则清楚" : "不确定是否养宠",
-        billSplit: "水电燃气按人头平摊",
-        depositLiability: "押金扣款规则不清",
-        leaseHolder: "二房东转租",
-        subletPermission: "未看到转租授权",
+        monthlyRent: Number(seedValue(rentDefault, "0")),
+        roommateCount: 0,
+        roomType: "待确认",
+        bathroomMode: "待确认",
+        kitchenMode: "待确认",
+        cleaningRule: "待确认",
+        guestRule: "待确认",
+        quietHours: "待确认",
+        petRule: "待确认",
+        billSplit: "待确认",
+        depositLiability: "待确认",
+        leaseHolder: "待确认",
+        subletPermission: "待确认",
         concerns: concernsDefault,
       },
       `${sourceLabel || "已带入首页输入"}，正在确认合租边界...`,
     );
   }, [
     concernsDefault,
-    fearsNoise,
-    hasPet,
     initialInput,
-    likesCooking,
     profile.defaultCity,
     rentDefault,
     sourceLabel,
@@ -261,7 +257,7 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
     <div className="space-y-6">
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 gap-4 xl:grid-cols-[0.42fr_0.58fr]"
+        className={`grid grid-cols-1 gap-4 ${state === "loading" || result ? "xl:grid-cols-[0.42fr_0.58fr]" : "max-w-3xl"}`}
       >
         <Card className="min-w-0 p-6">
           <div className="mb-6">
@@ -279,7 +275,7 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
               ) : null}
             </div>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              合租要提前说清公共空间、作息、访客、费用和押金责任，别只凭第一印象判断室友是否合适。
+              合租要提前说清公共空间、作息、访客、费用和押金责任，结合规则与责任判断是否适合长期同住。
             </p>
           </div>
 
@@ -291,80 +287,92 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
               name="city"
               defaultValue={initialInput?.city || profile.defaultCity}
               type="text"
+              placeholder="填写目标城市"
             />
             <Field
               label="房源名称"
               name="listingTitle"
-              defaultValue={initialInput?.listingTitle || "徐汇万体馆合租主卧"}
+              defaultValue={initialInput?.listingTitle || ""}
               type="text"
+              placeholder="填写房源名称或位置"
             />
-            <Field label="月租" name="monthlyRent" defaultValue={rentDefault} />
-            <Field label="室友人数" name="roommateCount" defaultValue="3" />
+            <Field
+              label="月租"
+              name="monthlyRent"
+              defaultValue={rentDefault}
+              placeholder="填写月租金额"
+            />
+            <Field
+              label="室友人数"
+              name="roommateCount"
+              defaultValue=""
+              placeholder="填写室友人数"
+            />
             <SelectField
               label="房间类型"
               name="roomType"
-              defaultValue="合租主卧"
-              options={["合租主卧", "合租次卧", "隔断间", "客厅隔断", "床位房"]}
+              defaultValue="待确认"
+              options={["待确认", "合租主卧", "合租次卧", "隔断间", "客厅隔断", "床位房"]}
             />
             <SelectField
               label="卫生间"
               name="bathroomMode"
-              defaultValue="共用卫生间"
-              options={["独卫", "两人共用", "共用卫生间", "多人排队明显"]}
+              defaultValue="待确认"
+              options={["待确认", "独卫", "两人共用", "共用卫生间", "多人排队明显"]}
             />
             <SelectField
               label="厨房"
               name="kitchenMode"
-              defaultValue={likesCooking ? "厨房可做饭但规则不清" : "基本不用厨房"}
-              options={["基本不用厨房", "厨房可做饭且分区清楚", "厨房可做饭但规则不清", "油烟重且多人做饭"]}
+              defaultValue="待确认"
+              options={["待确认", "基本不用厨房", "厨房可做饭且分区清楚", "厨房可做饭但规则不清", "油烟重且多人做饭"]}
             />
             <SelectField
               label="清洁规则"
               name="cleaningRule"
-              defaultValue="没有明确清洁轮值"
-              options={["有清洁轮值表", "请保洁并平摊", "靠自觉清洁", "没有明确清洁轮值"]}
+              defaultValue="待确认"
+              options={["待确认", "有清洁轮值表", "请保洁并平摊", "靠自觉清洁", "没有明确清洁轮值"]}
             />
             <SelectField
               label="访客规则"
               name="guestRule"
-              defaultValue="访客和过夜规则不清"
-              options={["访客需提前说", "不允许过夜", "可偶尔过夜", "访客和过夜规则不清"]}
+              defaultValue="待确认"
+              options={["待确认", "访客需提前说", "不允许过夜", "可偶尔过夜", "访客和过夜规则不清"]}
             />
             <SelectField
               label="安静时间"
               name="quietHours"
-              defaultValue={fearsNoise ? "无明确安静时间" : "23:00 后安静"}
-              options={["23:00 后安静", "室友作息接近", "有人夜班或直播", "无明确安静时间"]}
+              defaultValue="待确认"
+              options={["待确认", "23:00 后安静", "室友作息接近", "有人夜班或直播", "无明确安静时间"]}
             />
             <SelectField
               label="宠物规则"
               name="petRule"
-              defaultValue={hasPet ? "养宠且规则清楚" : "不确定是否养宠"}
-              options={["无宠物", "养宠且规则清楚", "有人养宠但未写规则", "不确定是否养宠"]}
+              defaultValue="待确认"
+              options={["待确认", "无宠物", "养宠且规则清楚", "有人养宠但未写规则", "不确定是否养宠"]}
             />
             <SelectField
               label="费用分摊"
               name="billSplit"
-              defaultValue="水电燃气按人头平摊"
-              options={["按账单实结", "水电燃气按人头平摊", "房东预估收费", "费用口径不清"]}
+              defaultValue="待确认"
+              options={["待确认", "按账单实结", "水电燃气按人头平摊", "房东预估收费", "费用口径不清"]}
             />
             <SelectField
               label="押金责任"
               name="depositLiability"
-              defaultValue="整租押金共同承担"
-              options={["个人押金独立结算", "公共区损坏共同承担", "整租押金共同承担", "押金扣款规则不清"]}
+              defaultValue="待确认"
+              options={["待确认", "个人押金独立结算", "公共区损坏共同承担", "整租押金共同承担", "押金扣款规则不清"]}
             />
             <SelectField
               label="签约主体"
               name="leaseHolder"
-              defaultValue="二房东转租"
-              options={["房东直签", "机构/公寓签约", "室友代签", "二房东转租"]}
+              defaultValue="待确认"
+              options={["待确认", "房东直签", "机构/公寓签约", "室友代签", "二房东转租"]}
             />
             <SelectField
               label="转租授权"
               name="subletPermission"
-              defaultValue="未看到转租授权"
-              options={["已看到书面授权", "口头说有授权", "未看到转租授权", "对方拒绝提供授权"]}
+              defaultValue="待确认"
+              options={["待确认", "已看到书面授权", "口头说有授权", "未看到转租授权", "对方拒绝提供授权"]}
             />
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="concerns">最担心的问题</Label>
@@ -373,6 +381,7 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
                 name="concerns"
                 className="min-h-[112px]"
                 defaultValue={concernsDefault}
+                placeholder="填写你担心的合租规则、费用或签约问题"
               />
             </div>
           </div>
@@ -389,18 +398,19 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
           </Button>
         </Card>
 
-        <Card className="min-w-0 p-6">
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <p className="text-sm text-primary/80">
-                合租边界
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold">合租边界结论</h2>
+        {state === "loading" || result ? (
+          <Card className="min-w-0 p-6">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-sm text-primary/80">
+                  合租边界
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold">合租边界结论</h2>
+              </div>
+              {result ? <RiskBadge status={result.status} tone="generic" /> : null}
             </div>
-            {result ? <RiskBadge status={result.status} tone="generic" /> : null}
-          </div>
 
-          {state === "loading" ? (
+            {state === "loading" ? (
             <div className="flex min-h-[560px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
               <Badge variant="secondary" className="mb-4 w-fit">
                 正在整理
@@ -443,44 +453,32 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
                     ))}
                 </div>
               </div>
+
+              <details className="rounded-md border border-border bg-secondary/55 p-4">
+                <summary className="cursor-pointer text-sm font-medium text-foreground">
+                  查看合租边界确认文本
+                </summary>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    用于确认室友人数、公共空间、清洁、访客、费用、押金和转租授权。
+                  </p>
+                  <Button type="button" variant="outline" onClick={copySharedLivingMemo}>
+                    <Copy className="mr-2 h-4 w-4" />
+                    {copiedMemo ? "已复制" : "复制文本"}
+                  </Button>
+                </div>
+                <pre className="mt-4 max-h-[320px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-card p-4 text-sm leading-7 text-muted-foreground">
+                  {buildSharedLivingMemo(result)}
+                </pre>
+              </details>
             </div>
-          ) : (
-            <div className="flex min-h-[560px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
-              <Badge variant="secondary" className="mb-4 w-fit">
-                合租前置
-              </Badge>
-              <h3 className="text-xl font-semibold">合租要看房间和相处规则</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                公共空间、室友作息、访客过夜、水电分摊和押金责任不清，会把低租金变成长期消耗。
-              </p>
-            </div>
-          )}
-        </Card>
+            ) : null}
+          </Card>
+        ) : null}
       </form>
 
       {result ? (
         <>
-          <Card className="min-w-0 p-5">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="min-w-0">
-                <div className="mb-3 flex items-center gap-2">
-                  <MessageSquareText className="h-4 w-4 text-primary" />
-                  <h3 className="font-semibold">合租边界确认清单</h3>
-                </div>
-                <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                  把室友人数、公共空间、清洁、访客、费用、押金和转租授权整理成可直接发给出租方、室友或中介确认的文本。
-                </p>
-              </div>
-              <Button type="button" variant="outline" onClick={copySharedLivingMemo}>
-                <Copy className="mr-2 h-4 w-4" />
-                {copiedMemo ? "已复制" : "复制确认清单"}
-              </Button>
-            </div>
-            <pre className="mt-4 max-h-[360px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-secondary p-4 text-sm leading-7 text-muted-foreground">
-              {buildSharedLivingMemo(result)}
-            </pre>
-          </Card>
-
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-[0.58fr_0.42fr]">
             <Card className="min-w-0 p-5">
               <h3 className="font-semibold">边界风险拆解</h3>
@@ -509,8 +507,8 @@ export function SharedLivingPanel({ initialInput }: { initialInput?: SharedLivin
 
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <InfoPanel title="写进合租约定" icon={Scale} items={result.agreementClauses} />
-            <InfoPanel title="凭据材料" icon={DoorOpen} items={result.evidenceChecklist} />
-            <InfoPanel title="下一步" icon={CheckCircle2} items={result.nextActions} />
+            <InfoPanel title="材料清单" icon={DoorOpen} items={result.evidenceChecklist} />
+            <InfoPanel title="后续确认" icon={CheckCircle2} items={result.nextActions} />
           </section>
         </>
       ) : null}
@@ -523,16 +521,18 @@ function Field({
   name,
   defaultValue,
   type = "number",
+  placeholder,
 }: {
   label: string;
   name: string;
   defaultValue: string;
   type?: string;
+  placeholder?: string;
 }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} type={type} defaultValue={defaultValue} />
+      <Input id={name} name={name} type={type} defaultValue={defaultValue} placeholder={placeholder} />
     </div>
   );
 }

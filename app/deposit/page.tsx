@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { KeyRound } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { DepositRefundPanel } from "@/components/deposit-refund-panel";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { buildFlowHref, compactContext } from "@/lib/flow-links";
 import type { DepositRefundInput } from "@/lib/deposit-refund";
 
@@ -30,17 +29,17 @@ function numberParam(value: string | string[] | undefined) {
 const sourceLabels: Record<string, string> = {
   report: "已从房源报告带入",
   case: "已从房源记录带入",
-  payment: "已从付款前确认带入",
+  payment: "已从付款咨询带入",
   official: "已从官方查询带入",
   contract: "已从合同确认带入",
   move: "已从入住预算带入",
   handover: "已从交割验收带入",
   repair: "已从维修责任带入",
   renewal: "已从续租方案带入",
-  evidence: "已从凭据材料带入",
+  evidence: "已从材料清单带入",
   compare: "已从多房源对比带入",
   home: "已从首页输入带入",
-  plan: "已从下一步带入",
+  plan: "已从当前行动带入",
   dashboard: "已从工作台输入带入",
 };
 
@@ -73,49 +72,6 @@ export default async function DepositPage({
     monthlyRent ? `月租：${monthlyRent}` : undefined,
     depositAmount ? `押金：${depositAmount}` : undefined,
   ]);
-  const handoverHref = buildFlowHref("/handover", {
-    from: "deposit",
-    reportId,
-    city,
-    title,
-    listingTitle: title,
-    monthlyRent,
-    depositAmount,
-    reportContext: sharedContext,
-  });
-  const repairHref = buildFlowHref("/repair", {
-    from: "deposit",
-    reportId,
-    city,
-    listingTitle: title,
-    evidenceLevel,
-    repairCost: firstParam(params.damageClaim),
-    depositConcern: "已经进入退租押金扣款争议",
-    notes: sharedContext,
-  });
-  const renewalHref = buildFlowHref("/renewal", {
-    from: "deposit",
-    reportId,
-    city,
-    listingTitle: title,
-    currentRent: monthlyRent,
-    depositRisk: depositAmount,
-    notes: sharedContext,
-  });
-  const officialHref = buildFlowHref("/official", {
-    from: "deposit",
-    reportId,
-    city,
-    title,
-    stage: "退租押金争议/扣款依据确认",
-    contractStatus: "押金返还、扣款条件和维修责任条款待确认",
-    concerns: compactContext([
-  "押金退还页提示：需要确认押金返还期限、扣款依据、维修责任和官方投诉/调解办法。",
-      landlordReason,
-      sharedContext,
-    ]),
-    reportContext: sharedContext,
-  });
   const paymentHref = buildFlowHref("/payment", {
     from: "deposit",
     reportId,
@@ -181,49 +137,19 @@ export default async function DepositPage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
-        <section className="grid grid-cols-1 gap-6 lg:grid-cols-[0.62fr_0.38fr]">
-          <div className="min-w-0">
-            <p className="text-sm text-primary/80">
-              押金退还
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">
-              退租押金退还
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-              退租时最容易损失的是一笔糊涂押金：清洁费、维修费、违约金、通知期和待补充凭据混在一起。这里先把明确费用和争议扣款拆开，再给出退款目标、谈判底线和交割凭据清单。
-            </p>
-          </div>
-          <Card className="min-w-0 p-6">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/15 text-primary">
-              <KeyRound className="h-6 w-6" />
-            </div>
-            <h2 className="text-lg font-semibold">押金要在退租前就开始准备</h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              优先整理计划和话术，不读取聊天记录、支付账户或私人文件。所有凭据仍由用户保存在自己的设备里。
-            </p>
-            <div className="mt-5 grid gap-3">
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={handoverHref}>回看交割确认</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={repairHref}>先确认维修扣款争议</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={renewalHref}>先判断续租还是搬家</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={evidenceHref}>补充凭据材料</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-              <Link href={officialHref}>查看投诉调解办法</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={paymentHref}>确认扣款依据</Link>
-              </Button>
-            </div>
-          </Card>
-        </section>
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
+        <ProductPageHeader
+          eyebrow="押金退还"
+          title="退租押金退还"
+          description="拆分明确费用、争议扣款和可留存材料，评估应退金额和后续沟通重点。"
+          icon={KeyRound}
+          actions={[
+            { label: "补充材料清单", href: evidenceHref, variant: "secondary" },
+            { label: "确认扣款依据", href: paymentHref, variant: "secondary" },
+          ]}
+        />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <DepositRefundPanel initialInput={initialInput} />
       </div>

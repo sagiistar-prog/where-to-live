@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: "INVALID_DEPOSIT_REFUND_INPUT",
-          message: "请输入押金、退租时间、通知期、拟扣款和凭据情况。",
+          message: "请输入押金、退租时间、通知期、拟扣款和材料情况。",
         },
         { status: 400 },
       );

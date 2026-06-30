@@ -1,9 +1,8 @@
-import Link from "next/link";
-import { TrainFront } from "lucide-react";
+import { Route } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { CommuteCostPanel } from "@/components/commute-cost-panel";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { buildFlowHref } from "@/lib/flow-links";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -28,11 +27,11 @@ function seedFromParams(params: SearchParams) {
       from === "area"
         ? "来自片区筛选"
         : from === "analyze" || from === "report"
-          ? "来自房源评估"
+          ? "来自房源体检"
         : from === "case"
           ? "来自房源记录"
           : from === "plan"
-            ? "来自下一步"
+            ? "来自当前行动"
             : from === "home"
               ? "来自首页输入"
               : from === "dashboard"
@@ -67,37 +66,19 @@ export default async function CommutePage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
-        <section className="grid gap-6 lg:grid-cols-[0.62fr_0.38fr]">
-          <div className="min-w-0">
-            <p className="text-sm text-primary/80">
-              通勤成本
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">
-              通勤真实成本
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-              通勤成本要看步行、换乘、晚归打车、坏天气和时间消耗，帮你判断低房租是否真的划算。
-            </p>
-          </div>
-          <Card className="min-w-0 p-6">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/15 text-primary">
-              <TrainFront className="h-6 w-6" />
-            </div>
-            <h2 className="text-lg font-semibold">先算时间账，再谈租金</h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              地址足够明确时，会结合实时路线估算公交/地铁、步行距离和换乘次数；地址还不清楚时，也可以先用手动输入的通勤时间判断。
-            </p>
-            <div className="mt-5 grid gap-3">
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={areaHref}>先筛通勤片区</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={compareHref}>对比多个房源</Link>
-              </Button>
-            </div>
-          </Card>
-        </section>
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
+        <ProductPageHeader
+          eyebrow="通勤成本"
+          title="通勤真实成本"
+          description="通勤成本要看步行、换乘、晚归打车、天气和时间消耗，判断低房租是否降低了整体居住成本。"
+          icon={Route}
+          actions={[
+            { label: "筛选通勤片区", href: areaHref, variant: "secondary" },
+            { label: "对比多个房源", href: compareHref, variant: "secondary" },
+          ]}
+        />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <CommuteCostPanel reportId={reportId} initialInput={initialInput} />
       </div>

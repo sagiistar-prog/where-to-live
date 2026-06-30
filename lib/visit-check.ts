@@ -106,11 +106,11 @@ export function buildVisitChecklist(input: VisitCheckInput): VisitCheckResult {
   const areaContext = includesAny(description, [
     "片区筛选",
     "看房安排",
-    "先不约看的情况",
+    "暂不约看的情况",
     "现场确认",
     "优先约看",
     "可以备选",
-    "先不约看",
+    "暂不约看",
   ]);
 
   const houseQuality = [
@@ -390,7 +390,7 @@ export function buildVisitChecklist(input: VisitCheckInput): VisitCheckResult {
           "看房结束前",
           "对照片区筛选给出的放弃条件，逐项判断通勤、租金、夜路、楼龄和生活配套是否有一项已经明显不达标。",
           "如果任一核心条件失败，就把该片区列为备选或暂不考虑，不继续被单套房源的装修干扰判断。",
-          "把失败项截图、照片或文字记录保存到房源评估备注里。",
+          "把失败项截图、照片或文字记录保存到房源体检备注里。",
         ),
       ]
     : [];
@@ -482,8 +482,8 @@ export function buildVisitChecklist(input: VisitCheckInput): VisitCheckResult {
     ],
     nextSteps: [
       "先确认所有高优先级项目，再谈价格和定金。",
-      "把未通过项目带回房源评估报告，更新最终建议。",
-      ...(areaContext ? ["如果片区关键条件不达标，回到片区筛选把该片区列为先不约看，不继续在同一区域密集看房。"] : []),
+      "把未通过项目带回房源体检报告，更新最终建议。",
+      ...(areaContext ? ["如果片区关键条件不达标，回到片区筛选把该片区列为暂不约看，不继续在同一区域密集看房。"] : []),
       "签约前把授权、押金、维修、退租和交割清单写进合同或补充协议。",
     ],
   };

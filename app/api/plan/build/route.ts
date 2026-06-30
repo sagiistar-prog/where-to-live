@@ -14,7 +14,6 @@ const stages = new Set<DecisionStage>([
   "living",
   "renewal",
   "deposit",
-  "buy",
 ]);
 
 function asNumber(value: unknown) {
@@ -82,7 +81,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error: "PLAN_BUILD_FAILED",
-        message: "下一步整理失败，请稍后重试。",
+        message: "当前行动整理失败，请稍后重试。",
       },
       { status: 500 },
     );

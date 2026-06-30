@@ -73,7 +73,7 @@ export function buildReportCommunicationScripts(
     },
     {
       id: "pause-payment",
-      title: "先别付款说明",
+      title: "暂不付款说明",
       scenario: "被要求先交定金、意向金、押金或服务费",
       priority: hardGate?.canPay ? "看情况" : "必须先发",
       body: [
@@ -85,7 +85,7 @@ export function buildReportCommunicationScripts(
         "3. 未签约或材料不一致时是否可退，以及退款期限；",
         "4. 完整合同条款是否已经确认。",
         "",
-        "这些确认完之前，我会先别转账。",
+        "这些确认完之前，暂不转账。",
       ].join("\n"),
     },
     {

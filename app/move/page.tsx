@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { Truck } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { MoveBudgetPanel } from "@/components/move-budget-panel";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { buildFlowHref, compactContext } from "@/lib/flow-links";
 import type { MoveBudgetInput } from "@/lib/move-budget";
 
@@ -30,9 +29,9 @@ function numberParam(value: string | string[] | undefined) {
 const sourceLabels: Record<string, string> = {
   report: "已从房源报告带入",
   case: "已从房源记录带入",
-  payment: "已从付款前确认带入",
+  payment: "已从付款咨询带入",
   official: "已从官方查询带入",
-  evidence: "已从凭据材料带入",
+  evidence: "已从材料清单带入",
   contract: "已从合同确认带入",
   handover: "已从交割验收带入",
   repair: "已从维修责任带入",
@@ -40,7 +39,7 @@ const sourceLabels: Record<string, string> = {
   deposit: "已从押金退还带入",
   compare: "已从多房源对比带入",
   home: "已从首页输入带入",
-  plan: "已从下一步带入",
+  plan: "已从当前行动带入",
   dashboard: "已从工作台输入带入",
 };
 
@@ -113,25 +112,6 @@ export default async function MovePage({
     ]),
     reportContext: sharedContext,
   });
-  const evidenceHref = buildFlowHref("/evidence", {
-    from: "move",
-    reportId,
-    city,
-    title,
-    listingTitle: title,
-    stage: "签约前首笔支出",
-    paymentType: "首笔租金/押金/中介费/服务费",
-    amount: upfrontAmount,
-    monthlyRent,
-    deposit: upfrontAmount ? `首笔支出或押金 ${upfrontAmount} 元` : undefined,
-    paymentCycle: "押金、预付租金、中介费、服务费、付款周期和收据要求需要逐项保存凭据",
-    risks: compactContext([
-      "入住预算提示：首笔支出、付款周期、中介费/服务费、收据和收款主体需要在付款前保存凭据。",
-      firstParam(params.risks),
-      firstParam(params.concerns),
-    ]),
-    reportContext: sharedContext,
-  });
   const handoverHref = buildFlowHref("/handover", {
     from: "move",
     reportId,
@@ -144,40 +124,19 @@ export default async function MovePage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
-        <section className="grid gap-6 lg:grid-cols-[0.62fr_0.38fr]">
-          <div>
-            <p className="text-sm text-primary/80">
-              入住现金流
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">
-              入住预算
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-              租房最容易低估的是签约当天的首笔支出：押金、预付租金、中介费、搬家、添置和发薪前生活缓冲。先算清楚，再决定能不能付款。
-            </p>
-          </div>
-          <Card className="p-6">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/15 text-primary">
-              <Truck className="h-6 w-6" />
-            </div>
-            <h2 className="text-lg font-semibold">签约前的最后一道预算确认</h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              如果首笔支出会打穿安全垫，先谈付款周期、服务费和中介费。预算通过后，再继续付款、合同、官方查询和交割凭据。
-            </p>
-            <div className="mt-5 grid gap-3">
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={paymentHref}>先做付款前确认</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={evidenceHref}>整理首笔凭据</Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={handoverHref}>准备交割确认</Link>
-              </Button>
-            </div>
-          </Card>
-        </section>
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
+        <ProductPageHeader
+          eyebrow="入住现金流"
+          title="入住预算"
+          description="计算押金、预付租金、中介费、搬家、添置和发薪前生活缓冲，评估首笔现金压力。"
+          icon={Truck}
+          actions={[
+            { label: "付款咨询", href: paymentHref, variant: "secondary" },
+            { label: "准备交割确认", href: handoverHref, variant: "secondary" },
+          ]}
+        />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <MoveBudgetPanel reportId={reportId} initialInput={initialInput} />
       </div>

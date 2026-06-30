@@ -182,7 +182,7 @@ function decisionSummary({
 }) {
   if (caseItem?.preSignGate.level === "stop") {
     return compactText(
-      `先确认：${focusGate(caseItem)?.reason ?? "付款、凭据或官方查询还没有完成。"}`,
+      `先确认：${focusGate(caseItem)?.reason ?? "付款、材料或官方查询还没有完成。"}`,
       96,
     );
   }
@@ -305,7 +305,7 @@ export function buildComparisonListingsFromReports(
       const blockers = [
         ...(caseItem?.dataConfidence.gaps ?? []).map((item) => `信息待补充：${item}`),
         ...(caseItem?.blockers ?? []),
-        ...(caseItem?.evidenceGaps ?? []).map((item) => `待补充凭据：${item}`),
+        ...(caseItem?.evidenceGaps ?? []).map((item) => `待补充材料：${item}`),
         ...(gate && gate.state !== "done" ? [`签约前卡点：${gate.reason}`] : []),
       ];
       const tradeoff = [
@@ -329,7 +329,7 @@ export function buildComparisonListingsFromReports(
         score: report.report.score,
         reason: reasonFor(report),
         href: `/report/${report.id}`,
-        source: report.mode === "openai" ? "完整评估" : "快速评估",
+        source: report.mode === "openai" ? "完整体检" : "快速体检",
         gateLevel: caseItem?.preSignGate.level,
         gateLabel: caseItem?.preSignGate.label,
         gateProgress: caseItem?.preSignGate.progress,

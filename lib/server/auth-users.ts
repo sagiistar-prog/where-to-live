@@ -1,7 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { parseJsonText } from "@/lib/server/json-utils";
 
-export type AuthProvider = "google";
+export type AuthProvider = "email" | "google";
 
 export type AuthUserRecord = {
   id: string;
@@ -32,7 +33,7 @@ function usersFilePath() {
 async function readUsers(): Promise<AuthUserRecord[]> {
   try {
     const raw = await fs.readFile(usersFilePath(), "utf8");
-    const parsed = JSON.parse(raw) as unknown;
+    const parsed = parseJsonText(raw);
     return Array.isArray(parsed) ? (parsed as AuthUserRecord[]) : [];
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];

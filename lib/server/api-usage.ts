@@ -1,6 +1,7 @@
 import type { ApiUsageItem } from "@/lib/api-usage-types";
 import fs from "node:fs";
 import path from "node:path";
+import { parseJsonText } from "@/lib/server/json-utils";
 
 type UsageEvent = {
   provider: string;
@@ -16,17 +17,17 @@ const usageFilePath = path.join(process.cwd(), ".data", "api-usage-events.json")
 
 const quotaConfig = {
   amap: {
-    provider: "高德地图",
-    service: "Web 服务 API",
-    keyType: "免费个人 Key",
+    provider: "实时地图",
+    service: "路线与周边信息",
+    keyType: "内部服务",
     quota: 5000,
     resetAt: "每月 1 日重置",
-    note: "用于地址解析、通勤路线、周边生活信息和行政区划。这里是产品侧统计，不等同于高德后台官方账单。",
+    note: "用于地址解析、通勤路线、周边生活信息和行政区划。这里是产品侧统计。",
   },
   qweather: {
-    provider: "和风天气",
-    service: "天气与环境 API",
-    keyType: "免费个人 Key",
+    provider: "实时天气",
+    service: "天气与环境信息",
+    keyType: "内部服务",
     quota: 1000,
     resetAt: "按订阅周期重置",
     note: "用于湿度、降雨、高温、空气质量和居住舒适度判断。超过提醒线时报告会改用城市气候常识。",
@@ -41,7 +42,7 @@ function loadUsageEvents() {
 
   try {
     if (!fs.existsSync(usageFilePath)) return;
-    const stored = JSON.parse(fs.readFileSync(usageFilePath, "utf8")) as UsageEvent[];
+    const stored = parseJsonText(fs.readFileSync(usageFilePath, "utf8")) as UsageEvent[];
     if (!Array.isArray(stored)) return;
     usageEvents.push(
       ...stored.filter(
@@ -112,9 +113,9 @@ export function getProviderUsageState(provider: UsageProvider): {
     canCall: status !== "limit",
     reason:
       status === "limit"
-        ? `${config.provider}${config.service}产品侧用量已到 ${percent}%，本次改用现有信息保护个人额度。`
+        ? `${config.provider}暂不使用，本次改用现有信息。`
         : status === "watch"
-          ? `${config.provider}${config.service}产品侧用量已到 ${percent}%，继续调用但需要关注免费额度。`
+          ? `${config.provider}使用量接近提醒线，本次仍可继续。`
           : undefined,
   };
 }

@@ -40,7 +40,7 @@ export type RepairResponsibilityResult = {
   listingTitle: string;
   status: ReportStatus;
   score: number;
-  verdict: "出租方应负责处理" | "需协商并保存凭据" | "先别自费维修";
+  verdict: "出租方应负责处理" | "需协商并保存记录" | "暂不自费维修";
   responsibility: "出租方优先" | "承租方可能承担" | "责任不清需补充材料";
   issueType: string;
   estimatedCost: number;
@@ -90,8 +90,8 @@ function statusFrom(score: number, highCount: number): ReportStatus {
 
 function verdictFrom(status: ReportStatus): RepairResponsibilityResult["verdict"] {
   if (status === "recommend") return "出租方应负责处理";
-  if (status === "caution") return "需协商并保存凭据";
-  return "先别自费维修";
+  if (status === "caution") return "需协商并保存记录";
+  return "暂不自费维修";
 }
 
 export function buildRepairResponsibility(
@@ -188,7 +188,7 @@ export function buildRepairResponsibility(
 
   if (hasAny(evidenceLevel, ["几乎没有", "没有", "只有口头"])) {
     addRisk(riskItems, score, 12, {
-      title: "凭据不足",
+      title: "材料不足",
       level: "中",
       why: "没有照片、视频、时间线和报修记录时，后续很难证明问题出现时间、责任归属和费用合理性。",
       action: "补充拍连续视频、近景远景、影响范围、表读数和报修聊天，再讨论维修费用。",
@@ -221,14 +221,14 @@ export function buildRepairResponsibility(
       title: "可能演变为押金扣款争议",
       level: "中",
       why: "维修责任不清常在退租时变成押金扣款，需要提前固定问题来源和处理过程。",
-      action: "把报修、责任确认、维修结果和费用票据同步放进凭据材料。",
+      action: "把报修、责任确认、维修结果和费用票据同步放进材料清单。",
       proof: "报修时间线、维修结果确认、费用票据和退租前状态视频。",
     });
   }
 
   if (riskItems.length === 0) {
     riskItems.push({
-      title: "基础报修凭据",
+      title: "基础报修记录",
       level: "低",
       why: "即使责任较清楚，也要让每一次维修都有问题、时间、责任、费用和结果记录。",
       action: "报修时写清问题位置、影响范围、发现时间、是否影响居住和希望维修时限。",
@@ -269,12 +269,12 @@ export function buildRepairResponsibility(
     estimatedCost: repairCost,
     summary:
       status === "recommend"
-        ? "当前维修责任相对清楚，建议按报修、确认、维修、复拍的顺序处理，并保存费用和结果凭据。"
+        ? "当前维修责任相对清楚，建议按报修、确认、维修、复拍的顺序处理，并保存费用和结果记录。"
         : status === "caution"
-          ? "当前维修责任存在争议，建议补充凭据、拿到出租方书面确认，再决定是否垫付或安排维修。"
-          : "当前不建议直接自费维修。问题可能影响居住或押金，且合同、责任或出租方响应存在高风险信息待补充，先书面报修并固定凭据。",
+          ? "当前维修责任存在争议，建议补充材料、拿到出租方书面确认，再决定是否垫付或安排维修。"
+          : "当前不建议直接自费维修。问题可能影响居住或押金，且合同、责任或出租方响应存在高风险信息待补充，先书面报修并固定记录。",
     riskItems,
-    blockers: blockers.length ? blockers : ["暂无高优先级待确认事项，但仍需保存基础报修凭据。"],
+    blockers: blockers.length ? blockers : ["暂无高优先级待确认事项，但仍需保存基础报修记录。"],
     evidenceChecklist: [
       "连续视频：从门牌或房间整体拍到问题位置，证明具体房源和影响范围。",
       "近景照片：漏水、霉斑、裂缝、损坏部位、家电故障提示或异味来源。",
@@ -285,12 +285,12 @@ export function buildRepairResponsibility(
     ],
     messageTemplates: [
       `报修通知：${listingTitle} 出现 ${issueType}，发现时间为 ${discoveredTiming}，目前影响为“${urgency}”。我已保留照片和视频，请确认由谁安排维修、预计预计时间和费用承担方式。`,
-      `责任确认：该问题看起来不像承租人人为造成，请在维修前书面确认是否由出租方承担；如需我先垫付，请确认报销金额、凭据要求和付款时间。`,
+      `责任确认：该问题看起来不像承租人人为造成，请在维修前书面确认是否由出租方承担；如需我先垫付，请确认报销金额、材料要求和付款时间。`,
       `限时维修：该问题已影响正常居住/可能扩大损失，请在 24 小时内确认维修安排；如无法及时维修，我将保留紧急维修、物业反馈和费用记录。`,
       `押金边界：本次维修过程和结果请同步确认，避免退租时重复作为押金扣款依据。`,
     ],
     costControl: [
-      "不要在责任未确认前支付大额维修费；紧急维修也要保留报价、发票和对方授权。",
+      "责任未确认前暂缓支付大额维修费；紧急维修也要保留报价、发票和对方授权。",
       "涉及人为损坏时，只承担直接、合理、可证明的维修费用，不接受笼统扣款。",
       "自然损耗、设备老化、管道渗漏和房屋结构问题优先要求出租方处理。",
       "所有现金支出都要有付款备注，写明房源、维修项目、日期和费用用途。",
@@ -304,7 +304,7 @@ export function buildRepairResponsibility(
       {
         title: "书面报修",
         timing: "今天",
-        action: "把问题、影响、凭据和希望维修时限发给出租方或中介。",
+        action: "把问题、影响、记录和希望维修时限发给出租方或中介。",
       },
       {
         title: "确认责任",
@@ -320,14 +320,14 @@ export function buildRepairResponsibility(
     escalationOptions: [
       "先找出租方或合同约定联系人，避免只和口头中介沟通。",
       "同步物业或楼管记录，尤其是漏水、公共管道、电路和楼下受损。",
-      "对方长期不维修时，整理合同、报修记录、凭据和费用票据，进入官方投诉或调解准备。",
-      "涉及燃气、电路、门锁失效等安全问题时，优先采取必要的安全处置，并保留全过程凭据。",
+      "对方长期不维修时，整理合同、报修记录、材料和费用票据，进入官方投诉或调解准备。",
+      "涉及燃气、电路、门锁失效等安全问题时，优先采取必要的安全处置，并保留全过程记录。",
     ],
     nextActions: [
       status === "reject"
-        ? "先别自费维修，先发送限时书面报修并补充凭据。"
+        ? "暂不自费维修，先发送限时书面报修并补充材料。"
         : "先拿到责任确认和费用口径，再安排维修或垫付。",
-      "把维修凭据同步放进租前/租中凭据材料。",
+      "把维修记录同步放进租前/租中材料清单。",
       "如合同条款把所有维修压给承租人，进入合同确认或补充协议修正。",
       "退租前把本次维修结果和费用确认纳入押金退还计划。",
     ],

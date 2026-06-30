@@ -1,8 +1,10 @@
 import {
-  BookOpenCheck,
+  BadgeDollarSign,
+  Building2,
   ClipboardCheck,
   Compass,
   Gauge,
+  MapPin,
   Settings,
   Sparkles,
 } from "lucide-react";
@@ -29,125 +31,93 @@ export type AppNavSection = {
   items: AppNavItem[];
 };
 
-export type TopNavItem = {
-  href: string;
-  label: string;
-  activePaths?: string[];
-};
-
 export const appNavSections: AppNavSection[] = [
   {
-    title: "主要入口",
-    summary: "按真实居住选择顺序走：先看城市和片区，再看具体房源，最后确认签约与入住。",
+    title: "主要任务",
+    summary: "从当前问题进入城市、片区、房源、付款或行动判断。",
     items: [
       {
         href: "/dashboard",
         label: "工作台",
         icon: Gauge,
-        description: "查看今天最该先确认的居住选择和下一步。",
+        description: "查看最近判断、当前行动和需要补齐的信息。",
       },
       {
         href: "/city",
-        label: "城市成本",
+        label: "生活成本",
         icon: Compass,
-        description: "把城市成本、片区通勤和日常生活放在一起判断。",
-        activePaths: ["/city", "/area", "/commute", "/life", "/buy"],
-        subItems: [
-          { href: "/city", label: "城市成本" },
-          { href: "/area", label: "片区与通勤", activePaths: ["/area", "/commute", "/life"] },
-          { href: "/buy", label: "长期预算" },
-        ],
+        description: "输入城市、收入、租金和通勤要求，判断长期承受力。",
+        activePaths: ["/city", "/commute", "/life"],
+      },
+      {
+        href: "/area",
+        label: "片区初筛",
+        icon: MapPin,
+        description: "按工作地、预算、通勤和生活配套筛掉不合适的片区。",
+        activePaths: ["/area"],
+      },
+      {
+        href: "/city?mode=buy",
+        label: "买房大致判断",
+        icon: Building2,
+        description: "把首付、月供、工作地、通勤和长期现金流放在一起判断。",
       },
       {
         href: "/analyze",
-        label: "房源评估",
+        label: "房源体检",
         icon: Sparkles,
-        description: "评估候选房源，对比多套选择，并保存成房源记录。",
-        activePaths: ["/report", "/analyze", "/compare", "/case", "/plan"],
-        subItems: [
-          { href: "/analyze", label: "评估房源", activePaths: ["/report"] },
-          { href: "/compare", label: "多房源对比" },
-          { href: "/case", label: "房源记录" },
-          { href: "/plan", label: "下一步" },
-        ],
+        description: "对候选房源做体检，生成可回看的判断记录。",
+        activePaths: ["/report", "/analyze", "/compare", "/case"],
       },
       {
-        href: "/visit",
-        label: "签约与入住",
+        href: "/payment",
+        label: "付款咨询",
+        icon: BadgeDollarSign,
+        description: "确认合同、付款、退款和相关法律风险。",
+        activePaths: ["/payment", "/contract", "/official", "/evidence"],
+      },
+      {
+        href: "/plan",
+        label: "当前行动",
         icon: ClipboardCheck,
-        description: "把看房、安全、材料、付款、合同、入住和退租放在一个阶段确认。",
-        activePaths: [
-          "/visit",
-          "/safety",
-          "/shared",
-          "/official",
-          "/evidence",
-          "/payment",
-          "/contract",
-          "/move",
-          "/handover",
-          "/repair",
-          "/renewal",
-          "/deposit",
-        ],
-        subItems: [
-          { href: "/visit", label: "看房与安全", activePaths: ["/visit", "/safety", "/shared"] },
-          { href: "/payment", label: "付款与材料", activePaths: ["/payment", "/official", "/evidence"] },
-          { href: "/contract", label: "合同确认" },
-          { href: "/move", label: "入住退租", activePaths: ["/move", "/handover", "/repair", "/renewal", "/deposit"] },
-        ],
+        description: "把当前情况转成可以直接执行的确认事项。",
+        activePaths: ["/plan"],
       },
     ],
   },
   {
-    title: "资料与设置",
-    summary: "需要查规则、改偏好或检查服务状态时再进入。",
+    title: "账户",
+    summary: "管理常用信息、判断记录和方案额度。",
     items: [
       {
-        href: "/knowledge",
-        label: "知识库",
-        icon: BookOpenCheck,
-        description: "按你当前遇到的问题找对应清单。",
+        href: "/pricing",
+        label: "方案与额度",
+        icon: BadgeDollarSign,
+        description: "查看当前方案、判断额度和适合场景。",
       },
       {
         href: "/settings",
         label: "个人设置",
         icon: Settings,
-        description: "维护常用城市、工作地、预算、偏好和服务状态。",
+        description: "维护城市、工作地、预算、偏好和账号同步。",
       },
     ],
   },
 ];
 
-export const topNavItems: TopNavItem[] = [
-  { href: "/dashboard", label: "工作台" },
-  { href: "/city", label: "城市成本", activePaths: ["/city", "/area", "/commute", "/life", "/buy"] },
-  { href: "/analyze", label: "房源评估", activePaths: ["/report", "/analyze", "/compare", "/case", "/plan"] },
-  {
-    href: "/visit",
-    label: "签约与入住",
-    activePaths: [
-      "/visit",
-      "/safety",
-      "/shared",
-      "/official",
-      "/evidence",
-      "/payment",
-      "/contract",
-      "/move",
-      "/handover",
-      "/repair",
-      "/renewal",
-      "/deposit",
-    ],
-  },
-  { href: "/knowledge", label: "知识库" },
-];
-
 export function isNavItemActive(
   pathname: string,
   item: { href: string; activePaths?: string[] },
+  currentHref = pathname,
 ) {
+  if (item.href.includes("?")) {
+    return currentHref === item.href || currentHref.startsWith(`${item.href}&`);
+  }
+
+  if (item.href === "/city" && currentHref.startsWith("/city?mode=buy")) {
+    return false;
+  }
+
   return (
     pathname === item.href ||
     Boolean(item.activePaths?.some((path) => pathname.startsWith(path)))

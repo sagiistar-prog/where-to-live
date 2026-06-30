@@ -2,6 +2,7 @@ import { Archive, BadgeDollarSign, ClipboardCheck, KeyRound, SearchCheck } from 
 import { AppShell } from "@/components/app-shell";
 import { EvidenceVaultPanel } from "@/components/evidence-vault-panel";
 import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 import { buildFlowHref, compactContext } from "@/lib/flow-links";
 import type { EvidencePackInput } from "@/lib/evidence-pack";
 
@@ -34,13 +35,13 @@ function firstNumberText(value: string | undefined) {
 const sourceLabels: Record<string, string> = {
   report: "已从报告带入",
   case: "已从房源记录带入",
-  plan: "已从下一步带入",
+  plan: "已从当前行动带入",
   home: "已从首页输入带入",
   area: "已从片区筛选带入",
   commute: "已从通勤成本带入",
   life: "已从生活配套带入",
   official: "已从官方查询带入",
-  payment: "已从付款前确认带入",
+  payment: "已从付款咨询带入",
   visit: "已从看房清单带入",
   safety: "已从独居安全带入",
   shared: "已从合租边界带入",
@@ -129,8 +130,8 @@ export default async function EvidencePage({
     address,
     stage,
     landlordType,
-    contractStatus: contractStatus || "凭据材料提示仍需确认合同、授权和备案材料",
-  concerns: risks || "凭据材料提示需要继续确认出租权、备案办理办法、合同底线和收款主体。",
+    contractStatus: contractStatus || "材料清单提示仍需确认合同、授权和备案材料",
+  concerns: risks || "材料清单提示需要继续确认出租权、备案办理办法、合同要求和收款主体。",
     reportContext: upstreamContext,
   });
   const paymentHref = buildFlowHref("/payment", {
@@ -143,7 +144,7 @@ export default async function EvidencePage({
     paymentType: paymentType || "定金",
     amount,
     monthlyRent,
-    contractStatus: contractStatus || "凭据材料提示合同和授权仍需确认",
+    contractStatus: contractStatus || "材料清单提示合同和授权仍需确认",
     authorizationStatus: authorizationStatus || landlordType,
     identityStatus,
     payeeType,
@@ -154,7 +155,7 @@ export default async function EvidencePage({
     urgencyPressure,
     notes:
       compactContext([
-        "来自凭据材料：付款前先确认授权、押金、维修、付款备注和收据材料。",
+        "来自材料清单：付款前先确认授权、押金、维修、付款备注和收据材料。",
         risks,
       ]) || undefined,
     reportContext: upstreamContext,
@@ -178,7 +179,7 @@ export default async function EvidencePage({
     title,
     listingTitle: title,
     depositAmount: moneyAmount,
-    evidenceLevel: "部分凭据",
+    evidenceLevel: "部分材料",
     landlordReason: risks,
     reportContext: upstreamContext,
   });
@@ -202,26 +203,21 @@ export default async function EvidencePage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
         <ProductPageHeader
           eyebrow="签约前确认"
-          title="付款前先整理好关键凭据"
-      description="租房损失常常来自关键凭据没有提前留下。这里把出租权、押金、维修、交割和聊天确认整理成付款前能用上的凭据材料。"
+          title="材料清单"
+          description="整理出租权、押金、维修、交割和聊天确认，形成付款或签约前可核对的材料清单。"
           icon={Archive}
-          sideTitle="只整理计划，不托管隐私文件"
-          sideDescription="目前不托管原始文件；用户把照片、聊天记录和付款记录保存在自己的设备或云盘里，住哪儿只负责提醒该留什么、怎么命名、什么时候补充。"
-          facts={[
-            { label: "签约前", value: "出租权、授权、合同版本和付款备注" },
-            { label: "入住时", value: "钥匙、表读数、旧损坏和家具家电状态" },
-            { label: "退租时", value: "交割视频、扣款明细和返还截止日" },
-          ]}
           actions={[
             { label: "官方查询步骤", href: officialHref, icon: SearchCheck },
-            { label: "付款前确认", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
+            { label: "付款咨询", href: paymentHref, icon: BadgeDollarSign, variant: "secondary" },
             { label: "交割确认", href: handoverHref, icon: ClipboardCheck, variant: "secondary" },
             { label: "押金退还", href: depositHref, icon: KeyRound, variant: "secondary" },
           ]}
         />
+
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
 
         <EvidenceVaultPanel initialInput={initialInput} />
       </div>

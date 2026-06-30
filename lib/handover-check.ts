@@ -43,7 +43,7 @@ export type HandoverCheckResult = {
   listingTitle: string;
   status: ReportStatus;
   score: number;
-  verdict: "可以交割" | "补充材料后交割" | "先别交割";
+  verdict: "可以交割" | "补充材料后交割" | "暂不交割";
   summary: string;
   depositAmount: number;
   monthlyRent: number;
@@ -92,27 +92,25 @@ function statusFrom(score: number, highCount: number): ReportStatus {
 function verdictFrom(status: ReportStatus): HandoverCheckResult["verdict"] {
   if (status === "recommend") return "可以交割";
   if (status === "caution") return "补充材料后交割";
-  return "先别交割";
+  return "暂不交割";
 }
 
 export function buildHandoverCheck(input: HandoverCheckInput): HandoverCheckResult {
   const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "候选房源";
-  const handoverDate = input.handoverDate?.trim() || "2026-06-01";
-  const contractSigned = input.contractSigned?.trim() || "已签合同但未写交割清单";
-  const keysStatus = input.keysStatus?.trim() || "只口头说有 2 把钥匙";
-  const meterStatus = input.meterStatus?.trim() || "还没拍水电燃气表读数";
-  const applianceStatus = input.applianceStatus?.trim() || "家具家电清单不完整";
-  const damageStatus = input.damageStatus?.trim() || "墙面霉斑和地板划痕未写明";
+  const handoverDate = input.handoverDate?.trim() || "待确认";
+  const contractSigned = input.contractSigned?.trim() || "不确定";
+  const keysStatus = input.keysStatus?.trim() || "不确定";
+  const meterStatus = input.meterStatus?.trim() || "不确定";
+  const applianceStatus = input.applianceStatus?.trim() || "不确定";
+  const damageStatus = input.damageStatus?.trim() || "不确定";
   const utilityDebtStatus = input.utilityDebtStatus?.trim() || "不确定是否有历史欠费";
-  const accessStatus = input.accessStatus?.trim() || "门禁卡和电梯卡数量未确认";
-  const cleaningStatus = input.cleaningStatus?.trim() || "卫生间和厨房清洁一般";
-  const landlordConfirmation = input.landlordConfirmation?.trim() || "对方只说没问题";
-  const depositAmount = money(numberOr(input.depositAmount, 5200));
-  const monthlyRent = money(numberOr(input.monthlyRent, 5200));
-  const notes =
-    input.notes?.trim() ||
-    "准备今天拿钥匙入住，但还没正式拍交割视频，旧损坏、表读数和门禁数量都没有文字确认。";
+  const accessStatus = input.accessStatus?.trim() || "不确定";
+  const cleaningStatus = input.cleaningStatus?.trim() || "不确定";
+  const landlordConfirmation = input.landlordConfirmation?.trim() || "不确定";
+  const depositAmount = money(numberOr(input.depositAmount, 0));
+  const monthlyRent = money(numberOr(input.monthlyRent, 0));
+  const notes = input.notes?.trim() || "";
   const context = [
     contractSigned,
     keysStatus,
@@ -193,7 +191,7 @@ export function buildHandoverCheck(input: HandoverCheckInput): HandoverCheckResu
     addRisk(riskItems, score, 7, {
       title: "清洁状态可能影响退租扣款",
       level: "中",
-      why: "入住时本来就有油污、霉味或卫生死角，如果没有保存凭据，退租清洁费很难争议。",
+      why: "入住时本来就有油污、霉味或卫生死角，如果没有保存记录，退租清洁费很难争议。",
       action: "拍厨房、卫生间、地漏、油烟机、冰箱和柜体内部，确认入住时清洁状态。",
       proof: "清洁状态照片、视频和对方确认。",
     });
@@ -213,15 +211,15 @@ export function buildHandoverCheck(input: HandoverCheckInput): HandoverCheckResu
     addRisk(riskItems, score, 5, {
       title: "押金金额较高",
       level: "低",
-      why: "押金越高，交割凭据越关键；一处旧损坏或表读数不清都可能变成直接现金损失。",
-      action: "按押金金额提高凭据标准，全屋视频、表读数和家具家电清单不能缺。",
+      why: "押金越高，交割记录越关键；一处旧损坏或表读数不清都可能变成直接现金损失。",
+      action: "按押金金额提高记录标准，全屋视频、表读数和家具家电清单不能缺。",
       proof: "押金付款记录、交割清单和全屋视频。",
     });
   }
 
   if (riskItems.length === 0) {
     riskItems.push({
-      title: "基础交割凭据",
+      title: "基础交割记录",
       level: "低",
       why: "即使条件清楚，也要让每个交割项都能在退租时回溯。",
       action: "按全屋视频、表读数、钥匙门禁、家具家电、旧损坏和聊天确认的顺序办理交割。",
@@ -287,12 +285,12 @@ export function buildHandoverCheck(input: HandoverCheckInput): HandoverCheckResu
       status === "recommend"
         ? "当前交割条件较完整，可以按清单确认钥匙、表读数、家具家电和旧损坏确认。"
         : status === "caution"
-          ? "当前交割存在待补充凭据，建议补充高风险清单，再拿钥匙或正式入住。"
+          ? "当前交割存在待补充材料，建议补充高风险清单，再拿钥匙或正式入住。"
           : "当前不建议直接交割。钥匙、表读数、交割清单或旧损坏存在高风险信息待补充，补充材料再入住。",
     depositAmount,
     monthlyRent,
     riskItems,
-    blockers: blockers.length ? blockers : ["暂无高优先级待确认事项，但仍需保存基础交割凭据。"],
+    blockers: blockers.length ? blockers : ["暂无高优先级待确认事项，但仍需保存基础交割记录。"],
     tasks,
     confirmationMessage: `交割确认：${listingTitle} 将于 ${handoverDate} 交割。请确认钥匙/门禁数量、水电燃气表读数、家具家电清单、旧损坏位置、历史欠费和清洁状态；交割日前费用由出租方承担，交割日后费用按合同约定。以上照片和视频我会同步发到本聊天，作为退租交割依据。`,
     photoShotList: [
@@ -310,15 +308,15 @@ export function buildHandoverCheck(input: HandoverCheckInput): HandoverCheckResu
       "宽带账号、物业费、水费代收、电梯卡补办费和门禁卡补办费。",
     ],
     nextActions: [
-      status === "reject" ? "先别交割，补充钥匙门禁、表读数和交割清单确认。" : "按确认清单办理交割并发送确认消息。",
-      "把交割视频、表读数和家具家电清单同步到凭据材料。",
+      status === "reject" ? "暂不交割，补充钥匙门禁、表读数和交割清单确认。" : "按确认清单办理交割并发送确认消息。",
+      "把交割视频、表读数和家具家电清单同步到材料清单。",
       "发现漏水、发霉或家电故障时，立即进入维修责任判断。",
       "退租前用本次交割记录反向核对押金扣款。",
     ],
     assumptions: [
       `城市：${city}；房源：${listingTitle}；交割日期：${handoverDate}。`,
       `押金：${depositAmount.toLocaleString()} 元；月租：${monthlyRent.toLocaleString()} 元。`,
-      "本页只基于用户主动输入整理交割清单，不读取私人聊天、支付账户或平台房源数据。",
+      "本页根据你输入的信息整理交割清单、付款前需要确认的事项和后续留痕要求。",
       `输入背景：${context}`,
     ],
   };

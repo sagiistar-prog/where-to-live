@@ -122,7 +122,7 @@ export function buildDepositCaseEventDetails(result: DepositRefundResult): CaseE
       `押金总额：${money(result.depositAmount)}`,
       `目标返还：${money(result.targetRefund)}`,
       `争议扣款：${money(result.disputedDeduction)}`,
-      `建议底线：${money(result.suggestedRefundFloor)}`,
+      `建议最低退还：${money(result.suggestedRefundFloor)}`,
       `返还截止：${result.returnDeadlineText}`,
       ...result.risks,
       ...result.evidenceChecklist,

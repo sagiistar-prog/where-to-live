@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.mjs",
     "build": "next build",
-    "lint": "eslint ."
+    "check:links": "node scripts/check-internal-links.mjs",
+    "lint": "eslint .",
+    "smoke": "node scripts/smoke.mjs",
+    "verify": "node scripts/verify.mjs",
+    "verify:prod": "npm run verify && node scripts/verify-prod.mjs",
+    "verify:wsl": "bash scripts/wsl-npm.sh verify:prod"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.3",
@@ -36,5 +41,15 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
-  }
+  },
+  "description": "住哪儿 AI 是一个居住决策工具，面向正在换城市、租房、看房、付款、签约或考虑买房的年轻用户。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }

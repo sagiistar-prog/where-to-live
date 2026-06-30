@@ -125,12 +125,12 @@ function monthlyTimeHours(oneWayMinutes: number, workdays: number) {
 }
 
 export function buildCommuteCost(input: CommuteCostInput): CommuteCostResult {
-  const city = input.city?.trim() || "上海";
+  const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "当前候选房源";
-  const workplace = input.workplace?.trim() || "徐家汇";
-  const monthlyIncome = asNumber(input.monthlyIncome, 18000);
-  const monthlyRent = asNumber(input.monthlyRent, 5200);
-  const oneWayMinutes = asNumber(input.oneWayMinutes, 58);
+  const workplace = input.workplace?.trim() || "工作地待确认";
+  const monthlyIncome = asNumber(input.monthlyIncome, 0);
+  const monthlyRent = asNumber(input.monthlyRent, 0);
+  const oneWayMinutes = asNumber(input.oneWayMinutes, 0);
   const walkMinutes = asNumber(input.walkMinutes, 14);
   const transferCount = asNumber(input.transferCount, 2);
   const transitFareOneWay = asNumber(input.transitFareOneWay, 6);
@@ -345,7 +345,7 @@ export function buildCommuteCost(input: CommuteCostInput): CommuteCostResult {
       "把这套房加入多房源对比，按真实月成本排序。",
       "进入片区筛选，找 2 个通勤更短的替代片区作为标尺。",
       "看房时优先确认晚归路线、楼下下车点、门禁和雨天步行路线。",
-      status === "reject" ? "不要当天交定金，先比较近通勤替代房。" : "如果其他风险可控，再进入房源评估和付款前确认。",
+      status === "reject" ? "不要当天交定金，先比较近通勤替代房。" : "如果其他风险可控，再进入房源体检和付款咨询。",
     ],
     assumptions: [
       `城市：${city}；房源：${listingTitle}；工作地点：${workplace}。`,

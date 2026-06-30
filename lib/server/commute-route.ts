@@ -142,13 +142,13 @@ export async function enhanceCommuteInputWithAmap(
       provider: "amap",
       feature: "通勤路线",
       status: "fallback",
-      label: "高德路线已关闭",
-      detail: "设置页已关闭地图实时数据，本次只按你手动输入的通勤参数折算。",
+      label: "按手动通勤信息估算",
+      detail: "本次先按你填写的通勤时间、步行、换乘和票价估算。确定房源前，请再用实际路线确认一次。",
     });
     return {
       ...input,
       dataQuality,
-      routeEvidence: manualEvidence(input, "设置页关闭了地图实时数据。"),
+      routeEvidence: manualEvidence(input, "本次先按手动通勤信息估算。"),
     };
   }
 
@@ -157,13 +157,13 @@ export async function enhanceCommuteInputWithAmap(
       provider: "amap",
       feature: "通勤路线",
       status: "fallback",
-      label: "实时路线暂不可用",
-      detail: "本次只按你手动输入的通勤时间、步行和换乘情况折算。",
+      label: "按手动通勤信息估算",
+      detail: "本次先按你填写的通勤时间、步行和换乘情况估算。",
     });
     return {
       ...input,
       dataQuality,
-      routeEvidence: manualEvidence(input, "实时路线暂不可用，本次按手动通勤信息判断。"),
+      routeEvidence: manualEvidence(input, "本次先按手动通勤信息估算。"),
     };
   }
 
@@ -172,15 +172,15 @@ export async function enhanceCommuteInputWithAmap(
       provider: "amap",
       feature: "通勤路线",
       status: "skipped_limit",
-      label: "高德额度保护",
+      label: "按手动通勤信息估算",
       detail:
-        usageState?.reason ??
-        "高德产品侧用量已接近提醒线，本次不再调用实时路线，改用手动输入。",
+        usageState?.reason?.replaceAll("调用", "使用") ??
+        "本次先按你填写的通勤信息估算。",
     });
     return {
       ...input,
       dataQuality,
-      routeEvidence: manualEvidence(input, "高德额度保护触发，本次没有调用实时路线。"),
+      routeEvidence: manualEvidence(input, "本次先按手动通勤信息估算。"),
     };
   }
 
@@ -190,12 +190,12 @@ export async function enhanceCommuteInputWithAmap(
       feature: "通勤路线",
       status: "missing_input",
       label: "缺少路线起终点",
-      detail: "请填写候选房源的小区名/地址和工作地点，才能调用高德路线增强。",
+      detail: "请填写候选房源的小区名或地址，以及工作地点。信息越具体，通勤判断越接近真实情况。",
     });
     return {
       ...input,
       dataQuality,
-      routeEvidence: manualEvidence(input, "缺少房源地址或工作地点，无法调用实时路线。"),
+      routeEvidence: manualEvidence(input, "缺少房源地址或工作地点，本次先按已有信息估算。"),
     };
   }
 
@@ -208,13 +208,13 @@ export async function enhanceCommuteInputWithAmap(
     provider: "amap",
     feature: "起终点解析",
     status: origin && destination ? "live" : "failed",
-    label: origin && destination ? "高德起终点解析" : "起终点解析失败",
+    label: origin && destination ? "起终点解析" : "起终点解析失败",
     detail:
       origin && destination
         ? `已解析房源 ${origin.formattedAddress ?? originQuery}，工作地 ${
             destination.formattedAddress ?? destinationQuery
           }。`
-        : "高德没有返回可用坐标，请补充更具体的小区、门牌、地标或写字楼名称。",
+        : "实时地图没有返回可用坐标，请补充更具体的小区、门牌、地标或写字楼名称。",
   });
 
   const route =
@@ -231,13 +231,13 @@ export async function enhanceCommuteInputWithAmap(
       provider: "amap",
       feature: "公交地铁路线",
       status: "fallback",
-      label: "实时路线未返回",
-      detail: "高德没有返回可用公交/地铁路线，本次继续使用手动输入的通勤分钟和换乘信息。",
+      label: "按手动通勤信息估算",
+      detail: "未获得可用公交/地铁路线，本次继续使用你填写的通勤分钟和换乘信息。",
     });
     return {
       ...input,
       dataQuality,
-      routeEvidence: manualEvidence(input, "高德路线未返回可用结果，已回落到手动参数。"),
+      routeEvidence: manualEvidence(input, "本次先按手动通勤信息估算。"),
     };
   }
 
@@ -250,8 +250,8 @@ export async function enhanceCommuteInputWithAmap(
     provider: "amap",
     feature: "公交地铁路线",
     status: "live",
-    label: "高德实时路线",
-    detail: `已按高德公交/地铁路线更新单程 ${route.durationMinutes} 分钟、步行约 ${
+    label: "实时公交/地铁路线",
+    detail: `已按实时公交/地铁路线更新单程 ${route.durationMinutes} 分钟、步行约 ${
       route.walkingDistanceMeters ? Math.round(route.walkingDistanceMeters) : "-"
     } 米、换乘 ${route.transferCount ?? input.transferCount ?? "-"} 次。`,
   });
@@ -265,8 +265,8 @@ export async function enhanceCommuteInputWithAmap(
     dataQuality,
     routeEvidence: {
       source: "amap",
-      label: "高德实时路线",
-      detail: `本次优先采用高德公交/地铁路线；仍建议在早高峰、晚高峰和晚归场景实测一次。`,
+      label: "实时公交/地铁路线",
+      detail: `本次优先采用实时公交/地铁路线；仍建议在早高峰、晚高峰和晚归场景实测一次。`,
       origin: origin?.formattedAddress ?? originQuery,
       destination: destination?.formattedAddress ?? destinationQuery,
       durationMinutes: route.durationMinutes,

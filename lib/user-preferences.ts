@@ -19,17 +19,17 @@ export const onboardingStorageKey = "zhunaar:onboarding-completed";
 export const userPreferencesUpdatedEvent = "zhunaar:user-preferences-updated";
 
 export const defaultUserPreferences: UserPreferences = {
-  nickname: "年轻租客",
-  email: "demo@zhunaar.ai",
-  defaultCity: "上海",
-  defaultWorkplace: "徐家汇",
-  monthlyIncome: "18000",
-  budgetMin: "3500",
-  budgetMax: "6500",
-  commuteLimit: "45 分钟",
-  fixedCost: "3000",
+  nickname: "",
+  email: "",
+  defaultCity: "",
+  defaultWorkplace: "",
+  monthlyIncome: "",
+  budgetMin: "",
+  budgetMax: "",
+  commuteLimit: "",
+  fixedCost: "",
   reportStyle: "结论直接",
-  livingPreferences: ["独居", "必须近地铁", "怕潮湿"],
+  livingPreferences: [],
 };
 
 const legacyContractChecklistStyle = "合同" + "确认清单";

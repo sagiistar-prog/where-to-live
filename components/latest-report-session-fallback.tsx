@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { BadgeDollarSign, Building2, Home, LayoutDashboard } from "lucide-react";
 import { ReportView } from "@/components/report-view";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -50,7 +51,7 @@ export function LatestReportSessionFallback() {
       <>
         <ReportView
           report={payload.report}
-          label={payload.mode === "openai" ? "当前会话深度报告" : "当前会话基础报告"}
+          label={payload.mode === "openai" ? "本次完整体检" : "本次快速体检"}
           generatedAt={payload.generatedAt}
           dataSources={payload.dataSources}
           dataQuality={payload.dataQuality}
@@ -60,16 +61,11 @@ export function LatestReportSessionFallback() {
         <Card className="mx-auto mt-6 max-w-7xl p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted-foreground">
-              这份报告还只保留在当前浏览器会话里，尚未进入房源记录。关闭浏览器会话后可能无法再次打开。
+              这份结果还没有进入房源记录。需要长期回看、继续对比或回到工作台时，请重新体检并保存。
             </p>
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button asChild variant="secondary" size="sm">
-                <Link href="/analyze">重新评估并保存</Link>
-              </Button>
-              <Button asChild variant="outline" size="sm">
-                <Link href="/settings">调整隐私设置</Link>
-              </Button>
-            </div>
+            <Button asChild variant="secondary" size="sm">
+              <Link href="/analyze">重新体检并保存</Link>
+            </Button>
           </div>
         </Card>
       </>
@@ -77,21 +73,70 @@ export function LatestReportSessionFallback() {
   }
 
   return (
-    <Card className="mx-auto max-w-2xl p-8 text-center">
-      <h1 className="text-2xl font-semibold">
-        {loaded ? "还没有最新报告" : "正在读取最新报告"}
-      </h1>
-      <p className="mt-3 text-sm leading-7 text-muted-foreground">
-        先提交一套候选房源。住哪儿会整理成可回看的判断结果；如果你关闭了报告历史保存，结果只会保留在当前浏览器会话里。
-      </p>
-      <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-        <Button asChild>
-          <Link href="/analyze">评估候选房源</Link>
-        </Button>
-        <Button asChild variant="secondary">
-          <Link href="/report/demo">查看示例报告</Link>
-        </Button>
+    <Card className="mx-auto max-w-4xl p-6 sm:p-8">
+      <div className="max-w-2xl">
+        <p className="text-sm font-medium text-primary">
+          {loaded ? "暂无房源体检结果" : "正在读取房源体检结果"}
+        </p>
+        <h1 className="mt-3 text-2xl font-semibold">
+          先完成一次房源体检
+        </h1>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">
+          输入月租、位置、工作地和主要顾虑后，这里会显示结论、主要风险、付款前需要确认的事项和当前行动。
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <ReportStartLink
+          href="/analyze"
+          icon={Home}
+          title="房源体检"
+          description="输入月租、位置、工作地和担心的问题。"
+        />
+        <ReportStartLink
+          href="/payment"
+          icon={BadgeDollarSign}
+          title="付款咨询"
+          description="先判断合同、收款和退款风险。"
+        />
+        <ReportStartLink
+          href="/city?mode=buy"
+          icon={Building2}
+          title="买房大致判断"
+          description="先看首付、月供和长期现金流。"
+        />
+        <ReportStartLink
+          href="/dashboard"
+          icon={LayoutDashboard}
+          title="回到工作台"
+          description="继续最近启动的判断和行动。"
+        />
       </div>
     </Card>
+  );
+}
+
+function ReportStartLink({
+  href,
+  icon: Icon,
+  title,
+  description,
+}: {
+  href: string;
+  icon: typeof Home;
+  title: string;
+  description: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="rounded-md border border-border bg-secondary/55 p-4 transition-colors hover:border-primary/35 hover:bg-card"
+    >
+      <span className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-primary/12 text-primary">
+        <Icon className="h-5 w-5" />
+      </span>
+      <h2 className="text-sm font-semibold">{title}</h2>
+      <p className="mt-2 text-xs leading-5 text-muted-foreground">{description}</p>
+    </Link>
   );
 }

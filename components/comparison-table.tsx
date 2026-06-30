@@ -27,11 +27,11 @@ export function ComparisonTable({
               <th className="px-5 py-4">通勤差</th>
               <th className="px-5 py-4">配套</th>
               <th className="px-5 py-4">风险</th>
-              <th className="px-5 py-4">信息是否够用</th>
+              <th className="px-5 py-4">信息完整度</th>
               <th className="px-5 py-4">签约前确认</th>
               <th className="px-5 py-4">评分</th>
               <th className="px-5 py-4">推荐理由</th>
-              <th className="px-5 py-4">下一步</th>
+              <th className="px-5 py-4">后续确认</th>
             </tr>
           </thead>
           <tbody>
@@ -125,7 +125,7 @@ export function ComparisonTable({
                       </Link>
                     </Button>
                   ) : (
-                    <span className="text-xs text-muted-foreground">先评估房源</span>
+                    <span className="text-xs text-muted-foreground">房源体检</span>
                   )}
                 </td>
               </tr>
@@ -136,7 +136,7 @@ export function ComparisonTable({
       </div>
       <div className="flex flex-col gap-3 border-t border-border p-5 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted-foreground">
-          对比结论优先看综合约束，不只看租金最低。
+          对比结论以综合约束为准，不只看租金最低。
         </p>
         <Button asChild>
           <Link href="/analyze">
@@ -151,7 +151,7 @@ export function ComparisonTable({
 
 function GateCell({ listing }: { listing: ComparisonListing }) {
   if (!listing.gateLevel || !listing.gateLabel) {
-    return <span className="text-xs text-muted-foreground">展示数据</span>;
+    return <span className="text-xs text-muted-foreground">待补充</span>;
   }
 
   const className =
@@ -168,7 +168,7 @@ function GateCell({ listing }: { listing: ComparisonListing }) {
       </span>
       {typeof listing.gateProgress === "number" ? (
         <p className="text-xs text-muted-foreground">
-          确认 {listing.gateProgress}% · {listing.canPay ? "可付款" : "先别付款"} · {listing.canSign ? "可签约" : "先别签约"}
+          确认 {listing.gateProgress}% · {listing.canPay ? "可付款" : "不建议付款"} · {listing.canSign ? "可签约" : "不建议签约"}
         </p>
       ) : null}
     </div>
@@ -177,7 +177,7 @@ function GateCell({ listing }: { listing: ComparisonListing }) {
 
 function ConfidenceCell({ listing }: { listing: ComparisonListing }) {
   if (!listing.confidenceLevel || !listing.confidenceLabel) {
-    return <span className="text-xs text-muted-foreground">展示数据</span>;
+    return <span className="text-xs text-muted-foreground">待补充</span>;
   }
 
   const className =

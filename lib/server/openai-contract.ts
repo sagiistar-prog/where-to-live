@@ -108,9 +108,9 @@ export async function checkContractRisk(
           officialReferences: contractRiskSources,
           requirements: [
             "只做风险提示，不给法律结论",
-            "每个发现必须包含凭据、风险、建议和可复制的沟通话术",
+            "每个发现必须包含材料、风险、建议和可复制的沟通话术",
             "重点识别押金、提前退租、维修责任、转租授权、费用、非居住空间、单方解除",
-            "如果信息不足，明确列出缺失条款和下一步确认事项",
+            "如果信息不足，明确列出缺失条款和后续确认事项",
           ],
         },
         null,
@@ -173,14 +173,10 @@ export async function checkContractRisk(
       sources: contractRiskSources,
       warnings: [],
     };
-  } catch (error) {
+  } catch {
     return {
       ...fallback,
-      warnings: [
-        error instanceof Error
-          ? `重点确认失败，已整理基础合同确认：${error.message}`
-          : "重点确认失败，已整理基础合同确认。",
-      ],
+      warnings: ["重点确认暂时不可用，已先整理基础合同确认。"],
     };
   }
 }

@@ -111,9 +111,9 @@ export async function POST(request: Request) {
       mode: "fallback",
       fields: {},
       confidence: 0,
-      missingFields: ["截图读取服务未配置"],
-      warnings: ["截图读取服务未配置，当前只能保留截图并由你手动确认信息。"],
-      message: "截图读取服务未配置，暂时不能读取截图信息。",
+      missingFields: ["截图暂时无法自动读取"],
+      warnings: ["截图暂时无法自动读取，当前只能保留截图并由你手动确认信息。"],
+      message: "截图暂时无法自动读取，请先手动填写关键字段。",
     });
   }
 
@@ -144,7 +144,7 @@ export async function POST(request: Request) {
               {
                 type: "input_text",
                 text:
-                  "请识别这张中国租房相关截图中的房源标题、月租金、面积、楼层、地址/小区、城市和费用/风险描述。保留原文关键信息，方便用户确认后保存房源评估。",
+                  "请识别这张中国租房相关截图中的房源标题、月租金、面积、楼层、地址/小区、城市和费用/风险描述。保留原文关键信息，方便用户确认后保存房源体检。",
               },
               { type: "input_image", image_url: screenshotDataUrl },
             ],
@@ -176,19 +176,15 @@ export async function POST(request: Request) {
       confidence: parsed.confidence,
       missingFields: parsed.missingFields,
       warnings: parsed.warnings,
-      message: "已读取截图信息，请人工确认后再保存房源评估。",
+      message: "已读取截图信息，请人工确认后再保存房源体检。",
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       mode: "fallback",
       fields: {},
       confidence: 0,
       missingFields: ["截图读取失败"],
-      warnings: [
-        error instanceof Error
-          ? `截图读取失败：${error.message}`
-          : "截图读取失败。",
-      ],
+      warnings: ["截图读取暂时失败，请手动补充关键信息。"],
       message: "截图读取失败，请先手动补充关键信息。",
     });
   }

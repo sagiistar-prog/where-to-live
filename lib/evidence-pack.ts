@@ -68,17 +68,17 @@ function statusFromWarnings(count: number): ReportStatus {
 
 function buildExportText(result: Omit<EvidencePackResult, "exportText">) {
   const lines = [
-    `凭据材料：${result.title}`,
+    `材料清单：${result.title}`,
     `记录名：${result.archiveName}`,
     `整理时间：${new Date(result.generatedAt).toLocaleString("zh-CN")}`,
     "",
-    "凭据时间线：",
+    "材料时间线：",
     ...result.timeline.map((step, index) => `${index + 1}. ${step}`),
     "",
     "付款备注建议：",
     ...result.paymentNotes.map((note) => `- ${note}`),
     "",
-    "凭据材料：",
+    "材料清单：",
   ];
 
   result.sections.forEach((section) => {
@@ -91,7 +91,7 @@ function buildExportText(result: Omit<EvidencePackResult, "exportText">) {
   });
 
   if (result.missingWarnings.length) {
-    lines.push("", "先别签约/补充材料提醒：", ...result.missingWarnings.map((warning) => `- ${warning}`));
+    lines.push("", "暂不签约/补充材料提醒：", ...result.missingWarnings.map((warning) => `- ${warning}`));
   }
 
   return lines.join("\n");
@@ -99,7 +99,7 @@ function buildExportText(result: Omit<EvidencePackResult, "exportText">) {
 
 export function buildEvidencePack(input: EvidencePackInput): EvidencePackResult {
   const stage = input.stage?.trim() || "签约前";
-  const title = input.title?.trim() || "候选房源凭据材料";
+  const title = input.title?.trim() || "候选房源材料清单";
   const city = input.city?.trim() || "目标城市";
   const address = input.address?.trim() || "待确认地址";
   const landlordType = input.landlordType?.trim() || "房东本人";
@@ -205,7 +205,7 @@ export function buildEvidencePack(input: EvidencePackInput): EvidencePackResult 
       "押金退还条件",
       "高",
       "合同页 / 聊天确认",
-      "截取押金金额、扣减条件、退还时间和验收方式，不能只保留口头承诺。",
+      "截取押金金额、扣减条件、退还时间和验收方式，保留可核验记录。",
       "08-押金条款",
       "押金纠纷最常见，必须把扣款边界写清楚。",
     ),
@@ -289,7 +289,7 @@ export function buildEvidencePack(input: EvidencePackInput): EvidencePackResult 
     generatedAt: new Date().toISOString(),
     title,
     status: statusFromWarnings(missingWarnings.length),
-    summary: `已为 ${address} 整理 ${sections.flatMap((section) => section.items).length} 项凭据留存事项。重点保留出租权、押金、付款备注、交割视频和文字确认。`,
+    summary: `已为 ${address} 整理 ${sections.flatMap((section) => section.items).length} 项材料留存事项。重点保留出租权、押金、付款备注、交割视频和文字确认。`,
     archiveName,
     sections,
     timeline: [
@@ -297,7 +297,7 @@ export function buildEvidencePack(input: EvidencePackInput): EvidencePackResult 
       "谈定金前：确认出租权、收款主体、押金退还和费用边界。",
       "签约当天：拍合同关键页、付款备注、家具家电清单和交割确认。",
       "入住后 24 小时内：补拍遗漏损坏，并发给出租方文字确认。",
-      "退租前 7 天：按入住凭据反向核对，提前确认押金退还方式。",
+      "退租前 7 天：按入住材料反向核对，提前确认押金退还方式。",
     ],
     paymentNotes: [
       `支付${input.deposit || "押金/租金"}，房屋地址：${address}，款项用途：押金/租金，租期和合同一致。`,
@@ -306,7 +306,7 @@ export function buildEvidencePack(input: EvidencePackInput): EvidencePackResult 
     ],
     missingWarnings: missingWarnings.length
       ? missingWarnings
-      : ["当前未触发明显缺证风险，但签约前仍需确认所有高优先级凭据。"],
+      : ["当前未触发明显材料不足风险，但签约前仍需确认所有高优先级材料。"],
   };
 
   return {

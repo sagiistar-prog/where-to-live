@@ -50,7 +50,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
   const [checked, setChecked] = useState<string[]>([]);
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState(
-    "这里只整理凭据材料，不上传文件，也不读取私人账号。",
+    "填写当前阶段和已有材料，生成付款、签约或退租前需要核对的清单。",
   );
 
   const allItems = useMemo(
@@ -78,7 +78,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
   );
 
   const submitPayload = useCallback(
-    async (payload: EvidencePackInput, loadingMessage = "正在整理凭据材料...") => {
+    async (payload: EvidencePackInput, loadingMessage = "正在整理材料清单...") => {
       setState("loading");
       setMessage(loadingMessage);
       setLastInput(payload);
@@ -93,18 +93,18 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
         });
 
         if (!response.ok) {
-          throw new Error("凭据材料整理失败，请确认信息后重试。");
+          throw new Error("材料清单整理失败，请确认信息后重试。");
         }
 
         const data = (await response.json()) as EvidencePackResult;
         setResult(data);
         setChecked([]);
         setState("idle");
-        setMessage("凭据材料已整理。补充高优先级材料，再进入付款或签约。");
+        setMessage("材料清单已整理。补充高优先级材料，再进入付款或签约。");
         void recordCaseEvent({
           reportId: initialInput?.reportId || "workspace",
           type: "evidence",
-          title: "凭据材料",
+          title: "材料清单",
           status: data.status,
           summary: data.summary,
           highlights: [...data.missingWarnings, ...data.timeline].slice(0, 6),
@@ -112,7 +112,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
         });
       } catch (error) {
         setState("error");
-        setMessage(error instanceof Error ? error.message : "凭据材料整理失败，请稍后重试。");
+        setMessage(error instanceof Error ? error.message : "材料清单整理失败，请稍后重试。");
       }
     },
     [initialInput?.reportId],
@@ -130,10 +130,10 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
         landlordType: initialInput.landlordType,
         deposit: initialInput.deposit,
         paymentCycle: initialInput.paymentCycle,
-        risks: seedValue(initialInput.risks, "上下文提示存在授权、押金、维修、付款和交割凭据风险。"),
+        risks: seedValue(initialInput.risks, "需要确认出租权、押金、维修、付款和交割材料。"),
         reportContext: initialInput.reportContext,
       },
-      `${initialInput.sourceLabel ?? "已带入上下文"}，正在整理签约前凭据材料...`,
+      `${initialInput.sourceLabel ?? "已带入上下文"}，正在整理签约前材料清单...`,
     );
   }, [initialInput, submitPayload]);
 
@@ -160,7 +160,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
     if (!result) return;
     try {
       await navigator.clipboard.writeText(result.exportText);
-      setMessage("已复制凭据材料文本。");
+      setMessage("已复制材料清单文本。");
     } catch {
       setMessage("复制失败，可以手动选中文本复制。");
     }
@@ -182,13 +182,13 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
         ? "caution"
         : "reject";
 
-    await recordCaseEvent({
+    const saved = await recordCaseEvent({
       reportId: initialInput?.reportId || "workspace",
       type: "evidence",
-      title: "凭据材料确认情况",
+      title: "材料清单确认情况",
       status,
       summary: evidenceGateReady
-        ? "高优先级凭据已勾选，可以继续确认付款条件或合同条款。"
+        ? "高优先级材料已确认，可以继续确认付款条件或合同条款。"
         : `仍有 ${missingLabels.length} 项高优先级材料待补充，付款或签约前需要先确认。`,
       highlights: (missingLabels.length
         ? missingLabels.map((label) => `待补充：${label}`)
@@ -202,9 +202,11 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
           : undefined,
     });
     setMessage(
-      initialInput?.reportId
-        ? "当前凭据材料确认情况已保存到房源记录。"
-        : "当前凭据材料确认情况已保存到工作台。",
+      saved
+        ? initialInput?.reportId
+          ? "当前材料清单确认情况已保存到房源记录。"
+          : "当前材料清单确认情况已保存到工作台。"
+        : "已带入材料清单信息，请先查看本页确认项。",
     );
   }
 
@@ -215,9 +217,9 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
           <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm text-primary/80">
-                凭据场景
+                材料场景
               </p>
-              <h2 className="mt-2 text-2xl font-semibold">输入凭据场景</h2>
+              <h2 className="mt-2 text-2xl font-semibold">输入材料场景</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 适合看房后、交定金前、签约当天、交割确认和退租前使用。重点是知道该保留哪些材料，无需上传敏感文件。
               </p>
@@ -246,26 +248,35 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
                 <option>退租前</option>
               </select>
             </div>
-            <Field label="目标城市" name="city" defaultValue={seedValue(initialInput?.city, "上海")} />
+            <Field
+              label="目标城市"
+              name="city"
+              defaultValue={seedValue(initialInput?.city, "")}
+              placeholder="填写目标城市"
+            />
             <Field
               label="房源标题"
               name="title"
-              defaultValue={seedValue(initialInput?.title, "徐汇万体馆老小区一居")}
+              defaultValue={seedValue(initialInput?.title, "")}
+              placeholder="填写房源名称或户型"
             />
             <Field
               label="房源地址"
               name="address"
-              defaultValue={seedValue(initialInput?.address, "徐汇区万体馆附近")}
+              defaultValue={seedValue(initialInput?.address, "")}
+              placeholder="填写小区、楼栋、街道、地铁站或明确地标"
             />
             <Field
               label="出租人类型"
               name="landlordType"
-              defaultValue={seedValue(initialInput?.landlordType, "二房东 / 代理")}
+              defaultValue={seedValue(initialInput?.landlordType, "")}
+              placeholder="填写房东、二房东、中介或公司"
             />
             <Field
               label="押金和付款"
               name="deposit"
-              defaultValue={seedValue(initialInput?.deposit, "押一付三，押金 5200 元")}
+              defaultValue={seedValue(initialInput?.deposit, "")}
+              placeholder="填写押付方式、已付金额或待付款项"
               className="sm:col-span-2"
             />
             <div className="space-y-2 sm:col-span-2">
@@ -273,7 +284,8 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
               <Input
                 id="paymentCycle"
                 name="paymentCycle"
-                defaultValue={seedValue(initialInput?.paymentCycle, "季度付，微信转账")}
+                defaultValue={seedValue(initialInput?.paymentCycle, "")}
+                placeholder="填写付款周期、收款方式或你还没确认的地方"
               />
             </div>
             <div className="space-y-2 sm:col-span-2">
@@ -282,10 +294,8 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
                 id="risks"
                 name="risks"
                 className="min-h-[128px]"
-                defaultValue={seedValue(
-                  initialInput?.risks,
-                  "担心转租授权、押金扣款、老小区维修、墙面潮湿、提前退租违约金。",
-                )}
+                defaultValue={seedValue(initialInput?.risks, "")}
+                placeholder="填写你担心的授权、押金、维修、付款、交割或退租材料问题"
               />
             </div>
           </div>
@@ -313,7 +323,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
             ) : (
               <Archive className="mr-2 h-5 w-5" />
             )}
-            {state === "loading" ? "正在整理记录" : "整理凭据材料"}
+            {state === "loading" ? "正在整理记录" : "整理材料清单"}
           </Button>
         </Card>
 
@@ -321,9 +331,9 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm text-primary/80">
-                凭据结果
+                材料结果
               </p>
-              <h2 className="mt-2 text-2xl font-semibold">凭据确认情况</h2>
+              <h2 className="mt-2 text-2xl font-semibold">材料确认情况</h2>
             </div>
             {result ? <RiskBadge status={result.status} tone="generic" /> : null}
           </div>
@@ -333,7 +343,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
               <p className="text-sm leading-7 text-muted-foreground">{result.summary}</p>
               <div className="grid gap-3 sm:grid-cols-3">
                 <SummaryTile icon={Archive} label="记录名" value={result.archiveName} compact />
-                <SummaryTile icon={FileText} label="凭据项" value={`${allItems.length} 项`} />
+                <SummaryTile icon={FileText} label="材料项" value={`${allItems.length} 项`} />
                 <SummaryTile icon={ReceiptText} label="付款备注" value={`${result.paymentNotes.length} 条`} />
               </div>
               <div className="rounded-md border border-border bg-secondary p-4">
@@ -343,7 +353,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
                 </div>
                 <Progress value={progress} />
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                  高优先级凭据未准备好前，不建议付款、签约或退租交割。
+                  高优先级材料未准备好前，不建议付款、签约或退租交割。
                 </p>
               </div>
               <div
@@ -361,19 +371,19 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
                           evidenceGateReady ? "text-emerald-700" : "text-amber-700"
                         }`}
                       />
-                      <h3 className="font-semibold">付款/签约前必须准备好的材料</h3>
+                      <h3 className="font-semibold">付款和签约前必须准备好的材料</h3>
                     </div>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      先看高优先级凭据是否准备好。这个门槛没过，不建议付款或签约。
+                      先看高优先级材料是否准备好。这些材料没确认前，不建议付款或签约。
                     </p>
                   </div>
                   <Badge variant={evidenceGateReady ? "success" : "warning"}>
-                    {evidenceGateReady ? "可进入下一步确认" : "补充材料"}
+                    {evidenceGateReady ? "可以继续确认" : "补充材料"}
                   </Badge>
                 </div>
                 <div className="mt-4">
                   <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
-                    <span>高优先级凭据确认</span>
+                    <span>高优先级材料确认</span>
                     <span>{requiredProgress}%</span>
                   </div>
                   <Progress value={requiredProgress} />
@@ -383,7 +393,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
                     ? missingHighPriorityItems
                         .slice(0, 6)
                         .map((item) => `待补充：${item.title}`)
-                    : ["高优先级凭据已勾选，继续确认中低优先级凭据和付款备注。"]
+                    : ["高优先级材料已确认，继续确认其他材料和付款备注。"]
                   ).map((item) => (
                     <p key={item} className="rounded-md border border-border bg-secondary/60 p-3">
                       {item}
@@ -396,12 +406,12 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
                   className="mt-4 w-full"
                   onClick={syncEvidenceProgress}
                 >
-                  把当前凭据确认情况保存到记录
+                  把当前材料确认情况保存到记录
                 </Button>
                 <Button asChild variant="secondary" className="mt-3 w-full">
                   <Link href={buildPaymentHref(result, lastInput, initialInput?.reportId)}>
                     <BadgeDollarSign className="mr-2 h-4 w-4" />
-                    带去付款前确认
+                    带去付款咨询
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -421,11 +431,11 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
           ) : (
             <div className="flex min-h-[460px] flex-col justify-center rounded-md border border-border bg-secondary p-5">
               <Badge variant="secondary" className="mb-4 w-fit">
-                纠纷前置
+                付款咨询
               </Badge>
-              <h3 className="text-xl font-semibold">凭据要在签约前留好</h3>
+              <h3 className="text-xl font-semibold">签约前先确认材料</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                押金、维修、转租授权和付款备注，最好在签约前就留好凭据。这里会帮你整理一套最小可用材料。
+                押金、维修、转租授权和付款备注需要在签约前确认清楚。先整理一套最小可用材料。
               </p>
             </div>
           )}
@@ -487,7 +497,7 @@ export function EvidenceVaultPanel({ initialInput }: { initialInput?: EvidenceSe
           </section>
 
           <section className="grid gap-4 lg:grid-cols-3">
-            <InfoPanel title="凭据时间线" items={result.timeline} />
+            <InfoPanel title="材料时间线" items={result.timeline} />
             <InfoPanel title="付款备注建议" items={result.paymentNotes} />
             <Card className="p-5">
               <div className="mb-4 flex items-center justify-between gap-4">
@@ -517,7 +527,7 @@ function firstNumber(value?: string) {
 
 function buildPaymentContext(result: EvidencePackResult, input?: Partial<EvidencePackInput> | null) {
   return [
-    `凭据材料：${result.title}`,
+    `材料清单：${result.title}`,
     `记录名：${result.archiveName}`,
     result.summary,
     input?.address ? `房源位置：${input.address}` : "",
@@ -540,9 +550,9 @@ function buildPaymentHref(
     title: result.title,
     city: input?.city ?? "",
     listingTitle: result.title,
-    paymentType: "定金",
-    amount: "1000",
-    monthlyRent: monthlyRent ? String(monthlyRent) : "5200",
+    paymentType: "待确认付款",
+    amount: "0",
+    monthlyRent: monthlyRent ? String(monthlyRent) : "0",
     stage: "材料待补充，未签合同",
     contractStatus: "待确认合同关键页",
     identityStatus: "待确认出租人身份",
@@ -564,17 +574,19 @@ function Field({
   label,
   name,
   defaultValue,
+  placeholder,
   className,
 }: {
   label: string;
   name: string;
   defaultValue: string;
+  placeholder?: string;
   className?: string;
 }) {
   return (
     <div className={`space-y-2 ${className ?? ""}`}>
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} defaultValue={defaultValue} />
+      <Input id={name} name={name} defaultValue={defaultValue} placeholder={placeholder} />
     </div>
   );
 }

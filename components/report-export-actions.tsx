@@ -81,7 +81,7 @@ export function ReportExportActions({
       <div className="mb-3">
         <p className="text-sm font-medium">带走这份报告</p>
         <p className="mt-1 text-xs leading-5 text-muted-foreground">
-          整理可转发 Markdown 摘要，适合发给合租室友、伴侣、父母或看房当天离线使用。
+          整理可转发摘要，适合发给合租室友、伴侣、父母或看房当天离线使用。
         </p>
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
@@ -99,12 +99,12 @@ export function ReportExportActions({
         </Button>
         <Button type="button" variant="secondary" onClick={downloadMarkdown}>
           <Download className="mr-2 h-4 w-4" />
-          下载 Markdown
+          下载报告
         </Button>
       </div>
       {maskSensitiveInfo ? (
         <p className="mt-3 text-xs leading-5 text-muted-foreground">
-          已按隐私设置隐藏手机号、邮箱、门牌号和房间号。
+          已隐藏手机号、邮箱、门牌号和房间号。
         </p>
       ) : null}
     </div>

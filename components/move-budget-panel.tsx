@@ -10,7 +10,6 @@ import {
   Copy,
   FileCheck2,
   Loader2,
-  MessageSquareText,
   PiggyBank,
   ReceiptText,
   ShieldAlert,
@@ -90,7 +89,7 @@ function buildMoveNegotiationMemo(result: MoveBudgetResult, input?: MoveBudgetIn
     "三、我可以继续确认的前提",
     "1. 付款周期、押金、预付租金、中介费、服务费和收款主体写进合同或聊天确认。",
     "2. 中介费/服务费能提供收据或电子确认，写明收费主体、用途和是否可退。",
-    "3. 如需先付款，请先做付款前确认：合同、授权、收款主体、退款条件和收据材料全部确认。",
+    "3. 如需先付款，请先做付款咨询：合同、授权、收款主体、退款条件和收据材料全部确认。",
     "4. 非必要添置我会延后购买，优先保证安全、卫生和发薪前生活缓冲。",
     "",
     "在以上条件确认前，我先不直接支付完整首笔款项。请尽量用文字回复，方便双方后续核对。",
@@ -191,7 +190,10 @@ export function MoveBudgetPanel({
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="grid gap-4 xl:grid-cols-[0.42fr_0.58fr]">
+      <form
+        onSubmit={handleSubmit}
+        className={`grid gap-4 ${result ? "xl:grid-cols-[0.42fr_0.58fr]" : "max-w-3xl"}`}
+      >
         <Card className="p-6">
           <div className="mb-6">
             <p className="text-sm text-primary/80">
@@ -209,22 +211,92 @@ export function MoveBudgetPanel({
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="城市" name="city" defaultValue={seedValue(initialInput?.city, "上海")} type="text" />
-            <Field label="税后月收入" name="monthlyIncome" defaultValue={seedNumber(initialInput?.monthlyIncome, "18000")} />
-            <Field label="手头可用现金" name="cashOnHand" defaultValue={seedNumber(initialInput?.cashOnHand, "42000")} />
-            <Field label="月租" name="monthlyRent" defaultValue={seedNumber(initialInput?.monthlyRent, "5200")} />
-            <Field label="押几个月" name="depositMonths" defaultValue={seedNumber(initialInput?.depositMonths, "1")} />
-            <Field label="付几个月" name="prepaidMonths" defaultValue={seedNumber(initialInput?.prepaidMonths, "3")} />
-            <Field label="中介费" name="agencyFee" defaultValue={seedNumber(initialInput?.agencyFee, "2600")} />
-            <Field label="服务/管理费" name="serviceFee" defaultValue={seedNumber(initialInput?.serviceFee, "0")} />
-            <Field label="搬家费用" name="movingCost" defaultValue={seedNumber(initialInput?.movingCost, "1200")} />
-            <Field label="基础添置" name="setupCost" defaultValue={seedNumber(initialInput?.setupCost, "2600")} />
-            <Field label="水电宽带预存" name="utilityDeposit" defaultValue={seedNumber(initialInput?.utilityDeposit, "600")} />
-            <Field label="每月固定支出" name="fixedMonthlyCost" defaultValue={seedNumber(initialInput?.fixedMonthlyCost, "6200")} />
-            <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="daysUntilSalary">距离下一次发薪</Label>
-              <Input id="daysUntilSalary" name="daysUntilSalary" type="number" defaultValue={seedNumber(initialInput?.daysUntilSalary, "18")} />
-            </div>
+            <Field
+              label="税后月收入"
+              name="monthlyIncome"
+              defaultValue={seedNumber(initialInput?.monthlyIncome, "")}
+              placeholder="填写每月实际到手收入"
+            />
+            <Field
+              label="手头可用现金"
+              name="cashOnHand"
+              defaultValue={seedNumber(initialInput?.cashOnHand, "")}
+              placeholder="填写可用于搬家和签约的现金"
+            />
+            <Field
+              label="月租"
+              name="monthlyRent"
+              defaultValue={seedNumber(initialInput?.monthlyRent, "")}
+              placeholder="填写月租金额"
+            />
+            <Field
+              label="押几个月"
+              name="depositMonths"
+              defaultValue={seedNumber(initialInput?.depositMonths, "")}
+              placeholder="填写押金月数"
+            />
+            <Field
+              label="付几个月"
+              name="prepaidMonths"
+              defaultValue={seedNumber(initialInput?.prepaidMonths, "")}
+              placeholder="填写预付租金月数"
+            />
+            <details className="rounded-md border border-border bg-secondary/55 p-4 sm:col-span-2">
+              <summary className="cursor-pointer text-sm font-medium text-foreground">
+                补充费用和现金流（选填）
+              </summary>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <Field
+                  label="城市"
+                  name="city"
+                  defaultValue={seedValue(initialInput?.city, "")}
+                  placeholder="填写目标城市"
+                  type="text"
+                />
+                <Field
+                  label="中介费"
+                  name="agencyFee"
+                  defaultValue={seedNumber(initialInput?.agencyFee, "")}
+                  placeholder="没有可留空"
+                />
+                <Field
+                  label="服务/管理费"
+                  name="serviceFee"
+                  defaultValue={seedNumber(initialInput?.serviceFee, "")}
+                  placeholder="没有可留空"
+                />
+                <Field
+                  label="搬家费用"
+                  name="movingCost"
+                  defaultValue={seedNumber(initialInput?.movingCost, "")}
+                  placeholder="没有可留空"
+                />
+                <Field
+                  label="基础添置"
+                  name="setupCost"
+                  defaultValue={seedNumber(initialInput?.setupCost, "")}
+                  placeholder="没有可留空"
+                />
+                <Field
+                  label="水电宽带预存"
+                  name="utilityDeposit"
+                  defaultValue={seedNumber(initialInput?.utilityDeposit, "")}
+                  placeholder="没有可留空"
+                />
+                <Field
+                  label="每月固定支出"
+                  name="fixedMonthlyCost"
+                  defaultValue={seedNumber(initialInput?.fixedMonthlyCost, "")}
+                  placeholder="填写除房租外的每月固定支出"
+                />
+                <Field
+                  label="距离下一次发薪"
+                  name="daysUntilSalary"
+                  defaultValue={seedNumber(initialInput?.daysUntilSalary, "")}
+                  placeholder="填写距离下次发薪的天数"
+                />
+              </div>
+            </details>
           </div>
 
           <div
@@ -254,6 +326,7 @@ export function MoveBudgetPanel({
           </Button>
         </Card>
 
+        {result ? (
         <Card className="p-6">
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -265,7 +338,6 @@ export function MoveBudgetPanel({
             {result ? <RiskBadge status={result.status} tone="generic" /> : null}
           </div>
 
-          {result ? (
             <div className="space-y-5">
               <p className="text-sm leading-7 text-muted-foreground">{result.summary}</p>
               <div className="grid gap-3 sm:grid-cols-3">
@@ -298,14 +370,14 @@ export function MoveBudgetPanel({
                 <Button asChild variant="secondary">
                   <Link href={buildPaymentHref(result, lastInput, activeReportId)}>
                     <WalletCards className="mr-2 h-4 w-4" />
-                    做付款前确认
+                    做付款咨询
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button asChild variant="secondary">
                   <Link href={buildEvidenceHref(result, lastInput, activeReportId)}>
                     <Archive className="mr-2 h-4 w-4" />
-                    补首笔凭据
+                    补首笔材料
                   </Link>
                 </Button>
                 <Button asChild variant="secondary">
@@ -315,58 +387,31 @@ export function MoveBudgetPanel({
                   </Link>
                 </Button>
               </div>
+
+              <details className="rounded-md border border-border bg-secondary/55 p-4">
+                <summary className="cursor-pointer text-sm font-medium text-foreground">
+                  查看预算协商文本
+                </summary>
+                <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    用于确认首笔支出、安全垫、付款周期、收据要求和付款咨询。
+                  </p>
+                  <Button type="button" variant="outline" onClick={copyMoveMemo}>
+                    <Copy className="mr-2 h-4 w-4" />
+                    {copiedMemo ? "已复制" : "复制文本"}
+                  </Button>
+                </div>
+                <pre className="mt-4 max-h-[320px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-card p-4 text-sm leading-7 text-muted-foreground">
+                  {buildMoveNegotiationMemo(result, lastInput)}
+                </pre>
+              </details>
             </div>
-          ) : (
-            <div className="min-h-[340px] rounded-md border border-border bg-secondary p-5">
-              <Badge variant="secondary" className="w-fit">
-                签约前置
-              </Badge>
-              <h3 className="mt-4 text-xl font-semibold">别只看月租，要看首笔现金</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                押一付三、中介费、搬家和添置会一起发生。预算测算会告诉你：能签、要谈，还是先停。
-              </p>
-              <div className="mt-5 grid gap-3 text-sm leading-6">
-                {[
-                  ["01", "算清签约当天要付多少"],
-                  ["02", "看签约后现金是否安全"],
-                  ["03", "再决定付款或继续谈"],
-                ].map(([step, label]) => (
-                  <div key={step} className="flex items-center gap-3 rounded-md border border-border bg-secondary/60 p-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
-                      {step}
-                    </span>
-                    <span className="text-muted-foreground">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </Card>
+        ) : null}
       </form>
 
       {result ? (
         <>
-          <Card className="min-w-0 p-5">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div className="min-w-0">
-                <div className="mb-3 flex items-center gap-2">
-                  <MessageSquareText className="h-4 w-4 text-primary" />
-                  <h3 className="font-semibold">预算谈判包</h3>
-                </div>
-                <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-                  把首笔支出、安全垫、付款周期、中介费/服务费、收据要求和付款前确认整理成可直接发送的协商文本，避免在签约当天被一次性打穿现金。
-                </p>
-              </div>
-              <Button type="button" variant="outline" onClick={copyMoveMemo}>
-                <Copy className="mr-2 h-4 w-4" />
-                {copiedMemo ? "已复制" : "复制谈判包"}
-              </Button>
-            </div>
-            <pre className="mt-4 max-h-[360px] overflow-auto whitespace-pre-wrap rounded-md border border-border bg-secondary p-4 text-sm leading-7 text-muted-foreground">
-              {buildMoveNegotiationMemo(result, lastInput)}
-            </pre>
-          </Card>
-
           <section className="grid gap-4 lg:grid-cols-[0.58fr_0.42fr]">
             <Card className="p-5">
               <h3 className="font-semibold">支出拆解</h3>
@@ -399,7 +444,7 @@ export function MoveBudgetPanel({
             </Card>
 
             <Card className="p-5">
-              <h3 className="font-semibold">谈判杠杆</h3>
+              <h3 className="font-semibold">可协商事项</h3>
               <div className="mt-3 grid gap-2 text-sm leading-6 text-muted-foreground">
                 {result.negotiationLevers.map((item) => (
                   <p key={item} className="rounded-md border border-border bg-secondary p-3">
@@ -429,7 +474,7 @@ export function MoveBudgetPanel({
           </section>
 
           <section className="grid gap-4 lg:grid-cols-2">
-            <InfoPanel title="下一步" items={result.nextActions} />
+            <InfoPanel title="后续确认" items={result.nextActions} />
             <InfoPanel title="测算假设" items={result.assumptions} />
           </section>
         </>
@@ -454,8 +499,8 @@ function buildMoveContext(result: MoveBudgetResult, input?: MoveBudgetInput | nu
     `安全垫：${result.safetyMonths.toFixed(1)} 个月`,
     `结论：${result.summary}`,
     ...result.risks.slice(0, 6).map((item) => `预算风险：${item}`),
-    ...result.negotiationLevers.slice(0, 4).map((item) => `谈判杠杆：${item}`),
-    ...result.nextActions.slice(0, 4).map((item) => `下一步：${item}`),
+    ...result.negotiationLevers.slice(0, 4).map((item) => `可协商事项：${item}`),
+    ...result.nextActions.slice(0, 4).map((item) => `后续确认：${item}`),
   ]
     .filter(Boolean)
     .join("\n");
@@ -466,7 +511,7 @@ function buildPaymentHref(
   input?: MoveBudgetInput | null,
   reportId?: string,
 ) {
-  const monthlyRent = input?.monthlyRent ?? 5200;
+  const monthlyRent = input?.monthlyRent ?? 0;
   const params = new URLSearchParams({
     from: "move",
     title: "入住预算带入房源",
@@ -488,7 +533,7 @@ function buildPaymentHref(
     receiptStatus: "需要收据/电子确认",
     paymentChannel: "待确认",
     urgencyPressure:
-      result.status === "reject" ? "预算不足，先别付款" : "首笔支出较大，需要付款前确认",
+      result.status === "reject" ? "预算不足，不建议付款" : "首笔支出较大，需要付款咨询",
     notes: [...result.risks, ...result.negotiationLevers].slice(0, 8).join("；"),
     reportContext: buildMoveContext(result, input),
   });
@@ -506,7 +551,7 @@ function buildEvidenceHref(
     stage: "签约前",
     title: "入住预算带入房源",
     city: result.city,
-    deposit: `首笔支出 ${Math.round(result.upfrontCost).toLocaleString()} 元，押金、预付租金、中介费和服务费需逐项保存凭据`,
+    deposit: `首笔支出 ${Math.round(result.upfrontCost).toLocaleString()} 元，押金、预付租金、中介费和服务费需逐项保存材料`,
     paymentCycle: input?.depositMonths && input?.prepaidMonths
       ? `押 ${input.depositMonths} 付 ${input.prepaidMonths}，付款周期需写入合同或聊天确认`
       : "押付方式、付款周期和服务费需写入合同或聊天确认",
@@ -538,17 +583,19 @@ function Field({
   label,
   name,
   defaultValue,
+  placeholder,
   type = "number",
 }: {
   label: string;
   name: string;
   defaultValue: string;
+  placeholder?: string;
   type?: string;
 }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} type={type} defaultValue={defaultValue} />
+      <Input id={name} name={name} type={type} defaultValue={defaultValue} placeholder={placeholder} />
     </div>
   );
 }

@@ -305,13 +305,13 @@ export function buildSafetyAudit(input: SafetyAuditInput): SafetyAuditResult {
     ],
     nextActions: [
       "先按真实晚归时间再走一次，不只看白天照片。",
-      "把高优先级事项拍照留存，并同步到凭据材料。",
-      status === "reject" ? "关键风险点确认前先别付款和签约。" : "如果风险点可确认，再进入合同确认和入住预算。",
+      "把高优先级事项拍照留存，并同步到材料清单。",
+      status === "reject" ? "关键风险点确认前暂不付款和签约。" : "如果风险点可确认，再进入合同确认和入住预算。",
     ],
     assumptions: [
       `城市：${city}；房源：${listingTitle}；楼层：${floor} 层。`,
       `夜间到家时间：${nightReturnTime}；地铁/公交到小区步行约 ${walkFromTransit} 分钟。`,
-      "这里只基于用户主动输入整理安全确认清单，不读取实时定位、私人聊天或账号数据。",
+      "这里根据你输入的信息整理安全确认清单、现场核验问题和付款前暂停条件。",
     ],
   };
 }

@@ -1,13 +1,9 @@
 import { ListingForm } from "@/components/listing-form";
 import { AppShell } from "@/components/app-shell";
 import type { ListingFormInitialInput } from "@/components/listing-form";
-import {
-  BriefcaseBusiness,
-  GitCompareArrows,
-  MapPinned,
-  SearchCheck,
-} from "lucide-react";
+import { SearchCheck } from "lucide-react";
 import { ProductPageHeader } from "@/components/product-page-header";
+import { StartHandoffBanner } from "@/components/start-handoff-banner";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -17,16 +13,15 @@ function firstParam(value: string | string[] | undefined) {
 
 function sourceLabelFrom(from?: string) {
   if (from === "area") return "来自片区筛选";
-  if (from === "city") return "来自城市真实账本";
+  if (from === "city") return "来自生活成本";
   if (from === "commute") return "来自通勤真实成本";
   if (from === "life") return "来自生活配套确认";
-  if (from === "buy") return "来自买房压力";
   if (from === "case") return "来自房源记录";
   if (from === "onboarding") return "来自首访偏好";
   if (from === "compare") return "来自多房源对比";
   if (from === "home") return "来自首页输入";
   if (from === "dashboard") return "来自工作台输入";
-  if (from === "plan") return "来自下一步";
+  if (from === "plan") return "来自当前行动";
   return undefined;
 }
 
@@ -66,26 +61,14 @@ export default async function AnalyzePage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto w-full max-w-7xl min-w-0 space-y-8 overflow-x-hidden">
         <ProductPageHeader
-          eyebrow="房源评估"
-          title="在真实生活场景里做判断"
-          description="把候选房源放进日常预算、通勤时间、生活配套和签约付款条件里一起看，先判断还值不值得继续约看。"
+          eyebrow="房源体检"
+          title="房源体检"
+          description="综合月租、位置、工作地、通勤、生活配套和签约付款条件，判断是否继续看房或进入付款确认。"
           icon={SearchCheck}
-          sideTitle="评估后继续确认"
-          sideDescription="评估后会保存为房源记录，并继续连接看房清单、官方查询、付款前确认、合同确认和多房源对比。"
-          facts={[
-            { label: "评估对象", value: "你手上的具体候选房源" },
-            { label: "重点判断", value: "真实成本、通勤、舒适度和签约风险" },
-            { label: "你会得到", value: "继续看、补充信息或放弃" },
-          ]}
-          actions={[
-            { label: "开始评估", href: "#listing-evaluation-form", icon: SearchCheck },
-            { label: "先筛片区", href: "/area", icon: MapPinned, variant: "secondary" },
-            { label: "查看房源记录", href: "/case", icon: BriefcaseBusiness, variant: "secondary" },
-            { label: "多房源对比", href: "/compare", icon: GitCompareArrows, variant: "secondary" },
-          ]}
         />
+        <StartHandoffBanner handoff={firstParam(params.handoff)} />
         <section id="listing-evaluation-form" className="scroll-mt-24">
           <ListingForm initialInput={initialInput} />
         </section>

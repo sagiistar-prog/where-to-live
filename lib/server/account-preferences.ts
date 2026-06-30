@@ -4,6 +4,7 @@ import {
   sanitizeUserPreferences,
   type UserPreferences,
 } from "@/lib/user-preferences";
+import { parseJsonText } from "@/lib/server/json-utils";
 
 export type AccountPreferencesRecord = {
   ownerId: string;
@@ -20,7 +21,7 @@ function preferencesFilePath() {
 async function readRecords(): Promise<AccountPreferencesRecord[]> {
   try {
     const raw = await fs.readFile(preferencesFilePath(), "utf8");
-    const parsed = JSON.parse(raw) as unknown;
+    const parsed = parseJsonText(raw);
     if (!Array.isArray(parsed)) return [];
 
     return parsed

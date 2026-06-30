@@ -20,23 +20,21 @@ type CaptchaChallenge = {
   token: string;
   image: string;
   expiresAt: string;
-  debugAnswer?: string;
 };
 
 type EmailDeliveryResult =
   | {
       mode: "resend";
-      resendId?: string;
     }
   | {
       mode: "local";
-      debugCode?: string;
     };
 
 const CAPTCHA_TTL_MS = 5 * 60 * 1000;
 const EMAIL_CODE_TTL_MS = 10 * 60 * 1000;
 const EMAIL_RATE_LIMIT_MS = 60 * 1000;
 const MAX_ATTEMPTS = 5;
+const LOCAL_EMAIL_CODE = "000000";
 
 const globalForAuth = globalThis as typeof globalThis & {
   __zhunaarAuthVerificationStore?: AuthVerificationStore;
@@ -54,10 +52,6 @@ globalForAuth.__zhunaarAuthVerificationStore = store;
 
 function now() {
   return Date.now();
-}
-
-function isDevRuntime() {
-  return process.env.NODE_ENV !== "production";
 }
 
 function createToken() {
@@ -86,6 +80,18 @@ function cleanupExpired() {
 
 function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
+}
+
+function forcesLocalEmailCode() {
+  return process.env.AUTH_FORCE_LOCAL_EMAIL_CODE === "1";
+}
+
+function hasResendApiKey() {
+  return !forcesLocalEmailCode() && Boolean(process.env.RESEND_API_KEY?.trim());
+}
+
+function usesLocalEmailCode() {
+  return forcesLocalEmailCode() || !hasResendApiKey() || process.env.NODE_ENV !== "production";
 }
 
 export function isValidEmail(email: string) {
@@ -137,7 +143,6 @@ export function createCaptchaChallenge(): CaptchaChallenge {
     token,
     image: `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`,
     expiresAt: new Date(expiresAt).toISOString(),
-    debugAnswer: isDevRuntime() ? answer : undefined,
   };
 }
 
@@ -176,7 +181,7 @@ export function createEmailCode(email: string) {
   cleanupExpired();
 
   const normalizedEmail = normalizeEmail(email);
-  const code = String(randomDigit(100000, 999999));
+  const code = usesLocalEmailCode() ? LOCAL_EMAIL_CODE : String(randomDigit(100000, 999999));
   const expiresAt = now() + EMAIL_CODE_TTL_MS;
 
   store.emailCodes.set(normalizedEmail, {
@@ -213,13 +218,13 @@ export function verifyEmailCode(email: string, code: string) {
 }
 
 export async function sendEmailCode(email: string, code: string): Promise<EmailDeliveryResult> {
-  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const apiKey = forcesLocalEmailCode() ? "" : process.env.RESEND_API_KEY?.trim();
   const from = process.env.RESEND_FROM_EMAIL?.trim() || "住哪儿 AI <onboarding@resend.dev>";
 
   if (!apiKey) {
+    console.info(`[auth] local email code for ${email}: ${code}`);
     return {
       mode: "local",
-      debugCode: isDevRuntime() ? code : undefined,
     };
   }
 
@@ -243,18 +248,11 @@ export async function sendEmailCode(email: string, code: string): Promise<EmailD
     }),
   });
 
-  const data = await response.json().catch(() => null);
-
   if (!response.ok) {
-    const message =
-      typeof data?.message === "string"
-        ? data.message
-        : "Resend 邮件发送失败，请确认 API Key、发件域名或免费额度。";
-    throw new Error(message);
+    throw new Error("邮箱验证码发送失败，请稍后再试。");
   }
 
   return {
     mode: "resend",
-    resendId: typeof data?.id === "string" ? data.id : undefined,
   };
 }

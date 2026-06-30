@@ -79,21 +79,20 @@ function statusFromScore(score: number, highRiskCount: number): ReportStatus {
 export function buildSharedLivingAudit(input: SharedLivingInput): SharedLivingResult {
   const city = input.city?.trim() || "目标城市";
   const listingTitle = input.listingTitle?.trim() || "候选合租房";
-  const monthlyRent = Math.max(0, Math.round(numberOr(input.monthlyRent, 4200)));
-  const roommateCount = Math.max(0, Math.round(numberOr(input.roommateCount, 3)));
-  const roomType = input.roomType?.trim() || "合租主卧";
-  const bathroomMode = input.bathroomMode?.trim() || "共用卫生间";
-  const kitchenMode = input.kitchenMode?.trim() || "厨房可做饭但规则不清";
-  const cleaningRule = input.cleaningRule?.trim() || "没有明确清洁轮值";
-  const guestRule = input.guestRule?.trim() || "访客和过夜规则不清";
-  const quietHours = input.quietHours?.trim() || "无明确安静时间";
-  const petRule = input.petRule?.trim() || "有人养宠但未写规则";
-  const billSplit = input.billSplit?.trim() || "水电燃气按人头平摊";
-  const depositLiability = input.depositLiability?.trim() || "整租押金共同承担";
-  const leaseHolder = input.leaseHolder?.trim() || "二房东转租";
-  const subletPermission = input.subletPermission?.trim() || "未看到转租授权";
-  const concerns =
-    input.concerns?.trim() || "担心室友作息、公共卫生、访客过夜、押金连带扣款和提前退租。";
+  const monthlyRent = Math.max(0, Math.round(numberOr(input.monthlyRent, 0)));
+  const roommateCount = Math.max(0, Math.round(numberOr(input.roommateCount, 0)));
+  const roomType = input.roomType?.trim() || "待确认";
+  const bathroomMode = input.bathroomMode?.trim() || "待确认";
+  const kitchenMode = input.kitchenMode?.trim() || "待确认";
+  const cleaningRule = input.cleaningRule?.trim() || "待确认";
+  const guestRule = input.guestRule?.trim() || "待确认";
+  const quietHours = input.quietHours?.trim() || "待确认";
+  const petRule = input.petRule?.trim() || "待确认";
+  const billSplit = input.billSplit?.trim() || "待确认";
+  const depositLiability = input.depositLiability?.trim() || "待确认";
+  const leaseHolder = input.leaseHolder?.trim() || "待确认";
+  const subletPermission = input.subletPermission?.trim() || "待确认";
+  const concerns = input.concerns?.trim() || "";
 
   const score = { value: 92 };
   const boundaryItems: SharedRiskItem[] = [];
@@ -111,6 +110,22 @@ export function buildSharedLivingAudit(input: SharedLivingInput): SharedLivingRe
     subletPermission,
     concerns,
   ].join(" ");
+
+  if (hasAny(context, ["待确认"]) || monthlyRent <= 0 || roommateCount <= 0) {
+    addRisk(
+      boundaryItems,
+      {
+        group: "信息完整性",
+        title: "合租规则还没确认完整",
+        level: "中",
+        why: "合租能不能长期住，取决于室友人数、公共空间、费用分摊、押金责任和签约主体是否说清楚。",
+        action: "先补齐室友人数、签约主体、费用分摊、押金责任和转租授权，再判断能否继续。",
+        writeDown: "把室友人数、费用分摊、押金责任、访客规则和授权材料写进合同或聊天确认。",
+      },
+      14,
+      score,
+    );
+  }
 
   if (roommateCount >= 4 || hasAny(roomType, ["隔断", "群租", "床位", "客厅"])) {
     addRisk(
@@ -337,14 +352,14 @@ export function buildSharedLivingAudit(input: SharedLivingInput): SharedLivingRe
       "钥匙数量、门禁、公共区物品和冰箱/储物分区照片。",
     ],
     nextActions: [
-      "先把高风险项逐条问清，不要只听“室友都挺好”的口头描述。",
+      "逐条确认高风险项，并把室友、费用和公共区规则写清楚。",
       "把清洁、访客、费用、押金和转租授权放进合租群确认。",
-      status === "reject" ? "授权、押金连带或公共区再出租未解决前先别付款。" : "边界确认后，再进入凭据材料和合同确认。",
+      status === "reject" ? "授权、押金连带或公共区再出租未解决前暂不付款。" : "边界确认后，再进入材料清单和合同确认。",
     ],
     assumptions: [
       `城市：${city}；房源：${listingTitle}；房间类型：${roomType}。`,
       `月租：${monthlyRent.toLocaleString()} 元；室友人数：${roommateCount} 人。`,
-      "本页只基于用户主动输入整理合租边界清单，不读取私人聊天、社交账号或室友信息。",
+      "本页根据你输入的信息整理合租边界清单、可写入约定的事项和付款前暂停条件。",
       `输入担忧：${concerns}`,
       `合租上下文：${context}`,
     ],

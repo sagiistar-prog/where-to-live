@@ -2,23 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BriefcaseBusiness,
   CircleUserRound,
-  Home,
   LogOut,
   Menu,
-  SlidersHorizontal,
   Sparkles,
   X,
 } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
-import { appNavSections, isNavItemActive, topNavItems } from "@/lib/navigation";
-import { budgetPreferenceSummary, profileDefaultSummary } from "@/lib/preference-derived-defaults";
+import { appNavSections, isNavItemActive } from "@/lib/navigation";
+import { profileDefaultSummary } from "@/lib/preference-derived-defaults";
 import {
   defaultUserPreferences,
   hasStoredUserPreferences,
@@ -36,20 +34,27 @@ type AuthSession = {
   };
 };
 
+type LocalAuth = {
+  email: string;
+  id?: string;
+};
+
 export function TopNav() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profile, setProfile] = useState(defaultUserPreferences);
   const [hasProfile, setHasProfile] = useState(false);
   const [authSession, setAuthSession] = useState<AuthSession | null>(null);
+  const [localAuth, setLocalAuth] = useState<LocalAuth | null>(null);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [currentPathWithQuery, setCurrentPathWithQuery] = useState(pathname || "/dashboard");
 
   useEffect(() => {
     setMobileOpen(false);
-    const query = window.location.search;
-    setCurrentPathWithQuery(`${pathname}${query}` || "/dashboard");
-  }, [pathname]);
+    const query = searchParams.toString();
+    setCurrentPathWithQuery(`${pathname}${query ? `?${query}` : ""}` || "/dashboard");
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     if (!mobileOpen) {
@@ -86,11 +91,17 @@ export function TopNav() {
     let mounted = true;
 
     async function refreshAuthSession() {
+      const localEmail = window.localStorage.getItem("zhunaar-auth-email")?.trim() || "";
+      const localUserId = window.localStorage.getItem("zhunaar-auth-user-id")?.trim() || "";
+      if (mounted) {
+        setLocalAuth(localEmail ? { email: localEmail, id: localUserId || undefined } : null);
+      }
+
       try {
         const statusResponse = await fetch("/api/config/status", { cache: "no-store" });
         const statusData = statusResponse.ok ? await statusResponse.json() : null;
 
-        if (!statusData?.auth?.secretConfigured) {
+        if (!statusData?.auth?.sessionAvailable) {
           if (mounted) setAuthSession(null);
           return;
         }
@@ -107,100 +118,72 @@ export function TopNav() {
     }
 
     refreshAuthSession();
-    window.addEventListener("zhunaar-api-config-updated", refreshAuthSession);
+    window.addEventListener("storage", refreshAuthSession);
+    window.addEventListener("focus", refreshAuthSession);
 
     return () => {
       mounted = false;
-      window.removeEventListener("zhunaar-api-config-updated", refreshAuthSession);
+      window.removeEventListener("storage", refreshAuthSession);
+      window.removeEventListener("focus", refreshAuthSession);
     };
   }, [pathname]);
 
   async function handleSignOut() {
     setIsSigningOut(true);
-    await signOut({ redirectTo: "/" });
+    if (authSession?.user) {
+      await signOut({ redirectTo: "/" });
+      return;
+    }
+
+    window.localStorage.removeItem("zhunaar-auth-email");
+    window.localStorage.removeItem("zhunaar-auth-user-id");
+    await fetch("/api/auth/local-session", { method: "DELETE" }).catch(() => null);
+    setLocalAuth(null);
+    setIsSigningOut(false);
   }
 
-  const profileHref = hasProfile ? "/settings" : "/onboarding";
   const authUser = authSession?.user;
-  const authLabel = authUser?.name || authUser?.email || "Google 用户";
-  const authMeta = authUser?.email || "Google OAuth";
+  const hasAccount = Boolean(authUser || localAuth);
+  const authLabel = authUser?.name || authUser?.email || localAuth?.email || "邮箱账号";
+  const authMeta = authUser?.email || (localAuth ? "邮箱已验证" : "");
   const profileMeta = hasProfile
     ? profileDefaultSummary(profile)
-    : "保存城市、工作地、预算和偏好后，后续判断会直接沿用。";
-  const compactProfileTitle = hasProfile
-    ? `${profile.defaultCity || "城市待设"} · ${profile.defaultWorkplace || "工作地待设"}`
-    : "保存居住偏好";
-  const compactProfileMeta = hasProfile
-    ? `预算 ${budgetPreferenceSummary(profile)} · 通勤 ${profile.commuteLimit || "待设置"}`
-    : "城市 / 工作地 / 预算 / 通勤";
+    : "保存常用城市、工作地、预算和通勤，后续判断会自动带入。";
   const authHref = `/auth?callbackUrl=${encodeURIComponent(currentPathWithQuery || "/dashboard")}`;
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-card/92 backdrop-blur-xl">
-      <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="relative flex h-16 min-w-0 items-center justify-between px-4 sm:px-6 lg:px-8">
         <BrandMark href="/" size="sm" className="text-foreground" />
 
-        <nav className="hidden items-center gap-1 xl:flex">
-          {topNavItems.map((item) => {
-            const active = isNavItemActive(pathname, item);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground",
-                  active && "bg-secondary text-foreground",
-                )}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <Link
-            href={profileHref}
-            className="hidden max-w-[15rem] items-center gap-2 rounded-full border border-border bg-secondary/55 px-3 py-2 text-left transition-colors hover:border-primary/35 hover:bg-card md:flex lg:hidden"
-          >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-secondary text-primary">
-              {hasProfile ? <Home className="h-4 w-4" /> : <SlidersHorizontal className="h-4 w-4" />}
-            </span>
-            <span className="min-w-0">
-              <span className="block truncate text-xs font-medium">{compactProfileTitle}</span>
-              <span className="mt-0.5 block truncate text-[11px] text-muted-foreground">
-                {compactProfileMeta}
-              </span>
-            </span>
-          </Link>
+        <div className="flex min-w-0 shrink-0 items-center gap-1 sm:gap-2">
           <Button asChild size="sm" className="hidden rounded-full sm:inline-flex">
-            <Link href="/analyze">
+            <Link href="/dashboard">
               <Sparkles className="mr-2 h-4 w-4" />
-              评估房源
+              开始判断
             </Link>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label={mobileOpen ? "关闭导航菜单" : "打开导航菜单"}
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
-            className="xl:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-card/88 text-muted-foreground shadow-[0_12px_32px_oklch(var(--foreground)/0.08)] backdrop-blur-xl transition hover:bg-secondary hover:text-foreground xl:hidden"
             onClick={() => setMobileOpen((open) => !open)}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-          <Button asChild variant="ghost" size="icon" aria-label="房源记录">
+          </button>
+          <Button asChild variant="ghost" size="icon" aria-label="房源记录" className="hidden sm:inline-flex">
             <Link href="/case">
               <BriefcaseBusiness className="h-4 w-4" />
             </Link>
           </Button>
-          {authUser ? (
+          {hasAccount ? (
             <div className="hidden items-center gap-2 md:flex">
               <Link
                 href="/settings"
                 className="flex max-w-[13.5rem] items-center gap-2 rounded-full border border-border bg-secondary/55 px-2.5 py-1.5 text-left transition-colors hover:border-primary/35 hover:bg-card"
               >
-                {authUser.image ? (
+                {authUser?.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={authUser.image}
@@ -230,7 +213,7 @@ export function TopNav() {
               </Button>
             </div>
           ) : (
-            <Button asChild variant="ghost" size="icon" aria-label="登录">
+            <Button asChild variant="ghost" size="icon" aria-label="登录" className="hidden sm:inline-flex">
               <Link href={authHref}>
                 <CircleUserRound className="h-5 w-5" />
               </Link>
@@ -267,7 +250,7 @@ export function TopNav() {
                   </p>
                   <h2 className="mt-2 text-lg font-semibold">按当前问题进入</h2>
                   <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                    先看城市和居住成本，再确认具体房源、签约和入住问题。
+                    生活成本、具体房源、付款咨询和当前行动都可以从这里进入。
                   </p>
                 </div>
                 <Button
@@ -281,18 +264,18 @@ export function TopNav() {
               </div>
 
               <Link
-                href={authUser ? "/settings" : authHref}
+                href={hasAccount ? "/settings" : authHref}
                 className="mb-5 flex gap-3 rounded-md border border-border bg-background/45 p-3 transition-colors hover:border-primary/40 hover:bg-secondary/70"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-secondary text-primary">
-                  {authUser ? <CircleUserRound className="h-5 w-5" /> : <SlidersHorizontal className="h-5 w-5" />}
+                  <CircleUserRound className="h-5 w-5" />
                 </span>
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-medium">
-                    {authUser ? authLabel : "登录或保存居住偏好"}
+                    {hasAccount ? authLabel : "登录或保存信息"}
                   </span>
                   <span className="mt-1 block line-clamp-2 text-xs leading-5 text-muted-foreground">
-                    {authUser ? `已通过 Google 登录 · ${authMeta}` : profileMeta}
+                    {hasAccount ? `账号已验证 · ${authMeta}` : profileMeta}
                   </span>
                 </span>
               </Link>
@@ -309,7 +292,7 @@ export function TopNav() {
                     <div className="grid gap-2 sm:grid-cols-2">
                       {section.items.map((item) => {
                         const Icon = item.icon;
-                        const active = isNavItemActive(pathname, item);
+                        const active = isNavItemActive(pathname, item, currentPathWithQuery);
                         return (
                           <Link
                             key={item.href}

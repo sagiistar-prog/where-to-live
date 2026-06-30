@@ -1,6 +1,6 @@
 import { buildLifeRadius, type LifeRadiusResult } from "@/lib/life-radius";
 import type { AnalysisPreflightResult } from "@/lib/analysis-preflight";
-import { demoReport, type ReportData, type ReportStatus } from "@/lib/mock-data";
+import type { ReportData, ReportStatus } from "@/lib/mock-data";
 
 export type ListingAnalysisInput = {
   title?: string;
@@ -124,6 +124,7 @@ function statusCopy(status: ReportStatus) {
 
 export function normalizeVisibleReportCopy(text: string) {
   return text
+    .replaceAll("不能只看平台照片", "应结合现场确认")
     .replaceAll("报告可生成", "可以继续评估")
     .replaceAll("生成报告", "保存评估")
     .replaceAll("重新生成", "重新评估")
@@ -138,9 +139,9 @@ export function normalizeVisibleReportCopy(text: string) {
     .replaceAll("补充", "补充")
     .replaceAll("补充", "补充")
     .replaceAll("补充材料", "补充材料")
-    .replaceAll("凭据材料", "凭据材料")
-    .replaceAll("凭据记录", "凭据记录")
-    .replaceAll("待补充凭据", "待补充凭据")
+    .replaceAll("材料清单", "材料清单")
+    .replaceAll("凭据记录", "材料记录")
+    .replaceAll("待补充凭据", "待补充材料")
     .replaceAll("待补充信息", "待补充信息")
     .replaceAll("待补充材料", "待补充材料")
     .replaceAll("通勤信息待补充", "通勤信息待补充")
@@ -155,16 +156,13 @@ export function normalizeVisibleReportCopy(text: string) {
     .replaceAll("确认事项", "确认事项")
     .replaceAll("处理" + "办法", "应对办法")
     .replaceAll("事项", "事项")
-    .replaceAll("付款底线", "付款底线")
-    .replaceAll("付款底线", "付款底线")
+    .replaceAll("付款" + "底线", "付款咨询")
     .replaceAll("继续确认", "继续确认")
-    .replaceAll("凭据", "凭据")
-    .replaceAll("已使用已填写信息生成可演示报告", "已根据已填写信息形成演示评估")
-    .replaceAll("已使用已填写信息生成可演示报告", "已根据已填写信息形成演示评估")
-    .replaceAll("未配置 OPENAI_API_KEY", "截图与合同自动整理暂不可用")
-    .replaceAll("高德 Web 服务未配置", "实时地图数据暂不可用")
-    .replaceAll("未配置 AMAP_WEB_SERVICE_KEY", "实时地图数据暂不可用")
-    .replaceAll("未配置 QWEATHER_API_KEY", "实时天气数据暂不可用")
+    .replaceAll("凭据", "材料")
+    .replaceAll("未配置 " + "OPENAI" + "_API_KEY", "截图与合同自动整理暂不可用")
+    .replaceAll("高德" + " Web 服务未配置", "位置与通勤信息会按已填写内容估算")
+    .replaceAll("未配置 " + "AMAP" + "_WEB_SERVICE_KEY", "位置与通勤信息会按已填写内容估算")
+    .replaceAll("未配置 " + "QWEATHER" + "_API_KEY", "居住舒适度会按城市气候和现场条件保守判断")
     .replaceAll("地址解析、路线通勤和周边生活信息 会按已填写信息估算", "地址解析、通勤路线和周边生活信息会按已填写信息估算")
     .replaceAll("跳过地址解析、通勤路线和周边生活信息，改用用户输入和已填写信息", "会按用户输入估算地址、通勤和周边生活")
     .replaceAll("通勤、周边生活信息 和天气定位只能按已填写信息估算", "通勤、周边生活和天气舒适度会按现有信息估算")
@@ -187,21 +185,51 @@ function normalizeReportSection(section: ReportData["commute"]) {
   };
 }
 
+function neutralSection(title: string, point: string): ReportData["commute"] {
+  return {
+    title,
+    points: [point],
+  };
+}
+
+const neutralReport: ReportData = {
+  title: "候选房源体检报告",
+  address: "地址待补充",
+  status: "caution",
+  conclusion: "信息还不完整，建议补充租金、通勤、付款和合同信息后再判断。",
+  score: 60,
+  scores: [
+    { label: "通勤评分", score: 60, summary: "需要补充工作地、通勤方式和可接受时长。" },
+    { label: "价格评分", score: 60, summary: "需要补充月租、收入和固定支出。" },
+    { label: "配套评分", score: 60, summary: "需要补充片区和日常生活需求。" },
+    { label: "舒适度评分", score: 60, summary: "需要补充楼层、朝向、噪音和潮湿情况。" },
+    { label: "风险评分", score: 60, summary: "需要补充出租主体、付款方式和合同条款。" },
+  ],
+  commute: neutralSection("通勤判断", "补充工作地、通勤方式和可接受时长后再判断。"),
+  amenities: neutralSection("生活配套", "补充片区、步行范围和日常生活需求后再判断。"),
+  lifeRadius: neutralSection("生活半径", "补充买菜、就医、快递和夜间路线后再判断。"),
+  comfort: neutralSection("居住舒适度", "补充楼层、朝向、采光、噪音和潮湿情况后再判断。"),
+  livingCost: neutralSection("月度成本", "补充月租、收入、固定支出和首笔付款后再判断。"),
+  contractRisk: neutralSection("合同与付款风险", "补充出租主体、付款方式、押金和合同条款后再判断。"),
+  visitChecklist: ["补充地址、租金、通勤、付款和合同信息后再生成看房清单。"],
+  finalAdvice: "先补齐关键信息，再决定是否看房、付款或签约。",
+};
+
 function reportDepthProfile(depth: ListingAnalysisInput["reportDepth"]) {
   if (depth === "pre-sign") {
     return {
       label: "签约前确认",
       scoreAdjustment: -5,
-      conclusionNote: "本次按签约前确认口径整理，评分会更保守，并把付款、授权、合同和待补充凭据作为必须确认。",
+      conclusionNote: "本次按签约前确认口径整理，评分会更保守，并把付款、授权、合同和待补充材料作为必须确认。",
       contractRiskPoints: [
-        "签约前必须确认合同主体、收款主体、身份证明、出租授权和房源地址完全一致；任一项不一致都先别付款。",
+        "签约前必须确认合同主体、收款主体、身份证明、出租授权和房源地址完全一致；任一项不一致都不建议付款。",
         "付款前要求对方给出可保存的押金退还、维修责任、提前退租、转租授权和费用明细条款，不接受只在聊天里口头承诺。",
       ],
       visitChecklistItems: [
         "签约前把身份证明、产权或转租授权、收款账户、合同主体逐项拍照或留存电子版。",
         "付款备注写清房源地址、款项用途、可退条件和日期，避免只写“房租”或“定金”。",
       ],
-      finalAdvicePrefix: "按签约前确认口径，未补充授权、凭据、付款和合同必须确认前不要付款。",
+      finalAdvicePrefix: "按签约前确认口径，未补充授权、材料、付款和合同必须确认前不要付款。",
     };
   }
 
@@ -212,13 +240,13 @@ function reportDepthProfile(depth: ListingAnalysisInput["reportDepth"]) {
       conclusionNote: "本次按深度风险提示口径整理，会优先说清低频但损失较高的押金、维修、噪音、潮湿和授权风险。",
       contractRiskPoints: [
         "把押金扣款、维修费用垫付、家电自然损耗、转租授权和服务费边界列为重点确认项。",
-        "如果对方催促当天付款，应先做付款前确认并整理凭据材料，不要只凭截图或口头承诺做决定。",
+        "如果对方催促当天付款，应先做付款咨询并整理材料清单，再根据合同、收款信息和退款条件决定。",
       ],
       visitChecklistItems: [
-        "看房时补拍墙角、柜体背后、卫生间地漏、窗边和空调排水，作为潮湿与旧损坏凭据。",
+        "看房时补拍墙角、柜体背后、卫生间地漏、窗边和空调排水，作为潮湿与旧损坏记录。",
         "晚高峰和夜间各确认一次楼道照明、门禁、电梯等待和最后一公里路线。",
       ],
-      finalAdvicePrefix: "按深度风险提示口径，这套房必须补充高损失风险凭据，再决定是否继续。",
+      finalAdvicePrefix: "按深度风险提示口径，这套房必须补充高损失风险材料，再决定是否继续。",
     };
   }
 
@@ -243,13 +271,13 @@ function officialPromptProfile(enabled: boolean | undefined) {
 
   return {
     contractRiskPoints: [
-      "备案入口、出租权、合同示范文本和公共服务影响要回到住建、政务服务或市场监管等官方公开入口确认；查不到或对方不配合时先别付款。",
+      "备案入口、出租权、合同示范文本和公共服务影响要回到住建、政务服务或市场监管等官方公开入口确认；查不到或对方不配合时不建议付款。",
     ],
     visitChecklistItems: [
-      "看房后保存官方备案入口、示范合同对照页、出租方授权材料和对方回复截图，作为签约前凭据。",
+      "看房后保存官方备案入口、示范合同对照页、出租方授权材料和对方回复截图，作为签约前材料。",
     ],
     finalAdviceSuffix:
-      "官方入口能查的事情不要凭感觉判断；签约前至少确认出租权、备案办理办法、合同底线和付款主体。",
+      "官方入口能查询的事项应以可核验信息判断；签约前至少确认出租权、备案办理办法、合同要求和付款主体。",
   };
 }
 
@@ -375,30 +403,31 @@ function lifeRadiusSection(lifeRadius: LifeRadiusResult) {
 }
 
 export function normalizeReportData(report: ReportData): ReportData {
-  const status = report.status ?? statusFromScore(report.score);
+  const normalizedScore = clampScore(Number.isFinite(report.score) ? report.score : neutralReport.score);
+  const status = report.status ?? statusFromScore(normalizedScore);
   return {
-    ...demoReport,
+    ...neutralReport,
     ...report,
-    title: normalizeVisibleReportCopy(report.title || demoReport.title),
-    address: normalizeVisibleReportCopy(report.address || demoReport.address),
-    conclusion: normalizeVisibleReportCopy(report.conclusion || demoReport.conclusion),
+    title: normalizeVisibleReportCopy(report.title || neutralReport.title),
+    address: normalizeVisibleReportCopy(report.address || neutralReport.address),
+    conclusion: normalizeVisibleReportCopy(report.conclusion || neutralReport.conclusion),
     status,
-    score: clampScore(report.score ?? demoReport.score),
-    scores: (report.scores?.length ? report.scores : demoReport.scores).map((item) => ({
+    score: normalizedScore,
+    scores: (report.scores?.length ? report.scores : neutralReport.scores).map((item) => ({
       ...item,
       label: normalizeVisibleReportCopy(item.label),
       summary: normalizeVisibleReportCopy(item.summary),
     })),
-    commute: normalizeReportSection(report.commute ?? demoReport.commute),
-    amenities: normalizeReportSection(report.amenities ?? demoReport.amenities),
-    lifeRadius: report.lifeRadius ? normalizeReportSection(report.lifeRadius) : demoReport.lifeRadius,
-    comfort: normalizeReportSection(report.comfort ?? demoReport.comfort),
-    livingCost: normalizeReportSection(report.livingCost ?? demoReport.livingCost),
-    contractRisk: normalizeReportSection(report.contractRisk ?? demoReport.contractRisk),
+    commute: normalizeReportSection(report.commute ?? neutralReport.commute),
+    amenities: normalizeReportSection(report.amenities ?? neutralReport.amenities),
+    lifeRadius: report.lifeRadius ? normalizeReportSection(report.lifeRadius) : neutralReport.lifeRadius,
+    comfort: normalizeReportSection(report.comfort ?? neutralReport.comfort),
+    livingCost: normalizeReportSection(report.livingCost ?? neutralReport.livingCost),
+    contractRisk: normalizeReportSection(report.contractRisk ?? neutralReport.contractRisk),
     visitChecklist: report.visitChecklist?.length
       ? normalizeStringList(report.visitChecklist)
-      : demoReport.visitChecklist,
-    finalAdvice: normalizeVisibleReportCopy(report.finalAdvice || demoReport.finalAdvice),
+      : neutralReport.visitChecklist,
+    finalAdvice: normalizeVisibleReportCopy(report.finalAdvice || neutralReport.finalAdvice),
   };
 }
 
@@ -480,14 +509,14 @@ export function buildFallbackReport(
 
   const finalScore = clampScore(score);
   const status = statusFromScore(finalScore);
-  const title = input.title || "候选房源评估报告";
+  const title = input.title || "候选房源体检报告";
   const address =
     context.listingLocation?.formattedAddress ||
     input.address ||
     "暂未识别到完整地址，建议补充小区名或附近地标。";
   const commuteText = commuteMinutes
     ? `预计通勤约 ${commuteMinutes} 分钟。`
-    : "实时路线暂时没有查到，建议补充更精确的房源地址和工作地点。";
+    : "通勤路线还不够明确，建议补充更精确的房源地址和工作地点。";
   const rentText = rent
     ? `月租金约 ${rent.toLocaleString()} 元。`
     : "暂未识别到明确月租金。";
@@ -533,7 +562,7 @@ export function buildFallbackReport(
         score: clampScore(76 - (input.preferences.includes("怕潮湿") ? 8 : 0)),
         summary: context.weather?.humidity
           ? `当前湿度 ${context.weather.humidity}%，需结合楼层、朝向和通风现场确认。`
-          : "暂未取得实时天气，先按城市气候和用户偏好做保守判断。",
+          : "先按城市气候和用户偏好做保守判断，看房时再确认通风、潮湿、采光和噪音。",
       },
       {
         label: "风险评分",
@@ -565,7 +594,7 @@ export function buildFallbackReport(
       points: [
         context.weather?.text
           ? `当前天气 ${context.weather.text}，体感 ${context.weather.feelsLike ?? context.weather.temp ?? "-"}°C，湿度 ${context.weather.humidity ?? "-"}%。`
-          : "暂未取得实时天气，先按用户偏好做保守提醒。",
+          : "先按用户偏好做保守提醒，看房时再确认通风、潮湿、采光和噪音。",
         input.preferences.includes("怕潮湿")
           ? "你标记了怕潮湿，看房时必须检查墙角、衣柜背板、窗边和卫生间返味。"
           : "仍建议检查通风、采光、空调排水和卫生间干湿分离。",
@@ -585,7 +614,7 @@ export function buildFallbackReport(
       points: [
         "签约前确认房东身份、产权或转租授权，避免只和无授权中间人付款。",
         "押金退还、提前退租、维修责任、家具家电清单必须写入合同。",
-        "不要用私人转账支付大额定金；付款备注写清房源地址、款项用途和日期。",
+        "暂缓通过私人转账支付大额定金；付款备注写清房源地址、款项用途和日期。",
         ...depthProfile.contractRiskPoints,
         ...officialProfile.contractRiskPoints,
         ...preferenceProfile.contractRiskPoints,

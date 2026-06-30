@@ -1,11 +1,5 @@
 export type AnalysisPreflightLevel = "ready" | "review" | "limited";
 
-export type AnalysisProviderStatus = {
-  id: string;
-  name: string;
-  configured: boolean;
-};
-
 export type AnalysisListingFields = {
   title?: string;
   rent?: string;
@@ -56,7 +50,6 @@ export type BuildAnalysisPreflightInput = {
   listing: AnalysisListingFields;
   decision: AnalysisDecisionFields;
   preferences: string[];
-  providers?: AnalysisProviderStatus[];
   hasScreenshot?: boolean;
   extractResult?: AnalysisExtractResult | null;
 };
@@ -67,7 +60,7 @@ const levelCopy: Record<
 > = {
   ready: {
     label: "可以评估",
-    description: "关键信息基本齐全，报告可以进入较完整的房源评估。",
+    description: "关键信息基本齐全，可以生成较完整的房源体检。",
   },
   review: {
     label: "建议补充",
@@ -93,7 +86,7 @@ export function buildAnalysisPreflightChecks(
       group: "listing",
       ok: hasValue(listing.rent),
       critical: true,
-      message: "请填写月租金和押付方式，否则价格判断只能按预算粗略估算。",
+      message: "请填写月租和押付方式，否则只能按预算粗略判断价格压力。",
     },
     {
       id: "address",
@@ -121,7 +114,7 @@ export function buildAnalysisPreflightChecks(
       group: "decision",
       ok: hasValue(decision.city),
       critical: true,
-      message: "请填写城市，天气、公共数据和生活成本判断才有上下文。",
+      message: "请填写城市，生活成本、天气和通勤判断才有上下文。",
     },
     {
       id: "workplace",
@@ -156,7 +149,6 @@ export function buildAnalysisPreflightChecks(
 
 export function scoreAnalysisPreflight(
   checks: AnalysisPreflightCheck[],
-  configuredCount: number,
   hasScreenshot: boolean,
   preferenceCount: number,
 ) {
@@ -164,34 +156,22 @@ export function scoreAnalysisPreflight(
   const base = fulfilled.reduce((sum, item) => sum + (item.critical ? 9 : 6), 18);
   const screenshotBonus = hasScreenshot ? 5 : 0;
   const preferenceBonus = Math.min(preferenceCount * 2, 8);
-  const providerBonus = Math.min(configuredCount * 4, 12);
-  return Math.min(96, base + screenshotBonus + preferenceBonus + providerBonus);
+  return Math.min(96, base + screenshotBonus + preferenceBonus);
 }
 
 export function buildAnalysisDegradation({
   listing,
   decision,
-  providers = [],
   hasScreenshot = false,
   extractResult,
 }: BuildAnalysisPreflightInput) {
-  const providerMap = new Map(providers.map((provider) => [provider.id, provider]));
   const items: string[] = [];
 
-  if (providerMap.size > 0 && !providerMap.get("openai")?.configured) {
-    items.push("截图和合同的自动整理暂不可用：仍可手动填写信息保存评估，签约前请再核对原图和合同原文。");
-  }
-  if (providerMap.size > 0 && !providerMap.get("amap")?.configured) {
-    items.push("实时路线和周边查询暂不可用：会先按你填写的通勤时间、生活配套和地址描述判断。");
-  }
-  if (providerMap.size > 0 && !providerMap.get("qweather")?.configured) {
-    items.push("实时天气暂不可用：潮湿、高温和雨天舒适度会按城市常识保守判断。");
-  }
   if (!hasValue(listing.address)) {
     items.push("房源位置不完整：请补小区、写字楼、门牌或明确地标，通勤和周边生活判断才更可靠。");
   }
   if (!hasValue(decision.income)) {
-    items.push("税后收入缺失：无法判断月租收入比、首笔支出和安全垫压力。");
+    items.push("未填写税后收入：无法判断月租收入比、首笔支出和安全垫压力。");
   }
   if (hasScreenshot && extractResult?.mode === "fallback") {
     items.push("截图已上传，但租金、地址和费用说明仍需要你人工核对。");
@@ -222,7 +202,7 @@ export function buildAnalysisRiskPrompts(
     prompts.push("经常做饭：确认燃气、排烟、台面空间、下水反味和楼下买菜便利度。");
   }
   if (preferences.includes("必须近地铁")) {
-    prompts.push("近地铁：不要只看直线距离，要实测进站步行、过街、等车和末班车。");
+    prompts.push("近地铁：需要实测进站步行、过街、等车时间和末班车覆盖。");
   }
   if (preferences.includes("接受老小区")) {
     prompts.push("老小区：补电路容量、水压、门禁、楼道照明、外墙和历史维修记录。");
@@ -237,14 +217,11 @@ export function buildAnalysisRiskPrompts(
 export function buildAnalysisPreflight(
   input: BuildAnalysisPreflightInput,
 ): AnalysisPreflightResult {
-  const providers = input.providers ?? [];
   const checks = buildAnalysisPreflightChecks(input.listing, input.decision);
   const missingCritical = checks.filter((item) => !item.ok && item.critical);
   const missingUseful = checks.filter((item) => !item.ok && !item.critical);
-  const configuredCount = providers.filter((provider) => provider.configured).length;
   const score = scoreAnalysisPreflight(
     checks,
-    configuredCount,
     Boolean(input.hasScreenshot),
     input.preferences.length,
   );
