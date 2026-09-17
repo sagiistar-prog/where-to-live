@@ -159,7 +159,7 @@ export function LifeRadiusResultView({
                       <p className="text-xs text-muted-foreground">{item.label}</p>
                       <p className="mt-1 text-sm font-medium">
                         {item.count} 个
-                        {item.nearestMinutes ? ` · 最近约 ${item.nearestMinutes} 分钟` : ""}
+                        {item.nearestMinutes ? `，最近约 ${item.nearestMinutes} 分钟` : ""}
                       </p>
                       {item.nearestName ? (
                         <p className="mt-1 truncate text-xs text-muted-foreground">{item.nearestName}</p>

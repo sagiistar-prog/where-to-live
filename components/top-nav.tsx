@@ -275,7 +275,7 @@ export function TopNav() {
                     {hasAccount ? authLabel : "登录或保存信息"}
                   </span>
                   <span className="mt-1 block line-clamp-2 text-xs leading-5 text-muted-foreground">
-                    {hasAccount ? `账号已验证 · ${authMeta}` : profileMeta}
+                    {hasAccount ? `账号已验证，${authMeta}` : profileMeta}
                   </span>
                 </span>
               </Link>

@@ -35,7 +35,7 @@ function fieldSummary(intent: StartIntent) {
   return intent.fields
     .slice(0, 3)
     .map((field) => `${normalizeDestination(field.label)}：${normalizeDestination(field.value)}`)
-    .join(" · ");
+    .join(" / ");
 }
 
 export function RecentStartIntents({ intents }: { intents: StartIntent[] }) {

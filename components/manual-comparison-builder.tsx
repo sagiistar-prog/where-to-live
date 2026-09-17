@@ -31,13 +31,14 @@ type QuickCandidate = {
 };
 
 type RankedCandidate = QuickCandidate & {
+  complete: boolean;
   score: number;
   rank: number;
   trueMonthlyCost?: number;
   rentValue?: number;
   commuteValue?: number;
   depositValue?: number;
-  verdict: "优先继续" | "谨慎保留" | "暂不继续";
+  verdict: "优先继续" | "谨慎保留" | "暂不继续" | "待补充";
   reasons: string[];
   analyzeHref: string;
 };
@@ -157,6 +158,7 @@ const comparisonScenarioTemplates: Array<{
 ];
 
 function parseNumber(value: string) {
+  if (/[-−]/.test(value)) return undefined;
   const match = value.replace(/,/g, "").match(/\d+(\.\d+)?/);
   return match ? Number(match[0]) : undefined;
 }
@@ -181,7 +183,7 @@ function buildAnalyzeHref(candidate: RankedCandidate) {
     `候选名称：${displayName}`,
     candidate.rentValue ? `月租：${candidate.rentValue} 元` : undefined,
     candidate.trueMonthlyCost ? `估算真实月成本：${candidate.trueMonthlyCost} 元` : undefined,
-    candidate.commuteValue ? `通勤：${candidate.commuteValue} 分钟` : undefined,
+    candidate.commuteValue !== undefined ? `通勤：${candidate.commuteValue} 分钟` : undefined,
     candidate.depositValue ? `押付压力：约 ${candidate.depositValue} 个月租金` : undefined,
     `付款与合同：${riskCopy[candidate.risk].label}`,
     candidate.notes ? `备注：${candidate.notes}` : undefined,
@@ -192,13 +194,13 @@ function buildAnalyzeHref(candidate: RankedCandidate) {
     from: "compare",
     title: displayName,
     rent: candidate.rentValue ? `${candidate.rentValue} 元/月` : candidate.rent,
-    commuteLimit: candidate.commuteValue ? `${candidate.commuteValue} 分钟` : undefined,
+    commuteLimit: candidate.commuteValue !== undefined ? `${candidate.commuteValue} 分钟` : undefined,
     description: context,
     reportContext: context,
   });
 }
 
-function rankCandidates(candidates: QuickCandidate[]) {
+export function rankCandidates(candidates: QuickCandidate[]) {
   const enriched = candidates.map((candidate) => {
     const rentValue = parseNumber(candidate.rent);
     const extraValue = parseNumber(candidate.extraMonthly) ?? 0;
@@ -208,6 +210,7 @@ function rankCandidates(candidates: QuickCandidate[]) {
 
     return {
       ...candidate,
+      complete: typeof rentValue === "number" && rentValue > 0 && typeof commuteValue === "number" && commuteValue >= 0,
       rentValue,
       commuteValue,
       depositValue,
@@ -215,10 +218,10 @@ function rankCandidates(candidates: QuickCandidate[]) {
     };
   });
 
-  const validCosts = enriched
+  const validCosts = enriched.filter(candidate => candidate.complete && candidate.risk !== "stop")
     .map((candidate) => candidate.trueMonthlyCost)
     .filter((value): value is number => typeof value === "number");
-  const validCommutes = enriched
+  const validCommutes = enriched.filter(candidate => candidate.complete && candidate.risk !== "stop")
     .map((candidate) => candidate.commuteValue)
     .filter((value): value is number => typeof value === "number");
   const lowestCost = validCosts.length ? Math.min(...validCosts) : undefined;
@@ -231,7 +234,7 @@ function rankCandidates(candidates: QuickCandidate[]) {
           ? clamp(100 - ((candidate.trueMonthlyCost - lowestCost) / Math.max(lowestCost, 1)) * 130, 45, 100)
           : 62;
       const commuteScore =
-        candidate.commuteValue && fastestCommute
+        candidate.commuteValue !== undefined && fastestCommute !== undefined
           ? clamp(100 - Math.max(0, candidate.commuteValue - fastestCommute) * 1.8, 42, 100)
           : 62;
       const depositScore =
@@ -244,7 +247,7 @@ function rankCandidates(candidates: QuickCandidate[]) {
           : 68;
       const riskScore = riskCopy[candidate.risk].score;
       const score = clamp(costScore * 0.34 + commuteScore * 0.25 + riskScore * 0.27 + depositScore * 0.14);
-      const verdict =
+      const verdict = !candidate.complete ? "待补充" :
         candidate.risk === "stop" || score < 66
           ? "暂不继续"
           : score >= 82
@@ -254,7 +257,7 @@ function rankCandidates(candidates: QuickCandidate[]) {
         candidate.trueMonthlyCost && lowestCost
           ? `月成本：${formatDelta(candidate.trueMonthlyCost - lowestCost)}`
           : "月成本还要补充",
-        candidate.commuteValue && fastestCommute
+        candidate.commuteValue !== undefined && fastestCommute !== undefined
           ? candidate.commuteValue === fastestCommute
             ? "通勤：当前最短"
             : `通勤：比最短多 ${candidate.commuteValue - fastestCommute} 分钟`
@@ -279,7 +282,7 @@ function rankCandidates(candidates: QuickCandidate[]) {
         analyzeHref: buildAnalyzeHref(ranked),
       };
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => Number(b.complete) - Number(a.complete) || Number(a.risk === "stop") - Number(b.risk === "stop") || b.score - a.score)
     .map((candidate, index) => ({ ...candidate, rank: index + 1 }));
 }
 
@@ -308,13 +311,12 @@ export function ManualComparisonBuilder() {
 
   useEffect(() => {
     if (!loaded) return;
-    window.localStorage.setItem(storageKey, JSON.stringify(candidates));
+    try { window.localStorage.setItem(storageKey, JSON.stringify(candidates)); } catch { /* Keep the current comparison usable if browser storage is unavailable. */ }
   }, [candidates, loaded]);
 
   const rankedCandidates = useMemo(() => rankCandidates(candidates), [candidates]);
-  const completeCount = candidates.filter(
-    (candidate) => parseNumber(candidate.rent) && parseNumber(candidate.commuteMinutes),
-  ).length;
+  const completeCount = rankedCandidates.filter(candidate => candidate.complete).length;
+  const recommended = rankedCandidates.find(candidate => candidate.complete && candidate.risk !== "stop" && candidate.verdict !== "暂不继续");
   const hasEnoughInput = completeCount >= 2;
 
   function updateCandidate(id: string, patch: Partial<QuickCandidate>) {
@@ -367,7 +369,7 @@ export function ManualComparisonBuilder() {
             <QuickMetric
               icon={Clock3}
               label="通勤损耗"
-              value={hasEnoughInput ? rankedCandidates[0]?.commuteValue ? `${rankedCandidates[0].commuteValue} 分钟` : "待补充" : "待综合判断"}
+              value={hasEnoughInput ? recommended?.commuteValue !== undefined ? `${recommended.commuteValue} 分钟` : "待补充" : "待综合判断"}
             />
             <QuickMetric
               icon={ShieldAlert}
@@ -518,20 +520,20 @@ export function ManualComparisonBuilder() {
               </Badge>
             </div>
 
-            {hasEnoughInput && rankedCandidates[0] ? (
+            {hasEnoughInput && recommended ? (
               <div className="mb-4 rounded-md border border-primary/20 bg-card/80 p-4">
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                   <div className="min-w-0">
                     <p className="text-xs font-medium text-primary">优先处理候选</p>
                     <h3 className="mt-1 text-lg font-semibold">
-                      {rankedCandidates[0].name || "第一套候选"}
+                      {recommended.name || "第一套候选"}
                     </h3>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      {rankedCandidates[0].verdict}。先把地址、截图、合同和付款信息补齐成完整体检，再决定是否继续谈。
+                      {recommended.verdict}。先把地址、截图、合同和付款信息补齐成完整体检，再决定是否继续谈。
                     </p>
                   </div>
                   <Button asChild className="shrink-0">
-                    <Link href={rankedCandidates[0].analyzeHref}>
+                    <Link href={recommended.analyzeHref}>
                       转成完整体检
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -542,7 +544,7 @@ export function ManualComparisonBuilder() {
 
             <div className="grid gap-3">
               {rankedCandidates.map((candidate) => (
-                <RankedRow key={candidate.id} candidate={candidate} usable={hasEnoughInput} />
+                <RankedRow key={candidate.id} candidate={candidate} usable={hasEnoughInput && candidate.complete} />
               ))}
             </div>
           </div>

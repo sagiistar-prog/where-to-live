@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  BadgeCheck,
   Search,
   Sparkles,
 } from "lucide-react";
@@ -64,13 +63,6 @@ export function HeroSection() {
 
         <main className="flex min-w-0 flex-1 flex-col justify-center gap-5 py-6 lg:py-8">
           <div className="mx-auto w-full max-w-5xl min-w-0 text-center">
-            <div className="mb-3 inline-flex max-w-[calc(100vw-2rem)] items-center gap-2 rounded-full border border-border bg-card/78 px-4 py-2 text-sm text-muted-foreground shadow-[0_14px_42px_oklch(var(--foreground)/0.05)] backdrop-blur-xl">
-              <BadgeCheck className="h-4 w-4 text-primary" />
-              <span className="sm:hidden">覆盖居住关键决策</span>
-              <span className="hidden sm:inline">
-                覆盖换城、租房、买房、签约和退租关键决策
-              </span>
-            </div>
             <h1 className="mx-auto max-w-[19.5rem] text-balance text-[2.35rem] font-semibold leading-[1.04] tracking-normal text-foreground sm:max-w-[56rem] sm:text-5xl lg:text-[4rem]">
               住哪儿 AI，您的住宅选址管家
             </h1>

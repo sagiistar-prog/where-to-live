@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, DragEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, DragEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   AlertTriangle,
@@ -188,6 +188,10 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
   const [decisionFields, setDecisionFields] = useState<DecisionFields>(
     decisionFieldsFromPreferences(defaultUserPreferences),
   );
+  const screenshotVersion = useRef(0);
+  const extractionRequest = useRef<AbortController | null>(null);
+  const [uncachedReport, setUncachedReport] = useState<string | null>(null);
+  useEffect(() => () => { screenshotVersion.current += 1; extractionRequest.current?.abort(); }, []);
   const [screenshot, setScreenshot] = useState<File | null>(null);
   const [screenshotDataUrl, setScreenshotDataUrl] = useState<string>();
   const [extractState, setExtractState] = useState<ExtractState>("idle");
@@ -263,6 +267,8 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
   }
 
   async function handleScreenshotFile(file: File | null) {
+    const version = ++screenshotVersion.current;
+    extractionRequest.current?.abort();
     if (!file) {
       setScreenshot(null);
       setScreenshotDataUrl(undefined);
@@ -292,8 +298,10 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
 
     try {
       const dataUrl = await readFileAsDataUrl(file);
+      if (version !== screenshotVersion.current) return;
       setScreenshotDataUrl(dataUrl);
     } catch {
+      if (version !== screenshotVersion.current) return;
       setState("error");
       setMessage("截图读取失败，请重新选择图片。");
     }
@@ -311,16 +319,16 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
   function mergeExtractedFields(result: ExtractResult) {
     const fields = result.fields ?? {};
     setListingFields((current) => ({
-      title: fields.title?.trim() || current.title,
-      rent: fields.rent?.trim() || current.rent,
-      area: fields.area?.trim() || current.area,
-      floor: fields.floor?.trim() || current.floor,
-      address: fields.address?.trim() || current.address,
-      description: fields.description?.trim() || current.description,
+      title: current.title.trim() ? current.title : fields.title?.trim() || "",
+      rent: current.rent.trim() ? current.rent : fields.rent?.trim() || "",
+      area: current.area.trim() ? current.area : fields.area?.trim() || "",
+      floor: current.floor.trim() ? current.floor : fields.floor?.trim() || "",
+      address: current.address.trim() ? current.address : fields.address?.trim() || "",
+      description: current.description.trim() ? current.description : fields.description?.trim() || "",
     }));
 
     if (fields.city?.trim()) {
-      updateDecisionField("city", fields.city.trim());
+      setDecisionFields(current => ({ ...current, city: current.city.trim() ? current.city : fields.city!.trim() }));
     }
   }
 
@@ -337,11 +345,16 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
       return;
     }
 
+    const version = screenshotVersion.current;
+    extractionRequest.current?.abort();
+    const controller = new AbortController();
+    extractionRequest.current = controller;
     setExtractState("extracting");
     setMessage("正在读取截图里的租金、面积、地址和费用说明...");
 
     try {
       const response = await fetch("/api/analyze/extract", {
+        signal: controller.signal,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -349,6 +362,7 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
         body: JSON.stringify({ screenshotDataUrl }),
       });
       const result = (await response.json()) as ExtractResult;
+      if (version !== screenshotVersion.current || controller.signal.aborted) return;
       if (!response.ok) {
         throw new Error(result.message ?? "截图读取失败。");
       }
@@ -358,10 +372,11 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
       setExtractState(result.mode === "openai" ? "done" : "error");
       setMessage(
         result.mode === "openai"
-          ? "已读取截图信息，请确认表单内容后生成房源体检。"
+          ? "已用截图补齐空白项；你填写的内容已保留，请核对后生成房源体检。"
           : result.message ?? "暂时读不出截图，请手动补充关键信息。",
       );
     } catch (error) {
+      if (version !== screenshotVersion.current || controller.signal.aborted) return;
       setExtractState("error");
       setExtractResult({
         warnings: [error instanceof Error ? error.message : "截图读取失败。"],
@@ -447,8 +462,16 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
       }
 
       const result = await response.json();
-      sessionStorage.setItem("zhunaar:last-report", JSON.stringify(result));
       const isTemporaryReport = result.saved === false || !result.id;
+      try { sessionStorage.setItem("zhunaar:last-report", JSON.stringify(result)); }
+      catch {
+        if (isTemporaryReport) {
+          setUncachedReport(JSON.stringify(result, null, 2));
+          setState("idle");
+          setMessage("体检已生成，但浏览器无法保存。结果已保留在本页，请下载后再离开，无需重复提交。");
+          return;
+        }
+      }
       setMessage(
         isTemporaryReport
           ? result.mode === "openai"
@@ -458,7 +481,7 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
             ? "房源体检已保存为房源记录，正在打开报告。"
             : "已按已填写信息生成评估，并保存为房源记录，正在打开报告。",
       );
-      router.push(result.id ? `/report/${result.id}` : "/report/latest");
+      router.push(!isTemporaryReport ? `/report/${result.id}` : "/report/latest");
     } catch (error) {
       setState("error");
       setMessage(error instanceof Error ? error.message : "房源体检失败，请稍后重试。");
@@ -475,6 +498,18 @@ export function ListingForm({ initialInput }: { initialInput?: ListingFormInitia
       <input type="hidden" name="sourceReportId" value={initialInput?.sourceReportId ?? ""} />
       <input type="hidden" name="reportContext" value={initialInput?.reportContext ?? ""} />
 
+      {uncachedReport ? (
+        <section role="status" className="rounded-md border border-border bg-card p-5">
+          <h2 className="font-semibold">体检结果已生成</h2>
+          <p className="mt-2 text-sm text-muted-foreground">浏览器无法保存这份结果。可以展开查看或下载保留。</p>
+          <Button type="button" className="mt-4" onClick={() => {
+            const url = URL.createObjectURL(new Blob([uncachedReport], { type: "application/json" }));
+            const link = document.createElement("a"); link.href = url; link.download = "housing-report.json"; link.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+          }}>下载体检结果</Button>
+          <details className="mt-4"><summary>查看完整结果</summary><pre className="mt-3 whitespace-pre-wrap break-words text-sm">{uncachedReport}</pre></details>
+        </section>
+      ) : null}
       <Card className="w-full min-w-0 max-w-full p-5 sm:p-6">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>

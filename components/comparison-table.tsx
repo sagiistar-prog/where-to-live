@@ -68,7 +68,7 @@ export function ComparisonTable({
                     {listing.source ? (
                       <p className="text-xs font-normal text-muted-foreground">
                         {listing.source}
-                        {isFocused ? " · 当前关注" : ""}
+                        {isFocused ? "，当前关注" : ""}
                       </p>
                     ) : null}
                   </div>
@@ -168,7 +168,7 @@ function GateCell({ listing }: { listing: ComparisonListing }) {
       </span>
       {typeof listing.gateProgress === "number" ? (
         <p className="text-xs text-muted-foreground">
-          确认 {listing.gateProgress}% · {listing.canPay ? "可付款" : "不建议付款"} · {listing.canSign ? "可签约" : "不建议签约"}
+          确认 {listing.gateProgress}%，{listing.canPay ? "可付款" : "不建议付款"}，{listing.canSign ? "可签约" : "不建议签约"}
         </p>
       ) : null}
     </div>

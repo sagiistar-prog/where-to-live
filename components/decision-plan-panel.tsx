@@ -590,7 +590,7 @@ export function DecisionPlanPanel({
               <div className="rounded-md border border-primary/25 bg-primary/10 p-3 text-sm leading-6 text-muted-foreground">
                 <p className="font-medium text-foreground">已带入房源体检</p>
                 <p className="mt-0.5">
-                  {selectedReport.summary.title} · {selectedReport.summary.score} 分
+                  {selectedReport.summary.title}，{selectedReport.summary.score} 分
                 </p>
               </div>
             ) : initialSourceLabel ? (

@@ -458,7 +458,7 @@ export function OfficialVerificationPanel({ initialInput }: { initialInput?: Off
                       <span className="grid gap-1 leading-6">
                         <span className="font-medium text-foreground">{taskItem.title}</span>
                         <span className="text-xs text-muted-foreground">
-                          {taskItem.sourceName} · 通过信号：{taskItem.passSignal}
+                          {taskItem.sourceName}，通过信号：{taskItem.passSignal}
                         </span>
                         <span className="text-xs text-muted-foreground">
                           保存材料：{taskItem.proofToSave}

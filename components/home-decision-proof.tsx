@@ -80,7 +80,6 @@ export function HomeDecisionProof() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium text-primary">真实决策场景</p>
             <h2 className="mt-1 text-3xl font-semibold leading-tight tracking-normal sm:text-4xl">
               每次只处理一个关键判断
             </h2>

@@ -13,3 +13,6 @@ coverage/
 artifacts/
 86款城市航拍合集/
 86*/
+
+.impeccable/
+test-results/

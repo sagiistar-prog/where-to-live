@@ -209,7 +209,7 @@ function ExtractionSummary({
       {warnings.length ? (
         <ul className="mt-2 space-y-1 opacity-90">
           {warnings.map((warning) => (
-            <li key={warning}>· {warning}</li>
+            <li key={warning}>{warning}</li>
           ))}
         </ul>
       ) : null}

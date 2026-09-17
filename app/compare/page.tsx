@@ -317,7 +317,7 @@ function ComparisonDecisionWorkspace({
                       {listing.rank}. {listing.name}
                     </p>
                     <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">
-                      {listing.trueMonthlyCost} · {listing.commute}
+                      {listing.trueMonthlyCost}，{listing.commute}
                     </p>
                   </div>
                   <span className="shrink-0 text-lg font-semibold">{listing.score}</span>
@@ -394,7 +394,7 @@ function ComparisonDecisionWorkspace({
                 icon={ShieldCheck}
                 label="付款与签约"
                 value={activeListing.gateLabel ?? "待补充"}
-                detail={`${activeListing.canPay ? "可付款" : "不建议付款"} · ${activeListing.canSign ? "可签约" : "不建议签约"}`}
+                detail={`${activeListing.canPay ? "可付款" : "不建议付款"}，${activeListing.canSign ? "可签约" : "不建议签约"}`}
                 danger={activeListing.canPay === false || activeListing.canSign === false}
               />
             </div>
