@@ -9,7 +9,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "cn-civil",
@@ -21,7 +22,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-rental",
@@ -33,7 +35,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-funds",
@@ -45,7 +48,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-pay",
@@ -57,7 +61,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-balance",
@@ -69,7 +74,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-faq",
@@ -81,7 +87,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-contract",
@@ -93,7 +100,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-benefits",
@@ -105,7 +113,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-withdraw",
@@ -117,7 +126,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sh-rental",
@@ -129,7 +139,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sh-platform",
@@ -141,7 +152,8 @@
     "content_kind": "authored_summary",
     "valid_until": "2028-06-30",
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sh-withdraw",
@@ -153,7 +165,8 @@
     "content_kind": "authored_summary",
     "valid_until": "2028-03-31",
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "gz-tips",
@@ -165,7 +178,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "gz-rental",
@@ -177,7 +191,8 @@
     "content_kind": "authored_summary",
     "valid_until": "2027-04-09",
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sz-funds",
@@ -189,7 +204,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "cn-tax",
@@ -201,7 +217,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "cn-contract",
@@ -213,7 +230,8 @@
     "content_kind": "authored_summary",
     "valid_until": null,
     "published_at": null,
-    "effective_from": null
+    "effective_from": null,
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "gz-gjj-extraction-rule",
@@ -225,7 +243,8 @@
     "valid_until": "2028-12-31",
     "text": "广州缴存人及配偶、未成年子女在市内无自有住房并租房自住，连续足额缴存满三个月后可申请租房提取。办法区分已备案、未备案和公租房三种路径，通常每三个月提取一次，并规定已备案租金额度上限与多孩家庭未备案额度上浮。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:39.003007+00:00"
+    "retrieved_at": "2026-09-18T05:17:39.003007+00:00",
+    "applicability": "适用于广州住房公积金管理中心管辖范围。租房前提覆盖本人、配偶和未成年子女；未备案固定月额度由中心另行调整，本页不能单独证明当前固定金额。已备案提取仍有法定租金额度上限。"
   },
   {
     "source_id": "gz-lease-filing-guide",
@@ -237,7 +256,8 @@
     "valid_until": null,
     "text": "广州租赁备案可线上申请或到房屋所在地街道、镇办理。需双方身份证明、权属或合法来源材料及合同。办事指引列三个工作日；地方规定对材料符合要求的备案要求当场办理，两者应分别核对，具体受理时限向办理部门确认。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:43.635724+00:00"
+    "retrieved_at": "2026-09-18T05:17:43.635724+00:00",
+    "applicability": "采用正文附件1的租赁备案指引；附件2属于存量房买卖，不纳入租房摘要。办理平台入口和地区迁移可能另行更新，具体以主管部门现行入口与受理要求为准。 本指引列3个工作日，地方规定对材料齐全的备案要求当场办理；需分别归因并向受理部门核对，不能称为统一法定等待期。"
   },
   {
     "source_id": "gz-lease-management-rule",
@@ -249,7 +269,8 @@
     "valid_until": null,
     "text": "广州租赁规定要求出租人出示身份和房屋权属等资料，房屋与附属设施符合安全要求，厨房、阳台等非居住空间不得单独出租住人。租赁双方应签书面合同并在三十日内备案；承租人须合理使用房屋，发现隐患应排除或告知出租人处理。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:44.103924+00:00"
+    "retrieved_at": "2026-09-18T05:17:44.103924+00:00",
+    "applicability": "适用广州行政区域房屋租赁；公租房、公有房屋另有规定的从其规定。本文为地方性法规，涉及具体纠纷时还需结合民法典、住房租赁条例及合同事实，不能据摘要直接判断合同效力。"
   },
   {
     "source_id": "gz-affordable-rental-rule",
@@ -261,7 +282,8 @@
     "valid_until": "2028-02-17",
     "text": "广州保租房分为政府性房源和市场性房源。政府房源申请家庭应在市内无自有住房、未享受规定的其他住房保障，申请人通常须缴纳本市养老保险；租金不高于同地段同品质市场租金九成。市场房源由运营单位出租，其租金应低于同类市场租金。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:49.219236+00:00"
+    "retrieved_at": "2026-09-18T05:17:49.219236+00:00",
+    "applicability": "政府房源的无房和住房保障条件涉及申请人、配偶与未成年子女；市区引进人才免于本文养老保险条件。不能把政府房源条件套用于市场房源。人才公寓、直管公房纳入保租房后如有特别规定，按特别规定执行。正文明确自2025-02-18印发起有效3年；按该期限计算截止2028-02-17，续期或修订需重新核查。"
   },
   {
     "source_id": "sz-gjj-rent-calculation",
@@ -273,7 +295,8 @@
     "valid_until": "2027-10-31",
     "text": "深圳住建局说明普通租房公积金提取按月份分段计算。二〇二五年十一月前的可提取月份按申请当月应缴存额的百分之六十五计算；二〇二五年十一月至二〇二七年十月期间按百分之八十计算，系统分别核算后合并可提取金额。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:54.332013+00:00"
+    "retrieved_at": "2026-09-18T05:17:54.332013+00:00",
+    "applicability": "针对符合普通租房提取条件的职工，基础无房范围包括本市及深汕特别合作区，涉及本人和家庭成员。valid_until为页面明确的80%政策执行期终点，不代表整篇FAQ或65%基础规定在该日失效；多子女、公租房、保租房适用其他计算路径。"
   },
   {
     "source_id": "sz-gjj-extraction-rule",
@@ -285,7 +308,8 @@
     "valid_until": null,
     "text": "深圳新版公积金规定允许符合无房条件的多子女家庭按月应缴额全额提取，合同备案后可按实际租金提取但有上限。无房职工承租公租房或认定保租房可按实际租金提取；家庭同一期间须统一选择计算方式，按实租金提取合计不得超过实际房租。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:55.344257+00:00"
+    "retrieved_at": "2026-09-18T05:17:55.344257+00:00",
+    "applicability": "第11条多子女家庭为两个及以上子女，不应沿用已到期旧通知的“至少一个未成年”附加条件；按备案实际租金提取不超过申请当月全市住房公积金月最高缴存额。普通租房65%基准需结合另行有效的80%阶段政策，不可只读本条得出现期仍为65%的结论。"
   },
   {
     "source_id": "sz-lease-online-guide",
@@ -297,7 +321,8 @@
     "valid_until": null,
     "text": "深圳网签备案指引适用于租赁双方均为自然人的业务，由出租方维护产权并发起合同或备案申请，其他出租方和承租方签字确认。线下合同备案需提交权属证明、双方身份资料和租赁合同；核验通过且已线上签约的产权可走备案秒批。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:17:59.899259+00:00"
+    "retrieved_at": "2026-09-18T05:17:59.899259+00:00",
+    "applicability": "本指引暂不受理委托情形，不能推广到企业为租赁一方的所有业务。抵押房产需按指引追加抵押合同和同意出租函。线下签约后线上备案的业务暂不支持线上变更或转租备案；秒批有产权核验及网签前提。"
   },
   {
     "source_id": "sz-affordable-rental-rule",
@@ -309,7 +334,8 @@
     "valid_until": null,
     "text": "深圳保租房分政府组织配租和社会主体出租两类。政府配租有全市无房、三年内未转让住房、正常社保及人才条件等要求，租金按市场参考价六成确定；社会房源按项目所在区域核验无房情况，租金不高于市场参考价九成，单次合同通常不超过三年。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:05.580532+00:00"
+    "retrieved_at": "2026-09-18T05:18:05.580532+00:00",
+    "applicability": "政府配租还须符合当批配租通告附加条件及不得重复享受住房保障等要求。社会房源位于福田、罗湖、南山时，核验这三区均无自有住房；其他区核验项目所在区，均涉及申请人、配偶和未成年子女，且不得正在租住保障性质住房；产业园区配套宿舍有条件豁免。"
   },
   {
     "source_id": "cn-highrise-fire",
@@ -321,7 +347,8 @@
     "valid_until": null,
     "text": "看高层住宅时，核对疏散通道、安全出口和消防设施是否可用。规定禁止在公共门厅、疏散走道、楼梯间及安全出口停放电动自行车或充电。出租使用时，合同应明确各方消防责任；实际隐患由物业与消防等专业部门核验。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:06.603954+00:00"
+    "retrieved_at": "2026-09-18T05:18:06.603954+00:00",
+    "applicability": "适用于已建成且依法投入使用的高层民用建筑，不能直接推广全部条文到低层住宅。资料检索不代替现场消防检查。"
   },
   {
     "source_id": "cn-noise",
@@ -333,7 +360,8 @@
     "valid_until": null,
     "text": "居住噪声需区分装修、邻里活动、商业设备与交通等来源。已交付建筑装修应遵守作业时限并采取降噪措施。物业、业委会等可劝阻调解社会生活噪声；无效时向负有职责的部门报告。国家法没有给所有城市统一的装修时段。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:11.452216+00:00"
+    "retrieved_at": "2026-09-18T05:18:11.452216+00:00",
+    "applicability": "当地具体作业时限、执法部门和现场测量需另核；不能仅凭录音或主观感受判断违法。"
   },
   {
     "source_id": "cn-broker-service",
@@ -345,7 +373,8 @@
     "valid_until": null,
     "text": "中介提供基本服务和额外服务时，应分别列明项目与收费标准，不得混合标价或捆绑收费；收费前需出具清单供当事人确认。服务费用由各方协商确定，并非全国统一比例。查询机构备案和从业人员信息，同时核对个人信息使用范围。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:16.160878+00:00"
+    "retrieved_at": "2026-09-18T05:18:16.160878+00:00",
+    "applicability": "针对房地产经纪服务；不据此认定任何具体收费必然违法或推定全国统一佣金上限。"
   },
   {
     "source_id": "cn-deposit-case",
@@ -357,7 +386,8 @@
     "valid_until": null,
     "text": "最高法院发布的租赁案例讨论了正常损耗、押金和退租前带看争议。该案结合合同约定、使用情况和损坏证据处理维修及押金返还。案例有助于核对退租照片、交接记录和条款，但不能从单个案件推定自己必然获得相同判决。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:17.003353+00:00"
+    "retrieved_at": "2026-09-18T05:18:17.003353+00:00",
+    "applicability": "这是官方案例解读而非通用强制条款；具体结论受合同、证据和事实约束。"
   },
   {
     "source_id": "sh-noise",
@@ -369,7 +399,8 @@
     "valid_until": null,
     "text": "上海已交付住宅的噪声装修作业，受每日十八时至次日八时和法定节假日全天的限制，条文注明法定节假日不含双休日。其他时间也应采取降噪措施。发生社会生活噪声纠纷可先请求物业等调解，再按噪声类型向有职责的部门反映。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:12.577513+00:00"
+    "retrieved_at": "2026-09-18T05:18:12.577513+00:00",
+    "applicability": "仅适用于上海。双休日和法定节假日不能混为一谈，小区规约也需核查。"
   },
   {
     "source_id": "cn-gas-safety",
@@ -381,6 +412,137 @@
     "valid_until": null,
     "text": "应急管理部发布会提示，直排式热水器、排烟管安装不规范及通风不足可能带来一氧化碳风险。看房时应核对燃气器具类型、排烟设施和维护情况，要求由燃气公司等专业人员检查。不能仅凭外观或闻不到异味就认定安全。",
     "content_kind": "authored_summary",
-    "retrieved_at": "2026-09-18T05:18:22.604877+00:00"
+    "retrieved_at": "2026-09-18T05:18:22.604877+00:00",
+    "applicability": "用于入住前安全核验，不提供自行拆改、维修或医疗处置建议；发布会同时包含其他冬季安全话题。"
+  },
+  {
+    "source_id": "cn-purchase-deed-tax",
+    "source_title": "关于促进房地产市场平稳健康发展有关税收政策的公告（2024年第16号）",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202411/13/521659/article.html",
+    "retrieved_at": "2026-09-18T11:46:05.244143+00:00",
+    "jurisdiction": "全国",
+    "published_at": "2024-11-13",
+    "effective_from": "2024-12-01",
+    "valid_until": null,
+    "applicability": "契税优惠按家庭住房套数、面积和申报条件核对；不能把税率直接当总交易成本。收录原文非实时政策监控，增值税等其他税种仍需核对后续变化。",
+    "text": "买房契税按家庭套数和面积核对。2024年第16号公告规定：家庭唯一住房及第二套住房，140平方米及以下为1%；超过140平方米，分别为1.5%和2%。家庭成员包括购房人、配偶及未成年子女。申报前准备家庭成员和住房情况证明，并向税务部门确认适用条件。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-provident-loan-rate",
+    "source_title": "中国人民银行关于下调个人住房公积金贷款利率的通知（2025年5月）",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202505/07/528461/article.html",
+    "retrieved_at": "2026-09-18T11:46:04.603717+00:00",
+    "jurisdiction": "全国",
+    "published_at": "2025-05-07",
+    "effective_from": "2025-05-08",
+    "valid_until": null,
+    "applicability": "2025年5月通知公布的利率，不宣称为实时最新利率；二套是下限。新旧贷款调整日期和资格由当地中心及合同进一步核对，不是银行实际报价。",
+    "text": "2025年5月通知列明：首套公积金贷款，五年以内（含五年）2.1%，五年以上2.6%；二套分别不低于2.525%和3.075%。这些是该次通知的规则，不能当作银行今天给你的实际报价。核对首套认定、贷款期限和当地中心最新执行要求。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "bj-provident-loan-transition",
+    "source_title": "北京住房公积金管理中心关于下调个人住房公积金贷款利率的公告（2025年5月）",
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202505/t20250508_4084130.html",
+    "retrieved_at": "2026-09-18T11:46:03.999904+00:00",
+    "jurisdiction": "北京",
+    "published_at": "2025-05-08",
+    "effective_from": "2025-05-08",
+    "valid_until": null,
+    "applicability": "仅北京公告，区分2025-05-08前后发放以及一年以内/以上贷款；2026年调整节点不等于此后利率不会再变。",
+    "text": "北京2025年5月公告区分新贷款与存量公积金贷款。此前发放、期限一年以上的贷款，调整节点是2026年1月1日；一年以内（含一年）的贷款仍按原利率、不分段计息。办理前核对发放日、期限及后续利率通知。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-civil-evidence",
+    "source_title": "最高人民法院关于民事诉讼证据的若干规定（2019年修正）",
+    "source_url": "https://www.court.gov.cn/zixun/xiangqing/212721.html",
+    "retrieved_at": "2026-09-18T11:46:24.900829+00:00",
+    "jurisdiction": "全国",
+    "published_at": null,
+    "effective_from": "2020-05-01",
+    "valid_until": null,
+    "applicability": "用于准备住房纠纷资料；聊天记录属于电子数据不代表截图必被采信。保留原始载体与完整记录，真实性、关联性及合法性由法院判断。",
+    "text": "处理押金、维修或付款纠纷时，整理合同、转账凭证和完整聊天记录。即时通信、电子交易记录属于电子数据；保留原件、原始载体和形成过程，不只留下裁剪截图。是否被法院采信还取决于真实性、关联性和合法性。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-property-records",
+    "source_title": "不动产登记资料查询暂行办法（2025年9月4日修正）",
+    "source_url": "https://ghhzy.yq.gov.cn/yqgtbdc/zcfg/202405/t20240524_1897457.html",
+    "retrieved_at": "2026-09-18T11:46:25.857318+00:00",
+    "jurisdiction": "全国",
+    "published_at": null,
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "自然资源部门公开的全国办法修正文；页面路径年份不是版本日期。准买受人与租客申请查询需依法证明用途，只能获取规定范围，不能任意查询他人隐私。",
+    "text": "买房或租房前，可按登记资料查询规则核对房屋自然状况、共有、抵押、居住权及查封等限制。尚未签合同但有买卖或租赁意向，也有范围受限的查询途径，需要提交申请和身份证明。不得将查询结果用于无关目的或任意公开他人信息。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "bj-resale-funds",
+    "source_title": "关于进一步优化营商环境简化房屋交易流程的通知（京建发〔2018〕182号）",
+    "source_url": "https://www.beijing.gov.cn/zhengce/gfxwj/201905/t20190522_61120.html",
+    "retrieved_at": "2026-09-18T11:46:35.964870+00:00",
+    "jurisdiction": "北京",
+    "published_at": "2018-04-20",
+    "effective_from": "2018-04-20",
+    "valid_until": null,
+    "applicability": "北京取消强制存量房资金监管，提供可选择的托管服务；不能再套用2016年旧通知的强制表述。该通知不证明某笔交易安全或替代最新银行办理流程。",
+    "text": "北京2018年文件已取消强制存量房资金监管，交易当事人可自行选择资金托管及托管方式。不要把2016年旧通知的强制表述当作现行要求。买二手房时仍应核对收款账户、放款与过户条件，选择托管不代表交易风险全部消失。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-loan-interest-tax",
+    "source_title": "住房贷款利息专项附加扣除热点问答",
+    "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202602/t479564.html",
+    "retrieved_at": "2026-09-18T11:46:36.374042+00:00",
+    "jurisdiction": "全国",
+    "published_at": null,
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "上海税务发布的全国个人所得税规则问答。每月扣除额是应税所得额扣除，不是直接退税；首套贷款口径与家庭住房套数不能混同。",
+    "text": "符合条件的首套住房贷款利息，可按每月1000元定额扣除，最长240个月；提前还清后只享受到贷款终止月。这是应税所得额扣除，不是每月退税1000元。留存贷款合同和还款凭证，夫妻扣除安排及首套贷款口径需按原文核对。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-mortgage-repricing",
+    "source_title": "中国人民银行关于完善商业性个人住房贷款利率定价机制的公告（2024年第11号）",
+    "source_url": "https://www.shanghai.gov.cn/rzfwgj/20251009/a89c836584d04a868d42589d864cd156.html",
+    "retrieved_at": "2026-09-18T11:49:20.937802+00:00",
+    "jurisdiction": "全国",
+    "published_at": null,
+    "effective_from": "2024-09-29",
+    "valid_until": null,
+    "applicability": "全国商业性个人住房贷款定价机制；不提供实时LPR或个体获批利率，不将某家银行办理次数限制推广为全国规则。",
+    "text": "商业性住房贷款可以约定固定或浮动利率。浮动房贷以LPR加点形成；自2024年11月起，借款人可与银行协商重定价周期，周期和调整方式应写进合同。公告不承诺某人的贷款利率或审批结果，也不等于所有银行的操作限制相同。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-legal-aid",
+    "source_title": "中华人民共和国法律援助法",
+    "source_url": "https://www.hncourt.gov.cn/public/detail.php?id=188249",
+    "retrieved_at": "2026-09-18T11:49:21.286230+00:00",
+    "jurisdiction": "全国",
+    "published_at": null,
+    "effective_from": "2022-01-01",
+    "valid_until": null,
+    "applicability": "法律援助有事项范围和经济条件等要求；普通押金纠纷不自动获得免费律师代理，需要当地机构审核，法律咨询与诉讼代理不能混为一谈。",
+    "text": "遇到住房纠纷，可以先向公共法律服务机构咨询。免费律师代理的法律援助还需核对事项范围、经济条件及当地规定；押金争议不自动符合资格。准备身份、争议事实及经济状况材料，由法律援助机构审查。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-people-mediation",
+    "source_title": "中华人民共和国人民调解法",
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/201101/t20110101_781290.html",
+    "retrieved_at": "2026-09-18T11:49:20.974467+00:00",
+    "jurisdiction": "全国",
+    "published_at": null,
+    "effective_from": "2011-01-01",
+    "valid_until": null,
+    "applicability": "调解是自愿解决民间纠纷的途径，不保证对方接受或达成协议。调解协议与经司法确认后的执行路径需要区分。",
+    "text": "租房或邻里纠纷可向人民调解委员会申请调解，双方自愿，人民调解不收费。达成协议后，认为有必要的双方可在协议生效起三十日内共同申请司法确认。对方不同意调解时，仍可依法选择其他解决途径。",
+    "content_kind": "authored_summary"
   }
 ]

@@ -47,3 +47,21 @@ test("temporary rates and future rules stay outside their effective window", () 
     assert.ok(searchHousingKnowledge(query, "深圳", new Date(day)).every(r => r.source_id !== "sz-gjj-rent-calculation"));
   }
 });
+
+test("purchase and dispute tasks return usable sources with applicability", () => {
+  for (const [query, city, id] of [
+    ["家庭第二套住房契税140平方米", "全国", "cn-purchase-deed-tax"],
+    ["浮动房贷重定价周期", "全国", "cn-mortgage-repricing"],
+    ["租房纠纷人民调解收费", "北京", "cn-people-mediation"],
+    ["北京二手房资金托管是否自行选择", "北京", "bj-resale-funds"],
+    ["提前还清住房贷款利息扣除", "上海", "cn-loan-interest-tax"],
+  ]) {
+    const results = searchHousingKnowledge(query, city, new Date("2026-09-18"));
+    assert.ok(results.some(r => r.source_id === id), `${query} misses ${id}`);
+    assert.ok(results.every(r => r.applicability && ["全国", city].includes(r.jurisdiction)));
+  }
+  for (const query of ["我一定获批住房贷款吗", "请保证银行给我放款买房"]) {
+    assert.equal(housingQueryBoundary(query)?.id, "credit_approval");
+    assert.deepEqual(searchHousingKnowledge(query, "全国"), []);
+  }
+});

@@ -1,0 +1,38 @@
+{
+  "scope": "Actual production build default-summary website; not website-to-vector integration",
+  "created_at": "2026-09-18T12:04:27.548Z",
+  "rows": [
+    {
+      "width": 1440,
+      "sourceVisible": true,
+      "applicabilityVisible": true,
+      "effectiveDateVisible": true,
+      "mode": "reference-search",
+      "officialLinks": [
+        "https://app.www.gov.cn/govdata/gov/202411/13/521659/article.html",
+        "https://app.www.gov.cn/govdata/gov/202505/07/528461/article.html",
+        "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202602/t479564.html"
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "axeViolations": 0,
+      "loanApprovalBoundary": true
+    },
+    {
+      "width": 390,
+      "sourceVisible": true,
+      "applicabilityVisible": true,
+      "effectiveDateVisible": true,
+      "mode": "reference-search",
+      "officialLinks": [
+        "https://app.www.gov.cn/govdata/gov/202411/13/521659/article.html",
+        "https://app.www.gov.cn/govdata/gov/202505/07/528461/article.html",
+        "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202602/t479564.html"
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "axeViolations": 0,
+      "loanApprovalBoundary": true
+    }
+  ]
+}

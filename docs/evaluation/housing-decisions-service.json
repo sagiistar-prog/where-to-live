@@ -1,0 +1,798 @@
+{
+  "created_at": "2026-09-18T12:04:25.231219+00:00",
+  "scope": "Real standalone HTTP service; not website integration, expert relevance, or customer results",
+  "corpus_sha256": "3d2fafe65b1e52b01df38fee9d6d3d51bab212d83df64040983b589221302aa3",
+  "health": {
+    "status": "ready",
+    "model": "BAAI/bge-small-zh-v1.5",
+    "chunks": 662,
+    "storage": "postgres-pgvector",
+    "sources": 42
+  },
+  "summary": {
+    "cases": 52,
+    "positive_cases": 44,
+    "positive_source_hits": 44,
+    "negative_cases": 8,
+    "false_evidence": 0,
+    "jurisdiction_leaks": 0
+  },
+  "passed": true,
+  "cases": [
+    {
+      "id": "pos-01",
+      "sources": [
+        "cn-civil",
+        "cn-civil",
+        "cn-deposit-case",
+        "cn-contract",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-02",
+      "sources": [
+        "cn-civil",
+        "cn-contract",
+        "cn-deposit-case",
+        "cn-contract",
+        "cn-deposit-case"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-03",
+      "sources": [
+        "cn-civil",
+        "cn-contract",
+        "cn-deposit-case",
+        "cn-deposit-case",
+        "cn-civil"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-04",
+      "sources": [
+        "cn-contract",
+        "cn-contract",
+        "cn-deposit-case",
+        "cn-rental",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-05",
+      "sources": [
+        "cn-tax",
+        "cn-tax",
+        "cn-loan-interest-tax",
+        "cn-loan-interest-tax",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-06",
+      "sources": [
+        "bj-balance",
+        "bj-balance",
+        "bj-faq",
+        "bj-faq",
+        "bj-pay"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-07",
+      "sources": [
+        "bj-pay",
+        "bj-faq",
+        "bj-pay",
+        "bj-faq",
+        "cn-broker-service"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-08",
+      "sources": [
+        "bj-faq",
+        "bj-funds",
+        "bj-funds",
+        "bj-faq",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-09",
+      "sources": [
+        "bj-withdraw",
+        "bj-withdraw",
+        "bj-benefits",
+        "bj-rental",
+        "bj-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-10",
+      "sources": [
+        "bj-contract",
+        "cn-rental",
+        "bj-funds",
+        "bj-faq",
+        "bj-funds"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-11",
+      "sources": [
+        "cn-rental",
+        "bj-benefits",
+        "cn-civil",
+        "bj-rental",
+        "bj-balance"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-12",
+      "sources": [
+        "sh-platform",
+        "sh-platform",
+        "sh-rental",
+        "sh-rental",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-13",
+      "sources": [
+        "sh-withdraw",
+        "sh-withdraw",
+        "sh-platform",
+        "sh-rental",
+        "sh-platform"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-14",
+      "sources": [
+        "sh-platform",
+        "sh-rental",
+        "sh-platform",
+        "cn-rental",
+        "sh-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-15",
+      "sources": [
+        "cn-rental",
+        "cn-rental",
+        "gz-lease-management-rule",
+        "gz-rental",
+        "gz-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-16",
+      "sources": [
+        "gz-rental",
+        "gz-rental",
+        "cn-rental",
+        "cn-rental",
+        "gz-affordable-rental-rule"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-17",
+      "sources": [
+        "sz-funds",
+        "cn-rental",
+        "cn-rental",
+        "sz-affordable-rental-rule",
+        "sz-affordable-rental-rule"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "pos-18",
+      "sources": [
+        "cn-contract",
+        "cn-contract",
+        "cn-deposit-case",
+        "cn-civil",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "neg-01",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "neg-02",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "neg-03",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "neg-04",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "neg-05",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "neg-06",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-gz-gjj-extraction-rule",
+      "sources": [
+        "gz-gjj-extraction-rule",
+        "gz-gjj-extraction-rule",
+        "gz-lease-filing-guide",
+        "gz-lease-management-rule",
+        "cn-contract"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-gz-lease-filing-guide",
+      "sources": [
+        "gz-lease-management-rule",
+        "cn-rental",
+        "gz-lease-filing-guide",
+        "gz-lease-management-rule",
+        "cn-contract"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-gz-lease-management-rule",
+      "sources": [
+        "cn-contract",
+        "cn-contract",
+        "gz-lease-management-rule",
+        "gz-lease-management-rule",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-gz-affordable-rental-rule",
+      "sources": [
+        "gz-affordable-rental-rule",
+        "gz-affordable-rental-rule",
+        "gz-rental",
+        "cn-legal-aid",
+        "cn-legal-aid"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-sz-gjj-rent-calculation",
+      "sources": [
+        "sz-gjj-rent-calculation",
+        "sz-gjj-extraction-rule",
+        "sz-gjj-extraction-rule",
+        "sz-gjj-rent-calculation"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-sz-gjj-extraction-rule",
+      "sources": [
+        "sz-gjj-extraction-rule",
+        "sz-gjj-extraction-rule",
+        "sz-lease-online-guide",
+        "sz-lease-online-guide",
+        "cn-contract"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-sz-lease-online-guide",
+      "sources": [
+        "sz-lease-online-guide",
+        "sz-lease-online-guide",
+        "cn-contract",
+        "cn-deposit-case",
+        "sz-gjj-extraction-rule"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-sz-affordable-rental-rule",
+      "sources": [
+        "sz-affordable-rental-rule",
+        "sz-affordable-rental-rule",
+        "sz-gjj-extraction-rule",
+        "cn-rental",
+        "sz-gjj-extraction-rule"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-cn-highrise-fire",
+      "sources": [
+        "cn-highrise-fire",
+        "cn-highrise-fire"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-cn-noise",
+      "sources": [
+        "cn-noise",
+        "cn-noise",
+        "cn-people-mediation",
+        "cn-people-mediation"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-cn-broker-service",
+      "sources": [
+        "cn-broker-service",
+        "cn-broker-service",
+        "cn-rental",
+        "cn-rental",
+        "cn-contract"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-cn-deposit-case",
+      "sources": [
+        "cn-deposit-case",
+        "cn-contract",
+        "cn-deposit-case",
+        "cn-rental",
+        "cn-rental"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-sh-noise",
+      "sources": [
+        "sh-noise",
+        "cn-noise",
+        "sh-noise",
+        "cn-noise",
+        "cn-purchase-deed-tax"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "expanded-cn-gas-safety",
+      "sources": [
+        "cn-gas-safety",
+        "cn-gas-safety",
+        "cn-highrise-fire",
+        "cn-highrise-fire"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-01",
+      "sources": [
+        "cn-purchase-deed-tax",
+        "cn-purchase-deed-tax",
+        "cn-loan-interest-tax",
+        "cn-rental",
+        "cn-loan-interest-tax"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-02",
+      "sources": [
+        "cn-purchase-deed-tax",
+        "cn-purchase-deed-tax",
+        "cn-civil-evidence",
+        "cn-legal-aid",
+        "cn-property-records"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-03",
+      "sources": [
+        "cn-provident-loan-rate",
+        "cn-mortgage-repricing",
+        "cn-loan-interest-tax",
+        "cn-mortgage-repricing",
+        "cn-loan-interest-tax"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-04",
+      "sources": [
+        "bj-provident-loan-transition",
+        "cn-loan-interest-tax",
+        "cn-loan-interest-tax",
+        "cn-provident-loan-rate",
+        "bj-provident-loan-transition"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-05",
+      "sources": [
+        "cn-mortgage-repricing",
+        "cn-mortgage-repricing",
+        "cn-loan-interest-tax",
+        "cn-loan-interest-tax",
+        "cn-civil"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-06",
+      "sources": [
+        "cn-legal-aid",
+        "cn-legal-aid"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-07",
+      "sources": [
+        "cn-people-mediation",
+        "cn-people-mediation",
+        "cn-civil-evidence",
+        "cn-civil-evidence",
+        "cn-legal-aid"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-08",
+      "sources": [
+        "cn-people-mediation",
+        "cn-people-mediation",
+        "cn-legal-aid",
+        "cn-legal-aid",
+        "cn-civil-evidence"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-09",
+      "sources": [
+        "cn-civil-evidence",
+        "cn-civil-evidence",
+        "cn-people-mediation",
+        "cn-people-mediation",
+        "cn-contract"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-10",
+      "sources": [
+        "cn-property-records",
+        "cn-property-records",
+        "cn-contract",
+        "cn-rental",
+        "cn-contract"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-11",
+      "sources": [
+        "bj-funds",
+        "bj-faq",
+        "bj-faq",
+        "bj-funds",
+        "bj-resale-funds"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-12",
+      "sources": [
+        "cn-loan-interest-tax",
+        "cn-loan-interest-tax",
+        "cn-tax",
+        "cn-mortgage-repricing",
+        "cn-tax"
+      ],
+      "source_hit": true,
+      "expected_evidence": true,
+      "emitted": true,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-none-1",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "id": "decision-none-2",
+      "sources": [],
+      "source_hit": null,
+      "expected_evidence": false,
+      "emitted": false,
+      "jurisdiction_leaks": [],
+      "corpus_matches": true,
+      "storage": "postgres-pgvector"
+    }
+  ]
+}

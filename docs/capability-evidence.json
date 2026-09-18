@@ -10,8 +10,10 @@
   "knowledge_sources": "knowledge/sources.json",
   "knowledge_pipeline": "knowledge/pipeline.py",
   "knowledge_interface": "app/knowledge/page.tsx",
-  "knowledge_acceptance": "docs/knowledge-acceptance.json",
+  "knowledge_acceptance": "docs/housing-decision-knowledge.md",
   "technical_audit": "docs/technical-audit-2026-09-18.md",
   "retrieval_evaluation": "docs/retrieval-evaluation.md",
-  "model_regression_ci": ".github/workflows/knowledge-model.yml"
+  "model_regression_ci": ".github/workflows/knowledge-model.yml",
+  "public_source_validation": "docs/evaluation/housing-decisions-corpus.json",
+  "http_acceptance": "knowledge/accept_service.py"
 }

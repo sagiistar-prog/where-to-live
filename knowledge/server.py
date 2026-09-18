@@ -62,6 +62,7 @@ def serve(index,encoder,port,database_url=None):
                     hits=search(filtered,query,encoder)
                 result=evidence_answer(query,hits)
                 result['storage']='postgres-pgvector' if database_url else 'local-json'
+                result['corpus_sha256']=manifest['corpus_sha256']
                 # Unreviewed book material is searchable, never presented as verified guidance.
                 result['review_candidates']=[{**h,'text':h['text'][:240]} for h in hits
                     if h['keyword_score']>0 and h['review_status']=='pending']

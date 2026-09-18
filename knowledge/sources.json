@@ -565,5 +565,222 @@
       "热水器"
     ],
     "applicability": "用于入住前安全核验，不提供自行拆改、维修或医疗处置建议；发布会同时包含其他冬季安全话题。"
+  },
+  {
+    "source_id": "cn-purchase-deed-tax",
+    "source_title": "关于促进房地产市场平稳健康发展有关税收政策的公告（2024年第16号）",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202411/13/521659/article.html",
+    "published_at": "2024-11-13",
+    "effective_from": "2024-12-01",
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "买房",
+      "契税",
+      "家庭套数",
+      "税费材料"
+    ],
+    "applicability": "契税优惠按家庭住房套数、面积和申报条件核对；不能把税率直接当总交易成本。收录原文非实时政策监控，增值税等其他税种仍需核对后续变化。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "140平方米",
+      "家庭成员信息证明"
+    ]
+  },
+  {
+    "source_id": "cn-provident-loan-rate",
+    "source_title": "中国人民银行关于下调个人住房公积金贷款利率的通知（2025年5月）",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202505/07/528461/article.html",
+    "published_at": "2025-05-07",
+    "effective_from": "2025-05-08",
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "买房",
+      "公积金贷款",
+      "利率",
+      "首套",
+      "二套"
+    ],
+    "applicability": "2025年5月通知公布的利率，不宣称为实时最新利率；二套是下限。新旧贷款调整日期和资格由当地中心及合同进一步核对，不是银行实际报价。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "2.6%",
+      "3.075%"
+    ]
+  },
+  {
+    "source_id": "bj-provident-loan-transition",
+    "source_title": "北京住房公积金管理中心关于下调个人住房公积金贷款利率的公告（2025年5月）",
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202505/t20250508_4084130.html",
+    "published_at": "2025-05-08",
+    "effective_from": "2025-05-08",
+    "valid_until": null,
+    "jurisdiction": "北京",
+    "topics": [
+      "公积金贷款",
+      "存量贷款",
+      "利率调整",
+      "贷款期限"
+    ],
+    "applicability": "仅北京公告，区分2025-05-08前后发放以及一年以内/以上贷款；2026年调整节点不等于此后利率不会再变。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "2026年1月1日",
+      "不分段计息"
+    ]
+  },
+  {
+    "source_id": "cn-civil-evidence",
+    "source_title": "最高人民法院关于民事诉讼证据的若干规定（2019年修正）",
+    "source_url": "https://www.court.gov.cn/zixun/xiangqing/212721.html",
+    "published_at": null,
+    "effective_from": "2020-05-01",
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "租房纠纷",
+      "电子数据",
+      "聊天记录",
+      "转账记录",
+      "证据原件"
+    ],
+    "applicability": "用于准备住房纠纷资料；聊天记录属于电子数据不代表截图必被采信。保留原始载体与完整记录，真实性、关联性及合法性由法院判断。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "即时通信",
+      "原始载体"
+    ]
+  },
+  {
+    "source_id": "cn-property-records",
+    "source_title": "不动产登记资料查询暂行办法（2025年9月4日修正）",
+    "source_url": "https://ghhzy.yq.gov.cn/yqgtbdc/zcfg/202405/t20240524_1897457.html",
+    "published_at": null,
+    "effective_from": null,
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "买房",
+      "权属查询",
+      "查封",
+      "抵押",
+      "居住权",
+      "租房核验"
+    ],
+    "applicability": "自然资源部门公开的全国办法修正文；页面路径年份不是版本日期。准买受人与租客申请查询需依法证明用途，只能获取规定范围，不能任意查询他人隐私。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "2025年9月4日",
+      "居住权"
+    ]
+  },
+  {
+    "source_id": "bj-resale-funds",
+    "source_title": "关于进一步优化营商环境简化房屋交易流程的通知（京建发〔2018〕182号）",
+    "source_url": "https://www.beijing.gov.cn/zhengce/gfxwj/201905/t20190522_61120.html",
+    "published_at": "2018-04-20",
+    "effective_from": "2018-04-20",
+    "valid_until": null,
+    "jurisdiction": "北京",
+    "topics": [
+      "二手房",
+      "资金托管",
+      "资金监管",
+      "房源核验"
+    ],
+    "applicability": "北京取消强制存量房资金监管，提供可选择的托管服务；不能再套用2016年旧通知的强制表述。该通知不证明某笔交易安全或替代最新银行办理流程。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "取消房源核验和强制存量房资金监管",
+      "自行选择"
+    ]
+  },
+  {
+    "source_id": "cn-loan-interest-tax",
+    "source_title": "住房贷款利息专项附加扣除热点问答",
+    "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202602/t479564.html",
+    "published_at": null,
+    "effective_from": null,
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "房贷",
+      "个税",
+      "首套贷款",
+      "专项附加扣除",
+      "租金扣除"
+    ],
+    "applicability": "上海税务发布的全国个人所得税规则问答。每月扣除额是应税所得额扣除，不是直接退税；首套贷款口径与家庭住房套数不能混同。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "1000元",
+      "240个月"
+    ]
+  },
+  {
+    "source_id": "cn-mortgage-repricing",
+    "source_title": "中国人民银行关于完善商业性个人住房贷款利率定价机制的公告（2024年第11号）",
+    "source_url": "https://www.shanghai.gov.cn/rzfwgj/20251009/a89c836584d04a868d42589d864cd156.html",
+    "published_at": null,
+    "effective_from": "2024-09-29",
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "房贷",
+      "浮动利率",
+      "固定利率",
+      "重定价周期",
+      "LPR"
+    ],
+    "applicability": "全国商业性个人住房贷款定价机制；不提供实时LPR或个体获批利率，不将某家银行办理次数限制推广为全国规则。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "重定价周期",
+      "加点"
+    ]
+  },
+  {
+    "source_id": "cn-legal-aid",
+    "source_title": "中华人民共和国法律援助法",
+    "source_url": "https://www.hncourt.gov.cn/public/detail.php?id=188249",
+    "published_at": null,
+    "effective_from": "2022-01-01",
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "租房纠纷",
+      "法律援助",
+      "咨询",
+      "经济困难",
+      "申请材料"
+    ],
+    "applicability": "法律援助有事项范围和经济条件等要求；普通押金纠纷不自动获得免费律师代理，需要当地机构审核，法律咨询与诉讼代理不能混为一谈。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "法律咨询",
+      "2022年1月1日"
+    ]
+  },
+  {
+    "source_id": "cn-people-mediation",
+    "source_title": "中华人民共和国人民调解法",
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/201101/t20110101_781290.html",
+    "published_at": null,
+    "effective_from": "2011-01-01",
+    "valid_until": null,
+    "jurisdiction": "全国",
+    "topics": [
+      "租房纠纷",
+      "人民调解",
+      "自愿",
+      "司法确认"
+    ],
+    "applicability": "调解是自愿解决民间纠纷的途径，不保证对方接受或达成协议。调解协议与经司法确认后的执行路径需要区分。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "不收取任何费用",
+      "三十日"
+    ]
   }
 ]

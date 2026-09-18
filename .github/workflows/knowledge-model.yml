@@ -18,9 +18,21 @@ jobs:
       - run: python -m pip install -r knowledge/requirements.txt
       - run: python knowledge/pipeline.py build --language zh --documents knowledge/evaluation/smoke-documents.jsonl --index output/model-ci/index.json --cache-dir .cache/models
       - run: python knowledge/evaluate.py --language zh --index output/model-ci/index.json --cases knowledge/evaluation/smoke-cases.json --output output/evaluation/ci.json --cache-dir .cache/models --min-hit-rate 1 --max-false-evidence-rate 0
+      - name: Exercise the real HTTP service with the same model and corpus
+        run: |
+          python knowledge/server.py --index output/model-ci/index.json --cache-dir .cache/models --port 8782 > output/model-ci/service.log 2>&1 &
+          service_pid=$!
+          trap 'kill "$service_pid" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8782/health > /dev/null; then ready=1; break; fi
+            sleep 1
+          done
+          test "$ready" = 1
+          python knowledge/accept_service.py --index output/model-ci/index.json --cases knowledge/evaluation/smoke-cases.json --output output/evaluation/http-ci.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: fictional-model-regression
-          path: output/evaluation/ci.json
+          path: output/evaluation/*.json
           if-no-files-found: ignore
