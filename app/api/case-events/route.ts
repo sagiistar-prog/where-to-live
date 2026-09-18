@@ -22,6 +22,7 @@ function asHighlights(value: unknown) {
 
 export async function GET() {
   const ownerId = await getCurrentOwnerId();
+  if (ownerId === "guest-local") return NextResponse.json({ error: "请先登录。" }, { status: 401 });
   const events = await listCaseEvents(ownerId);
   return NextResponse.json({ events });
 }
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
   }
 
   const ownerId = await getCurrentOwnerId();
+  if (ownerId === "guest-local") return NextResponse.json({ error: "请先登录。" }, { status: 401 });
   const quota = await getAccountQuota({ ownerId });
   if (quota.remaining <= 0) {
     return NextResponse.json(buildQuotaExceededPayload(quota), { status: 402 });

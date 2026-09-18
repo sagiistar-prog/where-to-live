@@ -104,3 +104,8 @@ export async function getAuthUserByEmail(email: string) {
   const users = await readUsers();
   return users.find((user) => user.email === normalized) ?? null;
 }
+
+export async function getAuthUserById(id: string) {
+  const users = await readUsers();
+  return users.find(user => user.id === id) ?? null;
+}

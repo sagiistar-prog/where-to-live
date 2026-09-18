@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const ownerId = await getCurrentOwnerId();
+  if (ownerId === "guest-local") return NextResponse.json({ error: "请先登录。" }, { status: 401 });
   const url = new URL(request.url);
   const fallbackPlanId = url.searchParams.get("planId");
   const quota = await getAccountQuota({ ownerId, fallbackPlanId });

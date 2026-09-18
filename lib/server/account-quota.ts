@@ -4,7 +4,6 @@ import { listReports } from "@/lib/server/report-store";
 import { listStartIntents } from "@/lib/server/start-intent-store";
 import {
   getSubscriptionPlan,
-  isSubscriptionPlanId,
   type SubscriptionPlanId,
 } from "@/lib/subscription-plan";
 import { buildQuotaExceededHref, quotaExceededCode } from "@/lib/quota-routing";
@@ -29,7 +28,7 @@ function formatPeriod(start: Date) {
 
 export async function getAccountQuota({
   ownerId,
-  fallbackPlanId,
+  fallbackPlanId: _fallbackPlanId,
 }: {
   ownerId: string;
   fallbackPlanId?: string | null;
@@ -40,8 +39,9 @@ export async function getAccountQuota({
     listCaseEvents(ownerId),
     listStartIntents(ownerId),
   ]);
+  void _fallbackPlanId;
   const planId: SubscriptionPlanId = subscription?.planId
-    ?? (isSubscriptionPlanId(fallbackPlanId) ? fallbackPlanId : "free");
+    ?? "free";
   const plan = getSubscriptionPlan(planId);
   const start = monthStart();
   const end = nextMonthStart();

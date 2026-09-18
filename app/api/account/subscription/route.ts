@@ -64,6 +64,7 @@ export async function PUT(request: Request) {
     );
   }
 
+  if (planId !== "free") return NextResponse.json({ error: "付费方案尚未开放，请使用免费功能。" }, { status: 409 });
   const record = await saveAccountSubscription({ ownerId, planId });
 
   return NextResponse.json({

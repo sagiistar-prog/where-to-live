@@ -1,0 +1,110 @@
+[
+  {
+    "source_id": "cn-rental",
+    "source_title": "住房租赁条例",
+    "jurisdiction": "全国",
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202508/t20250826_4184615.html"
+  },
+  {
+    "source_id": "cn-civil",
+    "source_title": "民法典租赁合同章",
+    "jurisdiction": "全国",
+    "source_url": "https://www.court.gov.cn/zixun/xiangqing/233181.html"
+  },
+  {
+    "source_id": "bj-rental",
+    "source_title": "北京市住房租赁条例",
+    "jurisdiction": "北京",
+    "source_url": "https://www.beijing.gov.cn/zhengce/dfxfg/202208/t20220823_2797935.html"
+  },
+  {
+    "source_id": "bj-funds",
+    "source_title": "北京市住房租赁押金托管和租金监管暂行办法",
+    "jurisdiction": "北京",
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202408/t20240801_3764440.html"
+  },
+  {
+    "source_id": "bj-pay",
+    "source_title": "押金托管和租金监管资金缴纳操作详解",
+    "jurisdiction": "北京",
+    "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413444/543423007/index.html"
+  },
+  {
+    "source_id": "bj-balance",
+    "source_title": "租押金余额查询操作详解",
+    "jurisdiction": "北京",
+    "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413442/543423029/index.html"
+  },
+  {
+    "source_id": "bj-faq",
+    "source_title": "租金监管常见问题解答",
+    "jurisdiction": "北京",
+    "source_url": "https://gjj.beijing.gov.cn/web/gjjhd/1747335/543413473/543425903/index.html"
+  },
+  {
+    "source_id": "bj-contract",
+    "source_title": "北京市住房租赁合同2023",
+    "jurisdiction": "北京",
+    "source_url": "https://scjgj.beijing.gov.cn/bsfw/bmfw/sfwbbm/shxfl/fw/202303/t20230316_2937800.html"
+  },
+  {
+    "source_id": "bj-benefits",
+    "source_title": "住房租赁合同备案公共服务",
+    "jurisdiction": "北京",
+    "source_url": "https://zjw.beijing.gov.cn/bjjs/fwzlfw84/wsczr/cjwd44/744029795/index.shtml"
+  },
+  {
+    "source_id": "bj-withdraw",
+    "source_title": "租住商品住房提取住房公积金",
+    "jurisdiction": "北京",
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/bjszfgjjtqzn/blzn/zftq/202306/t20230606_3124915.html"
+  },
+  {
+    "source_id": "sh-rental",
+    "source_title": "上海市住房租赁条例",
+    "jurisdiction": "上海",
+    "source_url": "https://www.shanghai.gov.cn/bzxzlzfjbzcsjzc/20230418/8a0798aa5f444182a33065910f5b272c.html"
+  },
+  {
+    "source_id": "sh-platform",
+    "source_title": "上海市住房租赁公共服务平台管理规定",
+    "jurisdiction": "上海",
+    "source_url": "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5"
+  },
+  {
+    "source_id": "sh-withdraw",
+    "source_title": "上海市住房公积金提取管理办法",
+    "jurisdiction": "上海",
+    "source_url": "https://www.shanghai.gov.cn/qyzfgjjsjzc/20240927/70392c98a8304968a46e8bb62b062f25.html"
+  },
+  {
+    "source_id": "gz-tips",
+    "source_title": "广州市住房租赁温馨提示2026",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zjdt/zjxw/content/mpost_10716254.html"
+  },
+  {
+    "source_id": "gz-rental",
+    "source_title": "广州市关于规范住房租赁市场的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2022/18/content/mpost_10640003.html"
+  },
+  {
+    "source_id": "sz-funds",
+    "source_title": "深圳市住房租赁资金监管通知及2025续期",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html"
+  },
+  {
+    "source_id": "cn-tax",
+    "source_title": "住房租金专项附加扣除热点问答",
+    "jurisdiction": "全国",
+    "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202603/t479656.html"
+  },
+  {
+    "source_id": "cn-contract",
+    "source_title": "城镇房屋租赁合同市场监管总局2025版",
+    "jurisdiction": "全国",
+    "source_url": "https://htsfwb.samr.gov.cn/View?id=2340996b-882d-47a4-b74d-c30784628737"
+  }
+]

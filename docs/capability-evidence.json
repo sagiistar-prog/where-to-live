@@ -6,5 +6,10 @@
   "measurement_contract": "docs/metrics.schema.json",
   "user_validation": "planned, not conducted",
   "production_outcomes": "not measured",
-  "upstream_credit": "docs/open-source.md"
+  "upstream_credit": "docs/open-source.md",
+  "knowledge_sources": "knowledge/sources.json",
+  "knowledge_pipeline": "knowledge/pipeline.py",
+  "knowledge_interface": "app/knowledge/page.tsx",
+  "knowledge_acceptance": "docs/knowledge-acceptance.json",
+  "technical_audit": "docs/technical-audit-2026-09-18.md"
 }

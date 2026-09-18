@@ -193,6 +193,8 @@ export async function POST(request: Request) {
   const shouldSaveReport = input.saveReportHistory !== false;
   const ownerId = shouldSaveReport ? await getCurrentOwnerId() : undefined;
 
+  if (ownerId === "guest-local") return NextResponse.json({ error: "登录后可以保存报告。" }, { status: 401 });
+
   if (ownerId) {
     const quota = await getAccountQuota({ ownerId });
     if (quota.remaining <= 0) {

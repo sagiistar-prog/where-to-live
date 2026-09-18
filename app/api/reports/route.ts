@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 
 export async function GET() {
   const ownerId = await getCurrentOwnerId();
+  if (ownerId === "guest-local") return NextResponse.json({ error: "请先登录。" }, { status: 401 });
   const reports = await listReports(ownerId);
 
   return NextResponse.json({

@@ -1,3 +1,4 @@
+import { createOwnerSession, sessionLifetime } from "@/lib/server/owner-session";
 import { NextResponse } from "next/server";
 import { isValidEmail, verifyEmailCode } from "@/lib/server/auth-verification";
 import { upsertAuthUser } from "@/lib/server/auth-users";
@@ -23,6 +24,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "请输入 6 位邮箱验证码。" }, { status: 400 });
   }
 
+  try { createOwnerSession("configuration-check"); } catch {
+    return NextResponse.json({ error: "登录服务尚未配置，请联系管理员。" }, { status: 503 });
+  }
   const result = verifyEmailCode(email, code);
   if (!result.ok) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
@@ -46,11 +50,12 @@ export async function POST(request: Request) {
     message: "邮箱已验证，可以继续使用。",
     claimed,
   });
-  response.cookies.set("zhunaar_owner_id", user.id, {
+  response.cookies.set("zhunaar_owner_id", createOwnerSession(user.id), {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 365,
+    maxAge: sessionLifetime,
+    secure: process.env.NODE_ENV === "production",
   });
 
   return response;

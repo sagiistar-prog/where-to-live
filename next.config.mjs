@@ -24,11 +24,6 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: "/knowledge",
-        destination: "/evidence",
-        permanent: false,
-      },
-      {
         source: "/demo",
         destination: "/dashboard",
         permanent: false,

@@ -11,6 +11,7 @@ export async function GET(
 ) {
   const { id } = await params;
   const ownerId = await getCurrentOwnerId();
+  if (ownerId === "guest-local") return NextResponse.json({ error: "请先登录。" }, { status: 401 });
   const report = await getStoredReport(id, ownerId);
 
   if (!report) {

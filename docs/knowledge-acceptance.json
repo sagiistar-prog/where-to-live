@@ -1,0 +1,95 @@
+{
+  "scope": "local actual BGE and PostgreSQL technical acceptance; not legal relevance benchmark",
+  "after_database_restart": true,
+  "health": {
+    "status": "ready",
+    "model": "BAAI/bge-small-zh-v1.5",
+    "chunks": 283,
+    "storage": "postgres-pgvector",
+    "sources": 18
+  },
+  "checks": [
+    {
+      "city": "全国",
+      "returned": 5,
+      "source_ids": [
+        "cn-civil",
+        "cn-civil",
+        "cn-civil",
+        "cn-contract",
+        "cn-civil"
+      ],
+      "jurisdictions": [
+        "全国"
+      ],
+      "latency_ms": 344,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "city": "北京",
+      "returned": 5,
+      "source_ids": [
+        "bj-funds",
+        "bj-funds",
+        "bj-faq",
+        "bj-funds",
+        "bj-faq"
+      ],
+      "jurisdictions": [
+        "北京"
+      ],
+      "latency_ms": 94,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "city": "上海",
+      "returned": 5,
+      "source_ids": [
+        "cn-civil",
+        "cn-civil",
+        "sh-rental",
+        "cn-civil",
+        "sh-rental"
+      ],
+      "jurisdictions": [
+        "上海",
+        "全国"
+      ],
+      "latency_ms": 78,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "city": "广州",
+      "returned": 5,
+      "source_ids": [
+        "gz-rental",
+        "cn-civil",
+        "cn-civil",
+        "cn-civil",
+        "cn-civil"
+      ],
+      "jurisdictions": [
+        "全国",
+        "广州"
+      ],
+      "latency_ms": 94,
+      "storage": "postgres-pgvector"
+    },
+    {
+      "city": "深圳",
+      "returned": 5,
+      "source_ids": [
+        "cn-civil",
+        "cn-civil",
+        "cn-civil",
+        "cn-contract",
+        "cn-civil"
+      ],
+      "jurisdictions": [
+        "全国"
+      ],
+      "latency_ms": 94,
+      "storage": "postgres-pgvector"
+    }
+  ]
+}

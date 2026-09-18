@@ -42,6 +42,7 @@ export function HeroSection() {
 
       <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
         <header className="flex min-w-0 items-center justify-between gap-2 sm:gap-3">
+          <Link href="/knowledge" className="text-sm font-medium underline underline-offset-4">租房知识库</Link>
           <BrandMark
             href="/"
             size="sm"

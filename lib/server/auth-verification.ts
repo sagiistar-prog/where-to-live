@@ -83,7 +83,7 @@ function normalizeEmail(email: string) {
 }
 
 function forcesLocalEmailCode() {
-  return process.env.AUTH_FORCE_LOCAL_EMAIL_CODE === "1";
+  return process.env.NODE_ENV !== "production" && process.env.AUTH_FORCE_LOCAL_EMAIL_CODE === "1";
 }
 
 function hasResendApiKey() {
@@ -91,7 +91,7 @@ function hasResendApiKey() {
 }
 
 function usesLocalEmailCode() {
-  return forcesLocalEmailCode() || !hasResendApiKey() || process.env.NODE_ENV !== "production";
+  return forcesLocalEmailCode();
 }
 
 export function isValidEmail(email: string) {
@@ -179,6 +179,7 @@ export function getEmailCodeRateLimit(email: string) {
 
 export function createEmailCode(email: string) {
   cleanupExpired();
+  if (!hasResendApiKey() && !forcesLocalEmailCode()) throw new Error("Email delivery is not configured");
 
   const normalizedEmail = normalizeEmail(email);
   const code = usesLocalEmailCode() ? LOCAL_EMAIL_CODE : String(randomDigit(100000, 999999));
@@ -222,7 +223,7 @@ export async function sendEmailCode(email: string, code: string): Promise<EmailD
   const from = process.env.RESEND_FROM_EMAIL?.trim() || "住哪儿 AI <onboarding@resend.dev>";
 
   if (!apiKey) {
-    console.info(`[auth] local email code for ${email}: ${code}`);
+    if (!forcesLocalEmailCode()) throw new Error("Email delivery is not configured");
     return {
       mode: "local",
     };

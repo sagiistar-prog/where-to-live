@@ -16,3 +16,8 @@ artifacts/
 
 .impeccable/
 test-results/
+
+output/
+.cache/
+.venv/
+__pycache__/

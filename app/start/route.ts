@@ -1,3 +1,4 @@
+import { verifyOwnerSession } from "@/lib/server/owner-session";
 import { NextRequest, NextResponse } from "next/server";
 
 import { auth } from "@/auth";
@@ -240,7 +241,7 @@ function modeFrom(value: string | null): StartMode {
 async function hasSignedInAccount(request: NextRequest) {
   const session = await auth().catch(() => null);
   if (session?.user) return true;
-  return Boolean(request.cookies.get("zhunaar_owner_id")?.value?.trim());
+  return Boolean(verifyOwnerSession(request.cookies.get("zhunaar_owner_id")?.value));
 }
 
 function truncateHandoffValue(value: string) {

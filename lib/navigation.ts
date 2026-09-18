@@ -36,6 +36,7 @@ export const appNavSections: AppNavSection[] = [
     title: "主要任务",
     summary: "从当前问题进入城市、片区、房源、付款或行动判断。",
     items: [
+      { href: "/knowledge", label: "租房知识库", icon: ClipboardCheck, description: "按地区核对官方租房依据。" },
       {
         href: "/dashboard",
         label: "工作台",

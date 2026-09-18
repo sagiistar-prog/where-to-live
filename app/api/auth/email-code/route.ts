@@ -50,9 +50,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const emailCode = createEmailCode(email);
-
   try {
+    const emailCode = createEmailCode(email);
     const delivery = await sendEmailCode(email, emailCode.code);
     return NextResponse.json({
       ok: true,
@@ -62,17 +61,6 @@ export async function POST(request: Request) {
       autoFillCode: delivery.mode === "local" ? emailCode.code : undefined,
     });
   } catch {
-    if (process.env.NODE_ENV !== "production") {
-      console.info(`[auth] local email code for fallback delivery: ${emailCode.code}`);
-      return NextResponse.json({
-        ok: true,
-        expiresAt: emailCode.expiresAt,
-        expiresInSeconds: emailCode.expiresInSeconds,
-        message: "验证码已准备好，请继续验证。",
-        autoFillCode: emailCode.code,
-      });
-    }
-
     return NextResponse.json(
       {
         ok: false,

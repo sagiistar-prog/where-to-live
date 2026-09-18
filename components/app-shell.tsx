@@ -1,3 +1,4 @@
+import { verifyOwnerSession } from "@/lib/server/owner-session";
 import { ReactNode } from "react";
 import Link from "next/link";
 import { cookies } from "next/headers";
@@ -15,7 +16,7 @@ async function hasSignedInAccount() {
   if (session?.user) return true;
 
   const cookieStore = await cookies().catch(() => null);
-  return Boolean(cookieStore?.get("zhunaar_owner_id")?.value?.trim());
+  return Boolean(verifyOwnerSession(cookieStore?.get("zhunaar_owner_id")?.value));
 }
 
 function SignInRequired() {

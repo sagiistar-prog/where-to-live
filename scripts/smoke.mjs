@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
+import { createHmac, randomBytes } from "node:crypto";
 
 const require = createRequire(import.meta.url);
 const baseUrl = process.env.SMOKE_BASE_URL ?? "http://127.0.0.1:3001";
@@ -9,7 +10,9 @@ const shouldRunLocalAuthHappyPath = process.env.SMOKE_AUTH_HAPPY_PATH === "1";
 const shouldAutoStartDevServer =
   !process.env.SMOKE_BASE_URL && process.env.SMOKE_AUTO_START !== "0";
 const nextBin = require.resolve("next/dist/bin/next");
-const smokeAuthCookie = "zhunaar_owner_id=smoke-auth-user";
+const smokeSecret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || randomBytes(32).toString("hex");
+const smokePayload = Buffer.from(JSON.stringify({ sub: "smoke-auth-user", exp: Math.floor(Date.now() / 1000) + 3600 })).toString("base64url");
+const smokeAuthCookie = process.env.SMOKE_AUTH_COOKIE || `zhunaar_owner_id=${smokePayload}.${createHmac("sha256", smokeSecret).update(smokePayload).digest("base64url")}`;
 
 const forbiddenCopy = [
   "城市成本",
@@ -703,6 +706,7 @@ async function maybeStartDevServer() {
   const child = spawn(process.execPath, [nextBin, "dev", "--hostname", host, "--port", port], {
     env: {
       ...process.env,
+      AUTH_SECRET: smokeSecret,
       WATCHPACK_POLLING: process.env.WATCHPACK_POLLING ?? "true",
       CHOKIDAR_USEPOLLING: process.env.CHOKIDAR_USEPOLLING ?? "true",
     },
