@@ -1092,5 +1092,80 @@
       "合表水价2.80元/立方米",
       "其他行政区"
     ]
+  },
+  {
+    "source_id": "cn-indoor-air-testing",
+    "source_title": "室内空气甲醛治理和检测乱象整治工作方案（2026年）：检测与治理服务",
+    "source_url": "https://www.samr.gov.cn/rkjcs/tzgg/art/2026/art_2a0164bc81da4c889262fa935bed98aa.html",
+    "jurisdiction": "全国",
+    "published_at": "2026-06-24",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "甲醛",
+      "检测报告",
+      "治理服务",
+      "装修"
+    ],
+    "applicability": "2026年专项整治方案中的检测服务要求，不能当作永久性法律条文或个案检测结论。区分住宅空气检测与建筑工程竣工检测；计划建设的报告溯源系统不代表已经可用。",
+    "validity_basis": "发布页为2026-06-24，文件落款2026-06-02；专项行动安排为2026年6至8月，未载明文件失效日，仅收第二部分第3至7项服务要求，不把行动日程作为永久规则。",
+    "extract_section": {
+      "label": "第二部分第3至7项：检测与治理服务",
+      "start": "3.整治甲醛治理企业和检测机构利益捆绑。",
+      "end": "（三）推动家装产业链质量提升"
+    },
+    "required_markers": [
+      "不得承接治理业务",
+      "不得擅自变更采样点",
+      "质保期限"
+    ]
+  },
+  {
+    "source_id": "cn-renovation-structure",
+    "source_title": "住房和城乡建设部关于进一步加强城市房屋室内装饰装修安全管理的通知",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202306/12/504071/article.html",
+    "jurisdiction": "全国",
+    "published_at": "2023-06-12",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "装修",
+      "承重墙",
+      "结构安全",
+      "物业"
+    ],
+    "applicability": "适用于城市房屋室内装饰装修安全管理。疑似拆改承重结构需核对设计方案和资质，网页资料不能鉴定房屋结构是否安全。",
+    "validity_basis": "政府网刊载2023-06-12，文件落款2023-06-07；本通知未单列施行或终止日期。",
+    "required_markers": [
+      "扩大承重墙上原有的门窗尺寸",
+      "12345热线"
+    ]
+  },
+  {
+    "source_id": "cn-elevator-inspection-mark",
+    "source_title": "电梯检验检测实施通知（2024年）：使用标志与检验月份",
+    "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/tzsbs/art/2024/art_4ba7edb1370d42a3b07f051e7f0049f6.html",
+    "jurisdiction": "全国",
+    "published_at": "2024-03-18",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "电梯",
+      "使用标志",
+      "检验",
+      "物业"
+    ],
+    "applicability": "仅收第三部分第一项的检验检测程序，帮助向物业核对使用标志和检验月份。未收原通知截至2025年底的机构准入过渡条款，也未解析标志样式附件；标志不能证明设备此刻无故障。",
+    "validity_basis": "页面发布2024-03-18，文件落款2024-03-15；所选程序未列终止日期。2023-04-02是所引用规则的施行日期，不是本通知发布日期。",
+    "extract_section": {
+      "label": "第三部分第一项：检验检测工作程序",
+      "start": "（一）规范检验检测工作程序。",
+      "end": "（二）规范检验检测技术要求。"
+    },
+    "required_markers": [
+      "特种设备使用标志",
+      "下次检验日期",
+      "更换电梯维保单位"
+    ]
   }
 ]

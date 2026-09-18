@@ -1,0 +1,54 @@
+{
+  "created_at": "2026-09-18T23:11:49.496Z",
+  "scope": "Production build in shipped summary mode. Not joined web-vector integration, professional inspection or full WCAG certification.",
+  "rows": [
+    {
+      "width": 1440,
+      "tasks": [
+        {
+          "source_id": "cn-indoor-air-testing",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "source_id": "cn-renovation-structure",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "source_id": "cn-elevator-inspection-mark",
+          "applicabilityVisible": true,
+          "officialLink": true
+        }
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "axeViolations": 0,
+      "unmeasuredConditionsHandled": true
+    },
+    {
+      "width": 390,
+      "tasks": [
+        {
+          "source_id": "cn-indoor-air-testing",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "source_id": "cn-renovation-structure",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "source_id": "cn-elevator-inspection-mark",
+          "applicabilityVisible": true,
+          "officialLink": true
+        }
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "axeViolations": 0,
+      "unmeasuredConditionsHandled": true
+    }
+  ]
+}

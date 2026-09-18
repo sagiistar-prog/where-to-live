@@ -1,0 +1,1262 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-18",
+  "summary": {
+    "added": 3,
+    "removed": 0,
+    "content_changed": 0,
+    "metadata_changed": 0,
+    "response_only": 2,
+    "unchanged": 52,
+    "review_required": 3,
+    "excluded_by_known_dates": 0
+  },
+  "sources": [
+    {
+      "source_id": "bj-balance",
+      "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413442/543423029/index.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "170803ce5326e23c65b95287cf0a00f40625820664470e05eb23d5fccbb60e1a",
+        "response_sha256": "daab8ad1310cac771d85168412bbf4e50e3ae0ca71f1d9e7fef9bd0c7b969bb7",
+        "characters": 973,
+        "retrieved_at": "2026-09-18T20:12:28.742235+00:00"
+      },
+      "after": {
+        "text_sha256": "170803ce5326e23c65b95287cf0a00f40625820664470e05eb23d5fccbb60e1a",
+        "response_sha256": "daab8ad1310cac771d85168412bbf4e50e3ae0ca71f1d9e7fef9bd0c7b969bb7",
+        "characters": 973,
+        "retrieved_at": "2026-09-18T23:00:42.935585+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-benefits",
+      "source_url": "https://zjw.beijing.gov.cn/bjjs/fwzlfw84/wsczr/cjwd44/744029795/index.shtml",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "d9b9b060b1e7b63bf5c18965ba2c4bdee64a97487c567f16e1a8fa8d3a130ee2",
+        "response_sha256": "9eabee861d817cd2fe77e15cc3ec185241fb1ef0a809862e162b9f3482eb79ed",
+        "characters": 512,
+        "retrieved_at": "2026-09-18T20:12:38.844947+00:00"
+      },
+      "after": {
+        "text_sha256": "d9b9b060b1e7b63bf5c18965ba2c4bdee64a97487c567f16e1a8fa8d3a130ee2",
+        "response_sha256": "9eabee861d817cd2fe77e15cc3ec185241fb1ef0a809862e162b9f3482eb79ed",
+        "characters": 512,
+        "retrieved_at": "2026-09-18T23:00:53.358160+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-contract",
+      "source_url": "https://scjgj.beijing.gov.cn/bsfw/bmfw/sfwbbm/shxfl/fw/202303/t20230316_2937800.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "0301fae1ebd61686c329c0317f372143017b9b45f1cbb3e9dc2eff9f3074dddd",
+        "response_sha256": "7ad040990704483faa635f39c386208d598c7aee9048432af745c79178c8c11c",
+        "characters": 9151,
+        "retrieved_at": "2026-09-18T20:12:40.486271+00:00"
+      },
+      "after": {
+        "text_sha256": "0301fae1ebd61686c329c0317f372143017b9b45f1cbb3e9dc2eff9f3074dddd",
+        "response_sha256": "7ad040990704483faa635f39c386208d598c7aee9048432af745c79178c8c11c",
+        "characters": 9151,
+        "retrieved_at": "2026-09-18T23:00:54.345684+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-faq",
+      "source_url": "https://gjj.beijing.gov.cn/web/gjjhd/1747335/543413473/543425903/index.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "afcd3a41233a77e5c1a3fbe5146bc919385a6b2aa81cbbcb10af43fc8b71659e",
+        "response_sha256": "a4adad11160330f2a7adb03306a14d6b6cdd992942fe84592d01d62e95df1bc7",
+        "characters": 3180,
+        "retrieved_at": "2026-09-18T20:12:38.748976+00:00"
+      },
+      "after": {
+        "text_sha256": "afcd3a41233a77e5c1a3fbe5146bc919385a6b2aa81cbbcb10af43fc8b71659e",
+        "response_sha256": "a4adad11160330f2a7adb03306a14d6b6cdd992942fe84592d01d62e95df1bc7",
+        "characters": 3180,
+        "retrieved_at": "2026-09-18T23:00:53.564431+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-funds",
+      "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202408/t20240801_3764440.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "d2f1380daf5110c40cc28f0518491bff9da3f964dc3a9826ca250bde949e482e",
+        "response_sha256": "a77a34e9968be513792f34d873cad57dee54d9f9c7b9f65d097232a572813390",
+        "characters": 2937,
+        "retrieved_at": "2026-09-18T20:12:28.097173+00:00"
+      },
+      "after": {
+        "text_sha256": "d2f1380daf5110c40cc28f0518491bff9da3f964dc3a9826ca250bde949e482e",
+        "response_sha256": "a77a34e9968be513792f34d873cad57dee54d9f9c7b9f65d097232a572813390",
+        "characters": 2937,
+        "retrieved_at": "2026-09-18T23:00:42.798107+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-pay",
+      "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413444/543423007/index.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "9e8b4793516f890e46f15858ccc158bac7d1396fc832af4259a708f1ac69b800",
+        "response_sha256": "ead834e66f96dc9bba1f38efdb7ac3ef7a60c24651bd1a969e3a062df14f5f03",
+        "characters": 2554,
+        "retrieved_at": "2026-09-18T20:12:28.541999+00:00"
+      },
+      "after": {
+        "text_sha256": "9e8b4793516f890e46f15858ccc158bac7d1396fc832af4259a708f1ac69b800",
+        "response_sha256": "ead834e66f96dc9bba1f38efdb7ac3ef7a60c24651bd1a969e3a062df14f5f03",
+        "characters": 2554,
+        "retrieved_at": "2026-09-18T23:00:42.823272+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-provident-loan-transition",
+      "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202505/t20250508_4084130.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "8fcc8336fc535ec98f1c12deb7e7e7268c31a53c8fee9ade738f13c7ac57300f",
+        "response_sha256": "c0ab3cff4713ca3cf11fb84f055c22bea89b4e6c0ef5f65d48bfd3eb29d1db69",
+        "characters": 318,
+        "retrieved_at": "2026-09-18T20:14:04.025941+00:00"
+      },
+      "after": {
+        "text_sha256": "8fcc8336fc535ec98f1c12deb7e7e7268c31a53c8fee9ade738f13c7ac57300f",
+        "response_sha256": "c0ab3cff4713ca3cf11fb84f055c22bea89b4e6c0ef5f65d48bfd3eb29d1db69",
+        "characters": 318,
+        "retrieved_at": "2026-09-18T23:02:17.130355+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-rental",
+      "source_url": "https://www.beijing.gov.cn/zhengce/dfxfg/202208/t20220823_2797935.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "21e97f7a07b9746665ced70392e377fbccb463e007ae68a2570188792751109b",
+        "response_sha256": "5e651a151977cadef1833d1d0bed066adb7d7b856eb8bba6ea0227543b53753a",
+        "characters": 10349,
+        "retrieved_at": "2026-09-18T20:12:17.395156+00:00"
+      },
+      "after": {
+        "text_sha256": "21e97f7a07b9746665ced70392e377fbccb463e007ae68a2570188792751109b",
+        "response_sha256": "5e651a151977cadef1833d1d0bed066adb7d7b856eb8bba6ea0227543b53753a",
+        "characters": 10349,
+        "retrieved_at": "2026-09-18T23:00:32.384051+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-resale-funds",
+      "source_url": "https://www.beijing.gov.cn/zhengce/gfxwj/201905/t20190522_61120.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "0e8c95d82b44caa7e29532749a9cacb4e440adb402117098db2cc0ba4e4bab56",
+        "response_sha256": "1d16d4cc7a6733d2afec0964f5878f60e080decac7d1c280ed059bac72068981",
+        "characters": 425,
+        "retrieved_at": "2026-09-18T20:14:13.817288+00:00"
+      },
+      "after": {
+        "text_sha256": "0e8c95d82b44caa7e29532749a9cacb4e440adb402117098db2cc0ba4e4bab56",
+        "response_sha256": "1d16d4cc7a6733d2afec0964f5878f60e080decac7d1c280ed059bac72068981",
+        "characters": 425,
+        "retrieved_at": "2026-09-18T23:02:24.323043+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-residence-address-change",
+      "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/jzz/blzn/201806/t20180622_1857736.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "1ee2fc7e6368dc3165bd3fc3f50aad5459b75d75184b576d433a57f7483d2620",
+        "response_sha256": "5f40da48319811d1cd5f8a1623fbbdb957e5df26656c15aabac1d8e2e63dee46",
+        "characters": 796,
+        "retrieved_at": "2026-09-18T20:14:41.733788+00:00"
+      },
+      "after": {
+        "text_sha256": "1ee2fc7e6368dc3165bd3fc3f50aad5459b75d75184b576d433a57f7483d2620",
+        "response_sha256": "5f40da48319811d1cd5f8a1623fbbdb957e5df26656c15aabac1d8e2e63dee46",
+        "characters": 796,
+        "retrieved_at": "2026-09-18T23:02:48.748964+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-residence-guide",
+      "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/jzz/blzn/201806/t20180622_1857738.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "9f728f760fd548bfe73553f4846b9cd18ef2ba0d08687c025d995ad6b33a867d",
+        "response_sha256": "e92675cd201a40714702118de3c3770d993d86d4abb950b7a023258bb8d3d656",
+        "characters": 1954,
+        "retrieved_at": "2026-09-18T20:14:24.401025+00:00"
+      },
+      "after": {
+        "text_sha256": "9f728f760fd548bfe73553f4846b9cd18ef2ba0d08687c025d995ad6b33a867d",
+        "response_sha256": "e92675cd201a40714702118de3c3770d993d86d4abb950b7a023258bb8d3d656",
+        "characters": 1954,
+        "retrieved_at": "2026-09-18T23:02:34.433603+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-residential-water-prices",
+      "source_url": "https://www.beijing.gov.cn/fwcj/jiage/ggfw1/661ccdcc81e5641581784c4f.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "d4984c5cc750c0cfc19cd64f1de543b73dec58b284b5963680c843ec032c0863",
+        "response_sha256": "e9615080a1761a6bfdd44eb9bdc8a278099b1696b0b9080761c719d1364033a0",
+        "characters": 1059,
+        "retrieved_at": "2026-09-18T20:14:44.274911+00:00"
+      },
+      "after": {
+        "text_sha256": "d4984c5cc750c0cfc19cd64f1de543b73dec58b284b5963680c843ec032c0863",
+        "response_sha256": "e9615080a1761a6bfdd44eb9bdc8a278099b1696b0b9080761c719d1364033a0",
+        "characters": 1059,
+        "retrieved_at": "2026-09-18T23:02:51.353573+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "bj-withdraw",
+      "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/bjszfgjjtqzn/blzn/zftq/202306/t20230606_3124915.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "82f88610c4f93f2284a6ad2ed95197b173f9ad60771f2719cfd9f0b5ab083776",
+        "response_sha256": "0ebfb0b0b496745b5af396631985c5cc68ce525c27c4d26fbdf3a2fdfae0fe6a",
+        "characters": 1182,
+        "retrieved_at": "2026-09-18T20:12:49.354131+00:00"
+      },
+      "after": {
+        "text_sha256": "82f88610c4f93f2284a6ad2ed95197b173f9ad60771f2719cfd9f0b5ab083776",
+        "response_sha256": "0ebfb0b0b496745b5af396631985c5cc68ce525c27c4d26fbdf3a2fdfae0fe6a",
+        "characters": 1182,
+        "retrieved_at": "2026-09-18T23:01:03.465560+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-broker-service",
+      "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/jjjzs/art/2023/art_54ae47e32a87445ba0aae5c4fa36709c.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "0c0bc7b8264cff47a9224ecb7e546e53c0cea5b7f954b1a5b4b4ab2e13e92c5b",
+        "response_sha256": "6d1635c343ca638f5e8cfffeba634aab5548d05bb4005ed0ca9f4a10c61d12c7",
+        "characters": 2215,
+        "retrieved_at": "2026-09-18T20:13:48.908335+00:00"
+      },
+      "after": {
+        "text_sha256": "0c0bc7b8264cff47a9224ecb7e546e53c0cea5b7f954b1a5b4b4ab2e13e92c5b",
+        "response_sha256": "6d1635c343ca638f5e8cfffeba634aab5548d05bb4005ed0ca9f4a10c61d12c7",
+        "characters": 2215,
+        "retrieved_at": "2026-09-18T23:01:58.491856+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-civil",
+      "source_url": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "0785989245d92ee20e2fcd1294f2e4b23067ad046566662a5251df90bc788a0e",
+        "response_sha256": "16fb30a132114600f32059367dae0d6dd274519aa154126eae0ef9600cf4074e",
+        "characters": 2415,
+        "retrieved_at": "2026-09-18T20:12:18.598780+00:00"
+      },
+      "after": {
+        "text_sha256": "0785989245d92ee20e2fcd1294f2e4b23067ad046566662a5251df90bc788a0e",
+        "response_sha256": "16fb30a132114600f32059367dae0d6dd274519aa154126eae0ef9600cf4074e",
+        "characters": 2415,
+        "retrieved_at": "2026-09-18T23:00:33.085064+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-civil-evidence",
+      "source_url": "https://www.court.gov.cn/zixun/xiangqing/212721.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "976d6973d5aefbb7c85c6428dfda3e67a14830340dba9585412bf22cae916225",
+        "response_sha256": "15bb756cd88f51ccb63cb0ea3dab3aad43671ad6c36a46e3d0eda60569708e78",
+        "characters": 12982,
+        "retrieved_at": "2026-09-18T20:14:09.206380+00:00"
+      },
+      "after": {
+        "text_sha256": "976d6973d5aefbb7c85c6428dfda3e67a14830340dba9585412bf22cae916225",
+        "response_sha256": "15bb756cd88f51ccb63cb0ea3dab3aad43671ad6c36a46e3d0eda60569708e78",
+        "characters": 12982,
+        "retrieved_at": "2026-09-18T23:02:18.839999+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-contract",
+      "source_url": "https://htsfwb.samr.gov.cn/View?id=2340996b-882d-47a4-b74d-c30784628737",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "4363a149e0ceb9235848a271bcd020b2e4bd9b8570f31d8db891ee8a2a2de538",
+        "response_sha256": "5e083d6d85e6babfb06e933005f5f971b09b92ba05c1795c3fac25d9961f0332",
+        "characters": 8401,
+        "retrieved_at": "2026-09-18T20:13:16.062257+00:00"
+      },
+      "after": {
+        "text_sha256": "4363a149e0ceb9235848a271bcd020b2e4bd9b8570f31d8db891ee8a2a2de538",
+        "response_sha256": "5e083d6d85e6babfb06e933005f5f971b09b92ba05c1795c3fac25d9961f0332",
+        "characters": 8401,
+        "retrieved_at": "2026-09-18T23:01:18.058932+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-deposit-case",
+      "source_url": "https://www.court.gov.cn/zixun/xiangqing/365881.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "afd592989d61192bd140ee340c98c16898e6cf7d3b279a41bedf0f72663b60d0",
+        "response_sha256": "c21fb2f2f51775e44124bc009d8d171564ee09da932623525cf8569f2eb75fcd",
+        "characters": 2012,
+        "retrieved_at": "2026-09-18T20:13:51.686335+00:00"
+      },
+      "after": {
+        "text_sha256": "afd592989d61192bd140ee340c98c16898e6cf7d3b279a41bedf0f72663b60d0",
+        "response_sha256": "c21fb2f2f51775e44124bc009d8d171564ee09da932623525cf8569f2eb75fcd",
+        "characters": 2012,
+        "retrieved_at": "2026-09-18T23:02:00.392309+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-elevator-inspection-mark",
+      "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/tzsbs/art/2024/art_4ba7edb1370d42a3b07f051e7f0049f6.html",
+      "state": "added",
+      "before": null,
+      "after": {
+        "text_sha256": "50c550db7054b23cf96aa9b713df5b813a62bcc6c8c5a8b4f0233fa0cbf89f51",
+        "response_sha256": "1f95f96c9e57bb9b72aaccb0eeacdcef05f912fe48c941c76f18ba7d433a7939",
+        "characters": 453,
+        "retrieved_at": "2026-09-18T23:03:12.322988+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": true,
+      "summary_review_required": true
+    },
+    {
+      "source_id": "cn-gas-safety",
+      "source_url": "https://www.mem.gov.cn/xw/xwfbh/2025n12y17xwfbh_6744/wzsl_4260/202512/t20251217_588934.shtml",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "4dcf3f70d5b8494cd5c598c178154dd78ab83a508d8a1d1917e4bb96f4084ae3",
+        "response_sha256": "c811b24320f165ab3e9436658cf9b35517349b2c31a2de47805461b041df9d73",
+        "characters": 8906,
+        "retrieved_at": "2026-09-18T20:13:53.508419+00:00"
+      },
+      "after": {
+        "text_sha256": "4dcf3f70d5b8494cd5c598c178154dd78ab83a508d8a1d1917e4bb96f4084ae3",
+        "response_sha256": "c811b24320f165ab3e9436658cf9b35517349b2c31a2de47805461b041df9d73",
+        "characters": 8906,
+        "retrieved_at": "2026-09-18T23:02:07.005610+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-highrise-fire",
+      "source_url": "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202106/t20210625_389980.shtml",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "4b2c28ca2d328befa1e144f859b8cbb75741d91eb66cd75fb0d2a5728bc29a20",
+        "response_sha256": "6f72da1724f355d9750a993378a2c1d3f33eb55276f602d458fd7a933942e42f",
+        "characters": 8594,
+        "retrieved_at": "2026-09-18T20:13:41.428255+00:00"
+      },
+      "after": {
+        "text_sha256": "4b2c28ca2d328befa1e144f859b8cbb75741d91eb66cd75fb0d2a5728bc29a20",
+        "response_sha256": "6f72da1724f355d9750a993378a2c1d3f33eb55276f602d458fd7a933942e42f",
+        "characters": 8594,
+        "retrieved_at": "2026-09-18T23:01:49.517194+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-indoor-air-testing",
+      "source_url": "https://www.samr.gov.cn/rkjcs/tzgg/art/2026/art_2a0164bc81da4c889262fa935bed98aa.html",
+      "state": "added",
+      "before": null,
+      "after": {
+        "text_sha256": "89c2647ebf01cd2f5ee3942c6b3efdcdf4cf093cb61a58d2dcd19fc24e43ddc1",
+        "response_sha256": "4ea1bc7932e32a995eea1dd8085cb9897a2171355f12b2d23d7cdc519886be30",
+        "characters": 966,
+        "retrieved_at": "2026-09-18T23:03:08.533348+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": true,
+      "summary_review_required": true
+    },
+    {
+      "source_id": "cn-legal-aid",
+      "source_url": "https://www.hncourt.gov.cn/public/detail.php?id=188249",
+      "state": "response_only",
+      "before": {
+        "text_sha256": "da4b3430e4bd2d1aa39419543e7c0d90dce98cface6088f4cebe7093e871b342",
+        "response_sha256": "687c3177b580145969864083b17f6ff78f26e9005b73e3b605dedb34a302bfcd",
+        "characters": 7059,
+        "retrieved_at": "2026-09-18T20:14:14.531700+00:00"
+      },
+      "after": {
+        "text_sha256": "da4b3430e4bd2d1aa39419543e7c0d90dce98cface6088f4cebe7093e871b342",
+        "response_sha256": "c1d15620f74eb9765a01c88f93666baa302a15bd8d80264c3dff66059ce9daf1",
+        "characters": 7059,
+        "retrieved_at": "2026-09-18T23:02:20.957683+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-loan-interest-tax",
+      "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202602/t479564.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "cf652c6023b8147fcaa4aac0b065f7165095daf15a96bae23c23f1c3d63a087f",
+        "response_sha256": "421ea9c4dcdf845962c07951a39114e51760814a0daba256308f5c33b4d4fbaa",
+        "characters": 1776,
+        "retrieved_at": "2026-09-18T20:14:19.120799+00:00"
+      },
+      "after": {
+        "text_sha256": "cf652c6023b8147fcaa4aac0b065f7165095daf15a96bae23c23f1c3d63a087f",
+        "response_sha256": "421ea9c4dcdf845962c07951a39114e51760814a0daba256308f5c33b4d4fbaa",
+        "characters": 1776,
+        "retrieved_at": "2026-09-18T23:02:27.027208+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-mortgage-repricing",
+      "source_url": "https://www.shanghai.gov.cn/rzfwgj/20251009/a89c836584d04a868d42589d864cd156.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "a14fef260a43f42c898ffcf5a415f9bff6e1a574beb9ad29a7611d8fca837e1b",
+        "response_sha256": "3bdf6843f9d2b94b6d9e889be53ca6afef9309694bf966f05e2fec61c1716756",
+        "characters": 920,
+        "retrieved_at": "2026-09-18T20:14:13.139910+00:00"
+      },
+      "after": {
+        "text_sha256": "a14fef260a43f42c898ffcf5a415f9bff6e1a574beb9ad29a7611d8fca837e1b",
+        "response_sha256": "3bdf6843f9d2b94b6d9e889be53ca6afef9309694bf966f05e2fec61c1716756",
+        "characters": 920,
+        "retrieved_at": "2026-09-18T23:02:19.697325+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-noise",
+      "source_url": "https://www.mee.gov.cn/ywgz/fgbz/fl/202112/t20211225_965275.shtml",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "c5d730945aa31eb439370d1390882dd2372c40d80b75c06d5c829fdc73f5e814",
+        "response_sha256": "a0b95f90bc295f17cd72ae966dc143fc4644e705d76f1831aa03884eae6c958f",
+        "characters": 11950,
+        "retrieved_at": "2026-09-18T20:13:42.269277+00:00"
+      },
+      "after": {
+        "text_sha256": "c5d730945aa31eb439370d1390882dd2372c40d80b75c06d5c829fdc73f5e814",
+        "response_sha256": "a0b95f90bc295f17cd72ae966dc143fc4644e705d76f1831aa03884eae6c958f",
+        "characters": 11950,
+        "retrieved_at": "2026-09-18T23:01:55.444910+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-people-mediation",
+      "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/201101/t20110101_781290.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "0b55f46e62d00e1af06ac55706da472ffc07c8bbbf4b510ffb63e8ee51f2ad01",
+        "response_sha256": "3669894834be627aca1c05396c4c4a1b3cfc8f80e09704fef095fa97575a2993",
+        "characters": 3032,
+        "retrieved_at": "2026-09-18T20:14:23.976949+00:00"
+      },
+      "after": {
+        "text_sha256": "0b55f46e62d00e1af06ac55706da472ffc07c8bbbf4b510ffb63e8ee51f2ad01",
+        "response_sha256": "3669894834be627aca1c05396c4c4a1b3cfc8f80e09704fef095fa97575a2993",
+        "characters": 3032,
+        "retrieved_at": "2026-09-18T23:02:31.349892+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-property-records",
+      "source_url": "https://ghhzy.yq.gov.cn/yqgtbdc/zcfg/202405/t20240524_1897457.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "e2a1ba5d0b0693cf4dd43cf40df8f051e3286e3f54a5341b6eebca85e5c9f7bd",
+        "response_sha256": "7d341bdef62c48a775d8eba2cdd67a479aad68f9dfbad0d959aafbbfaf89edf0",
+        "characters": 4275,
+        "retrieved_at": "2026-09-18T20:14:12.545346+00:00"
+      },
+      "after": {
+        "text_sha256": "e2a1ba5d0b0693cf4dd43cf40df8f051e3286e3f54a5341b6eebca85e5c9f7bd",
+        "response_sha256": "7d341bdef62c48a775d8eba2cdd67a479aad68f9dfbad0d959aafbbfaf89edf0",
+        "characters": 4275,
+        "retrieved_at": "2026-09-18T23:02:11.542449+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-provident-loan-rate",
+      "source_url": "https://app.www.gov.cn/govdata/gov/202505/07/528461/article.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "b422c813721449747a7d0053337275b7ed14d7e10d38d56168b868791fd1e8bd",
+        "response_sha256": "a74ed4e40b0c826548d145484b314169e3c472104486944bec908b73174460cb",
+        "characters": 285,
+        "retrieved_at": "2026-09-18T20:14:01.803408+00:00"
+      },
+      "after": {
+        "text_sha256": "b422c813721449747a7d0053337275b7ed14d7e10d38d56168b868791fd1e8bd",
+        "response_sha256": "a74ed4e40b0c826548d145484b314169e3c472104486944bec908b73174460cb",
+        "characters": 285,
+        "retrieved_at": "2026-09-18T23:02:10.159469+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-purchase-deed-tax",
+      "source_url": "https://app.www.gov.cn/govdata/gov/202411/13/521659/article.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "bc138b9f91eb9efc52a39c337de183b51ba378e112985b179021b7e2d9291268",
+        "response_sha256": "31ee423f954e02e093e573fc6331adcfa25119c25d6d06355f34c6cc5890050d",
+        "characters": 1202,
+        "retrieved_at": "2026-09-18T20:13:59.197648+00:00"
+      },
+      "after": {
+        "text_sha256": "bc138b9f91eb9efc52a39c337de183b51ba378e112985b179021b7e2d9291268",
+        "response_sha256": "31ee423f954e02e093e573fc6331adcfa25119c25d6d06355f34c6cc5890050d",
+        "characters": 1202,
+        "retrieved_at": "2026-09-18T23:02:09.076318+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-renovation-structure",
+      "source_url": "https://app.www.gov.cn/govdata/gov/202306/12/504071/article.html",
+      "state": "added",
+      "before": null,
+      "after": {
+        "text_sha256": "4c0c2534ec7325a7edf960645544e7bdfb7aa718a734b27f63d059606b2851dc",
+        "response_sha256": "f09241bd14eedbd2600eba5ea672ee0922807662739485ec1cbd22acac4ad185",
+        "characters": 2110,
+        "retrieved_at": "2026-09-18T23:03:10.938998+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": true,
+      "summary_review_required": true
+    },
+    {
+      "source_id": "cn-rent-tax-update",
+      "source_url": "https://shanghai.chinatax.gov.cn/tax/zcfw/rdwd/202606/t480768.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "748f05e81f94e1e75db1e4f4171b4d23ea658bfc7205033b9adcd9fe5af033ac",
+        "response_sha256": "f1d3c6e3651ac70ba6288ea86a0c8bb4677126107359da26147a0b9278543aa3",
+        "characters": 431,
+        "retrieved_at": "2026-09-18T20:14:34.101750+00:00"
+      },
+      "after": {
+        "text_sha256": "748f05e81f94e1e75db1e4f4171b4d23ea658bfc7205033b9adcd9fe5af033ac",
+        "response_sha256": "f1d3c6e3651ac70ba6288ea86a0c8bb4677126107359da26147a0b9278543aa3",
+        "characters": 431,
+        "retrieved_at": "2026-09-18T23:02:41.280617+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-rental",
+      "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202508/t20250826_4184615.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "1751de52f4ae836d7818b612649ffd4b24500f01273869a9b657431a98b4bfb2",
+        "response_sha256": "04a3600cfdf2cdc003330d79459dcb3500a23154f81ec1a054bc33450c105750",
+        "characters": 5859,
+        "retrieved_at": "2026-09-18T20:12:17.344465+00:00"
+      },
+      "after": {
+        "text_sha256": "1751de52f4ae836d7818b612649ffd4b24500f01273869a9b657431a98b4bfb2",
+        "response_sha256": "04a3600cfdf2cdc003330d79459dcb3500a23154f81ec1a054bc33450c105750",
+        "characters": 5859,
+        "retrieved_at": "2026-09-18T23:00:32.348117+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-tax",
+      "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202603/t479656.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "479e531c7f2752471524fdbf786144c9f0cadfd4f7aa691a4f0a7d526985cdea",
+        "response_sha256": "2b336e8f5fa2fe4573e1f9e79d36fb743331d4c7a479b786f9d8625f318ca972",
+        "characters": 1536,
+        "retrieved_at": "2026-09-18T20:13:01.854909+00:00"
+      },
+      "after": {
+        "text_sha256": "479e531c7f2752471524fdbf786144c9f0cadfd4f7aa691a4f0a7d526985cdea",
+        "response_sha256": "2b336e8f5fa2fe4573e1f9e79d36fb743331d4c7a479b786f9d8625f318ca972",
+        "characters": 1536,
+        "retrieved_at": "2026-09-18T23:01:16.634062+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "cn-utilities-fees",
+      "source_url": "https://app.www.gov.cn/govdata/gov/202101/06/466733/article.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "6568bab4f1eeed36e64f61e13f2eb60d8499ebfde50fcb58a240466f82e77931",
+        "response_sha256": "f3cd1710c31684eebd39fdc2cd98786a2c6cdca9fc4c832d38b34478d66d5d99",
+        "characters": 6205,
+        "retrieved_at": "2026-09-18T20:14:34.500732+00:00"
+      },
+      "after": {
+        "text_sha256": "6568bab4f1eeed36e64f61e13f2eb60d8499ebfde50fcb58a240466f82e77931",
+        "response_sha256": "f3cd1710c31684eebd39fdc2cd98786a2c6cdca9fc4c832d38b34478d66d5d99",
+        "characters": 6205,
+        "retrieved_at": "2026-09-18T23:02:44.353731+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-affordable-rental-rule",
+      "source_url": "https://zfcj.gz.gov.cn/zwgk/zcfg/flfg/content/mpost_10248415.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "477334c46548cd22c7c436536d8ff84c52b616d6edd6d3b2a34ea9e43b9afd96",
+        "response_sha256": "c325bc5e597adf37ed86e50b384caa3fdaca583ef92cb61fe171e228762d17f6",
+        "characters": 5044,
+        "retrieved_at": "2026-09-18T20:13:21.260060+00:00"
+      },
+      "after": {
+        "text_sha256": "477334c46548cd22c7c436536d8ff84c52b616d6edd6d3b2a34ea9e43b9afd96",
+        "response_sha256": "c325bc5e597adf37ed86e50b384caa3fdaca583ef92cb61fe171e228762d17f6",
+        "characters": 5044,
+        "retrieved_at": "2026-09-18T23:01:34.591046+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-central-water-prices-2025",
+      "source_url": "https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzsfzhggwyh/content/post_10242121.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "8c991d5c87370fc8e5a10ae15c0bb77da44e8edf9533ee04a7343b4de22252b5",
+        "response_sha256": "4ad728f7d0acacc982cca74d90a1bbe1cc3201082992956853a847628b49439f",
+        "characters": 2887,
+        "retrieved_at": "2026-09-18T20:14:47.455255+00:00"
+      },
+      "after": {
+        "text_sha256": "8c991d5c87370fc8e5a10ae15c0bb77da44e8edf9533ee04a7343b4de22252b5",
+        "response_sha256": "4ad728f7d0acacc982cca74d90a1bbe1cc3201082992956853a847628b49439f",
+        "characters": 2887,
+        "retrieved_at": "2026-09-18T23:02:58.312233+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-gjj-extraction-rule",
+      "source_url": "https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzzfgjjglzx/content/post_9443084.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "5c306055d398500d61583a1d6e125af9b98bf503641fe6ecc7055e534facf122",
+        "response_sha256": "e88d32c6aff49eaf26e6f07326440f952e47c3552150ea1d206a67a3ddc64f1e",
+        "characters": 3015,
+        "retrieved_at": "2026-09-18T20:13:10.741279+00:00"
+      },
+      "after": {
+        "text_sha256": "5c306055d398500d61583a1d6e125af9b98bf503641fe6ecc7055e534facf122",
+        "response_sha256": "e88d32c6aff49eaf26e6f07326440f952e47c3552150ea1d206a67a3ddc64f1e",
+        "characters": 3015,
+        "retrieved_at": "2026-09-18T23:01:24.618840+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-lease-filing-guide",
+      "source_url": "https://zfcj.gz.gov.cn/zwgk/zsdwwj/content/mpost_9477082.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "f8452b1397fedc43d8efabc6a449eb0c2295d99059e72702c9d1907bf2773ae8",
+        "response_sha256": "668e4e6d5118fe86b0f65d319fad25b07e03031c172706a5454db4b09c82f1e5",
+        "characters": 1375,
+        "retrieved_at": "2026-09-18T20:13:11.498409+00:00"
+      },
+      "after": {
+        "text_sha256": "f8452b1397fedc43d8efabc6a449eb0c2295d99059e72702c9d1907bf2773ae8",
+        "response_sha256": "668e4e6d5118fe86b0f65d319fad25b07e03031c172706a5454db4b09c82f1e5",
+        "characters": 1375,
+        "retrieved_at": "2026-09-18T23:01:26.363270+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-lease-management-rule",
+      "source_url": "https://zfcj.gz.gov.cn/zwgk/zcfg/flfg/content/mpost_6866279.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "a18f80999105bb41907b99529e735f0f527765cc08b203b92f7658b6579eb2b8",
+        "response_sha256": "d2eaa805c5207d9f4ff5c3cc1d1d6c6696beabea50fc7d38afe8bc8137a7d895",
+        "characters": 4664,
+        "retrieved_at": "2026-09-18T20:13:20.513372+00:00"
+      },
+      "after": {
+        "text_sha256": "a18f80999105bb41907b99529e735f0f527765cc08b203b92f7658b6579eb2b8",
+        "response_sha256": "d2eaa805c5207d9f4ff5c3cc1d1d6c6696beabea50fc7d38afe8bc8137a7d895",
+        "characters": 4664,
+        "retrieved_at": "2026-09-18T23:01:27.842685+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-rental",
+      "source_url": "https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2022/18/content/mpost_10640003.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "f5dd10d1d090f4a81714e16bc02240d7c847c874ad69fdf8d8b14f171da017d4",
+        "response_sha256": "8bc103c7de9ea3ed52bef3a7ae2ee2e602734514b746ad529de82dd71403fcbd",
+        "characters": 3093,
+        "retrieved_at": "2026-09-18T20:12:52.916469+00:00"
+      },
+      "after": {
+        "text_sha256": "f5dd10d1d090f4a81714e16bc02240d7c847c874ad69fdf8d8b14f171da017d4",
+        "response_sha256": "8bc103c7de9ea3ed52bef3a7ae2ee2e602734514b746ad529de82dd71403fcbd",
+        "characters": 3093,
+        "retrieved_at": "2026-09-18T23:01:06.841458+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-rental-fire-responsibility",
+      "source_url": "https://wglj.gz.gov.cn/ztmb/pagzjs/content/post_9445304.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "67ae2e38a8b758fb9a504230a3e59b8994aed99b1c79dbd33d7265ff6d12c441",
+        "response_sha256": "984deda634a2ca15f7df5a8700a9c97a226ad6107e159fdb013ce1e2bb33470a",
+        "characters": 558,
+        "retrieved_at": "2026-09-18T20:14:52.636423+00:00"
+      },
+      "after": {
+        "text_sha256": "67ae2e38a8b758fb9a504230a3e59b8994aed99b1c79dbd33d7265ff6d12c441",
+        "response_sha256": "984deda634a2ca15f7df5a8700a9c97a226ad6107e159fdb013ce1e2bb33470a",
+        "characters": 558,
+        "retrieved_at": "2026-09-18T23:03:00.187339+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-residence-guide",
+      "source_url": "https://zsj.gz.gov.cn/zmhd/cjwt/shbapp/content/post_10146719.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "48a92ddc2758f6ffa0364dc73800d9441b56e4a99147d13ece82372200c18b93",
+        "response_sha256": "8501b8761d0ed4ce1c732941b942a5df7aeb713a54efbbfde5731df0fb9b0d55",
+        "characters": 1049,
+        "retrieved_at": "2026-09-18T20:14:31.233862+00:00"
+      },
+      "after": {
+        "text_sha256": "48a92ddc2758f6ffa0364dc73800d9441b56e4a99147d13ece82372200c18b93",
+        "response_sha256": "8501b8761d0ed4ce1c732941b942a5df7aeb713a54efbbfde5731df0fb9b0d55",
+        "characters": 1049,
+        "retrieved_at": "2026-09-18T23:02:38.389739+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-tips",
+      "source_url": "https://zfcj.gz.gov.cn/zjdt/zjxw/content/mpost_10716254.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "4c28d93582f78eb278ded6fae9cde66f7567a18b5fc56bb997cb6d2b3863e121",
+        "response_sha256": "ccb92f6f0cd8f3d53cb6a3313c0d2dfd6545405a76a18a423565e77860d3e10c",
+        "characters": 997,
+        "retrieved_at": "2026-09-18T20:12:51.583678+00:00"
+      },
+      "after": {
+        "text_sha256": "4c28d93582f78eb278ded6fae9cde66f7567a18b5fc56bb997cb6d2b3863e121",
+        "response_sha256": "ccb92f6f0cd8f3d53cb6a3313c0d2dfd6545405a76a18a423565e77860d3e10c",
+        "characters": 997,
+        "retrieved_at": "2026-09-18T23:01:06.683769+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "gz-water-price-explanation",
+      "source_url": "https://fgw.gz.gov.cn/gkmlpt/content/10/10242/post_10242178.html",
+      "state": "response_only",
+      "before": {
+        "text_sha256": "13e6784256f99d46e3c173944984cfe84e2dbf441a4f5fd272ecdb34aa0f6beb",
+        "response_sha256": "a1430142394235e89bb7d00faabd3ab8d116bd4bcce6ac0cf9c9203021489914",
+        "characters": 1330,
+        "retrieved_at": "2026-09-18T20:14:55.483592+00:00"
+      },
+      "after": {
+        "text_sha256": "13e6784256f99d46e3c173944984cfe84e2dbf441a4f5fd272ecdb34aa0f6beb",
+        "response_sha256": "93fdf5710918c10d15df36f3f2ecc585342ab7375d1f069952da3dd8ea1debe0",
+        "characters": 1330,
+        "retrieved_at": "2026-09-18T23:03:02.245271+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-noise",
+      "source_url": "https://sthj.sh.gov.cn/hbzhywpt1013/hbzhywpt1043/20250703/be7ab6a3512c4e7a8a19e6365b929900.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "7fbf5a0e5c222b6b85535fe3f042cd07a86b84600d04f703040031580bbf09be",
+        "response_sha256": "c5117eae480d3e956c8d911db6e4040bdb472e8ecc4033e803dbf48776412798",
+        "characters": 3525,
+        "retrieved_at": "2026-09-18T20:13:43.525084+00:00"
+      },
+      "after": {
+        "text_sha256": "7fbf5a0e5c222b6b85535fe3f042cd07a86b84600d04f703040031580bbf09be",
+        "response_sha256": "c5117eae480d3e956c8d911db6e4040bdb472e8ecc4033e803dbf48776412798",
+        "characters": 3525,
+        "retrieved_at": "2026-09-18T23:01:56.708495+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-platform",
+      "source_url": "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "917203a73a749d9504aaf07adba9b2a8a5fe7f79508847a0d8ccb2921e024672",
+        "response_sha256": "105c8ae9cf4a8b2c07c423fe33f7dacb3f2fb34dd2aed4ccae4dfa23a0dabf6e",
+        "characters": 6285,
+        "retrieved_at": "2026-09-18T20:12:41.152943+00:00"
+      },
+      "after": {
+        "text_sha256": "917203a73a749d9504aaf07adba9b2a8a5fe7f79508847a0d8ccb2921e024672",
+        "response_sha256": "105c8ae9cf4a8b2c07c423fe33f7dacb3f2fb34dd2aed4ccae4dfa23a0dabf6e",
+        "characters": 6285,
+        "retrieved_at": "2026-09-18T23:00:55.597815+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-rental",
+      "source_url": "https://www.shanghai.gov.cn/bzxzlzfjbzcsjzc/20230418/8a0798aa5f444182a33065910f5b272c.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "c905c502e7a518f573b53d5d7d2a88862305531f69ea25e78d80c665c03ec0a2",
+        "response_sha256": "bdbe9930233b0346d5679fb6033a8969d77db2ce2e4547b5a2a2660fbca8ec2c",
+        "characters": 9068,
+        "retrieved_at": "2026-09-18T20:12:39.797452+00:00"
+      },
+      "after": {
+        "text_sha256": "c905c502e7a518f573b53d5d7d2a88862305531f69ea25e78d80c665c03ec0a2",
+        "response_sha256": "bdbe9930233b0346d5679fb6033a8969d77db2ce2e4547b5a2a2660fbca8ec2c",
+        "characters": 9068,
+        "retrieved_at": "2026-09-18T23:00:54.467934+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-residence-update",
+      "source_url": "https://www.shanghai.gov.cn/wzjd/20251201/9115cdc996fa4fdfa577bb7ce1eaa5a2.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "ae3a9cce6a0dd1f046e0dfce0e77b2850406e044d99a7651a12924a3a60ff34b",
+        "response_sha256": "5384c8d087f8555c85602312e191a4a83aa08d10656330a82d67fec1ab65b22c",
+        "characters": 829,
+        "retrieved_at": "2026-09-18T20:14:19.799374+00:00"
+      },
+      "after": {
+        "text_sha256": "ae3a9cce6a0dd1f046e0dfce0e77b2850406e044d99a7651a12924a3a60ff34b",
+        "response_sha256": "5384c8d087f8555c85602312e191a4a83aa08d10656330a82d67fec1ab65b22c",
+        "characters": 829,
+        "retrieved_at": "2026-09-18T23:02:27.800374+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-residential-water-prices",
+      "source_url": "https://www.shanghai.gov.cn/gwk/search/content/1de7be7e5608458eaa4ba880ea435e94",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "e46bcd0612e0dceb5b55942bd3c8046cd06eba40e501cdae8c92d755137e81cc",
+        "response_sha256": "b2904be6e41a122cd5241caf2370866b8ed0ef4a1f36e47d2466e9db3e642198",
+        "characters": 1622,
+        "retrieved_at": "2026-09-18T20:14:35.174127+00:00"
+      },
+      "after": {
+        "text_sha256": "e46bcd0612e0dceb5b55942bd3c8046cd06eba40e501cdae8c92d755137e81cc",
+        "response_sha256": "b2904be6e41a122cd5241caf2370866b8ed0ef4a1f36e47d2466e9db3e642198",
+        "characters": 1622,
+        "retrieved_at": "2026-09-18T23:02:45.521468+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-utilities-large-household",
+      "source_url": "https://www.shanghai.gov.cn/nw49248/20200920/15f042adfcdc48e29124235a8e6f7dc2_65665.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "90e2192af8bd7a26906e90e23023a27162c9c1c496ca40b5992fb4a878e67838",
+        "response_sha256": "685387d17d90a1a3c171d4fc5eb65c020ae59f41664360936be1d0df62f7befd",
+        "characters": 591,
+        "retrieved_at": "2026-09-18T20:14:36.012547+00:00"
+      },
+      "after": {
+        "text_sha256": "90e2192af8bd7a26906e90e23023a27162c9c1c496ca40b5992fb4a878e67838",
+        "response_sha256": "685387d17d90a1a3c171d4fc5eb65c020ae59f41664360936be1d0df62f7befd",
+        "characters": 591,
+        "retrieved_at": "2026-09-18T23:02:46.748932+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sh-withdraw",
+      "source_url": "https://www.shanghai.gov.cn/qyzfgjjsjzc/20240927/70392c98a8304968a46e8bb62b062f25.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "a92fae5d65261e8ae1cc8e27a9df02475f4ce64826d97b5c65b12647a877da52",
+        "response_sha256": "e30bcb5a543a1b3d0577b47174609a5169bd8658507c5724c6547aebe9525300",
+        "characters": 8127,
+        "retrieved_at": "2026-09-18T20:12:41.339030+00:00"
+      },
+      "after": {
+        "text_sha256": "a92fae5d65261e8ae1cc8e27a9df02475f4ce64826d97b5c65b12647a877da52",
+        "response_sha256": "e30bcb5a543a1b3d0577b47174609a5169bd8658507c5724c6547aebe9525300",
+        "characters": 8127,
+        "retrieved_at": "2026-09-18T23:00:55.300363+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sz-affordable-rental-rule",
+      "source_url": "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyk/content/post_10691024.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "e707a1bd88189bf32dcbfb42c04828e374c24f5c039026fcf676b3fa27458951",
+        "response_sha256": "861f0d658d0e9ec106471f6309be4e7916f2bd27e79866ecaf4f98b07f8e002a",
+        "characters": 6470,
+        "retrieved_at": "2026-09-18T20:13:38.285575+00:00"
+      },
+      "after": {
+        "text_sha256": "e707a1bd88189bf32dcbfb42c04828e374c24f5c039026fcf676b3fa27458951",
+        "response_sha256": "861f0d658d0e9ec106471f6309be4e7916f2bd27e79866ecaf4f98b07f8e002a",
+        "characters": 6470,
+        "retrieved_at": "2026-09-18T23:01:47.548906+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sz-funds",
+      "source_url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "3db7887f57fe81b2253e0ef547e78afc8a2ff7cef1cf9736ebfd6d867dbc375a",
+        "response_sha256": "b2c63c95bf75ce3624ba08a9b6b35a36c61d00cbf2e752abf7c81357d8c219b0",
+        "characters": 452,
+        "retrieved_at": "2026-09-18T20:13:00.312558+00:00"
+      },
+      "after": {
+        "text_sha256": "3db7887f57fe81b2253e0ef547e78afc8a2ff7cef1cf9736ebfd6d867dbc375a",
+        "response_sha256": "b2c63c95bf75ce3624ba08a9b6b35a36c61d00cbf2e752abf7c81357d8c219b0",
+        "characters": 452,
+        "retrieved_at": "2026-09-18T23:01:14.224259+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sz-gjj-extraction-rule",
+      "source_url": "https://zjj.sz.gov.cn/ztfw/zfgjj/zcfg/gfxwj/content/post_12533128.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "939d4513ca6f686e22808b67c03e9cdace4294dbfb6642488cb3a71a6bcf4470",
+        "response_sha256": "2a24be33c02345149d98ea8a5d92b9f178be3067b50fc16817b42d12fada4ab6",
+        "characters": 7628,
+        "retrieved_at": "2026-09-18T20:13:31.030135+00:00"
+      },
+      "after": {
+        "text_sha256": "939d4513ca6f686e22808b67c03e9cdace4294dbfb6642488cb3a71a6bcf4470",
+        "response_sha256": "2a24be33c02345149d98ea8a5d92b9f178be3067b50fc16817b42d12fada4ab6",
+        "characters": 7628,
+        "retrieved_at": "2026-09-18T23:01:38.646721+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sz-gjj-rent-calculation",
+      "source_url": "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyw/ywzsk/content/post_12752515.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "1d5d7b0fd9e27dba4ff84a7fca4b44cb55695c5c4b5f1701e7ea2c845bc7342d",
+        "response_sha256": "195cdfa2a15f5cd9f8dd74d08bc7aa7ec3815ca6a04496a1a8a2f7a4c492b33b",
+        "characters": 512,
+        "retrieved_at": "2026-09-18T20:13:26.802915+00:00"
+      },
+      "after": {
+        "text_sha256": "1d5d7b0fd9e27dba4ff84a7fca4b44cb55695c5c4b5f1701e7ea2c845bc7342d",
+        "response_sha256": "195cdfa2a15f5cd9f8dd74d08bc7aa7ec3815ca6a04496a1a8a2f7a4c492b33b",
+        "characters": 512,
+        "retrieved_at": "2026-09-18T23:01:36.924482+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    },
+    {
+      "source_id": "sz-lease-online-guide",
+      "source_url": "https://zjj.sz.gov.cn/fwzlsb/LEAP/WQBA/hc_help.html",
+      "state": "unchanged",
+      "before": {
+        "text_sha256": "957a340bef312ba62ce244abbec0b43c5cce4882d1e98a0045668b30aaa63b9b",
+        "response_sha256": "92c73af181af9cee277c568b0d2492b43ba849fc0fcc4621d214c96423c177f0",
+        "characters": 3810,
+        "retrieved_at": "2026-09-18T20:13:32.079642+00:00"
+      },
+      "after": {
+        "text_sha256": "957a340bef312ba62ce244abbec0b43c5cce4882d1e98a0045668b30aaa63b9b",
+        "response_sha256": "92c73af181af9cee277c568b0d2492b43ba849fc0fcc4621d214c96423c177f0",
+        "characters": 3810,
+        "retrieved_at": "2026-09-18T23:01:45.188769+00:00"
+      },
+      "changed_fields": [],
+      "metadata_changes": {},
+      "excluded_by_known_dates": false,
+      "review_required": false,
+      "summary_review_required": false
+    }
+  ],
+  "scope": "Extracted text and recorded metadata only. Unchanged content does not prove current law; attachments and image text may be absent.",
+  "activation": "Report only. Review changed sources and summaries, rebuild a separate index, evaluate, then choose whether to switch services.",
+  "snapshots": {
+    "before_sha256": "2d90854704799f79e90dba70a0ab0066e1d1c0da9b2ea7c179549edd42bcc81c",
+    "after_sha256": "e0c1bc54a9848656100b7bccbc68444cc03d3b1aca2d382ea48e323fc042e421"
+  },
+  "generated_at": "2026-09-18T23:06:52.474099+00:00"
+}

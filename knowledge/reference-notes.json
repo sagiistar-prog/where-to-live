@@ -717,5 +717,47 @@
     "validity_basis": "原通知对应实施2025-06-01、失效2030-06-01；解读页面发布2025-04-29。政策修订应同时重审原通知与此解读。",
     "text": "广州中心城区指定供应商自2025年6月起，居民三档自来水价为每立方米2.55元、3.82元和7.65元，合表为2.80元。其他行政区不直接适用，核对总账单时还需区分污水处理等费用。",
     "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-indoor-air-testing",
+    "source_title": "室内空气甲醛治理和检测乱象整治工作方案（2026年）：检测与治理服务",
+    "source_url": "https://www.samr.gov.cn/rkjcs/tzgg/art/2026/art_2a0164bc81da4c889262fa935bed98aa.html",
+    "retrieved_at": "2026-09-18T23:03:08.533348+00:00",
+    "jurisdiction": "全国",
+    "published_at": "2026-06-24",
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "2026年专项整治方案中的检测服务要求，不能当作永久性法律条文或个案检测结论。区分住宅空气检测与建筑工程竣工检测；计划建设的报告溯源系统不代表已经可用。",
+    "validity_basis": "发布页为2026-06-24，文件落款2026-06-02；专项行动安排为2026年6至8月，未载明文件失效日，仅收第二部分第3至7项服务要求，不把行动日程作为永久规则。",
+    "text": "委托甲醛检测前，核对检测机构与治理企业是否存在利益关联，以及采用的标准、采样点、数量和条件。2026年专项方案要求检测机构不承接治理业务；治理服务合同应写清目标、价格、质保和违约责任。检测报告需对应实际房间及采样条件，不能凭除醛广告保证入住安全。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-renovation-structure",
+    "source_title": "住房和城乡建设部关于进一步加强城市房屋室内装饰装修安全管理的通知",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202306/12/504071/article.html",
+    "retrieved_at": "2026-09-18T23:03:10.938998+00:00",
+    "jurisdiction": "全国",
+    "published_at": "2023-06-12",
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "适用于城市房屋室内装饰装修安全管理。疑似拆改承重结构需核对设计方案和资质，网页资料不能鉴定房屋结构是否安全。",
+    "validity_basis": "政府网刊载2023-06-12，文件落款2023-06-07；本通知未单列施行或终止日期。",
+    "text": "看房发现承重墙疑似拆改时，先向房东或物业核对装修登记、设计方案和施工资质。城市住宅装修禁止未经相应设计方案变动主体和承重结构，也禁止扩大承重墙原有门窗。物业发现违法装修应制止并报告；用户可通过属地部门或12345反映，不能凭房源照片判定结构安全。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "cn-elevator-inspection-mark",
+    "source_title": "电梯检验检测实施通知（2024年）：使用标志与检验月份",
+    "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/tzsbs/art/2024/art_4ba7edb1370d42a3b07f051e7f0049f6.html",
+    "retrieved_at": "2026-09-18T23:03:12.322988+00:00",
+    "jurisdiction": "全国",
+    "published_at": "2024-03-18",
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "仅收第三部分第一项的检验检测程序，帮助向物业核对使用标志和检验月份。未收原通知截至2025年底的机构准入过渡条款，也未解析标志样式附件；标志不能证明设备此刻无故障。",
+    "validity_basis": "页面发布2024-03-18，文件落款2024-03-15；所选程序未列终止日期。2023-04-02是所引用规则的施行日期，不是本通知发布日期。",
+    "text": "看房时可向物业核对电梯特种设备使用标志、检验检测实施月份和维保单位。按2024年通知，更换维保单位需凭相应声明与合同换取标志；未按新版规则检验过的电梯，其后实施月份需与使用单位确认。资料不判断具体电梯是否合格。",
+    "content_kind": "authored_summary"
   }
 ]

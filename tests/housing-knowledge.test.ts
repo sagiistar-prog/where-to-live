@@ -4,6 +4,22 @@ import { housingQueryBoundary, searchHousingKnowledge } from "../lib/housing-kno
 import sources from "../knowledge/sources.json";
 import notes from "../knowledge/reference-notes.json";
 
+test("inspection guidance does not certify an unmeasured property", () => {
+  for (const query of ["这套房甲醛超标吗", "这个电梯安全吗", "这栋住宅会倒塌吗"]) {
+    assert.equal(housingQueryBoundary(query)?.id, "unmeasured_condition");
+    assert.deepEqual(searchHousingKnowledge(query, "全国"), []);
+  }
+  for (const [query, id] of [
+    ["甲醛检测机构能同时承接治理业务吗", "cn-indoor-air-testing"],
+    ["看房发现承重墙门窗被扩大，应核对哪些装修资料", "cn-renovation-structure"],
+    ["更换电梯维保单位后需要换使用标志吗", "cn-elevator-inspection-mark"],
+  ]) {
+    assert.equal(housingQueryBoundary(query), null);
+    assert.ok(searchHousingKnowledge(query, "全国").some(r => r.source_id === id));
+  }
+  assert.equal(housingQueryBoundary("这个电梯是否安全需要核对什么材料"), null);
+});
+
 test("every collected source has a shipped summary with matching provenance", () => {
   assert.equal(new Set(sources.map(s => s.source_id)).size, sources.length);
   assert.equal(notes.length, sources.length);

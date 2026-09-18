@@ -1,0 +1,812 @@
+[
+  {
+    "id": "pos-01",
+    "query": "租赁合同最长可以约定多少年",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-civil",
+      "cn-contract"
+    ],
+    "expect_evidence": true,
+    "category": "term",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-02",
+    "query": "房屋维修义务在租赁合同里如何约定",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-civil",
+      "cn-contract"
+    ],
+    "expect_evidence": true,
+    "category": "repair",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-03",
+    "query": "租客能未经房东同意转租吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-civil"
+    ],
+    "expect_evidence": true,
+    "category": "sublet",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-04",
+    "query": "租房押金的退还时间应该在哪里写清楚",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-rental",
+      "cn-contract"
+    ],
+    "expect_evidence": true,
+    "category": "deposit",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-05",
+    "query": "住房租金专项附加扣除标准有哪些",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-tax"
+    ],
+    "expect_evidence": true,
+    "category": "tax",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-06",
+    "query": "租押金余额查询有哪些途径",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-balance"
+    ],
+    "expect_evidence": true,
+    "category": "local_process",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-07",
+    "query": "监管资金缴纳有直缴和代缴两种方式吗",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-pay"
+    ],
+    "expect_evidence": true,
+    "category": "local_process",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-08",
+    "query": "押金托管暂行办法面向哪些住房租赁企业",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-faq",
+      "bj-funds"
+    ],
+    "expect_evidence": true,
+    "category": "applicability",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-09",
+    "query": "租住商品住房提取公积金的申请条件",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-withdraw"
+    ],
+    "expect_evidence": true,
+    "category": "benefits",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-10",
+    "query": "哪里查北京市住房租赁合同示范文本",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-contract"
+    ],
+    "expect_evidence": true,
+    "category": "contract",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-11",
+    "query": "租赁合同备案能享受哪些公共服务",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-benefits"
+    ],
+    "expect_evidence": true,
+    "category": "benefits",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-12",
+    "query": "住房租赁公共服务平台登记备案有哪些要求",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-platform"
+    ],
+    "expect_evidence": true,
+    "category": "local_process",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-13",
+    "query": "上海市住房公积金提取管理办法适用什么范围",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-withdraw"
+    ],
+    "expect_evidence": true,
+    "category": "applicability",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-14",
+    "query": "上海市住房租赁条例对出租住房的要求",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-rental"
+    ],
+    "expect_evidence": true,
+    "category": "local_rules",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-15",
+    "query": "租房前如何核查住房租赁企业和经纪机构",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-tips",
+      "gz-rental"
+    ],
+    "expect_evidence": true,
+    "category": "local_rules",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-16",
+    "query": "广州市规范住房租赁市场的监管要求",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-rental"
+    ],
+    "expect_evidence": true,
+    "category": "local_rules",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-17",
+    "query": "2025年住房租赁资金监管通知有没有延长有效期",
+    "jurisdiction": "深圳",
+    "relevant_sources": [
+      "sz-funds"
+    ],
+    "expect_evidence": true,
+    "category": "freshness",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "pos-18",
+    "query": "城镇房屋租赁合同GF20252614",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-contract"
+    ],
+    "expect_evidence": true,
+    "category": "exact_identifier",
+    "label_basis": "Authored query for official source topic; source-level relevance, not legal applicability judgment"
+  },
+  {
+    "id": "neg-01",
+    "query": "量子推进器的工作原理",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unrelated",
+    "label_basis": "Corpus lacks required live data, unseen document, prediction, or non-housing topic"
+  },
+  {
+    "id": "neg-02",
+    "query": "北京明天具体房源的成交租金是多少",
+    "jurisdiction": "北京",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "live_data",
+    "label_basis": "Corpus lacks required live data, unseen document, prediction, or non-housing topic"
+  },
+  {
+    "id": "neg-03",
+    "query": "我这份没有上传的合同是否合法",
+    "jurisdiction": "上海",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "missing_document",
+    "label_basis": "Corpus lacks required live data, unseen document, prediction, or non-housing topic"
+  },
+  {
+    "id": "neg-04",
+    "query": "广州明天会下雨吗",
+    "jurisdiction": "广州",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unrelated",
+    "label_basis": "Corpus lacks required live data, unseen document, prediction, or non-housing topic"
+  },
+  {
+    "id": "neg-05",
+    "query": "这套房子下个月一定涨价吗",
+    "jurisdiction": "深圳",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "prediction",
+    "label_basis": "Corpus lacks required live data, unseen document, prediction, or non-housing topic"
+  },
+  {
+    "id": "neg-06",
+    "query": "我想服用什么药可以治好感冒",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unrelated",
+    "label_basis": "Corpus lacks required live data, unseen document, prediction, or non-housing topic"
+  },
+  {
+    "id": "expanded-gz-gjj-extraction-rule",
+    "query": "我在广州租房，合同没有备案，交了三个月公积金能申请提取吗？",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-gjj-extraction-rule"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-gz-lease-filing-guide",
+    "query": "在广州给租房合同办备案，需要房东提供什么材料，可以网上办吗？",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-lease-filing-guide"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-gz-lease-management-rule",
+    "query": "广州房东把阳台单独隔出来出租，我租房前可以要求看哪些证明？",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-lease-management-rule"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-gz-affordable-rental-rule",
+    "query": "广州政府保租房和市场上的保租房，申请条件、租金限制一样吗？",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-affordable-rental-rule"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-sz-gjj-rent-calculation",
+    "query": "我在深圳以前没提取过租房公积金，现在申请，2025年11月前后的月份都按80%算吗？",
+    "jurisdiction": "深圳",
+    "relevant_sources": [
+      "sz-gjj-rent-calculation"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-sz-gjj-extraction-rule",
+    "query": "深圳二孩家庭租房合同已备案，能按实际租金提公积金吗，需要哪些材料？",
+    "jurisdiction": "深圳",
+    "relevant_sources": [
+      "sz-gjj-extraction-rule"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-sz-lease-online-guide",
+    "query": "深圳个人房东和租客签了纸质合同，怎么在线备案，租客需要确认吗？",
+    "jurisdiction": "深圳",
+    "relevant_sources": [
+      "sz-lease-online-guide"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-sz-affordable-rental-rule",
+    "query": "我在宝安有住房，可以申请南山社会主体出租的保租房吗，和政府配租条件有何不同？",
+    "jurisdiction": "深圳",
+    "relevant_sources": [
+      "sz-affordable-rental-rule"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-cn-highrise-fire",
+    "query": "高层住宅楼梯间停着电动自行车充电，消防规定怎么说？",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-highrise-fire"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-cn-noise",
+    "query": "邻居装修和楼下商铺噪声扰民，物业调解不成怎么办？",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-noise"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-cn-broker-service",
+    "query": "中介费之外又收服务费，可以要求出示收费项目清单吗？",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-broker-service"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-cn-deposit-case",
+    "query": "退租时房东以家具自然损耗扣押金，有什么案例可以参考？",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-deposit-case"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-sh-noise",
+    "query": "上海住宅晚上七点还能敲墙装修吗？",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-noise"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "expanded-cn-gas-safety",
+    "query": "租房的直排式热水器没有排烟管，要核对哪些燃气安全问题？",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-gas-safety"
+    ],
+    "expect_evidence": true,
+    "category": "expanded_public_sources",
+    "label_basis": "Authored before expanded-corpus retrieval; source relevance hypothesis, not legal or expert judgment"
+  },
+  {
+    "id": "decision-01",
+    "query": "家庭第二套住房契税面积140平方米如何计算",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-purchase-deed-tax"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-02",
+    "query": "申请买房契税优惠需要提供哪些家庭证明",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-purchase-deed-tax"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-03",
+    "query": "2025年5月公积金贷款五年以上首套利率通知",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-provident-loan-rate"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-04",
+    "query": "北京旧公积金贷款一年以内不分段计息吗",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-provident-loan-transition"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-05",
+    "query": "浮动房贷重定价周期在哪里约定",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-mortgage-repricing"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-06",
+    "query": "住房纠纷申请法律援助需审查经济困难状况吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-legal-aid"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-07",
+    "query": "租房纠纷人民调解是否收取费用",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-people-mediation"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-08",
+    "query": "租房纠纷调解协议多久申请司法确认",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-people-mediation"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-09",
+    "query": "租房纠纷即时通信记录属于电子数据吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-civil-evidence"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-10",
+    "query": "准备买房尚未签约能否查询居住权和查封登记",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-property-records"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-11",
+    "query": "北京二手房资金托管是否自行选择",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-resale-funds"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-12",
+    "query": "提前还清住房贷款还能享受利息扣除吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-loan-interest-tax"
+    ],
+    "expect_evidence": true,
+    "category": "purchase_and_dispute",
+    "label_basis": "Authored source-level task before first retrieval run; not expert labels or legal accuracy"
+  },
+  {
+    "id": "decision-none-1",
+    "query": "我一定获批住房贷款吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unsupported_approval",
+    "label_basis": "No access to bank underwriting or personal credit"
+  },
+  {
+    "id": "decision-none-2",
+    "query": "请保证银行给我放款买房",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unsupported_approval",
+    "label_basis": "No access to bank underwriting or personal credit"
+  },
+  {
+    "id": "residence-01",
+    "query": "居住证租赁住所申请需要什么产权和租期材料",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-residence-guide"
+    ],
+    "expect_evidence": true,
+    "category": "residence",
+    "label_basis": "Author-labeled source relevance; not an eligibility or legal judgment."
+  },
+  {
+    "id": "residence-02",
+    "query": "居住证签发后有效期多久，在哪里申请",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-residence-guide"
+    ],
+    "expect_evidence": true,
+    "category": "residence",
+    "label_basis": "Author-labeled source relevance; not an eligibility or legal judgment."
+  },
+  {
+    "id": "residence-03",
+    "query": "居住登记未满半年但连续缴社保能申领居住证吗",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-residence-update"
+    ],
+    "expect_evidence": true,
+    "category": "residence",
+    "label_basis": "Author-labeled source relevance; not an eligibility or legal judgment."
+  },
+  {
+    "id": "residence-04",
+    "query": "居住证申请住在近亲属租赁房屋需要什么证明",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-residence-update"
+    ],
+    "expect_evidence": true,
+    "category": "residence",
+    "label_basis": "Author-labeled source relevance; not an eligibility or legal judgment."
+  },
+  {
+    "id": "residence-05",
+    "query": "电子居住证绿色通道也要先办居住登记吗",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-residence-guide"
+    ],
+    "expect_evidence": true,
+    "category": "residence",
+    "label_basis": "Author-labeled source relevance; not an eligibility or legal judgment."
+  },
+  {
+    "id": "residence-06",
+    "query": "居住证签注和住址信息变更在什么入口办",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-residence-guide"
+    ],
+    "expect_evidence": true,
+    "category": "residence",
+    "label_basis": "Author-labeled source relevance; not an eligibility or legal judgment."
+  },
+  {
+    "id": "moving-01",
+    "query": "换租后住房租金扣除信息怎么修改，工作城市也变了",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-rent-tax-update"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-02",
+    "query": "租房水电费里能另加公共设施维护费用吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-utilities-fees"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-03",
+    "query": "北京搬家以后居住证地址怎么改，需要哪些材料，收费吗？",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-residence-address-change"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-04",
+    "query": "北京租房水费每立方米多少钱，阶梯是按月还是按年算？",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-residential-water-prices"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-05",
+    "query": "上海租房居民合表水费怎么收，4.05元里是否包含污水处理费？",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-residential-water-prices"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-06",
+    "query": "上海五个人合租，持居住证能否申请一户多人口水电气阶梯优惠？",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-utilities-large-household"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-07",
+    "query": "广州中心城区自来水价格改革适用范围，是全广州都一样吗",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-central-water-prices-2025"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-08",
+    "query": "广州租房有消防隐患，房东不整改怎么办，出租人和租客各承担什么责任？",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-rental-fire-responsibility"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Authored before retrieval run from a verified official source; source-level regression, not expert or user evaluation"
+  },
+  {
+    "id": "moving-09",
+    "query": "广州中心城区合表自来水价格多少钱",
+    "jurisdiction": "广州",
+    "relevant_sources": [
+      "gz-water-price-explanation"
+    ],
+    "expect_evidence": true,
+    "category": "moving_utilities",
+    "label_basis": "Official prose interpretation of image-only price table, authored before retrieval run"
+  },
+  {
+    "id": "inspection-01",
+    "query": "甲醛检测机构能同时承接治理业务吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-indoor-air-testing"
+    ],
+    "expect_evidence": true,
+    "category": "inspection",
+    "label_basis": "Developer-authored before retrieval run; selected official passage supports this task, not an independent tenant study"
+  },
+  {
+    "id": "inspection-02",
+    "query": "甲醛治理服务合同应写清什么价格质保约定",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-indoor-air-testing"
+    ],
+    "expect_evidence": true,
+    "category": "inspection",
+    "label_basis": "Developer-authored before retrieval run; selected official passage supports this task, not an independent tenant study"
+  },
+  {
+    "id": "inspection-03",
+    "query": "看房发现承重墙门窗被扩大，应核对哪些装修资料",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-renovation-structure"
+    ],
+    "expect_evidence": true,
+    "category": "inspection",
+    "label_basis": "Developer-authored before retrieval run; selected official passage supports this task, not an independent tenant study"
+  },
+  {
+    "id": "inspection-04",
+    "query": "物业发现违法拆改承重墙应向哪里报告",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-renovation-structure"
+    ],
+    "expect_evidence": true,
+    "category": "inspection",
+    "label_basis": "Developer-authored before retrieval run; selected official passage supports this task, not an independent tenant study"
+  },
+  {
+    "id": "inspection-05",
+    "query": "更换电梯维保单位后需要换使用标志吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-elevator-inspection-mark"
+    ],
+    "expect_evidence": true,
+    "category": "inspection",
+    "label_basis": "Developer-authored before retrieval run; selected official passage supports this task, not an independent tenant study"
+  },
+  {
+    "id": "inspection-06",
+    "query": "电梯下次检验月份如何核对",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-elevator-inspection-mark"
+    ],
+    "expect_evidence": true,
+    "category": "inspection",
+    "label_basis": "Developer-authored before retrieval run; selected official passage supports this task, not an independent tenant study"
+  },
+  {
+    "id": "inspection-negative-01",
+    "query": "这套房甲醛超标吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unmeasured_condition",
+    "label_basis": "No measurements or inspection records supplied; the product cannot certify this property"
+  },
+  {
+    "id": "inspection-negative-02",
+    "query": "这个电梯安全吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "unmeasured_condition",
+    "label_basis": "No measurements or inspection records supplied; the product cannot certify this property"
+  }
+]

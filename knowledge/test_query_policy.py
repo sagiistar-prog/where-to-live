@@ -18,6 +18,15 @@ class HousingScopeTests(unittest.TestCase):
             def encode(self,*args,**kwargs):raise AssertionError('unexpected inference')
         self.assertEqual(search({},'明天北京的成交租金是多少',Encoder()),[])
 
+    def test_actual_property_condition_requires_measurements(self):
+        class Encoder:
+            def encode(self,*args,**kwargs):raise AssertionError('unexpected inference')
+        for query in ['这套房甲醛超标吗', '这个电梯安全吗', '这栋住宅会倒塌吗']:
+            self.assertEqual(query_boundary(query)['code'], 'unmeasured_condition')
+            self.assertEqual(search({},query,Encoder()),[])
+        for query in ['甲醛检测机构能同时承接治理业务吗', '这个电梯是否安全需要核对什么材料', '承重墙拆改需要哪些设计资料']:
+            self.assertIsNone(query_boundary(query),query)
+
     def test_one_long_source_cannot_occupy_every_result(self):
         records=[{'source_id':'a'},{'source_id':'a'},{'source_id':'a'},{'source_id':'b'}]
         self.assertEqual([i for i,_ in diverse_results([(0,4),(1,3),(2,2),(3,1)],records,3)],[0,1,3])

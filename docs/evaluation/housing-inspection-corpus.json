@@ -1,0 +1,23 @@
+{
+  "scope": "Actual public-source collection and local BGE inference; no production database or joined web-vector acceptance",
+  "source_count": 57,
+  "characters": 201905,
+  "chunk_count": 749,
+  "vectors_validated": 749,
+  "exact_offsets_validated": 749,
+  "max_observed_tokens": 321,
+  "documents_sha256": "e0c1bc54a9848656100b7bccbc68444cc03d3b1aca2d382ea48e323fc042e421",
+  "manifest": {
+    "schema_version": 1,
+    "model_id": "BAAI/bge-small-zh-v1.5",
+    "dimension": 512,
+    "query_prefix": "为这个句子生成表示以用于检索相关文章：",
+    "normalized": true,
+    "chunker": "characters-320-overlap-40-exact-offset-v2",
+    "fastembed_version": "0.7.4",
+    "created_at": "2026-09-18T23:06:42.349495+00:00",
+    "tokenizer_sha256": "550e43118ce3b4f6d6b041c053f064e08a308848c6d98438ccbb7e33f3657873",
+    "max_tokens": 512,
+    "corpus_sha256": "bc326956abd599366d7f4e6359392c24a148909d3efa36b56b54c81a9339e2da"
+  }
+}
