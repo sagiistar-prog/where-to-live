@@ -18,7 +18,9 @@ function terms(text: string) {
 export function searchHousingKnowledge(query: string, city: string, now = new Date()) {
   if (housingQueryBoundary(query)) return [];
   const words = terms(query);
-  return notes.filter(n => (n.jurisdiction === "全国" || n.jurisdiction === city) && (!n.valid_until || new Date(n.valid_until + "T23:59:59Z") >= now))
+  return notes.filter(n => (n.jurisdiction === "全国" || n.jurisdiction === city)
+    && (!n.effective_from || new Date(n.effective_from + "T00:00:00Z") <= now)
+    && (!n.valid_until || new Date(n.valid_until + "T23:59:59Z") >= now))
     .map(n => ({ ...n, score: words.reduce((score, term) => score + (n.text.includes(term) ? 2 : 0) + (n.source_title.includes(term) ? 1 : 0), 0) }))
     .filter(n => n.score > 0).sort((a, b) => b.score - a.score).slice(0, 5)
     .map(({ score, ...n }) => { void score; return { ...n, stale: now.getTime() - new Date(n.retrieved_at).getTime() > 90 * 86400000 }; });

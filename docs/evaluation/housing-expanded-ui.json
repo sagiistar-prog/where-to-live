@@ -1,0 +1,41 @@
+{
+  "scope": "Default shipped summaries in real browser; standalone vector service tested separately",
+  "rows": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "city": "深圳",
+      "query": "深圳普通租房公积金分段计算",
+      "expectedSourceVisible": true,
+      "articleCount": 2,
+      "officialLinks": [
+        "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyw/ywzsk/content/post_12752515.html",
+        "https://zjj.sz.gov.cn/ztfw/zfgjj/zcfg/gfxwj/content/post_12533128.html"
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "noEvidenceBoundary": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "city": "上海",
+      "query": "上海住宅晚上七点装修噪声",
+      "expectedSourceVisible": true,
+      "articleCount": 4,
+      "officialLinks": [
+        "https://sthj.sh.gov.cn/hbzhywpt1013/hbzhywpt1043/20250703/be7ab6a3512c4e7a8a19e6365b929900.html",
+        "https://www.mee.gov.cn/ywgz/fgbz/fl/202112/t20211225_965275.shtml",
+        "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5",
+        "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202106/t20210625_389980.shtml"
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "noEvidenceBoundary": true
+    }
+  ]
+}

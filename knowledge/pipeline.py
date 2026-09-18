@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import unicodedata
 from query_policy import query_boundary
+from source_policy import METADATA_FIELDS, validate_metadata, source_eligible
 
 MODELS = {
     'zh': ('BAAI/bge-small-zh-v1.5', 512, '为这个句子生成表示以用于检索相关文章：'),
@@ -28,6 +29,7 @@ def clean(text):
 def prepare(documents):
     chunks, seen, ids = [], set(), set()
     for doc in documents:
+        validate_metadata(doc)
         if any(not isinstance(doc.get(k), str) or not doc[k].strip() for k in REQUIRED):
             raise ValueError('Every source needs nonempty id, title, URL, retrieval date and text')
         if doc['source_id'] in ids: raise ValueError('Duplicate source_id')
@@ -54,7 +56,8 @@ def prepare(documents):
                 'language': doc.get('language', 'unknown'),
                 'jurisdiction':doc.get('jurisdiction',''),
                 'source_kind':doc.get('source_kind','document'),
-                'source_sha256':doc.get('source_sha256','')})
+                'source_sha256':doc.get('source_sha256',''),
+                **{key: doc[key] for key in METADATA_FIELDS if key in doc}})
     return chunks
 
 def tokens(text):
@@ -161,6 +164,9 @@ def search(index,query,encoder,top_k=5,mode='hybrid'):
     if len(chunks)!=len(vectors): raise ValueError('Incomplete vector index')
     if any(len(v)!=encoder.dimension or not all(math.isfinite(x) for x in v) for v in vectors):
         raise ValueError('Corrupt vector index')
+    active = [(c,v) for c,v in zip(chunks,vectors) if source_eligible(c)]
+    chunks = [c for c,_ in active]; vectors = [v for _,v in active]
+    if not chunks:return []
     keyword=bm25(query,chunks)
     if mode=='keyword':
         return [{**chunks[i], 'rrf_score':None,'keyword_score':score,

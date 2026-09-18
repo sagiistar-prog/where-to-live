@@ -3,108 +3,567 @@
     "source_id": "cn-rental",
     "source_title": "住房租赁条例",
     "jurisdiction": "全国",
-    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202508/t20250826_4184615.html"
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202508/t20250826_4184615.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "合同",
+      "押金",
+      "备案"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "cn-civil",
     "source_title": "民法典租赁合同章",
     "jurisdiction": "全国",
-    "source_url": "https://www.court.gov.cn/zixun/xiangqing/233181.html"
+    "source_url": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "合同",
+      "维修",
+      "转租",
+      "退租"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-rental",
     "source_title": "北京市住房租赁条例",
     "jurisdiction": "北京",
-    "source_url": "https://www.beijing.gov.cn/zhengce/dfxfg/202208/t20220823_2797935.html"
+    "source_url": "https://www.beijing.gov.cn/zhengce/dfxfg/202208/t20220823_2797935.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "租赁安全",
+      "押金",
+      "备案"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-funds",
     "source_title": "北京市住房租赁押金托管和租金监管暂行办法",
     "jurisdiction": "北京",
-    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202408/t20240801_3764440.html"
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202408/t20240801_3764440.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "押金",
+      "租金监管"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-pay",
     "source_title": "押金托管和租金监管资金缴纳操作详解",
     "jurisdiction": "北京",
-    "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413444/543423007/index.html"
+    "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413444/543423007/index.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "押金",
+      "缴费"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-balance",
     "source_title": "租押金余额查询操作详解",
     "jurisdiction": "北京",
-    "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413442/543423029/index.html"
+    "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413442/543423029/index.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "押金",
+      "资金查询"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-faq",
     "source_title": "租金监管常见问题解答",
     "jurisdiction": "北京",
-    "source_url": "https://gjj.beijing.gov.cn/web/gjjhd/1747335/543413473/543425903/index.html"
+    "source_url": "https://gjj.beijing.gov.cn/web/gjjhd/1747335/543413473/543425903/index.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "租金监管",
+      "办理条件"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-contract",
     "source_title": "北京市住房租赁合同2023",
     "jurisdiction": "北京",
-    "source_url": "https://scjgj.beijing.gov.cn/bsfw/bmfw/sfwbbm/shxfl/fw/202303/t20230316_2937800.html"
+    "source_url": "https://scjgj.beijing.gov.cn/bsfw/bmfw/sfwbbm/shxfl/fw/202303/t20230316_2937800.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "合同",
+      "交接"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-benefits",
     "source_title": "住房租赁合同备案公共服务",
     "jurisdiction": "北京",
-    "source_url": "https://zjw.beijing.gov.cn/bjjs/fwzlfw84/wsczr/cjwd44/744029795/index.shtml"
+    "source_url": "https://zjw.beijing.gov.cn/bjjs/fwzlfw84/wsczr/cjwd44/744029795/index.shtml",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "备案",
+      "公共服务"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "bj-withdraw",
     "source_title": "租住商品住房提取住房公积金",
     "jurisdiction": "北京",
-    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/bjszfgjjtqzn/blzn/zftq/202306/t20230606_3124915.html"
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/bjszfgjjtqzn/blzn/zftq/202306/t20230606_3124915.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "公积金",
+      "租房提取"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sh-rental",
     "source_title": "上海市住房租赁条例",
     "jurisdiction": "上海",
-    "source_url": "https://www.shanghai.gov.cn/bzxzlzfjbzcsjzc/20230418/8a0798aa5f444182a33065910f5b272c.html"
+    "source_url": "https://www.shanghai.gov.cn/bzxzlzfjbzcsjzc/20230418/8a0798aa5f444182a33065910f5b272c.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "合同",
+      "维修",
+      "备案"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sh-platform",
     "source_title": "上海市住房租赁公共服务平台管理规定",
     "jurisdiction": "上海",
-    "source_url": "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5"
+    "source_url": "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5",
+    "valid_until": "2028-06-30",
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "备案",
+      "企业核验"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sh-withdraw",
     "source_title": "上海市住房公积金提取管理办法",
     "jurisdiction": "上海",
-    "source_url": "https://www.shanghai.gov.cn/qyzfgjjsjzc/20240927/70392c98a8304968a46e8bb62b062f25.html"
+    "source_url": "https://www.shanghai.gov.cn/qyzfgjjsjzc/20240927/70392c98a8304968a46e8bb62b062f25.html",
+    "valid_until": "2028-03-31",
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "公积金",
+      "租房提取"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "gz-tips",
     "source_title": "广州市住房租赁温馨提示2026",
     "jurisdiction": "广州",
-    "source_url": "https://zfcj.gz.gov.cn/zjdt/zjxw/content/mpost_10716254.html"
+    "source_url": "https://zfcj.gz.gov.cn/zjdt/zjxw/content/mpost_10716254.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "看房核验",
+      "付款",
+      "合同"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "gz-rental",
     "source_title": "广州市关于规范住房租赁市场的通知",
     "jurisdiction": "广州",
-    "source_url": "https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2022/18/content/mpost_10640003.html"
+    "source_url": "https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2022/18/content/mpost_10640003.html",
+    "valid_until": "2027-04-09",
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "租金监管",
+      "押金"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "sz-funds",
     "source_title": "深圳市住房租赁资金监管通知及2025续期",
     "jurisdiction": "深圳",
-    "source_url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html"
+    "source_url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "租金监管",
+      "政策续期"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "cn-tax",
     "source_title": "住房租金专项附加扣除热点问答",
     "jurisdiction": "全国",
-    "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202603/t479656.html"
+    "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202603/t479656.html",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "个税",
+      "住房租金扣除"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
   },
   {
     "source_id": "cn-contract",
     "source_title": "城镇房屋租赁合同市场监管总局2025版",
     "jurisdiction": "全国",
-    "source_url": "https://htsfwb.samr.gov.cn/View?id=2340996b-882d-47a4-b74d-c30784628737"
+    "source_url": "https://htsfwb.samr.gov.cn/View?id=2340996b-882d-47a4-b74d-c30784628737",
+    "valid_until": null,
+    "effective_from": null,
+    "published_at": null,
+    "topics": [
+      "合同",
+      "维修",
+      "押金"
+    ],
+    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+  },
+  {
+    "source_id": "gz-gjj-extraction-rule",
+    "source_title": "广州住房公积金管理中心关于印发广州市住房公积金提取管理办法的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzzfgjjglzx/content/post_9443084.html",
+    "published_at": "2023-12-25",
+    "valid_until": "2028-12-31",
+    "topics": [
+      "公积金",
+      "租房提取",
+      "无房条件",
+      "租赁备案",
+      "多子女家庭"
+    ],
+    "effective_from": "2024-01-01",
+    "applicability": "适用于广州住房公积金管理中心管辖范围。租房前提覆盖本人、配偶和未成年子女；未备案固定月额度由中心另行调整，本页不能单独证明当前固定金额。已备案提取仍有法定租金额度上限。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "租赁合同未登记备案",
+      "有效期5年"
+    ]
+  },
+  {
+    "source_id": "gz-lease-filing-guide",
+    "source_title": "广州市房屋交易监管中心关于发布办理房屋租赁登记备案和存量房屋交易房源信息编码指引的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zwgk/zsdwwj/content/mpost_9477082.html",
+    "published_at": "2024-02-02",
+    "valid_until": null,
+    "topics": [
+      "租赁备案",
+      "办理材料",
+      "线上办理",
+      "办事时限"
+    ],
+    "effective_from": null,
+    "applicability": "采用正文附件1的租赁备案指引；附件2属于存量房买卖，不纳入租房摘要。办理平台入口和地区迁移可能另行更新，具体以主管部门现行入口与受理要求为准。 本指引列3个工作日，地方规定对材料齐全的备案要求当场办理；需分别归因并向受理部门核对，不能称为统一法定等待期。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "3个工作日",
+      "房屋合法来源资料"
+    ]
+  },
+  {
+    "source_id": "gz-lease-management-rule",
+    "source_title": "广州市房屋租赁管理规定",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zwgk/zcfg/flfg/content/mpost_6866279.html",
+    "published_at": "2020-10-23",
+    "valid_until": null,
+    "topics": [
+      "租赁安全",
+      "房东身份",
+      "权属核验",
+      "租赁备案",
+      "转租",
+      "隐私保护"
+    ],
+    "effective_from": "2020-12-01",
+    "applicability": "适用广州行政区域房屋租赁；公租房、公有房屋另有规定的从其规定。本文为地方性法规，涉及具体纠纷时还需结合民法典、住房租赁条例及合同事实，不能据摘要直接判断合同效力。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "三十日内",
+      "2020年12月1日"
+    ]
+  },
+  {
+    "source_id": "gz-affordable-rental-rule",
+    "source_title": "广州市住房和城乡建设局关于印发广州市保障性租赁住房管理办法（暂行）的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zwgk/zcfg/flfg/content/mpost_10248415.html",
+    "published_at": "2025-02-19",
+    "valid_until": "2028-02-17",
+    "topics": [
+      "保障性租赁住房",
+      "申请资格",
+      "政府性房源",
+      "市场性房源",
+      "租金标准"
+    ],
+    "effective_from": "2025-02-18",
+    "applicability": "政府房源的无房和住房保障条件涉及申请人、配偶与未成年子女；市区引进人才免于本文养老保险条件。不能把政府房源条件套用于市场房源。人才公寓、直管公房纳入保租房后如有特别规定，按特别规定执行。正文明确自2025-02-18印发起有效3年；按该期限计算截止2028-02-17，续期或修订需重新核查。",
+    "source_kind": "official_publication",
+    "validity_basis": "根据第33条自2025-02-18施行且有效3年计算至2028-02-17；不是页面明示日期，续期需重新核验。",
+    "required_markers": [
+      "90%",
+      "市场性房源"
+    ]
+  },
+  {
+    "source_id": "sz-gjj-rent-calculation",
+    "source_title": "职工符合租房提取条件，2025年11月1日后办理申请普通租房提取时，可提取金额该如何计算？",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyw/ywzsk/content/post_12752515.html",
+    "published_at": "2026-04-24",
+    "valid_until": "2027-10-31",
+    "topics": [
+      "公积金",
+      "普通租房提取",
+      "提取比例",
+      "政策期限",
+      "跨年补提"
+    ],
+    "effective_from": "2025-11-01",
+    "applicability": "针对符合普通租房提取条件的职工，基础无房范围包括本市及深汕特别合作区，涉及本人和家庭成员。valid_until为页面明确的80%政策执行期终点，不代表整篇FAQ或65%基础规定在该日失效；多子女、公租房、保租房适用其他计算路径。",
+    "source_kind": "official_publication",
+    "validity_basis": "80%阶段政策的执行截止日；到期隐藏此问答，基础提取规定仍单独检索。",
+    "required_markers": [
+      "65%",
+      "2027年10月31日"
+    ]
+  },
+  {
+    "source_id": "sz-gjj-extraction-rule",
+    "source_title": "深圳市住房公积金管理委员会关于印发《深圳市住房公积金提取管理规定》的通知",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/ztfw/zfgjj/zcfg/gfxwj/content/post_12533128.html",
+    "published_at": "2025-12-05",
+    "valid_until": null,
+    "topics": [
+      "公积金",
+      "多子女家庭",
+      "公共租赁住房",
+      "保障性租赁住房",
+      "租房提取",
+      "申请材料"
+    ],
+    "effective_from": "2025-12-15",
+    "applicability": "第11条多子女家庭为两个及以上子女，不应沿用已到期旧通知的“至少一个未成年”附加条件；按备案实际租金提取不超过申请当月全市住房公积金月最高缴存额。普通租房65%基准需结合另行有效的80%阶段政策，不可只读本条得出现期仍为65%的结论。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "实际月租金",
+      "2025年12月15日"
+    ]
+  },
+  {
+    "source_id": "sz-lease-online-guide",
+    "source_title": "深圳市住房和建设局房屋租赁合同网签备案操作指引",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/fwzlsb/LEAP/WQBA/hc_help.html",
+    "published_at": null,
+    "valid_until": null,
+    "topics": [
+      "租赁备案",
+      "网签合同",
+      "办理材料",
+      "产权核验",
+      "转租",
+      "合同变更"
+    ],
+    "effective_from": null,
+    "applicability": "本指引暂不受理委托情形，不能推广到企业为租赁一方的所有业务。抵押房产需按指引追加抵押合同和同意出租函。线下签约后线上备案的业务暂不支持线上变更或转租备案；秒批有产权核验及网签前提。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "租赁双方为自然人",
+      "秒批"
+    ]
+  },
+  {
+    "source_id": "sz-affordable-rental-rule",
+    "source_title": "深圳市保障性租赁住房管理办法",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyk/content/post_10691024.html",
+    "published_at": "2023-07-03",
+    "valid_until": null,
+    "topics": [
+      "保障性租赁住房",
+      "申请资格",
+      "政府配租",
+      "社会主体房源",
+      "租金标准",
+      "合同期限"
+    ],
+    "effective_from": "2023-08-01",
+    "applicability": "政府配租还须符合当批配租通告附加条件及不得重复享受住房保障等要求。社会房源位于福田、罗湖、南山时，核验这三区均无自有住房；其他区核验项目所在区，均涉及申请人、配偶和未成年子女，且不得正在租住保障性质住房；产业园区配套宿舍有条件豁免。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "百分之九十",
+      "2023年8月1日"
+    ]
+  },
+  {
+    "source_id": "cn-highrise-fire",
+    "source_title": "高层民用建筑消防安全管理规定",
+    "jurisdiction": "全国",
+    "source_url": "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202106/t20210625_389980.shtml",
+    "published_at": "2021-06-25",
+    "effective_from": "2021-08-01",
+    "valid_until": null,
+    "topics": [
+      "看房核验",
+      "消防安全",
+      "电动自行车",
+      "疏散通道"
+    ],
+    "required_markers": [
+      "第三十七条",
+      "疏散"
+    ],
+    "applicability": "适用于已建成且依法投入使用的高层民用建筑，不能直接推广全部条文到低层住宅。资料检索不代替现场消防检查。",
+    "source_kind": "official_publication"
+  },
+  {
+    "source_id": "cn-noise",
+    "source_title": "中华人民共和国噪声污染防治法",
+    "jurisdiction": "全国",
+    "source_url": "https://www.mee.gov.cn/ywgz/fgbz/fl/202112/t20211225_965275.shtml",
+    "published_at": "2021-12-25",
+    "effective_from": "2022-06-05",
+    "valid_until": null,
+    "topics": [
+      "噪音",
+      "装修",
+      "物业",
+      "投诉"
+    ],
+    "required_markers": [
+      "第六十六条",
+      "第七十条"
+    ],
+    "applicability": "当地具体作业时限、执法部门和现场测量需另核；不能仅凭录音或主观感受判断违法。",
+    "source_kind": "official_publication"
+  },
+  {
+    "source_id": "cn-broker-service",
+    "source_title": "关于规范房地产经纪服务的意见",
+    "jurisdiction": "全国",
+    "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/jjjzs/art/2023/art_54ae47e32a87445ba0aae5c4fa36709c.html",
+    "published_at": "2023-05-09",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "中介费",
+      "明码标价",
+      "隐私",
+      "服务清单"
+    ],
+    "required_markers": [
+      "明码标价",
+      "个人信息"
+    ],
+    "applicability": "针对房地产经纪服务；不据此认定任何具体收费必然违法或推定全国统一佣金上限。",
+    "source_kind": "official_publication"
+  },
+  {
+    "source_id": "cn-deposit-case",
+    "source_title": "房屋租赁案例：退租损耗与配合带看争议",
+    "jurisdiction": "全国",
+    "source_url": "https://www.court.gov.cn/zixun/xiangqing/365881.html",
+    "published_at": "2022-07-14",
+    "effective_from": null,
+    "valid_until": null,
+    "source_kind": "official_case_explainer",
+    "topics": [
+      "退租",
+      "押金",
+      "自然损耗",
+      "带看",
+      "维修"
+    ],
+    "required_markers": [
+      "裁判结果",
+      "押金"
+    ],
+    "applicability": "这是官方案例解读而非通用强制条款；具体结论受合同、证据和事实约束。"
+  },
+  {
+    "source_id": "sh-noise",
+    "source_title": "上海市社会生活噪声污染防治办法（2025年修正）",
+    "jurisdiction": "上海",
+    "source_url": "https://sthj.sh.gov.cn/hbzhywpt1013/hbzhywpt1043/20250703/be7ab6a3512c4e7a8a19e6365b929900.html",
+    "published_at": "2025-04-01",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "装修",
+      "噪音",
+      "作业时限",
+      "投诉"
+    ],
+    "required_markers": [
+      "2025",
+      "18时"
+    ],
+    "applicability": "仅适用于上海。双休日和法定节假日不能混为一谈，小区规约也需核查。",
+    "source_kind": "official_publication"
+  },
+  {
+    "source_id": "cn-gas-safety",
+    "source_title": "应急管理部冬季安全知识发布会：燃气与通风",
+    "jurisdiction": "全国",
+    "source_url": "https://www.mem.gov.cn/xw/xwfbh/2025n12y17xwfbh_6744/wzsl_4260/202512/t20251217_588934.shtml",
+    "published_at": "2025-12-17",
+    "effective_from": null,
+    "valid_until": null,
+    "source_kind": "official_safety_guidance",
+    "topics": [
+      "燃气",
+      "通风",
+      "热水器",
+      "一氧化碳"
+    ],
+    "required_markers": [
+      "直排式",
+      "热水器"
+    ],
+    "applicability": "用于入住前安全核验，不提供自行拆改、维修或医疗处置建议；发布会同时包含其他冬季安全话题。"
   }
 ]

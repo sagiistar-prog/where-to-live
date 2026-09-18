@@ -37,4 +37,18 @@ class PgStoreTests(unittest.TestCase):
         count=self.conn.execute('SELECT count(*) FROM evidence_kb.chunks WHERE corpus_id=%s',(self.corpus,)).fetchone()[0]
         self.assertEqual(count,0)
 
+    def test_expired_future_and_other_regions_are_removed_before_top_k(self):
+        variants=[('expired','2000-01-01',None,'北京'),('future',None,'2999-01-01','北京'),
+                  ('other',None,None,'深圳'),('eligible',None,None,'北京')]
+        self.index['chunks']=[{'chunk_id':key,'source_id':key,'text':'押金退还租赁合同',
+            'valid_until':end,'effective_from':start,'jurisdiction':region,'review_status':'fictional'}
+            for key,end,start,region in variants]
+        self.index['vectors']=[[1.,0.] for _ in variants]
+        ingest(self.conn,self.index)
+        class Encoder:
+            model_id='integration-fixture'
+            def encode(self,texts,query=False):return [[1.,0.]]
+        hits=retrieve(self.conn,self.corpus,'押金退还',Encoder(),top_k=1,jurisdiction='北京')
+        self.assertEqual([h['chunk_id'] for h in hits],['eligible'])
+
 if __name__=='__main__':unittest.main()

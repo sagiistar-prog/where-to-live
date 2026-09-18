@@ -3,180 +3,384 @@
     "source_id": "cn-rental",
     "source_title": "住房租赁条例",
     "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202508/t20250826_4184615.html",
-    "retrieved_at": "2026-09-18T01:29:45.406885+00:00",
+    "retrieved_at": "2026-09-18T05:16:45.373597+00:00",
     "jurisdiction": "全国",
     "text": "签约前核验出租人身份及合法出租权利。合同应写清押金金额、退还时间和可扣减情形。房产部门备案不收费；出租人未办理时，承租人可以办理。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "cn-civil",
     "source_title": "民法典租赁合同章",
     "source_url": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
-    "retrieved_at": "2026-09-18T01:29:47.541196+00:00",
+    "retrieved_at": "2026-09-18T05:16:48.356211+00:00",
     "jurisdiction": "全国",
     "text": "维修、转租、退租和租赁期限需要结合合同及民法典核对。正常使用造成的损耗，与因过错造成的损坏应分别处理。超过六个月的租赁应采用书面形式。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-rental",
     "source_title": "北京市住房租赁条例",
     "source_url": "https://www.beijing.gov.cn/zhengce/dfxfg/202208/t20220823_2797935.html",
-    "retrieved_at": "2026-09-18T01:29:45.485254+00:00",
+    "retrieved_at": "2026-09-18T05:16:45.433432+00:00",
     "jurisdiction": "北京",
     "text": "北京租赁住房应符合安全和居住要求，厨房、卫生间等非居住空间不得用于居住。住房租赁企业的押金、预付租金和退还期限存在专门规则，不能套用到所有个人房东交易。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-funds",
     "source_title": "北京市住房租赁押金托管和租金监管暂行办法",
     "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202408/t20240801_3764440.html",
-    "retrieved_at": "2026-09-18T01:29:55.924813+00:00",
+    "retrieved_at": "2026-09-18T05:16:55.809453+00:00",
     "jurisdiction": "北京",
     "text": "北京住房租赁企业收取的押金和符合监管条件的预收租金应按规定进入专用账户。用合同备案编号核验资金信息，保留缴款凭证。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-pay",
     "source_title": "押金托管和租金监管资金缴纳操作详解",
     "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413444/543423007/index.html",
-    "retrieved_at": "2026-09-18T01:29:55.916887+00:00",
+    "retrieved_at": "2026-09-18T05:16:56.185404+00:00",
     "jurisdiction": "北京",
     "text": "北京合同备案后，租押金系统生成需托管和监管的账单。可由承租人直缴，也可通过企业代缴；先核对备案合同及监管账户，勿仅凭聊天截图付款。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-balance",
     "source_title": "租押金余额查询操作详解",
     "source_url": "https://gjj.beijing.gov.cn/web/zwfw5/386727/543413441/543413442/543423029/index.html",
-    "retrieved_at": "2026-09-18T01:29:57.898896+00:00",
+    "retrieved_at": "2026-09-18T05:16:59.122388+00:00",
     "jurisdiction": "北京",
     "text": "北京承租人可通过资金中心网厅或京通查询名下备案合同的监管资金余额与明细。核对合同编号、企业名称和收支记录。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-faq",
     "source_title": "租金监管常见问题解答",
     "source_url": "https://gjj.beijing.gov.cn/web/gjjhd/1747335/543413473/543425903/index.html",
-    "retrieved_at": "2026-09-18T01:30:06.166792+00:00",
+    "retrieved_at": "2026-09-18T05:17:06.254521+00:00",
     "jurisdiction": "北京",
     "text": "北京租押金托管查询应以本人备案合同和官方系统为依据。向租赁企业支付前确认哪些款项纳入托管、哪些属于租金监管，并保留账单。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-contract",
     "source_title": "北京市住房租赁合同2023",
     "source_url": "https://scjgj.beijing.gov.cn/bsfw/bmfw/sfwbbm/shxfl/fw/202303/t20230316_2937800.html",
-    "retrieved_at": "2026-09-18T01:30:07.955371+00:00",
+    "retrieved_at": "2026-09-18T05:17:08.613506+00:00",
     "jurisdiction": "北京",
     "text": "北京租赁合同示范文本包含住房权属、租金押金、维修责任及交付验收内容。入住和退租时核对水电燃气表底数、设备状况和已结清费用。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-benefits",
     "source_title": "住房租赁合同备案公共服务",
     "source_url": "https://zjw.beijing.gov.cn/bjjs/fwzlfw84/wsczr/cjwd44/744029795/index.shtml",
-    "retrieved_at": "2026-09-18T01:30:08.337540+00:00",
+    "retrieved_at": "2026-09-18T05:17:10.663820+00:00",
     "jurisdiction": "北京",
     "text": "北京住房租赁合同备案信息可用于按条件申请公积金提取、积分及子女教育等公共服务。备案本身不代表自动取得相关资格，各事项仍有独立条件。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "bj-withdraw",
     "source_title": "租住商品住房提取住房公积金",
     "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/bjszfgjjtqzn/blzn/zftq/202306/t20230606_3124915.html",
-    "retrieved_at": "2026-09-18T01:30:16.579823+00:00",
+    "retrieved_at": "2026-09-18T05:17:17.064611+00:00",
     "jurisdiction": "北京",
     "text": "北京租住商品住房提取公积金需核对连续缴存时间、本人与配偶住房情况及租赁事实。特殊人群另有规定，应在官方办事页确认材料与办理渠道。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "sh-rental",
     "source_title": "上海市住房租赁条例",
     "source_url": "https://www.shanghai.gov.cn/bzxzlzfjbzcsjzc/20230418/8a0798aa5f444182a33065910f5b272c.html",
-    "retrieved_at": "2026-09-18T01:30:09.017768+00:00",
+    "retrieved_at": "2026-09-18T05:17:09.947879+00:00",
     "jurisdiction": "上海",
     "text": "上海租赁合同应约定房屋设备、交付日期、维修责任、租金押金以及水电燃气费用承担。出租人一般应在合同订立后三十日内办理备案。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "sh-platform",
     "source_title": "上海市住房租赁公共服务平台管理规定",
     "source_url": "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5",
-    "retrieved_at": "2026-09-18T01:30:10.314225+00:00",
+    "retrieved_at": "2026-09-18T05:17:11.010363+00:00",
     "jurisdiction": "上海",
     "text": "上海住房租赁公共服务平台提供机构备案、合同网签和信息查询等服务。通过官方入口核验企业及房屋信息，防止混淆商业平台与政府平台。",
     "content_kind": "authored_summary",
-    "valid_until": "2028-06-30"
+    "valid_until": "2028-06-30",
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "sh-withdraw",
     "source_title": "上海市住房公积金提取管理办法",
     "source_url": "https://www.shanghai.gov.cn/qyzfgjjsjzc/20240927/70392c98a8304968a46e8bb62b062f25.html",
-    "retrieved_at": "2026-09-18T01:30:10.709804+00:00",
+    "retrieved_at": "2026-09-18T05:17:11.511491+00:00",
     "jurisdiction": "上海",
     "text": "上海无房职工依法租住自住房，可按规定申请公积金租房提取。提取金额与材料应结合住房类型及最新办事规则确认，不能把公租房规则套用于所有房源。",
     "content_kind": "authored_summary",
-    "valid_until": "2028-03-31"
+    "valid_until": "2028-03-31",
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "gz-tips",
     "source_title": "广州市住房租赁温馨提示2026",
     "source_url": "https://zfcj.gz.gov.cn/zjdt/zjxw/content/mpost_10716254.html",
-    "retrieved_at": "2026-09-18T01:30:21.421062+00:00",
+    "retrieved_at": "2026-09-18T05:17:22.182690+00:00",
     "jurisdiction": "广州",
     "text": "广州租房先核验权属与出租授权，再实地查看安全、漏水和噪音。合同写明押金退还、水电燃气收费和违约责任。企业转租房屋注意监管账户与租金支付周期。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "gz-rental",
     "source_title": "广州市关于规范住房租赁市场的通知",
     "source_url": "https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2022/18/content/mpost_10640003.html",
-    "retrieved_at": "2026-09-18T01:30:21.658784+00:00",
+    "retrieved_at": "2026-09-18T05:17:23.038282+00:00",
     "jurisdiction": "广州",
     "text": "广州住房租赁从业主体经营非自有住房时，超过规定周期的预收租金、押金涉及资金监管。核对主体类型和合同约定，警惕明显低价及大额预付。",
     "content_kind": "authored_summary",
-    "valid_until": "2027-04-09"
+    "valid_until": "2027-04-09",
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "sz-funds",
     "source_title": "深圳市住房租赁资金监管通知及2025续期",
     "source_url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html",
-    "retrieved_at": "2026-09-18T01:39:59.014507+00:00",
+    "retrieved_at": "2026-09-18T05:17:28.524314+00:00",
     "jurisdiction": "深圳",
     "text": "深圳住房租赁资金监管通知已在2025年续期。适用交易应通过规定的监管安排管理资金，签约前要求企业书面说明预付风险及监管方式。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "cn-tax",
     "source_title": "住房租金专项附加扣除热点问答",
     "source_url": "https://shanghai.chinatax.gov.cn/zcfw/rdwd/202603/t479656.html",
-    "retrieved_at": "2026-09-18T01:30:31.379679+00:00",
+    "retrieved_at": "2026-09-18T05:17:32.350721+00:00",
     "jurisdiction": "全国",
     "text": "住房租金专项附加扣除与主要工作城市、本人及配偶住房情况有关。扣除标准按城市类别区分；同一年度的住房贷款利息与住房租金扣除不能同时享受。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
   },
   {
     "source_id": "cn-contract",
     "source_title": "城镇房屋租赁合同市场监管总局2025版",
     "source_url": "https://htsfwb.samr.gov.cn/View?id=2340996b-882d-47a4-b74d-c30784628737",
-    "retrieved_at": "2026-09-18T01:30:32.859930+00:00",
+    "retrieved_at": "2026-09-18T05:17:33.925321+00:00",
     "jurisdiction": "全国",
     "text": "国家市场监管总局2025版城镇房屋租赁合同提供签约、交付、租金押金、维修和解除等条款。逐项填写选择与补充内容，并保存双方签署的完整合同和验收记录。",
     "content_kind": "authored_summary",
-    "valid_until": null
+    "valid_until": null,
+    "published_at": null,
+    "effective_from": null
+  },
+  {
+    "source_id": "gz-gjj-extraction-rule",
+    "source_title": "广州住房公积金管理中心关于印发广州市住房公积金提取管理办法的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzzfgjjglzx/content/post_9443084.html",
+    "published_at": "2023-12-25",
+    "effective_from": "2024-01-01",
+    "valid_until": "2028-12-31",
+    "text": "广州缴存人及配偶、未成年子女在市内无自有住房并租房自住，连续足额缴存满三个月后可申请租房提取。办法区分已备案、未备案和公租房三种路径，通常每三个月提取一次，并规定已备案租金额度上限与多孩家庭未备案额度上浮。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:39.003007+00:00"
+  },
+  {
+    "source_id": "gz-lease-filing-guide",
+    "source_title": "广州市房屋交易监管中心关于发布办理房屋租赁登记备案和存量房屋交易房源信息编码指引的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zwgk/zsdwwj/content/mpost_9477082.html",
+    "published_at": "2024-02-02",
+    "effective_from": null,
+    "valid_until": null,
+    "text": "广州租赁备案可线上申请或到房屋所在地街道、镇办理。需双方身份证明、权属或合法来源材料及合同。办事指引列三个工作日；地方规定对材料符合要求的备案要求当场办理，两者应分别核对，具体受理时限向办理部门确认。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:43.635724+00:00"
+  },
+  {
+    "source_id": "gz-lease-management-rule",
+    "source_title": "广州市房屋租赁管理规定",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zwgk/zcfg/flfg/content/mpost_6866279.html",
+    "published_at": "2020-10-23",
+    "effective_from": "2020-12-01",
+    "valid_until": null,
+    "text": "广州租赁规定要求出租人出示身份和房屋权属等资料，房屋与附属设施符合安全要求，厨房、阳台等非居住空间不得单独出租住人。租赁双方应签书面合同并在三十日内备案；承租人须合理使用房屋，发现隐患应排除或告知出租人处理。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:44.103924+00:00"
+  },
+  {
+    "source_id": "gz-affordable-rental-rule",
+    "source_title": "广州市住房和城乡建设局关于印发广州市保障性租赁住房管理办法（暂行）的通知",
+    "jurisdiction": "广州",
+    "source_url": "https://zfcj.gz.gov.cn/zwgk/zcfg/flfg/content/mpost_10248415.html",
+    "published_at": "2025-02-19",
+    "effective_from": "2025-02-18",
+    "valid_until": "2028-02-17",
+    "text": "广州保租房分为政府性房源和市场性房源。政府房源申请家庭应在市内无自有住房、未享受规定的其他住房保障，申请人通常须缴纳本市养老保险；租金不高于同地段同品质市场租金九成。市场房源由运营单位出租，其租金应低于同类市场租金。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:49.219236+00:00"
+  },
+  {
+    "source_id": "sz-gjj-rent-calculation",
+    "source_title": "职工符合租房提取条件，2025年11月1日后办理申请普通租房提取时，可提取金额该如何计算？",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyw/ywzsk/content/post_12752515.html",
+    "published_at": "2026-04-24",
+    "effective_from": "2025-11-01",
+    "valid_until": "2027-10-31",
+    "text": "深圳住建局说明普通租房公积金提取按月份分段计算。二〇二五年十一月前的可提取月份按申请当月应缴存额的百分之六十五计算；二〇二五年十一月至二〇二七年十月期间按百分之八十计算，系统分别核算后合并可提取金额。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:54.332013+00:00"
+  },
+  {
+    "source_id": "sz-gjj-extraction-rule",
+    "source_title": "深圳市住房公积金管理委员会关于印发《深圳市住房公积金提取管理规定》的通知",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/ztfw/zfgjj/zcfg/gfxwj/content/post_12533128.html",
+    "published_at": "2025-12-05",
+    "effective_from": "2025-12-15",
+    "valid_until": null,
+    "text": "深圳新版公积金规定允许符合无房条件的多子女家庭按月应缴额全额提取，合同备案后可按实际租金提取但有上限。无房职工承租公租房或认定保租房可按实际租金提取；家庭同一期间须统一选择计算方式，按实租金提取合计不得超过实际房租。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:55.344257+00:00"
+  },
+  {
+    "source_id": "sz-lease-online-guide",
+    "source_title": "深圳市住房和建设局房屋租赁合同网签备案操作指引",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/fwzlsb/LEAP/WQBA/hc_help.html",
+    "published_at": null,
+    "effective_from": null,
+    "valid_until": null,
+    "text": "深圳网签备案指引适用于租赁双方均为自然人的业务，由出租方维护产权并发起合同或备案申请，其他出租方和承租方签字确认。线下合同备案需提交权属证明、双方身份资料和租赁合同；核验通过且已线上签约的产权可走备案秒批。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:17:59.899259+00:00"
+  },
+  {
+    "source_id": "sz-affordable-rental-rule",
+    "source_title": "深圳市保障性租赁住房管理办法",
+    "jurisdiction": "深圳",
+    "source_url": "https://zjj.sz.gov.cn/szszfhjsjwzgkml/szszfhjsjwzgkml/seztfw/zfly/wyk/content/post_10691024.html",
+    "published_at": "2023-07-03",
+    "effective_from": "2023-08-01",
+    "valid_until": null,
+    "text": "深圳保租房分政府组织配租和社会主体出租两类。政府配租有全市无房、三年内未转让住房、正常社保及人才条件等要求，租金按市场参考价六成确定；社会房源按项目所在区域核验无房情况，租金不高于市场参考价九成，单次合同通常不超过三年。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:05.580532+00:00"
+  },
+  {
+    "source_id": "cn-highrise-fire",
+    "source_title": "高层民用建筑消防安全管理规定",
+    "jurisdiction": "全国",
+    "source_url": "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202106/t20210625_389980.shtml",
+    "published_at": "2021-06-25",
+    "effective_from": "2021-08-01",
+    "valid_until": null,
+    "text": "看高层住宅时，核对疏散通道、安全出口和消防设施是否可用。规定禁止在公共门厅、疏散走道、楼梯间及安全出口停放电动自行车或充电。出租使用时，合同应明确各方消防责任；实际隐患由物业与消防等专业部门核验。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:06.603954+00:00"
+  },
+  {
+    "source_id": "cn-noise",
+    "source_title": "中华人民共和国噪声污染防治法",
+    "jurisdiction": "全国",
+    "source_url": "https://www.mee.gov.cn/ywgz/fgbz/fl/202112/t20211225_965275.shtml",
+    "published_at": "2021-12-25",
+    "effective_from": "2022-06-05",
+    "valid_until": null,
+    "text": "居住噪声需区分装修、邻里活动、商业设备与交通等来源。已交付建筑装修应遵守作业时限并采取降噪措施。物业、业委会等可劝阻调解社会生活噪声；无效时向负有职责的部门报告。国家法没有给所有城市统一的装修时段。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:11.452216+00:00"
+  },
+  {
+    "source_id": "cn-broker-service",
+    "source_title": "关于规范房地产经纪服务的意见",
+    "jurisdiction": "全国",
+    "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/jjjzs/art/2023/art_54ae47e32a87445ba0aae5c4fa36709c.html",
+    "published_at": "2023-05-09",
+    "effective_from": null,
+    "valid_until": null,
+    "text": "中介提供基本服务和额外服务时，应分别列明项目与收费标准，不得混合标价或捆绑收费；收费前需出具清单供当事人确认。服务费用由各方协商确定，并非全国统一比例。查询机构备案和从业人员信息，同时核对个人信息使用范围。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:16.160878+00:00"
+  },
+  {
+    "source_id": "cn-deposit-case",
+    "source_title": "房屋租赁案例：退租损耗与配合带看争议",
+    "jurisdiction": "全国",
+    "source_url": "https://www.court.gov.cn/zixun/xiangqing/365881.html",
+    "published_at": "2022-07-14",
+    "effective_from": null,
+    "valid_until": null,
+    "text": "最高法院发布的租赁案例讨论了正常损耗、押金和退租前带看争议。该案结合合同约定、使用情况和损坏证据处理维修及押金返还。案例有助于核对退租照片、交接记录和条款，但不能从单个案件推定自己必然获得相同判决。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:17.003353+00:00"
+  },
+  {
+    "source_id": "sh-noise",
+    "source_title": "上海市社会生活噪声污染防治办法（2025年修正）",
+    "jurisdiction": "上海",
+    "source_url": "https://sthj.sh.gov.cn/hbzhywpt1013/hbzhywpt1043/20250703/be7ab6a3512c4e7a8a19e6365b929900.html",
+    "published_at": "2025-04-01",
+    "effective_from": null,
+    "valid_until": null,
+    "text": "上海已交付住宅的噪声装修作业，受每日十八时至次日八时和法定节假日全天的限制，条文注明法定节假日不含双休日。其他时间也应采取降噪措施。发生社会生活噪声纠纷可先请求物业等调解，再按噪声类型向有职责的部门反映。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:12.577513+00:00"
+  },
+  {
+    "source_id": "cn-gas-safety",
+    "source_title": "应急管理部冬季安全知识发布会：燃气与通风",
+    "jurisdiction": "全国",
+    "source_url": "https://www.mem.gov.cn/xw/xwfbh/2025n12y17xwfbh_6744/wzsl_4260/202512/t20251217_588934.shtml",
+    "published_at": "2025-12-17",
+    "effective_from": null,
+    "valid_until": null,
+    "text": "应急管理部发布会提示，直排式热水器、排烟管安装不规范及通风不足可能带来一氧化碳风险。看房时应核对燃气器具类型、排烟设施和维护情况，要求由燃气公司等专业人员检查。不能仅凭外观或闻不到异味就认定安全。",
+    "content_kind": "authored_summary",
+    "retrieved_at": "2026-09-18T05:18:22.604877+00:00"
   }
 ]
