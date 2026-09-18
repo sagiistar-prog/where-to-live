@@ -17,6 +17,11 @@ def source(**changes):
 
 
 class SnapshotTests(unittest.TestCase):
+    def test_changed_extraction_scope_requires_review_even_for_same_text(self):
+        report = self.result(new=source(extract_section={'label':'Housing','start':'A','end':'B'}, section='Housing'))
+        self.assertEqual(report['summary']['metadata_changed'], 1)
+        self.assertTrue(report['sources'][0]['review_required'])
+
     def result(self, old=None, new=None, as_of='2026-09-18'):
         return compare({'fictional': old or source()}, {'fictional': new or source()}, date.fromisoformat(as_of))
 

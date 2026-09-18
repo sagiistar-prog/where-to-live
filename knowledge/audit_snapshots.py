@@ -11,7 +11,7 @@ from pipeline import clean, REQUIRED
 from source_policy import METADATA_FIELDS, source_eligible, validate_metadata
 
 REVIEW_FIELDS = ('source_title', 'source_url', 'jurisdiction', 'source_kind',
-                 'review_status', 'resolved_url', 'required_markers') + METADATA_FIELDS
+                 'review_status', 'resolved_url', 'required_markers', 'extract_section', 'section') + METADATA_FIELDS
 STATES = ('added', 'removed', 'content_changed', 'metadata_changed', 'response_only', 'unchanged')
 
 

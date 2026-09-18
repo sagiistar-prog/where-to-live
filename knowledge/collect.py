@@ -7,11 +7,22 @@ import json
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.parse import urlparse
-import trafilatura
 from pipeline import clean
 from source_policy import validate_metadata
 
+def select_section(text, section):
+    if not section:
+        return text
+    start_marker, end_marker = section['start'], section['end']
+    if text.count(start_marker) != 1 or text.count(end_marker) != 1:
+        raise ValueError('Section boundaries missing or ambiguous; review source before ingesting')
+    start, end = text.index(start_marker), text.index(end_marker)
+    if end <= start:
+        raise ValueError('Section boundaries reversed')
+    return text[start:end].strip()
+
 def collect(row):
+    import trafilatura
     url=row['source_url'];host=urlparse(url).hostname or ''
     if not host.endswith(('.gov.cn','.court.gov.cn')):raise ValueError('Only allowlisted public government hosts')
     try:
@@ -27,12 +38,13 @@ def collect(row):
             if start<0 or end<0:raise ValueError('Rental chapter not found')
             end=text.find('第七百三十五条',end)
             text=text[start:end]
-        text=clean(text)
+        text=select_section(clean(text), row.get('extract_section'))
         if any(marker not in text for marker in row.get('required_markers', [])):
             raise ValueError('Expected content missing; inspect pagination, attachments or extraction')
         doc={**row,'retrieved_at':datetime.now(timezone.utc).isoformat(),'text':text,
             'source_sha256':sha256(raw).hexdigest(),'language':'zh','review_status':'reviewed',
             'source_kind':row.get('source_kind','official_publication'),
+            **({'section':row['extract_section']['label']} if row.get('extract_section') else {}),
             'resolved_url':response.url}
         return doc,{**row,'status':'fetched','characters':len(text),'sha256':doc['source_sha256'],
             'review_scope':'source provenance checked; applicability must be checked for each case'}

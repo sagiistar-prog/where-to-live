@@ -17,7 +17,15 @@
       "applicability": {"type": "string", "minLength": 1},
       "source_kind": {"enum": ["official_publication", "official_case_explainer", "official_safety_guidance"]},
       "required_markers": {"type": "array", "items": {"type": "string", "minLength": 1}},
-      "validity_basis": {"type": "string", "minLength": 1}
+      "validity_basis": {"type": "string", "minLength": 1},
+      "extract_section": {
+        "type": "object", "required": ["label", "start", "end"], "additionalProperties": false,
+        "properties": {
+          "label": {"type": "string", "minLength": 1},
+          "start": {"type": "string", "minLength": 1},
+          "end": {"type": "string", "minLength": 1}
+        }
+      }
     },
     "additionalProperties": false
   }

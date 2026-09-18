@@ -15,6 +15,13 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(len({c['content_sha256'] for c in chunks}),len(chunks))
     def test_duplicate_source_rejected(self):
         with self.assertRaises(ValueError):prepare([self.doc(),self.doc()])
+    def test_chunk_offsets_point_to_exact_cleaned_text_after_trimming(self):
+        text=clean('A'*279+'\n  '+'B'*310+'\n  '+'C'*100)
+        chunks=prepare([self.doc(text=text, section='Selected housing section')])
+        self.assertTrue(any(c['char_start'] > 280 and c['char_start'] < 290 for c in chunks))
+        for chunk in chunks:
+            self.assertEqual(text[chunk['char_start']:chunk['char_end']],chunk['text'])
+            self.assertEqual(chunk['section'],'Selected housing section')
     def test_bm25_and_rrf(self):
         chunks=[self.doc(text='document retention deletion'),self.doc(text='tariff classification')]
         self.assertEqual(bm25('retention',chunks)[0][0],0)

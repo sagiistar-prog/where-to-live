@@ -13,6 +13,7 @@ const config = [
       ".next/**",
       "node_modules/**",
       "out/**",
+      "output/**",
       "dist/**",
       ".data/**",
       ".codex-screenshots/**",

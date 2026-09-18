@@ -1,0 +1,33 @@
+{
+  "scope": "Candidate collection before promotion; failure excludes source from shipped catalog",
+  "accepted": [
+    "cn-rent-tax-update",
+    "cn-utilities-fees",
+    "bj-residence-address-change",
+    "bj-residential-water-prices",
+    "sh-residential-water-prices",
+    "sh-utilities-large-household",
+    "gz-central-water-prices-2025",
+    "gz-rental-fire-responsibility",
+    "gz-water-price-explanation"
+  ],
+  "rejected": [
+    {
+      "source_id": "sz-water-sewage-prices-2025",
+      "url": "https://swj.sz.gov.cn/zwfw/bmxx/gs/ggssfsj/",
+      "reason": "URLError: <urlopen error [SSL: BAD_ECPOINT] bad ecpoint (_ssl.c:997)>"
+    },
+    {
+      "source_id": "sz-utilities-agent-charges",
+      "url": "https://www.szns.gov.cn/nsqhsj/gkmlpt/content/10/10922/post_10922872.html",
+      "reason": "URLError: <urlopen error [SSL: BAD_ECPOINT] bad ecpoint (_ssl.c:997)>"
+    }
+  ],
+  "limited_capture": [
+    {
+      "source_id": "gz-central-water-prices-2025",
+      "reason": "Price table is an image, no OCR. Index and summary only cover captured prose; consult official original for numbers.",
+      "supplement": "gz-water-price-explanation"
+    }
+  ]
+}

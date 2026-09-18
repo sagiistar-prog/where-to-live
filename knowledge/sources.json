@@ -880,5 +880,217 @@
       "申请绿色通道条件",
       "居住登记项目变更"
     ]
+  },
+  {
+    "source_id": "cn-rent-tax-update",
+    "source_title": "个税年度汇算近期热点问答：住房租金信息修改",
+    "source_url": "https://shanghai.chinatax.gov.cn/tax/zcfw/rdwd/202606/t480768.html",
+    "jurisdiction": "全国",
+    "published_at": "2026-06-26",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "换租",
+      "个税",
+      "扣除",
+      "信息变更"
+    ],
+    "applicability": "上海税务发布的全国个税办理问答，仅采集第一项住房租金问答。按真实租期更新信息，不虚构日期；扣除额不是退税额。",
+    "required_markers": [
+      "避免租赁期交叉",
+      "工作城市信息"
+    ],
+    "extract_section": {
+      "label": "第一项：住房租金专项附加扣除信息修改",
+      "start": "1.个税App中住房租金专项附加扣除如何新增和修改？",
+      "end": "2.我家孩子去年出生"
+    }
+  },
+  {
+    "source_id": "cn-utilities-fees",
+    "source_title": "关于清理规范城镇供水供电供气供暖行业收费的意见",
+    "source_url": "https://app.www.gov.cn/govdata/gov/202101/06/466733/article.html",
+    "jurisdiction": "全国",
+    "published_at": "2021-01-06",
+    "effective_from": "2021-03-01",
+    "valid_until": null,
+    "topics": [
+      "水电费",
+      "燃气",
+      "收费",
+      "物业"
+    ],
+    "applicability": "全国城镇水电气暖收费规则，具体销售价格和计量条件需查当地规定。不能据此把所有公寓直接认定为民用电，也不能把合理延伸服务一律视为免费。",
+    "required_markers": [
+      "任何单位或个人不得在水电气暖费用中加收其他费用",
+      "2021年3月1日起施行"
+    ]
+  },
+  {
+    "source_id": "bj-residence-address-change",
+    "source_title": "我的居住地址变了：北京市居住证地址变更指南",
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/jzz/blzn/201806/t20180622_1857736.html",
+    "jurisdiction": "北京",
+    "published_at": "2025-11-04",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "搬家",
+      "居住证",
+      "地址变更",
+      "办理材料"
+    ],
+    "applicability": "适用于有效期内的北京市居住证持有人在北京市内变更居住地址。不是首次申领或跨城市转移指南；租住居民住房与农村宅基地住房的证明材料不同，办理前再核对京通和属地窗口要求。",
+    "validity_basis": "页面正文标示2025-11-04更新；URL含201806不作为发布日期。办事指南未列单独生效或终止日期，页面存在归档图标，故提交材料前仍需核验当前服务要求。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "居住证在有效期内",
+      "办理变更手续不收取费用",
+      "8个工作日"
+    ]
+  },
+  {
+    "source_id": "bj-residential-water-prices",
+    "source_title": "北京市实用价格和缴费标准查询：居民、非居民水价",
+    "source_url": "https://www.beijing.gov.cn/fwcj/jiage/ggfw1/661ccdcc81e5641581784c4f.html",
+    "jurisdiction": "北京",
+    "published_at": null,
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "水费",
+      "生活成本",
+      "阶梯水价"
+    ],
+    "applicability": "先确认供水账户属于居民、非居民还是执行居民价格的非居民类别。居民价格按户年水量分档，不能直接当作单个合租人的月度额度，也不能将居民标准套用于全部商业公寓。",
+    "validity_basis": "公开查询页未列独立发布日期或生效日期，2026-09-18已通过web打开核对表格；不将搜索引擎推算时间填作政策日期。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "居民、非居民水价",
+      "户年用水量",
+      "保障性租赁住房用水"
+    ]
+  },
+  {
+    "source_id": "sh-residential-water-prices",
+    "source_title": "关于调整市属供排水企业服务区域居民用户水价的复函",
+    "source_url": "https://www.shanghai.gov.cn/gwk/search/content/1de7be7e5608458eaa4ba880ea435e94",
+    "jurisdiction": "上海",
+    "published_at": "2021-10-22",
+    "effective_from": "2021-11-01",
+    "valid_until": null,
+    "topics": [
+      "水费",
+      "生活成本",
+      "合表",
+      "阶梯水价"
+    ],
+    "applicability": "仅针对上海市属供排水企业服务区域的居民用户；区属供排水服务区域调整另按程序办理。应区分供水单价、污水处理费与综合水价；2021年剩余季度的过渡额度不能用于当前年度。",
+    "validity_basis": "页面列印发2021-10-21、发布2021-10-22；正文明确2021-11-01实施并从2022年按年度周期执行，未列终止日。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "市属供排水企业服务区域",
+      "4.05",
+      "居民合表用户暂不执行阶梯水价"
+    ]
+  },
+  {
+    "source_id": "sh-utilities-large-household",
+    "source_title": "上海市发展和改革委员会关于完善居民水、电、气阶梯价格一户多人口政策有关事项的通知",
+    "source_url": "https://www.shanghai.gov.cn/nw49248/20200920/15f042adfcdc48e29124235a8e6f7dc2_65665.html",
+    "jurisdiction": "上海",
+    "published_at": "2020-09-03",
+    "effective_from": "2020-09-01",
+    "valid_until": null,
+    "topics": [
+      "合租",
+      "水费",
+      "电费",
+      "燃气费",
+      "一户多人口"
+    ],
+    "applicability": "须持规定的本市居住证明且在同一住址共同生活，人数门槛满足后向供应企业申请；并非任何五人合租都自动享受。每位居民只能在一个住址办理，平均价格选择还需满足七人门槛。",
+    "validity_basis": "文末成文2020-07-31，页面发布2020-09-03，第四项明确2020-09-01执行；未列截止日期。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "累计人数满5人及以上",
+      "每位居民用户只能在一个住址申请办理",
+      "2020年9月1日起执行"
+    ]
+  },
+  {
+    "source_id": "gz-central-water-prices-2025",
+    "source_title": "广州市发展和改革委员会关于我市中心城区自来水价格改革有关问题的通知",
+    "source_url": "https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzsfzhggwyh/content/post_10242121.html",
+    "jurisdiction": "广州",
+    "published_at": "2025-04-27",
+    "effective_from": "2025-06-01",
+    "valid_until": "2030-06-01",
+    "topics": [
+      "水费",
+      "生活成本",
+      "合表",
+      "阶梯水价"
+    ],
+    "applicability": "仅适用于广州市自来水有限公司在中心城区列明的供水服务区域，不覆盖广州所有行政区及所有供应商。表格是自来水价格，不可声称已经涵盖账单上的污水处理费等其他项目。 价格表以图片发布，本次仅收录文字规定；未对图片做OCR，不能从本索引直接核对各档数值。",
+    "validity_basis": "文末2025-04-27；元数据实施日2025-06-01、失效日2030-06-01，正文第八项规定有效期五年。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "广州市中心城区供水服务区域内",
+      "合表水价",
+      "2025年6月1日起施行"
+    ]
+  },
+  {
+    "source_id": "gz-rental-fire-responsibility",
+    "source_title": "广州市消防规定：租赁房屋消防安全责任",
+    "source_url": "https://wglj.gz.gov.cn/ztmb/pagzjs/content/post_9445304.html",
+    "jurisdiction": "广州",
+    "published_at": "2024-01-17",
+    "effective_from": "2024-01-01",
+    "valid_until": null,
+    "topics": [
+      "住房安全",
+      "消防",
+      "隐患整改",
+      "出租人责任"
+    ],
+    "applicability": "适用于广州市行政区域。第十八条区分出租人、实际管理人和承租人的消防责任，十间或十五床等门槛针对特定集中出租情形，不可套用于每套普通住宅；该文件不能替代现场专业安全检查。",
+    "validity_basis": "页面发布2024-01-17；原文第四十一条明确2024-01-01施行。本目录仅抽取第十八条租赁房屋消防责任，未列终止日期。",
+    "source_kind": "official_publication",
+    "required_markers": [
+      "出租的房屋及其附属设施符合消防法律",
+      "火灾隐患无法消除",
+      "第十八条"
+    ],
+    "extract_section": {
+      "label": "第十八条：租赁房屋消防责任",
+      "start": "第十八条 用于生产",
+      "end": "第十九条 同一建筑物"
+    }
+  },
+  {
+    "source_id": "gz-water-price-explanation",
+    "source_title": "广州市中心城区自来水价格改革政策解读（2025年）",
+    "source_url": "https://fgw.gz.gov.cn/gkmlpt/content/10/10242/post_10242178.html",
+    "jurisdiction": "广州",
+    "published_at": "2025-04-29",
+    "effective_from": "2025-06-01",
+    "valid_until": "2030-06-01",
+    "topics": [
+      "水费",
+      "水价",
+      "生活成本",
+      "合表"
+    ],
+    "applicability": "广州发改委对2025年中心城区自来水价格改革的解读，限广州市自来水有限公司相应服务区域。价格为自来水价，不是含污水处理费的完整账单；原通知价格表图片未被文字抽取，这一解读提供可检索的价格文字。",
+    "validity_basis": "原通知对应实施2025-06-01、失效2030-06-01；解读页面发布2025-04-29。政策修订应同时重审原通知与此解读。",
+    "required_markers": [
+      "2.55元/立方米",
+      "3.82元/立方米",
+      "7.65元/立方米",
+      "合表水价2.80元/立方米",
+      "其他行政区"
+    ]
   }
 ]

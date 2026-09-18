@@ -10,10 +10,11 @@
   "knowledge_sources": "knowledge/sources.json",
   "knowledge_pipeline": "knowledge/pipeline.py",
   "knowledge_interface": "app/knowledge/page.tsx",
-  "knowledge_acceptance": "docs/housing-decision-knowledge.md",
+  "knowledge_acceptance": "docs/housing-moving-knowledge.md",
   "technical_audit": "docs/technical-audit-2026-09-18.md",
   "retrieval_evaluation": "docs/retrieval-evaluation.md",
   "model_regression_ci": ".github/workflows/knowledge-model.yml",
-  "public_source_validation": "docs/evaluation/housing-decisions-corpus.json",
+  "public_source_validation": "docs/evaluation/housing-moving-corpus.json",
+  "summary_regression": "scripts/evaluate-knowledge-summary.ts",
   "http_acceptance": "knowledge/accept_service.py"
 }

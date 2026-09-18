@@ -41,16 +41,18 @@ def prepare(documents):
         text = clean(doc['text'])
         # A short character bound is conservative for the 512-token BGE encoders.
         for offset in range(0, len(text), 280):
-            fragment = text[offset:offset + 320].strip()
+            window = text[offset:offset + 320]
+            fragment = window.strip()
             if not fragment: continue
+            start = offset + len(window) - len(window.lstrip())
             digest = sha256(fragment.encode()).hexdigest()
             # Preserve duplicate text from different sources for attribution.
             key = (doc['source_id'], digest)
             if key in seen and doc.get('source_kind') != 'private_book': continue
             seen.add(key)
             chunks.append({**{k:doc[k] for k in REQUIRED if k != 'text'},
-                'schema_version': 1, 'chunk_id': f"{doc['source_id']}:{offset}:{digest[:12]}",
-                'text': fragment, 'content_sha256': digest, 'char_start': offset,
+                'schema_version': 1, 'chunk_id': f"{doc['source_id']}:{start}:{digest[:12]}",
+                'text': fragment, 'content_sha256': digest, 'char_start': start, 'char_end': start + len(fragment),
                 'section': doc.get('section', ''), 'page': doc.get('page'),
                 'review_status': doc.get('review_status', 'pending'),
                 'language': doc.get('language', 'unknown'),
@@ -147,7 +149,7 @@ def build(documents,encoder):
     for chunk in chunks:validator.validate(chunk)
     return {'manifest': {'schema_version':1,'model_id':encoder.model_id,
         'dimension':encoder.dimension,'query_prefix':encoder.prefix,'normalized':True,
-        'chunker':'characters-320-overlap-40-v1','fastembed_version':importlib.metadata.version('fastembed'),
+        'chunker':'characters-320-overlap-40-exact-offset-v2','fastembed_version':importlib.metadata.version('fastembed'),
         'created_at':datetime.now(timezone.utc).isoformat(),
         'tokenizer_sha256':encoder.tokenizer_sha256,'max_tokens':encoder.max_tokens,
         'corpus_sha256':sha256(json.dumps(chunks,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},

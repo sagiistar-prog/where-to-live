@@ -14,6 +14,7 @@ jobs:
           python-version: '3.11'
       - run: npm ci
       - run: npm test
+      - run: node --import tsx scripts/evaluate-knowledge-summary.ts knowledge/evaluation/moving-cases.json output/evaluation/summary-ci.json 2026-09-18
       - run: npm run lint
       - run: npm run check:links
       - run: node scripts/verify-report-ledger.mjs

@@ -1,0 +1,72 @@
+{
+  "created_at": "2026-09-18T20:24:02.773Z",
+  "scope": "Production build, shipped summary mode. Not joined web-vector integration or full WCAG certification.",
+  "rows": [
+    {
+      "width": 1440,
+      "tasks": [
+        {
+          "city": "全国",
+          "source_id": "cn-rent-tax-update",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "city": "北京",
+          "source_id": "bj-residence-address-change",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "city": "上海",
+          "source_id": "sh-utilities-large-household",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "city": "广州",
+          "source_id": "gz-water-price-explanation",
+          "applicabilityVisible": true,
+          "officialLink": true
+        }
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "axeViolations": 0,
+      "unsupportedLiveDataHandled": true
+    },
+    {
+      "width": 390,
+      "tasks": [
+        {
+          "city": "全国",
+          "source_id": "cn-rent-tax-update",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "city": "北京",
+          "source_id": "bj-residence-address-change",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "city": "上海",
+          "source_id": "sh-utilities-large-household",
+          "applicabilityVisible": true,
+          "officialLink": true
+        },
+        {
+          "city": "广州",
+          "source_id": "gz-water-price-explanation",
+          "applicabilityVisible": true,
+          "officialLink": true
+        }
+      ],
+      "overflow": false,
+      "pageErrors": [],
+      "axeViolations": 0,
+      "unsupportedLiveDataHandled": true
+    }
+  ]
+}
