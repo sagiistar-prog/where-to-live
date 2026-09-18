@@ -1,0 +1,20 @@
+{
+  "source_count": 42,
+  "characters": 179065,
+  "chunk_count": 662,
+  "vectors_validated": 662,
+  "manifest": {
+    "schema_version": 1,
+    "model_id": "BAAI/bge-small-zh-v1.5",
+    "dimension": 512,
+    "query_prefix": "为这个句子生成表示以用于检索相关文章：",
+    "normalized": true,
+    "chunker": "characters-320-overlap-40-v1",
+    "fastembed_version": "0.7.4",
+    "created_at": "2026-09-18T15:01:14.107871+00:00",
+    "tokenizer_sha256": "550e43118ce3b4f6d6b041c053f064e08a308848c6d98438ccbb7e33f3657873",
+    "max_tokens": 512,
+    "corpus_sha256": "cf4493bf33849bca549a63190d9dfd54dc44e4ca74b56d8f6f876ef7cb8c320e"
+  },
+  "scope": "Fresh public HTML collection and real BGE inference. This iteration does not assert full website integration or production customer outcomes."
+}

@@ -48,6 +48,19 @@ test("temporary rates and future rules stay outside their effective window", () 
   }
 });
 
+test("verified commencement and extension dates bound the shipped summaries", () => {
+  const query = "深圳住房租赁资金监管续期";
+  assert.ok(searchHousingKnowledge(query, "深圳", new Date("2027-06-11"))
+    .some(r => r.source_id === "sz-funds"));
+  assert.ok(searchHousingKnowledge(query, "深圳", new Date("2027-06-12"))
+    .every(r => r.source_id !== "sz-funds"));
+  assert.ok(searchHousingKnowledge("北京押金托管", "北京", new Date("2024-09-30"))
+    .every(r => r.source_id !== "bj-funds"));
+  const applicable = searchHousingKnowledge("北京押金托管", "北京", new Date("2024-10-01"))
+    .find(r => r.source_id === "bj-funds");
+  assert.ok(applicable?.applicability?.includes("转租"));
+});
+
 test("purchase and dispute tasks return usable sources with applicability", () => {
   for (const [query, city, id] of [
     ["家庭第二套住房契税140平方米", "全国", "cn-purchase-deed-tax"],

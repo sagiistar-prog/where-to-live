@@ -48,7 +48,7 @@ class LifecycleTests(unittest.TestCase):
         for note in notes:
             validate_metadata(note)
             source=by_id[note['source_id']];validate_metadata(source)
-            for key in ('source_url','jurisdiction','effective_from','valid_until'):
+            for key in ('source_title','source_url','jurisdiction','published_at','effective_from','valid_until','applicability','validity_basis'):
                 self.assertEqual(note.get(key),source.get(key))
             self.assertNotIn('·',note['text'])
 

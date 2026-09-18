@@ -26,6 +26,21 @@ python -m venv .venv
 
 每条来源可记录发布日期、生效日期、有效期、主题及适用条件。日期未知就保留 null；法院案例和安全科普有独立类型，不能当作法规。默认摘要、JSON 检索与 pgvector 都在排序前排除已知失效或尚未生效的资料。有效期为空不等于永久有效，仍需检查主管部门更新。
 
+## 更新资料时先检查差异
+
+把重新采集的资料保存到新目录，再比较两次完整快照：
+
+```powershell
+.venv\Scripts\python knowledge/collect.py --output output/public-kb-next
+.venv\Scripts\python knowledge/audit_snapshots.py --before output/public-kb/documents.jsonl --after output/public-kb-next/documents.jsonl --output output/evaluation/source-diff.json --fail-on-review
+```
+
+报告区分新增、移除、正文变化、元数据变化和仅原始响应变化。来源有变化或已被已知有效期排除时，返回退出码 2，提示重审对应的摘要及适用条件；退出码 0 只表示未发现这些差异，不证明政策仍然有效。半份采集、重复来源、较旧快照或缺少哈希会报错。报告保存输入哈希，不修改旧快照、目录、摘要或运行中的索引。
+
+审阅报告后，修正 `sources.json` 和 `reference-notes.json`，在新文件中重建索引，完成检索评测后再决定是否切换服务。采集器不递归读取附件，例如深圳2025年续期页只包含续期正文，原通知的PDF需要另行阅读。不能把采集成功理解成附件也已入库。
+
+[维护记录](../docs/knowledge-maintenance.md)记录了8份核心文件的日期及适用条件修正，包含可复查的快照比较结果。
+
 清洗后按 320 字符切分，步长 280，保留 40 字符重叠和出处位置。每个片段由 `chunk.schema.json` 校验。默认不会覆盖已有索引：更新时使用新的索引文件名，验收后再切换服务。原始采集、模型缓存和向量索引均不提交 Git。
 
 ## PostgreSQL / pgvector

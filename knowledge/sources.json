@@ -5,14 +5,19 @@
     "jurisdiction": "全国",
     "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202508/t20250826_4184615.html",
     "valid_until": null,
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2025-09-15",
+    "published_at": "2025-07-21",
     "topics": [
       "合同",
       "押金",
       "备案"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "适用于城镇国有土地上的住房租赁。先区分个人出租、转租企业和经纪机构，各类主体的义务不同。",
+    "validity_basis": "页面发布日期字段为2025-07-21；国务院令落款为7月16日。第五十条明确2025-09-15施行，未列终止日期。",
+    "required_markers": [
+      "城镇国有土地上住房租赁活动",
+      "2025年9月15日起施行"
+    ]
   },
   {
     "source_id": "cn-civil",
@@ -36,14 +41,19 @@
     "jurisdiction": "北京",
     "source_url": "https://www.beijing.gov.cn/zhengce/dfxfg/202208/t20220823_2797935.html",
     "valid_until": null,
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2022-09-01",
+    "published_at": "2022-05-25",
     "topics": [
       "租赁安全",
       "押金",
       "备案"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "适用于北京行政区域内的住房租赁；城市公有房屋、公共租赁住房除外。租赁企业的专项要求不可直接套用于个人房东。",
+    "validity_basis": "人大公告落款为2022-05-25；公告及第七十五条明确2022-09-01施行。",
+    "required_markers": [
+      "公共租赁住房的租赁不适用本条例",
+      "2022年9月1日起施行"
+    ]
   },
   {
     "source_id": "bj-funds",
@@ -51,13 +61,18 @@
     "jurisdiction": "北京",
     "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202408/t20240801_3764440.html",
     "valid_until": null,
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2024-10-01",
+    "published_at": "2024-07-31",
     "topics": [
       "押金",
       "租金监管"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "针对在北京承租他人住房从事转租业务的住房租赁企业；个人房东直租不直接套用。保租房资金另有规定时从其规定。",
+    "validity_basis": "页面发布日期为2024-07-31，成文日期为7月29日；第二十二条明确2024-10-01施行。",
+    "required_markers": [
+      "承租他人住房从事转租业务",
+      "2024年10月1日起施行"
+    ]
   },
   {
     "source_id": "bj-pay",
@@ -149,14 +164,18 @@
     "jurisdiction": "上海",
     "source_url": "https://www.shanghai.gov.cn/bzxzlzfjbzcsjzc/20230418/8a0798aa5f444182a33065910f5b272c.html",
     "valid_until": null,
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2023-02-01",
+    "published_at": "2022-11-23",
     "topics": [
       "合同",
       "维修",
       "备案"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "适用于上海行政区域内的住房租赁。执行时区分一般出租与租赁经营，保障性住房等另有规定的事项需另行核对。",
+    "validity_basis": "人大公告与印发日期均为2022-11-23；公告及第六十六条明确2023-02-01施行。",
+    "required_markers": [
+      "2023年2月1日起施行"
+    ]
   },
   {
     "source_id": "sh-platform",
@@ -164,13 +183,18 @@
     "jurisdiction": "上海",
     "source_url": "https://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=230822190535YHMGuhyEABsga4mziu5",
     "valid_until": "2028-06-30",
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2023-09-01",
+    "published_at": "2023-08-10",
     "topics": [
       "备案",
       "企业核验"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "适用于上海住房租赁公共服务平台的机构备案、合同网签备案及服务。平台信息不保证具体房屋或交易安全。",
+    "validity_basis": "官方数据库公布日期为2023-08-10；第十三条规定2023-09-01施行，有效期至2028-06-30。",
+    "required_markers": [
+      "2023年9月1日起施行",
+      "2028年6月30日"
+    ]
   },
   {
     "source_id": "sh-withdraw",
@@ -178,13 +202,18 @@
     "jurisdiction": "上海",
     "source_url": "https://www.shanghai.gov.cn/qyzfgjjsjzc/20240927/70392c98a8304968a46e8bb62b062f25.html",
     "valid_until": "2028-03-31",
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2023-04-01",
+    "published_at": "2023-03-31",
     "topics": [
       "公积金",
       "租房提取"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "适用于上海公积金提取管理。租房提取需核对无房、自住等条件，具体额度和材料还需查询对应住房类型的最新办事规则。",
+    "validity_basis": "文件印发日期为2023-03-31；第五十条规定2023-04-01施行、有效期五年，目录据此按五周年前一日记录截止日2028-03-31。",
+    "required_markers": [
+      "2023年4月1日起施行",
+      "有效期五年"
+    ]
   },
   {
     "source_id": "gz-tips",
@@ -207,27 +236,36 @@
     "jurisdiction": "广州",
     "source_url": "https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2022/18/content/mpost_10640003.html",
     "valid_until": "2027-04-09",
-    "effective_from": null,
-    "published_at": null,
+    "effective_from": "2022-04-10",
+    "published_at": "2022-04-12",
     "topics": [
       "租金监管",
       "押金"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "针对广州住房租赁从业主体经营。非自有住房、预收租金周期和押金金额影响监管要求，人才公寓、公租房等另有规定时从其规定。",
+    "validity_basis": "页面发布日期2022-04-12；文件落款2022-04-10，第十项规定印发之日施行、有效期五年，目录据此记录2027-04-09为末日。",
+    "required_markers": [
+      "2022年4月10日",
+      "有效期5年"
+    ]
   },
   {
     "source_id": "sz-funds",
-    "source_title": "深圳市住房租赁资金监管通知及2025续期",
+    "source_title": "深圳市住房租赁资金监管通知续期（2025年）",
     "jurisdiction": "深圳",
     "source_url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html",
-    "valid_until": null,
+    "valid_until": "2027-06-11",
     "effective_from": null,
-    "published_at": null,
+    "published_at": "2025-05-25",
     "topics": [
       "租金监管",
       "政策续期"
     ],
-    "applicability": "核对原文适用主体、办理条件及最新修订；未知有效期不代表永久有效。"
+    "applicability": "本页仅证明深建规〔2021〕6号实体内容不变并续期至2027年6月11日。具体监管主体、金额和例外需另读原通知附件。",
+    "validity_basis": "2025-05-25续期通知正文明确有效期延续至2027-06-11；本页未收录原通知PDF正文，不据此生成具体监管义务。",
+    "required_markers": [
+      "有效期延续至2027年6月11日"
+    ]
   },
   {
     "source_id": "cn-tax",
