@@ -1,0 +1,613 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-18T03:46:26.583583+00:00",
+  "scope": "authored component regression set; not expert accuracy, user outcomes, or web E2E",
+  "top_k": 3,
+  "corpus_sha256": "d96ee5bc2c02aa5640cb6fc0ceaa985b07604dd57470f3db54671b0c04f74247",
+  "cases_sha256": "e84f5b21ea7172b10fc5003ad849e2d00e3092d0e0a7e5b75192f60e768ff3f9",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "dimension": 512,
+  "latency_scope": "sequential search including query embedding after model load; no web or database latency",
+  "metrics_scope": "source IDs labeled relevant; source hit does not prove passage relevance",
+  "results": {
+    "keyword": {
+      "summary": {
+        "cases": 8,
+        "retrieval_labeled_cases": 4,
+        "no_evidence_cases": 4,
+        "recall_at_k": 0.75,
+        "mrr_at_k": 0.75,
+        "hit_rate_at_k": 0.75,
+        "mean_source_precision": 0.625,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 9.821,
+        "latency_p95_ms": 58.102
+      },
+      "categories": {
+        "prospective": {
+          "cases": 8,
+          "retrieval_labeled_cases": 4,
+          "no_evidence_cases": 4,
+          "recall_at_k": 0.75,
+          "mrr_at_k": 0.75,
+          "hit_rate_at_k": 0.75,
+          "mean_source_precision": 0.625,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 9.821,
+          "latency_p95_ms": 58.102
+        }
+      },
+      "cases": [
+        {
+          "id": "prospective-01",
+          "category": "prospective",
+          "query": "帮我查今天北京小区的房源",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.699
+        },
+        {
+          "id": "prospective-02",
+          "category": "prospective",
+          "query": "明年上海租金一定上涨吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.484
+        },
+        {
+          "id": "prospective-03",
+          "category": "prospective",
+          "query": "未提供合同情况下判断协议有效吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.401
+        },
+        {
+          "id": "prospective-04",
+          "category": "prospective",
+          "query": "广州周末几点日落",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.583
+        },
+        {
+          "id": "prospective-05",
+          "category": "prospective",
+          "query": "房屋维修是谁的责任",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 21.416
+        },
+        {
+          "id": "prospective-06",
+          "category": "prospective",
+          "query": "租金监管账户余额明细怎么查",
+          "relevant_sources": [
+            "bj-balance"
+          ],
+          "retrieved_sources": [
+            "bj-faq",
+            "bj-faq",
+            "bj-faq"
+          ],
+          "recall_at_k": 0.0,
+          "reciprocal_rank": 0.0,
+          "hit_at_k": false,
+          "source_precision": 0.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 58.102
+        },
+        {
+          "id": "prospective-07",
+          "category": "prospective",
+          "query": "租房个人所得税扣除",
+          "relevant_sources": [
+            "cn-tax"
+          ],
+          "retrieved_sources": [
+            "cn-tax",
+            "cn-tax",
+            "cn-tax"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 18.943
+        },
+        {
+          "id": "prospective-08",
+          "category": "prospective",
+          "query": "住房租赁平台如何备案",
+          "relevant_sources": [
+            "sh-platform"
+          ],
+          "retrieved_sources": [
+            "sh-platform",
+            "sh-platform",
+            "sh-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 44.497
+        }
+      ]
+    },
+    "dense": {
+      "summary": {
+        "cases": 8,
+        "retrieval_labeled_cases": 4,
+        "no_evidence_cases": 4,
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.625,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 16.474,
+        "latency_p95_ms": 87.627
+      },
+      "categories": {
+        "prospective": {
+          "cases": 8,
+          "retrieval_labeled_cases": 4,
+          "no_evidence_cases": 4,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.625,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 16.474,
+          "latency_p95_ms": 87.627
+        }
+      },
+      "cases": [
+        {
+          "id": "prospective-01",
+          "category": "prospective",
+          "query": "帮我查今天北京小区的房源",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.014
+        },
+        {
+          "id": "prospective-02",
+          "category": "prospective",
+          "query": "明年上海租金一定上涨吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        },
+        {
+          "id": "prospective-03",
+          "category": "prospective",
+          "query": "未提供合同情况下判断协议有效吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.009
+        },
+        {
+          "id": "prospective-04",
+          "category": "prospective",
+          "query": "广州周末几点日落",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.009
+        },
+        {
+          "id": "prospective-05",
+          "category": "prospective",
+          "query": "房屋维修是谁的责任",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 32.933
+        },
+        {
+          "id": "prospective-06",
+          "category": "prospective",
+          "query": "租金监管账户余额明细怎么查",
+          "relevant_sources": [
+            "bj-balance"
+          ],
+          "retrieved_sources": [
+            "bj-balance",
+            "bj-faq",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 87.627
+        },
+        {
+          "id": "prospective-07",
+          "category": "prospective",
+          "query": "租房个人所得税扣除",
+          "relevant_sources": [
+            "cn-tax"
+          ],
+          "retrieved_sources": [
+            "cn-tax",
+            "cn-tax",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 33.615
+        },
+        {
+          "id": "prospective-08",
+          "category": "prospective",
+          "query": "住房租赁平台如何备案",
+          "relevant_sources": [
+            "sh-platform"
+          ],
+          "retrieved_sources": [
+            "sh-platform",
+            "sh-platform",
+            "sh-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 84.204
+        }
+      ]
+    },
+    "hybrid": {
+      "summary": {
+        "cases": 8,
+        "retrieval_labeled_cases": 4,
+        "no_evidence_cases": 4,
+        "recall_at_k": 1.0,
+        "mrr_at_k": 0.833333,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.625,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 22.79,
+        "latency_p95_ms": 77.653
+      },
+      "categories": {
+        "prospective": {
+          "cases": 8,
+          "retrieval_labeled_cases": 4,
+          "no_evidence_cases": 4,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 0.833333,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.625,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 22.79,
+          "latency_p95_ms": 77.653
+        }
+      },
+      "cases": [
+        {
+          "id": "prospective-01",
+          "category": "prospective",
+          "query": "帮我查今天北京小区的房源",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.022
+        },
+        {
+          "id": "prospective-02",
+          "category": "prospective",
+          "query": "明年上海租金一定上涨吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.012
+        },
+        {
+          "id": "prospective-03",
+          "category": "prospective",
+          "query": "未提供合同情况下判断协议有效吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.018
+        },
+        {
+          "id": "prospective-04",
+          "category": "prospective",
+          "query": "广州周末几点日落",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.016
+        },
+        {
+          "id": "prospective-05",
+          "category": "prospective",
+          "query": "房屋维修是谁的责任",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 45.765
+        },
+        {
+          "id": "prospective-06",
+          "category": "prospective",
+          "query": "租金监管账户余额明细怎么查",
+          "relevant_sources": [
+            "bj-balance"
+          ],
+          "retrieved_sources": [
+            "bj-faq",
+            "bj-faq",
+            "bj-balance"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 76.661
+        },
+        {
+          "id": "prospective-07",
+          "category": "prospective",
+          "query": "租房个人所得税扣除",
+          "relevant_sources": [
+            "cn-tax"
+          ],
+          "retrieved_sources": [
+            "cn-tax",
+            "cn-tax",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 45.559
+        },
+        {
+          "id": "prospective-08",
+          "category": "prospective",
+          "query": "住房租赁平台如何备案",
+          "relevant_sources": [
+            "sh-platform"
+          ],
+          "retrieved_sources": [
+            "sh-platform",
+            "sh-platform",
+            "sh-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 77.653
+        }
+      ]
+    }
+  }
+}

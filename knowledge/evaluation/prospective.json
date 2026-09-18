@@ -1,0 +1,83 @@
+[
+  {
+    "id": "prospective-01",
+    "query": "帮我查今天北京小区的房源",
+    "jurisdiction": "北京",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-02",
+    "query": "明年上海租金一定上涨吗",
+    "jurisdiction": "上海",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-03",
+    "query": "未提供合同情况下判断协议有效吗",
+    "jurisdiction": "深圳",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-04",
+    "query": "广州周末几点日落",
+    "jurisdiction": "广州",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-05",
+    "query": "房屋维修是谁的责任",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-civil",
+      "cn-contract"
+    ],
+    "expect_evidence": true,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-06",
+    "query": "租金监管账户余额明细怎么查",
+    "jurisdiction": "北京",
+    "relevant_sources": [
+      "bj-balance"
+    ],
+    "expect_evidence": true,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-07",
+    "query": "租房个人所得税扣除",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "cn-tax"
+    ],
+    "expect_evidence": true,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  },
+  {
+    "id": "prospective-08",
+    "query": "住房租赁平台如何备案",
+    "jurisdiction": "上海",
+    "relevant_sources": [
+      "sh-platform"
+    ],
+    "expect_evidence": true,
+    "category": "prospective",
+    "label_basis": "Separate authored probes written after initial revision; not an independent benchmark"
+  }
+]

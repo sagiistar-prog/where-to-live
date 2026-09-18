@@ -11,5 +11,7 @@
   "knowledge_pipeline": "knowledge/pipeline.py",
   "knowledge_interface": "app/knowledge/page.tsx",
   "knowledge_acceptance": "docs/knowledge-acceptance.json",
-  "technical_audit": "docs/technical-audit-2026-09-18.md"
+  "technical_audit": "docs/technical-audit-2026-09-18.md",
+  "retrieval_evaluation": "docs/retrieval-evaluation.md",
+  "model_regression_ci": ".github/workflows/knowledge-model.yml"
 }

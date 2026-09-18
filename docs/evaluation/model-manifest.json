@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "model_id": "BAAI/bge-small-zh-v1.5",
+  "dimension": 512,
+  "query_prefix": "为这个句子生成表示以用于检索相关文章：",
+  "normalized": true,
+  "chunker": "characters-320-overlap-40-v1",
+  "fastembed_version": "0.7.4",
+  "created_at": "2026-09-18T03:55:11.282986+00:00",
+  "tokenizer_sha256": "550e43118ce3b4f6d6b041c053f064e08a308848c6d98438ccbb7e33f3657873",
+  "max_tokens": 512,
+  "corpus_sha256": "999048d8e3ed9f4291ae5146118294814078ef97f3cf901c12cd2416eafa2f13"
+}

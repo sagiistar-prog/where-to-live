@@ -1,0 +1,26 @@
+[
+  {
+    "storage": "postgres-pgvector",
+    "count": 5,
+    "scope_boundary": null,
+    "query": "房东说明年涨价，合同应该怎么约定？"
+  },
+  {
+    "storage": "postgres-pgvector",
+    "count": 5,
+    "scope_boundary": null,
+    "query": "未提供合同就要求交押金，需要先核对什么？"
+  },
+  {
+    "storage": "postgres-pgvector",
+    "count": 0,
+    "scope_boundary": "price_prediction",
+    "query": "明年房屋会升值吗"
+  },
+  {
+    "storage": "postgres-pgvector",
+    "count": 0,
+    "scope_boundary": "unseen_document",
+    "query": "未上传协议可以判断有效吗"
+  }
+]

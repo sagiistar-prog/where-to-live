@@ -1,0 +1,93 @@
+{
+  "long_query_code": "QUERY_TOO_LONG",
+  "health": {
+    "status": "ready",
+    "model": "BAAI/bge-small-zh-v1.5",
+    "chunks": 283,
+    "storage": "postgres-pgvector",
+    "sources": 18
+  },
+  "long_query_status": 400,
+  "scope": "standalone local service, real model and pgvector; not web end-to-end",
+  "live_price_evidence_count": 0,
+  "city_checks": [
+    {
+      "sources": [
+        "cn-contract",
+        "cn-contract",
+        "cn-rental",
+        "cn-rental",
+        "cn-civil"
+      ],
+      "city": "全国",
+      "evidence_count": 5,
+      "jurisdictions": [
+        "全国"
+      ],
+      "storage": "postgres-pgvector"
+    },
+    {
+      "sources": [
+        "bj-funds",
+        "bj-funds",
+        "bj-faq",
+        "cn-contract",
+        "bj-faq"
+      ],
+      "city": "北京",
+      "evidence_count": 5,
+      "jurisdictions": [
+        "北京",
+        "全国"
+      ],
+      "storage": "postgres-pgvector"
+    },
+    {
+      "sources": [
+        "cn-contract",
+        "cn-contract",
+        "cn-rental",
+        "sh-rental",
+        "sh-rental"
+      ],
+      "city": "上海",
+      "evidence_count": 5,
+      "jurisdictions": [
+        "全国",
+        "上海"
+      ],
+      "storage": "postgres-pgvector"
+    },
+    {
+      "sources": [
+        "gz-rental",
+        "cn-contract",
+        "cn-contract",
+        "cn-rental",
+        "gz-tips"
+      ],
+      "city": "广州",
+      "evidence_count": 5,
+      "jurisdictions": [
+        "广州",
+        "全国"
+      ],
+      "storage": "postgres-pgvector"
+    },
+    {
+      "sources": [
+        "cn-contract",
+        "cn-contract",
+        "cn-rental",
+        "cn-rental",
+        "cn-civil"
+      ],
+      "city": "深圳",
+      "evidence_count": 5,
+      "jurisdictions": [
+        "全国"
+      ],
+      "storage": "postgres-pgvector"
+    }
+  ]
+}

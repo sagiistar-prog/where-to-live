@@ -10,13 +10,14 @@ import math
 from pathlib import Path
 import re
 import unicodedata
+from query_policy import query_boundary
 
 MODELS = {
     'zh': ('BAAI/bge-small-zh-v1.5', 512, '为这个句子生成表示以用于检索相关文章：'),
     'en': ('BAAI/bge-small-en-v1.5', 384, 'Represent this sentence for searching relevant passages: '),
 }
 REQUIRED = ('source_id', 'source_title', 'source_url', 'retrieved_at', 'text')
-STOP = set('the a an is are of to for and in what does do this that with be on'.split())
+STOP = set('the a an is are of to for and in what does do this that with be on 工作 可以 怎么 如何 什么 是否 有没有 知道 北京 上海 广州 深圳 全国 具体 哪些'.split())
 
 def clean(text):
     """Preserve numbers, negation, paragraphs, tables, and meaningful indentation."""
@@ -60,7 +61,7 @@ def tokens(text):
     words = [w for w in re.findall(r'[a-z0-9]+', text.lower()) if w not in STOP]
     for run in re.findall(r'[\u4e00-\u9fff]+', text):
         words.extend(run[i:i+2] for i in range(max(1, len(run)-1)))
-    return words
+    return [word for word in words if word not in STOP]
 
 def bm25(query, chunks):
     terms = set(tokens(query)); counts = [Counter(tokens(c['text'])) for c in chunks]
@@ -77,19 +78,53 @@ def bm25(query, chunks):
         if score > 0: scores.append((i,score))
     return sorted(scores,key=lambda x:(-x[1],x[0]))
 
-def fuse(*rankings, k=60):
+def fuse(*rankings, k=60, weights=None):
     scores = {}
-    for ranking in rankings:
-        for rank,(i,_) in enumerate(ranking,1): scores[i] = scores.get(i,0) + 1/(k+rank)
+    weights = weights or [1.0] * len(rankings)
+    if len(weights) != len(rankings) or any(not math.isfinite(w) or w <= 0 for w in weights):
+        raise ValueError("Fusion weights must be finite and positive")
+    for ranking, weight in zip(rankings, weights):
+        for rank,(i,_) in enumerate(ranking,1): scores[i] = scores.get(i,0) + weight/(k+rank)
     return sorted(scores.items(),key=lambda x:(-x[1],x[0]))
+
+def diverse_results(ranking, records, top_k, max_per_source=2):
+    selected, counts = [], Counter()
+    for key, score in ranking:
+        source = records[key].get('source_id', records[key].get('chunk_id', str(key)))
+        if counts[source] >= max_per_source:continue
+        selected.append((key, score)); counts[source] += 1
+        if len(selected) >= top_k:break
+    return selected
+
+class TokenLimitExceeded(ValueError):
+    """The full input cannot be encoded without losing content."""
+
 
 class Encoder:
     def __init__(self, language, cache_dir=None):
         from fastembed import TextEmbedding
         self.model_id,self.dimension,self.prefix = MODELS[language]
         self.model = TextEmbedding(model_name=self.model_id,cache_dir=cache_dir,threads=2)
+        from tokenizers import Tokenizer
+        tokenizer = getattr(self.model.model, 'tokenizer', None)
+        if tokenizer is None or not tokenizer.truncation:
+            raise ValueError('Pinned FastEmbed tokenizer contract unavailable')
+        self.max_tokens = min(512, tokenizer.truncation['max_length'])
+        self.tokenizer = Tokenizer.from_str(tokenizer.to_str())
+        self.tokenizer.no_truncation()
+        self.tokenizer.no_padding()
+        self.tokenizer_sha256 = sha256(self.tokenizer.to_str().encode()).hexdigest()
+
+    def token_counts(self, texts, query=False):
+        prepared = [self.prefix+t if query else t for t in texts]
+        counts = [len(row.ids) for row in self.tokenizer.encode_batch(prepared)]
+        if any(count > self.max_tokens for count in counts):
+            raise TokenLimitExceeded(f'Input exceeds the {self.max_tokens}-token model limit; shorten the query or split the source')
+        return counts
+
 
     def encode(self,texts,query=False):
+        self.token_counts(texts,query=query)
         prepared = [self.prefix+t if query else t for t in texts]
         result=[]
         for raw in self.model.embed(prepared):
@@ -111,11 +146,14 @@ def build(documents,encoder):
         'dimension':encoder.dimension,'query_prefix':encoder.prefix,'normalized':True,
         'chunker':'characters-320-overlap-40-v1','fastembed_version':importlib.metadata.version('fastembed'),
         'created_at':datetime.now(timezone.utc).isoformat(),
+        'tokenizer_sha256':encoder.tokenizer_sha256,'max_tokens':encoder.max_tokens,
         'corpus_sha256':sha256(json.dumps(chunks,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},
         'chunks':chunks,'vectors':encoder.encode([c['text'] for c in chunks])}
 
 def search(index,query,encoder,top_k=5,mode='hybrid'):
     if not query.strip() or len(query)>1000: raise ValueError('Query must contain 1 to 1000 characters')
+    if query_boundary(query):return []
+    if mode not in ('keyword','dense','hybrid') or not 1 <= top_k <= 20:raise ValueError('Invalid retrieval options')
     m=index['manifest']
     if (m['model_id'],m['dimension'],m['query_prefix']) != (encoder.model_id,encoder.dimension,encoder.prefix):
         raise ValueError('Index and query model differ. Rebuild the index.')
@@ -124,18 +162,22 @@ def search(index,query,encoder,top_k=5,mode='hybrid'):
     if any(len(v)!=encoder.dimension or not all(math.isfinite(x) for x in v) for v in vectors):
         raise ValueError('Corrupt vector index')
     keyword=bm25(query,chunks)
+    if mode=='keyword':
+        return [{**chunks[i], 'rrf_score':None,'keyword_score':score,
+            'cosine_similarity':None,'retrieval_method':mode,'requires_review':True} for i,score in keyword[:top_k]]
     q=encoder.encode([query],query=True)[0]
     dense=sorted([(i,sum(a*b for a,b in zip(q,v))) for i,v in enumerate(vectors)],key=lambda x:-x[1])
-    candidates=fuse(keyword[:20],dense[:20]) if mode=='hybrid' else keyword if mode=='keyword' else dense
+    candidates=fuse(keyword[:20],dense[:20],weights=(2,1)) if mode=='hybrid' else keyword if mode=='keyword' else dense
     lexical=dict(keyword); semantic=dict(dense)
     # Scores are ranking signals, never a probability that a claim is true.
     return [{**chunks[i], 'rrf_score':score if mode=='hybrid' else None,
         'keyword_score':lexical.get(i,0),'cosine_similarity':semantic[i],
-        'retrieval_method':mode,'requires_review':True} for i,score in candidates[:top_k]]
+        'retrieval_method':mode,'requires_review':True} for i,score in diverse_results(candidates,chunks,top_k)]
 
 def evidence_answer(query,hits,max_words=80):
     # A nearest vector always exists. Do not convert that fact into an answer.
-    supported=[h for h in hits if h['keyword_score']>0 and h['review_status'] in ('reviewed','fictional')]
+    boundary=query_boundary(query)
+    supported=[] if boundary else [h for h in hits if h['keyword_score']>0 and h['review_status'] in ('reviewed','fictional')]
     used={}; evidence=[]
     for h in supported:
         remaining=max_words-used.get(h['source_id'],0)
@@ -146,7 +188,8 @@ def evidence_answer(query,hits,max_words=80):
     return {'query':query,'answer_status':'evidence_found' if evidence else 'insufficient_evidence',
         'answer_mode':'extractive','evidence':evidence,'candidates':hits,
         'manual_review_required':True,'confidence':'unrated',
-        'next_step':'核对原文及适用条件。' if evidence else '请补充相关资料或更具体的问题。'}
+        'scope_boundary':boundary['code'] if boundary else None,
+        'next_step':boundary['message'] if boundary else ('核对原文及适用条件。' if evidence else '请补充相关资料或更具体的问题。')}
 
 def main():
     p=argparse.ArgumentParser()

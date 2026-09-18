@@ -1,0 +1,42 @@
+[
+  {
+    "device": "desktop",
+    "resultCount": 5,
+    "boundary": "暂未找到对应资料\n\n当前资料是租赁规则，未接入实时房源和成交数据。请先核对房源平台或官方统计。",
+    "allowedQuestions": [
+      {
+        "question": "房东说明年涨价，合同应该怎么约定？",
+        "count": 5
+      },
+      {
+        "question": "未提供合同就要求交押金，需要先核对什么？",
+        "count": 5
+      }
+    ],
+    "overflow": false,
+    "axeViolations": 0,
+    "keyboardSubmit": true,
+    "simulatedLengthErrorRetainsInput": true,
+    "pageErrors": []
+  },
+  {
+    "device": "mobile",
+    "resultCount": 5,
+    "boundary": "暂未找到对应资料\n\n当前资料是租赁规则，未接入实时房源和成交数据。请先核对房源平台或官方统计。",
+    "allowedQuestions": [
+      {
+        "question": "房东说明年涨价，合同应该怎么约定？",
+        "count": 5
+      },
+      {
+        "question": "未提供合同就要求交押金，需要先核对什么？",
+        "count": 5
+      }
+    ],
+    "overflow": false,
+    "axeViolations": 0,
+    "keyboardSubmit": true,
+    "simulatedLengthErrorRetainsInput": true,
+    "pageErrors": []
+  }
+]

@@ -1,0 +1,508 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-18T03:56:24.713774+00:00",
+  "scope": "authored component regression set; not expert accuracy, user outcomes, or web E2E",
+  "top_k": 3,
+  "corpus_sha256": "999048d8e3ed9f4291ae5146118294814078ef97f3cf901c12cd2416eafa2f13",
+  "cases_sha256": "a4fbdc32d9dbf3201b5356ff9dfe228bb5cebd43b07daa1de1470deb34187070",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "dimension": 512,
+  "latency_scope": "model loaded; dense/hybrid include query inference, keyword does not; no web/database latency or hardware isolation",
+  "metrics_scope": "source IDs labeled relevant; source hit does not prove passage relevance",
+  "results": {
+    "keyword": {
+      "summary": {
+        "cases": 6,
+        "retrieval_labeled_cases": 3,
+        "no_evidence_cases": 3,
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.666667,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 0.139,
+        "latency_p95_ms": 3.466
+      },
+      "categories": {
+        "fictional_ci": {
+          "cases": 6,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 3,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.666667,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.139,
+          "latency_p95_ms": 3.466
+        }
+      },
+      "cases": [
+        {
+          "id": "ci-0",
+          "category": "fictional_ci",
+          "query": "押金退还条件在哪里约定",
+          "relevant_sources": [
+            "deposit"
+          ],
+          "retrieved_sources": [
+            "deposit",
+            "repair"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "repair"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 3.466
+        },
+        {
+          "id": "ci-1",
+          "category": "fictional_ci",
+          "query": "房屋维修责任怎么核对",
+          "relevant_sources": [
+            "repair"
+          ],
+          "retrieved_sources": [
+            "repair",
+            "fund"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "fund"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.264
+        },
+        {
+          "id": "ci-2",
+          "category": "fictional_ci",
+          "query": "公积金提取材料",
+          "relevant_sources": [
+            "fund"
+          ],
+          "retrieved_sources": [
+            "fund"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.313
+        },
+        {
+          "id": "ci-3",
+          "category": "fictional_ci",
+          "query": "今天北京小区成交均价",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.014
+        },
+        {
+          "id": "ci-4",
+          "category": "fictional_ci",
+          "query": "明年房屋一定涨价吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        },
+        {
+          "id": "ci-5",
+          "category": "fictional_ci",
+          "query": "量子推进器",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        }
+      ]
+    },
+    "dense": {
+      "summary": {
+        "cases": 6,
+        "retrieval_labeled_cases": 3,
+        "no_evidence_cases": 3,
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.333333,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 6.262,
+        "latency_p95_ms": 16.135
+      },
+      "categories": {
+        "fictional_ci": {
+          "cases": 6,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 3,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.333333,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 6.262,
+          "latency_p95_ms": 16.135
+        }
+      },
+      "cases": [
+        {
+          "id": "ci-0",
+          "category": "fictional_ci",
+          "query": "押金退还条件在哪里约定",
+          "relevant_sources": [
+            "deposit"
+          ],
+          "retrieved_sources": [
+            "deposit",
+            "repair",
+            "fund"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "repair"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 14.994
+        },
+        {
+          "id": "ci-1",
+          "category": "fictional_ci",
+          "query": "房屋维修责任怎么核对",
+          "relevant_sources": [
+            "repair"
+          ],
+          "retrieved_sources": [
+            "repair",
+            "fund",
+            "deposit"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "fund"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 16.135
+        },
+        {
+          "id": "ci-2",
+          "category": "fictional_ci",
+          "query": "公积金提取材料",
+          "relevant_sources": [
+            "fund"
+          ],
+          "retrieved_sources": [
+            "fund",
+            "deposit",
+            "repair"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 12.514
+        },
+        {
+          "id": "ci-3",
+          "category": "fictional_ci",
+          "query": "今天北京小区成交均价",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.01
+        },
+        {
+          "id": "ci-4",
+          "category": "fictional_ci",
+          "query": "明年房屋一定涨价吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        },
+        {
+          "id": "ci-5",
+          "category": "fictional_ci",
+          "query": "量子推进器",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        }
+      ]
+    },
+    "hybrid": {
+      "summary": {
+        "cases": 6,
+        "retrieval_labeled_cases": 3,
+        "no_evidence_cases": 3,
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.333333,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 5.912,
+        "latency_p95_ms": 13.321
+      },
+      "categories": {
+        "fictional_ci": {
+          "cases": 6,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 3,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.333333,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 5.912,
+          "latency_p95_ms": 13.321
+        }
+      },
+      "cases": [
+        {
+          "id": "ci-0",
+          "category": "fictional_ci",
+          "query": "押金退还条件在哪里约定",
+          "relevant_sources": [
+            "deposit"
+          ],
+          "retrieved_sources": [
+            "deposit",
+            "repair",
+            "fund"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "repair"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 13.321
+        },
+        {
+          "id": "ci-1",
+          "category": "fictional_ci",
+          "query": "房屋维修责任怎么核对",
+          "relevant_sources": [
+            "repair"
+          ],
+          "retrieved_sources": [
+            "repair",
+            "fund",
+            "deposit"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "fund"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 11.815
+        },
+        {
+          "id": "ci-2",
+          "category": "fictional_ci",
+          "query": "公积金提取材料",
+          "relevant_sources": [
+            "fund"
+          ],
+          "retrieved_sources": [
+            "fund",
+            "deposit",
+            "repair"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 12.235
+        },
+        {
+          "id": "ci-3",
+          "category": "fictional_ci",
+          "query": "今天北京小区成交均价",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.009
+        },
+        {
+          "id": "ci-4",
+          "category": "fictional_ci",
+          "query": "明年房屋一定涨价吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        },
+        {
+          "id": "ci-5",
+          "category": "fictional_ci",
+          "query": "量子推进器",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        }
+      ]
+    }
+  },
+  "release_gate": {
+    "mode": "hybrid",
+    "passed": true,
+    "checks": [
+      {
+        "metric": "hit_rate_at_k",
+        "threshold": 1.0,
+        "observed": 1.0,
+        "passed": true
+      },
+      {
+        "metric": "false_evidence_rate",
+        "threshold": 0.0,
+        "observed": 0.0,
+        "passed": true
+      },
+      {
+        "metric": "jurisdiction_leak_cases",
+        "threshold": 0,
+        "observed": 0,
+        "passed": true
+      }
+    ]
+  }
+}

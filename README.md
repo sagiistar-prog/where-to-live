@@ -1,5 +1,7 @@
 # 住哪儿 AI
 
+[检索评测与实际边界](docs/retrieval-evaluation.md)
+
 [本轮技术验收](docs/technical-audit-2026-09-18.md)
 
 [住房知识库：来源与运行方式](knowledge/README.md) | [实际检索验收记录](docs/knowledge-acceptance.json)

@@ -26,10 +26,10 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(evidence_answer('retention',[hit])['answer_status'],'insufficient_evidence')
     def test_quote_budget_across_chunks(self):
         hits=[{**self.doc(text='one two three four'),'keyword_score':1}]*3
-        answer=evidence_answer('one',hits,max_words=5)
+        answer=evidence_answer('押金',hits,max_words=5)
         self.assertEqual(sum(len(h['text'].split()) for h in answer['evidence']),5)
     def test_model_mismatch_rejected_before_inference(self):
         class Fake: model_id='other';dimension=2;prefix=''
-        with self.assertRaises(ValueError):search({'manifest':{'model_id':'old','dimension':2,'query_prefix':''}},'query',Fake())
+        with self.assertRaises(ValueError):search({'manifest':{'model_id':'old','dimension':2,'query_prefix':''}},'押金',Fake())
 
 if __name__=='__main__':unittest.main()

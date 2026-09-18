@@ -13,7 +13,7 @@ class PgStoreTests(unittest.TestCase):
         install(self.conn)
         self.corpus='test-'+uuid.uuid4().hex
         self.index={'manifest':{'corpus_sha256':self.corpus,'model_id':'integration-fixture','dimension':2},
-            'chunks':[{'chunk_id':'a','text':'deposit refund rental contract','review_status':'fictional'},
+            'chunks':[{'chunk_id':'a','text':'押金退还租赁合同','review_status':'fictional'},
                       {'chunk_id':'b','text':'transport commute station','review_status':'fictional'}],
             'vectors':[[1.,0.],[0.,1.]]}
     def tearDown(self):
@@ -26,11 +26,11 @@ class PgStoreTests(unittest.TestCase):
         class Encoder:
             model_id='integration-fixture'
             def encode(self,texts,query=False):return [[1.,0.]]
-        hits=retrieve(self.conn,self.corpus,'deposit unexpectedword',Encoder())
+        hits=retrieve(self.conn,self.corpus,'押金不存在词',Encoder())
         self.assertEqual(hits[0]['chunk_id'],'a')
         self.assertGreater(hits[0]['keyword_score'],0)
         self.assertIn('cosine_similarity',hits[0])
-        self.assertEqual(retrieve(self.conn,'different-corpus','deposit',Encoder()),[])
+        self.assertEqual(retrieve(self.conn,'different-corpus','押金',Encoder()),[])
     def test_invalid_vector_rolls_back_the_entire_ingestion(self):
         bad=copy.deepcopy(self.index);bad['vectors'][1]=[float('nan'),0.]
         with self.assertRaises(ValueError):ingest(self.conn,bad)

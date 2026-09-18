@@ -1,7 +1,8 @@
 """Optional pgvector adapter. Isolated schema; no existing app tables modified."""
 import json
 import math
-from pipeline import tokens, fuse
+from pipeline import tokens, fuse, diverse_results
+from query_policy import query_boundary
 
 def install(conn):
     conn.execute('CREATE EXTENSION IF NOT EXISTS vector')
@@ -28,6 +29,7 @@ def ingest(conn,index):
 def retrieve(conn,corpus_id,query,encoder,top_k=5,jurisdiction=None):
     if not isinstance(query,str) or not query.strip() or len(query)>1000:
         raise ValueError('Query must contain 1 to 1000 characters')
+    if query_boundary(query):return []
     vector=json.dumps(encoder.encode([query],query=True)[0]);model=encoder.model_id
     dense=conn.execute('''SELECT chunk_id,metadata,1-(embedding <=> %s::vector) AS score
         FROM evidence_kb.chunks WHERE corpus_id=%s AND model_id=%s AND (%s::text IS NULL OR metadata->>'jurisdiction' IN ('全国',%s))
@@ -38,8 +40,8 @@ def retrieve(conn,corpus_id,query,encoder,top_k=5,jurisdiction=None):
         WHERE corpus_id=%s AND model_id=%s AND (%s::text IS NULL OR metadata->>'jurisdiction' IN ('全国',%s)) AND terms @@ q ORDER BY score DESC LIMIT 20''',
         (lexical_query,corpus_id,model,jurisdiction,jurisdiction)).fetchall() if lexical_query else []
     records={r[0]:r[1] for r in dense+keyword}
-    ranks=fuse([(r[0],r[2]) for r in dense],[(r[0],r[2]) for r in keyword])
+    ranks=fuse([(r[0],r[2]) for r in dense],[(r[0],r[2]) for r in keyword],weights=(1,2))
     lexical={r[0]:float(r[2]) for r in keyword};semantic={r[0]:float(r[2]) for r in dense}
     return [{**records[i],'rrf_score':score,'keyword_score':lexical.get(i,0),
         'cosine_similarity':semantic.get(i),'retrieval_method':'pgvector-fulltext-rrf',
-        'requires_review':True} for i,score in ranks[:top_k]]
+        'requires_review':True} for i,score in diverse_results(ranks,records,top_k)]

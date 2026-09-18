@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ci-0",
+    "query": "押金退还条件在哪里约定",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "deposit"
+    ],
+    "expect_evidence": true,
+    "category": "fictional_ci",
+    "label_basis": "Original fictional fixture"
+  },
+  {
+    "id": "ci-1",
+    "query": "房屋维修责任怎么核对",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "repair"
+    ],
+    "expect_evidence": true,
+    "category": "fictional_ci",
+    "label_basis": "Original fictional fixture"
+  },
+  {
+    "id": "ci-2",
+    "query": "公积金提取材料",
+    "jurisdiction": "全国",
+    "relevant_sources": [
+      "fund"
+    ],
+    "expect_evidence": true,
+    "category": "fictional_ci",
+    "label_basis": "Original fictional fixture"
+  },
+  {
+    "id": "ci-3",
+    "query": "今天北京小区成交均价",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "fictional_ci",
+    "label_basis": "Original fictional fixture"
+  },
+  {
+    "id": "ci-4",
+    "query": "明年房屋一定涨价吗",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "fictional_ci",
+    "label_basis": "Original fictional fixture"
+  },
+  {
+    "id": "ci-5",
+    "query": "量子推进器",
+    "jurisdiction": "全国",
+    "relevant_sources": [],
+    "expect_evidence": false,
+    "category": "fictional_ci",
+    "label_basis": "Original fictional fixture"
+  }
+]

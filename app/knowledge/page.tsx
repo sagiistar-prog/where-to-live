@@ -9,16 +9,21 @@ export default function HousingKnowledge() {
   const [query, setQuery] = useState("");
   const [hits, setHits] = useState<Hit[] | null>(null);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
   const pending = useRef(false);
   async function search() {
     if (pending.current) return;
-    pending.current = true; setBusy(true); setError(""); setHits(null);
+    pending.current = true; setBusy(true); setError(""); setNotice(""); setHits(null);
     try {
       const response = await fetch("/api/knowledge/search", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ city, query }), signal: AbortSignal.timeout(35000) });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error);
+      if (!response.ok) {
+        setError(data.code === "QUERY_TOO_LONG" ? "问题较长，请保留一个具体事项后重试。" : "暂时无法查找资料。你的问题已保留，请稍后重试。");
+        return;
+      }
       setHits(data.hits);
+      setNotice(typeof data.notice === "string" ? data.notice : "");
     } catch { setError("暂时无法查找资料。你的问题已保留，请稍后重试。"); }
     finally { pending.current = false; setBusy(false); }
   }
@@ -37,7 +42,7 @@ export default function HousingKnowledge() {
       <p className="mt-4 text-sm leading-6 text-[#525d75]">覆盖全国通用规则及北上广深部分政策。签约前请核对原文、适用主体和最新规定。</p>
       <p role="status" aria-live="polite" className={busy ? "mt-8" : "sr-only"}>{busy ? "正在查找所选地区的资料" : hits ? `查询完成，找到 ${hits.length} 条资料。` : ""}</p>
       {error && <p role="alert" className="mt-8 text-[#963239]">{error}</p>}
-      {hits && <section aria-label="查询结果" className="mt-12"><h2 className="text-2xl font-semibold">{hits.length ? "与你的问题相关" : "暂未找到对应资料"}</h2>{!hits.length && <p className="mt-3 leading-7 text-[#525d75]">试着补充合同、押金或公积金等具体事项。实时租金、房源真伪和通勤时间需要另行核验。</p>}{hits.map(hit => <article key={hit.chunk_id ?? hit.source_id} className="border-b border-[#ccd2dd] py-7"><div className="text-sm text-[#525d75]">{hit.jurisdiction} / 采集于 {hit.retrieved_at.slice(0, 10)}</div><h3 className="mt-3 text-lg font-semibold">{hit.source_title}</h3><p className="mt-3 max-w-[70ch] whitespace-pre-wrap leading-8">{hit.text}</p>{hit.stale && <p className="mt-3 text-sm">资料已超过 90 天未更新，请优先核对原文。</p>}<a href={hit.source_url} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1 font-medium text-[#294a9d] underline underline-offset-4">查看官方原文<ArrowUpRight size={16} aria-hidden="true" /></a></article>)}</section>}
+      {hits && <section aria-label="查询结果" className="mt-12"><h2 className="text-2xl font-semibold">{hits.length ? "与你的问题相关" : "暂未找到对应资料"}</h2>{!hits.length && <p className="mt-3 leading-7 text-[#525d75]">{notice || "试着补充合同、押金或公积金等具体事项。实时租金、房源真伪和通勤时间需要另行核验。"}</p>}{hits.map(hit => <article key={hit.chunk_id ?? hit.source_id} className="border-b border-[#ccd2dd] py-7"><div className="text-sm text-[#525d75]">{hit.jurisdiction} / 采集于 {hit.retrieved_at.slice(0, 10)}</div><h3 className="mt-3 text-lg font-semibold">{hit.source_title}</h3><p className="mt-3 max-w-[70ch] whitespace-pre-wrap leading-8">{hit.text}</p>{hit.stale && <p className="mt-3 text-sm">资料已超过 90 天未更新，请优先核对原文。</p>}<a href={hit.source_url} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1 font-medium text-[#294a9d] underline underline-offset-4">查看官方原文<ArrowUpRight size={16} aria-hidden="true" /></a></article>)}</section>}
     </div>
   </main>;
 }

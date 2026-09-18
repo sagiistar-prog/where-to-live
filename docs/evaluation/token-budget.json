@@ -1,0 +1,15 @@
+{
+  "model": "BAAI/bge-small-zh-v1.5",
+  "max_tokens": 512,
+  "tokenizer_sha256": "550e43118ce3b4f6d6b041c053f064e08a308848c6d98438ccbb7e33f3657873",
+  "corpora": [
+    {
+      "repository": "where-to-live",
+      "corpus_sha256": "d96ee5bc2c02aa5640cb6fc0ceaa985b07604dd57470f3db54671b0c04f74247",
+      "chunks": 283,
+      "maximum_tokens": 321,
+      "over_limit": 0
+    }
+  ],
+  "long_query_rejected_before_inference": true
+}

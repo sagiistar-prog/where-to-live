@@ -1,0 +1,2411 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-18T04:18:12.131912+00:00",
+  "scope": "authored component regression set; not expert accuracy, user outcomes, or web E2E",
+  "top_k": 3,
+  "corpus_sha256": "d96ee5bc2c02aa5640cb6fc0ceaa985b07604dd57470f3db54671b0c04f74247",
+  "cases_sha256": "baf042a0155dd39eee7e5ae3760b951b00dcdc2dbce360f09b42e5e1c3853cf1",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "dimension": 512,
+  "latency_scope": "model loaded; dense/hybrid include query inference, keyword does not; no web/database latency or hardware isolation",
+  "metrics_scope": "source IDs labeled relevant; source hit does not prove passage relevance",
+  "results": {
+    "keyword": {
+      "summary": {
+        "cases": 24,
+        "retrieval_labeled_cases": 18,
+        "no_evidence_cases": 6,
+        "recall_at_k": 0.972222,
+        "mrr_at_k": 1.0,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.740741,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 19.608,
+        "latency_p95_ms": 62.497
+      },
+      "categories": {
+        "applicability": {
+          "cases": 2,
+          "retrieval_labeled_cases": 2,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 58.62,
+          "latency_p95_ms": 73.121
+        },
+        "benefits": {
+          "cases": 2,
+          "retrieval_labeled_cases": 2,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 48.37,
+          "latency_p95_ms": 50.143
+        },
+        "contract": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.333333,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 53.629,
+          "latency_p95_ms": 53.629
+        },
+        "deposit": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 16.382,
+          "latency_p95_ms": 16.382
+        },
+        "exact_identifier": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 15.664,
+          "latency_p95_ms": 15.664
+        },
+        "freshness": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 15.962,
+          "latency_p95_ms": 15.962
+        },
+        "live_data": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.007,
+          "latency_p95_ms": 0.007
+        },
+        "local_process": {
+          "cases": 3,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.833333,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 46.225,
+          "latency_p95_ms": 62.497
+        },
+        "local_rules": {
+          "cases": 3,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 0,
+          "recall_at_k": 0.833333,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 22.236,
+          "latency_p95_ms": 47.197
+        },
+        "missing_document": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.009,
+          "latency_p95_ms": 0.009
+        },
+        "prediction": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.622,
+          "latency_p95_ms": 0.622
+        },
+        "repair": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 18.56,
+          "latency_p95_ms": 18.56
+        },
+        "sublet": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 16.312,
+          "latency_p95_ms": 16.312
+        },
+        "tax": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 17.3,
+          "latency_p95_ms": 17.3
+        },
+        "term": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 20.657,
+          "latency_p95_ms": 20.657
+        },
+        "unrelated": {
+          "cases": 3,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 3,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.011,
+          "latency_p95_ms": 0.015
+        }
+      },
+      "cases": [
+        {
+          "id": "pos-01",
+          "category": "term",
+          "query": "租赁合同最长可以约定多少年",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 20.657
+        },
+        {
+          "id": "pos-02",
+          "category": "repair",
+          "query": "房屋维修义务在租赁合同里如何约定",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 18.56
+        },
+        {
+          "id": "pos-03",
+          "category": "sublet",
+          "query": "租客能未经房东同意转租吗",
+          "relevant_sources": [
+            "cn-civil"
+          ],
+          "retrieved_sources": [
+            "cn-civil",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-contract"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 16.312
+        },
+        {
+          "id": "pos-04",
+          "category": "deposit",
+          "query": "租房押金的退还时间应该在哪里写清楚",
+          "relevant_sources": [
+            "cn-contract",
+            "cn-rental"
+          ],
+          "retrieved_sources": [
+            "cn-rental",
+            "cn-contract",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 16.382
+        },
+        {
+          "id": "pos-05",
+          "category": "tax",
+          "query": "住房租金专项附加扣除标准有哪些",
+          "relevant_sources": [
+            "cn-tax"
+          ],
+          "retrieved_sources": [
+            "cn-tax",
+            "cn-tax",
+            "cn-tax"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 17.3
+        },
+        {
+          "id": "pos-06",
+          "category": "local_process",
+          "query": "租押金余额查询有哪些途径",
+          "relevant_sources": [
+            "bj-balance"
+          ],
+          "retrieved_sources": [
+            "bj-balance",
+            "bj-balance",
+            "bj-balance"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 46.225
+        },
+        {
+          "id": "pos-07",
+          "category": "local_process",
+          "query": "监管资金缴纳有直缴和代缴两种方式吗",
+          "relevant_sources": [
+            "bj-pay"
+          ],
+          "retrieved_sources": [
+            "bj-pay",
+            "bj-faq",
+            "bj-pay"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 62.497
+        },
+        {
+          "id": "pos-08",
+          "category": "applicability",
+          "query": "押金托管暂行办法面向哪些住房租赁企业",
+          "relevant_sources": [
+            "bj-faq",
+            "bj-funds"
+          ],
+          "retrieved_sources": [
+            "bj-funds",
+            "bj-faq",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 73.121
+        },
+        {
+          "id": "pos-09",
+          "category": "benefits",
+          "query": "租住商品住房提取公积金的申请条件",
+          "relevant_sources": [
+            "bj-withdraw"
+          ],
+          "retrieved_sources": [
+            "bj-withdraw",
+            "bj-benefits",
+            "bj-benefits"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-benefits"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 46.597
+        },
+        {
+          "id": "pos-10",
+          "category": "contract",
+          "query": "哪里查北京市住房租赁合同示范文本",
+          "relevant_sources": [
+            "bj-contract"
+          ],
+          "retrieved_sources": [
+            "bj-contract",
+            "bj-rental",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-rental",
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 53.629
+        },
+        {
+          "id": "pos-11",
+          "category": "benefits",
+          "query": "租赁合同备案能享受哪些公共服务",
+          "relevant_sources": [
+            "bj-benefits"
+          ],
+          "retrieved_sources": [
+            "bj-benefits",
+            "cn-rental",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 50.143
+        },
+        {
+          "id": "pos-12",
+          "category": "local_process",
+          "query": "住房租赁公共服务平台登记备案有哪些要求",
+          "relevant_sources": [
+            "sh-platform"
+          ],
+          "retrieved_sources": [
+            "sh-platform",
+            "sh-platform",
+            "sh-platform"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 44.333
+        },
+        {
+          "id": "pos-13",
+          "category": "applicability",
+          "query": "上海市住房公积金提取管理办法适用什么范围",
+          "relevant_sources": [
+            "sh-withdraw"
+          ],
+          "retrieved_sources": [
+            "sh-withdraw",
+            "sh-withdraw",
+            "sh-withdraw"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 44.119
+        },
+        {
+          "id": "pos-14",
+          "category": "local_rules",
+          "query": "上海市住房租赁条例对出租住房的要求",
+          "relevant_sources": [
+            "sh-rental"
+          ],
+          "retrieved_sources": [
+            "sh-rental",
+            "sh-platform",
+            "sh-platform"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-platform"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 47.197
+        },
+        {
+          "id": "pos-15",
+          "category": "local_rules",
+          "query": "租房前如何核查住房租赁企业和经纪机构",
+          "relevant_sources": [
+            "gz-rental",
+            "gz-tips"
+          ],
+          "retrieved_sources": [
+            "gz-tips",
+            "cn-rental",
+            "cn-rental"
+          ],
+          "recall_at_k": 0.5,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 21.783
+        },
+        {
+          "id": "pos-16",
+          "category": "local_rules",
+          "query": "广州市规范住房租赁市场的监管要求",
+          "relevant_sources": [
+            "gz-rental"
+          ],
+          "retrieved_sources": [
+            "gz-rental",
+            "cn-rental",
+            "gz-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 22.236
+        },
+        {
+          "id": "pos-17",
+          "category": "freshness",
+          "query": "2025年住房租赁资金监管通知有没有延长有效期",
+          "relevant_sources": [
+            "sz-funds"
+          ],
+          "retrieved_sources": [
+            "sz-funds",
+            "sz-funds",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 15.962
+        },
+        {
+          "id": "pos-18",
+          "category": "exact_identifier",
+          "query": "城镇房屋租赁合同GF20252614",
+          "relevant_sources": [
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 15.664
+        },
+        {
+          "id": "neg-01",
+          "category": "unrelated",
+          "query": "量子推进器的工作原理",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.015
+        },
+        {
+          "id": "neg-02",
+          "category": "live_data",
+          "query": "北京明天具体房源的成交租金是多少",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        },
+        {
+          "id": "neg-03",
+          "category": "missing_document",
+          "query": "我这份没有上传的合同是否合法",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.009
+        },
+        {
+          "id": "neg-04",
+          "category": "unrelated",
+          "query": "广州明天会下雨吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        },
+        {
+          "id": "neg-05",
+          "category": "prediction",
+          "query": "这套房子下个月一定涨价吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.622
+        },
+        {
+          "id": "neg-06",
+          "category": "unrelated",
+          "query": "我想服用什么药可以治好感冒",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.011
+        }
+      ]
+    },
+    "dense": {
+      "summary": {
+        "cases": 24,
+        "retrieval_labeled_cases": 18,
+        "no_evidence_cases": 6,
+        "recall_at_k": 0.944444,
+        "mrr_at_k": 0.898148,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.574074,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 39.24,
+        "latency_p95_ms": 85.198
+      },
+      "categories": {
+        "applicability": {
+          "cases": 2,
+          "retrieval_labeled_cases": 2,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.75,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 78.069,
+          "latency_p95_ms": 84.778
+        },
+        "benefits": {
+          "cases": 2,
+          "retrieval_labeled_cases": 2,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.416667,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 85.602,
+          "latency_p95_ms": 90.34
+        },
+        "contract": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 85.198,
+          "latency_p95_ms": 85.198
+        },
+        "deposit": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 0.5,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 32.84,
+          "latency_p95_ms": 32.84
+        },
+        "exact_identifier": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 35.457,
+          "latency_p95_ms": 35.457
+        },
+        "freshness": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 34.425,
+          "latency_p95_ms": 34.425
+        },
+        "live_data": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.007,
+          "latency_p95_ms": 0.007
+        },
+        "local_process": {
+          "cases": 3,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 0.611111,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 71.338,
+          "latency_p95_ms": 72.622
+        },
+        "local_rules": {
+          "cases": 3,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 0,
+          "recall_at_k": 0.833333,
+          "mrr_at_k": 0.777778,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 47.175,
+          "latency_p95_ms": 82.449
+        },
+        "missing_document": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.008,
+          "latency_p95_ms": 0.008
+        },
+        "prediction": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.008,
+          "latency_p95_ms": 0.008
+        },
+        "repair": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 39.556,
+          "latency_p95_ms": 39.556
+        },
+        "sublet": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 34.179,
+          "latency_p95_ms": 34.179
+        },
+        "tax": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 38.924,
+          "latency_p95_ms": 38.924
+        },
+        "term": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 44.388,
+          "latency_p95_ms": 44.388
+        },
+        "unrelated": {
+          "cases": 3,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 3,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.009,
+          "latency_p95_ms": 0.014
+        }
+      },
+      "cases": [
+        {
+          "id": "pos-01",
+          "category": "term",
+          "query": "租赁合同最长可以约定多少年",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-civil",
+            "cn-civil",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 44.388
+        },
+        {
+          "id": "pos-02",
+          "category": "repair",
+          "query": "房屋维修义务在租赁合同里如何约定",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 39.556
+        },
+        {
+          "id": "pos-03",
+          "category": "sublet",
+          "query": "租客能未经房东同意转租吗",
+          "relevant_sources": [
+            "cn-civil"
+          ],
+          "retrieved_sources": [
+            "cn-civil",
+            "cn-civil",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-contract"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 34.179
+        },
+        {
+          "id": "pos-04",
+          "category": "deposit",
+          "query": "租房押金的退还时间应该在哪里写清楚",
+          "relevant_sources": [
+            "cn-contract",
+            "cn-rental"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 0.5,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 32.84
+        },
+        {
+          "id": "pos-05",
+          "category": "tax",
+          "query": "住房租金专项附加扣除标准有哪些",
+          "relevant_sources": [
+            "cn-tax"
+          ],
+          "retrieved_sources": [
+            "cn-tax",
+            "cn-tax",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 38.924
+        },
+        {
+          "id": "pos-06",
+          "category": "local_process",
+          "query": "租押金余额查询有哪些途径",
+          "relevant_sources": [
+            "bj-balance"
+          ],
+          "retrieved_sources": [
+            "bj-faq",
+            "bj-faq",
+            "bj-balance"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 68.012
+        },
+        {
+          "id": "pos-07",
+          "category": "local_process",
+          "query": "监管资金缴纳有直缴和代缴两种方式吗",
+          "relevant_sources": [
+            "bj-pay"
+          ],
+          "retrieved_sources": [
+            "bj-pay",
+            "bj-pay",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 72.622
+        },
+        {
+          "id": "pos-08",
+          "category": "applicability",
+          "query": "押金托管暂行办法面向哪些住房租赁企业",
+          "relevant_sources": [
+            "bj-faq",
+            "bj-funds"
+          ],
+          "retrieved_sources": [
+            "bj-funds",
+            "bj-funds",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 84.778
+        },
+        {
+          "id": "pos-09",
+          "category": "benefits",
+          "query": "租住商品住房提取公积金的申请条件",
+          "relevant_sources": [
+            "bj-withdraw"
+          ],
+          "retrieved_sources": [
+            "bj-withdraw",
+            "bj-benefits",
+            "bj-withdraw"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-benefits"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 80.863
+        },
+        {
+          "id": "pos-10",
+          "category": "contract",
+          "query": "哪里查北京市住房租赁合同示范文本",
+          "relevant_sources": [
+            "bj-contract"
+          ],
+          "retrieved_sources": [
+            "bj-contract",
+            "bj-contract",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-contract"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 85.198
+        },
+        {
+          "id": "pos-11",
+          "category": "benefits",
+          "query": "租赁合同备案能享受哪些公共服务",
+          "relevant_sources": [
+            "bj-benefits"
+          ],
+          "retrieved_sources": [
+            "bj-benefits",
+            "bj-rental",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-rental",
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 90.34
+        },
+        {
+          "id": "pos-12",
+          "category": "local_process",
+          "query": "住房租赁公共服务平台登记备案有哪些要求",
+          "relevant_sources": [
+            "sh-platform"
+          ],
+          "retrieved_sources": [
+            "sh-rental",
+            "sh-platform",
+            "sh-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 0.5,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 71.338
+        },
+        {
+          "id": "pos-13",
+          "category": "applicability",
+          "query": "上海市住房公积金提取管理办法适用什么范围",
+          "relevant_sources": [
+            "sh-withdraw"
+          ],
+          "retrieved_sources": [
+            "sh-withdraw",
+            "sh-withdraw",
+            "sh-platform"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-platform"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 71.359
+        },
+        {
+          "id": "pos-14",
+          "category": "local_rules",
+          "query": "上海市住房租赁条例对出租住房的要求",
+          "relevant_sources": [
+            "sh-rental"
+          ],
+          "retrieved_sources": [
+            "sh-rental",
+            "sh-rental",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 82.449
+        },
+        {
+          "id": "pos-15",
+          "category": "local_rules",
+          "query": "租房前如何核查住房租赁企业和经纪机构",
+          "relevant_sources": [
+            "gz-rental",
+            "gz-tips"
+          ],
+          "retrieved_sources": [
+            "cn-rental",
+            "cn-rental",
+            "gz-rental"
+          ],
+          "recall_at_k": 0.5,
+          "reciprocal_rank": 0.3333333333333333,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 47.175
+        },
+        {
+          "id": "pos-16",
+          "category": "local_rules",
+          "query": "广州市规范住房租赁市场的监管要求",
+          "relevant_sources": [
+            "gz-rental"
+          ],
+          "retrieved_sources": [
+            "gz-rental",
+            "gz-rental",
+            "gz-tips"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "gz-tips"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 38.466
+        },
+        {
+          "id": "pos-17",
+          "category": "freshness",
+          "query": "2025年住房租赁资金监管通知有没有延长有效期",
+          "relevant_sources": [
+            "sz-funds"
+          ],
+          "retrieved_sources": [
+            "sz-funds",
+            "sz-funds",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 34.425
+        },
+        {
+          "id": "pos-18",
+          "category": "exact_identifier",
+          "query": "城镇房屋租赁合同GF20252614",
+          "relevant_sources": [
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 35.457
+        },
+        {
+          "id": "neg-01",
+          "category": "unrelated",
+          "query": "量子推进器的工作原理",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.014
+        },
+        {
+          "id": "neg-02",
+          "category": "live_data",
+          "query": "北京明天具体房源的成交租金是多少",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.007
+        },
+        {
+          "id": "neg-03",
+          "category": "missing_document",
+          "query": "我这份没有上传的合同是否合法",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        },
+        {
+          "id": "neg-04",
+          "category": "unrelated",
+          "query": "广州明天会下雨吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.009
+        },
+        {
+          "id": "neg-05",
+          "category": "prediction",
+          "query": "这套房子下个月一定涨价吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        },
+        {
+          "id": "neg-06",
+          "category": "unrelated",
+          "query": "我想服用什么药可以治好感冒",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        }
+      ]
+    },
+    "hybrid": {
+      "summary": {
+        "cases": 24,
+        "retrieval_labeled_cases": 18,
+        "no_evidence_cases": 6,
+        "recall_at_k": 0.972222,
+        "mrr_at_k": 0.962963,
+        "hit_rate_at_k": 1.0,
+        "mean_source_precision": 0.592593,
+        "evidence_policy_accuracy": 1.0,
+        "false_evidence_rate": 0.0,
+        "jurisdiction_leak_cases": 0,
+        "latency_p50_ms": 38.158,
+        "latency_p95_ms": 84.039
+      },
+      "categories": {
+        "applicability": {
+          "cases": 2,
+          "retrieval_labeled_cases": 2,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.75,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 77.588,
+          "latency_p95_ms": 86.073
+        },
+        "benefits": {
+          "cases": 2,
+          "retrieval_labeled_cases": 2,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.416667,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 70.897,
+          "latency_p95_ms": 74.176
+        },
+        "contract": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.333333,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 80.548,
+          "latency_p95_ms": 80.548
+        },
+        "deposit": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 33.483,
+          "latency_p95_ms": 33.483
+        },
+        "exact_identifier": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 29.987,
+          "latency_p95_ms": 29.987
+        },
+        "freshness": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 38.369,
+          "latency_p95_ms": 38.369
+        },
+        "live_data": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.006,
+          "latency_p95_ms": 0.006
+        },
+        "local_process": {
+          "cases": 3,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 76.582,
+          "latency_p95_ms": 84.039
+        },
+        "local_rules": {
+          "cases": 3,
+          "retrieval_labeled_cases": 3,
+          "no_evidence_cases": 0,
+          "recall_at_k": 0.833333,
+          "mrr_at_k": 0.777778,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 44.012,
+          "latency_p95_ms": 67.726
+        },
+        "missing_document": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.008,
+          "latency_p95_ms": 0.008
+        },
+        "prediction": {
+          "cases": 1,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 1,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.008,
+          "latency_p95_ms": 0.008
+        },
+        "repair": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 37.947,
+          "latency_p95_ms": 37.947
+        },
+        "sublet": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 30.606,
+          "latency_p95_ms": 30.606
+        },
+        "tax": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 0.5,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 32.292,
+          "latency_p95_ms": 32.292
+        },
+        "term": {
+          "cases": 1,
+          "retrieval_labeled_cases": 1,
+          "no_evidence_cases": 0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_rate_at_k": 1.0,
+          "mean_source_precision": 1.0,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": null,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 33.135,
+          "latency_p95_ms": 33.135
+        },
+        "unrelated": {
+          "cases": 3,
+          "retrieval_labeled_cases": 0,
+          "no_evidence_cases": 3,
+          "recall_at_k": null,
+          "mrr_at_k": null,
+          "hit_rate_at_k": null,
+          "mean_source_precision": null,
+          "evidence_policy_accuracy": 1.0,
+          "false_evidence_rate": 0.0,
+          "jurisdiction_leak_cases": 0,
+          "latency_p50_ms": 0.008,
+          "latency_p95_ms": 0.034
+        }
+      },
+      "cases": [
+        {
+          "id": "pos-01",
+          "category": "term",
+          "query": "租赁合同最长可以约定多少年",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 33.135
+        },
+        {
+          "id": "pos-02",
+          "category": "repair",
+          "query": "房屋维修义务在租赁合同里如何约定",
+          "relevant_sources": [
+            "cn-civil",
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-contract"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 37.947
+        },
+        {
+          "id": "pos-03",
+          "category": "sublet",
+          "query": "租客能未经房东同意转租吗",
+          "relevant_sources": [
+            "cn-civil"
+          ],
+          "retrieved_sources": [
+            "cn-civil",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-contract"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 30.606
+        },
+        {
+          "id": "pos-04",
+          "category": "deposit",
+          "query": "租房押金的退还时间应该在哪里写清楚",
+          "relevant_sources": [
+            "cn-contract",
+            "cn-rental"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 33.483
+        },
+        {
+          "id": "pos-05",
+          "category": "tax",
+          "query": "住房租金专项附加扣除标准有哪些",
+          "relevant_sources": [
+            "cn-tax"
+          ],
+          "retrieved_sources": [
+            "cn-tax",
+            "cn-tax",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 32.292
+        },
+        {
+          "id": "pos-06",
+          "category": "local_process",
+          "query": "租押金余额查询有哪些途径",
+          "relevant_sources": [
+            "bj-balance"
+          ],
+          "retrieved_sources": [
+            "bj-balance",
+            "bj-balance",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 76.582
+        },
+        {
+          "id": "pos-07",
+          "category": "local_process",
+          "query": "监管资金缴纳有直缴和代缴两种方式吗",
+          "relevant_sources": [
+            "bj-pay"
+          ],
+          "retrieved_sources": [
+            "bj-pay",
+            "bj-pay",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-faq"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 71.161
+        },
+        {
+          "id": "pos-08",
+          "category": "applicability",
+          "query": "押金托管暂行办法面向哪些住房租赁企业",
+          "relevant_sources": [
+            "bj-faq",
+            "bj-funds"
+          ],
+          "retrieved_sources": [
+            "bj-funds",
+            "bj-funds",
+            "bj-faq"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 1.0,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 86.073
+        },
+        {
+          "id": "pos-09",
+          "category": "benefits",
+          "query": "租住商品住房提取公积金的申请条件",
+          "relevant_sources": [
+            "bj-withdraw"
+          ],
+          "retrieved_sources": [
+            "bj-withdraw",
+            "bj-benefits",
+            "bj-benefits"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-benefits"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 67.618
+        },
+        {
+          "id": "pos-10",
+          "category": "contract",
+          "query": "哪里查北京市住房租赁合同示范文本",
+          "relevant_sources": [
+            "bj-contract"
+          ],
+          "retrieved_sources": [
+            "bj-contract",
+            "cn-contract",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-contract",
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 80.548
+        },
+        {
+          "id": "pos-11",
+          "category": "benefits",
+          "query": "租赁合同备案能享受哪些公共服务",
+          "relevant_sources": [
+            "bj-benefits"
+          ],
+          "retrieved_sources": [
+            "bj-benefits",
+            "cn-rental",
+            "bj-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.3333333333333333,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "bj-rental",
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 74.176
+        },
+        {
+          "id": "pos-12",
+          "category": "local_process",
+          "query": "住房租赁公共服务平台登记备案有哪些要求",
+          "relevant_sources": [
+            "sh-platform"
+          ],
+          "retrieved_sources": [
+            "sh-platform",
+            "sh-rental",
+            "sh-platform"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 84.039
+        },
+        {
+          "id": "pos-13",
+          "category": "applicability",
+          "query": "上海市住房公积金提取管理办法适用什么范围",
+          "relevant_sources": [
+            "sh-withdraw"
+          ],
+          "retrieved_sources": [
+            "sh-withdraw",
+            "sh-withdraw",
+            "sh-platform"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-platform"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 69.102
+        },
+        {
+          "id": "pos-14",
+          "category": "local_rules",
+          "query": "上海市住房租赁条例对出租住房的要求",
+          "relevant_sources": [
+            "sh-rental"
+          ],
+          "retrieved_sources": [
+            "sh-rental",
+            "sh-platform",
+            "sh-platform"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "sh-platform"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 67.726
+        },
+        {
+          "id": "pos-15",
+          "category": "local_rules",
+          "query": "租房前如何核查住房租赁企业和经纪机构",
+          "relevant_sources": [
+            "gz-rental",
+            "gz-tips"
+          ],
+          "retrieved_sources": [
+            "cn-rental",
+            "cn-rental",
+            "gz-rental"
+          ],
+          "recall_at_k": 0.5,
+          "reciprocal_rank": 0.3333333333333333,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 44.012
+        },
+        {
+          "id": "pos-16",
+          "category": "local_rules",
+          "query": "广州市规范住房租赁市场的监管要求",
+          "relevant_sources": [
+            "gz-rental"
+          ],
+          "retrieved_sources": [
+            "gz-rental",
+            "gz-rental",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 38.665
+        },
+        {
+          "id": "pos-17",
+          "category": "freshness",
+          "query": "2025年住房租赁资金监管通知有没有延长有效期",
+          "relevant_sources": [
+            "sz-funds"
+          ],
+          "retrieved_sources": [
+            "sz-funds",
+            "sz-funds",
+            "cn-rental"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-rental"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 38.369
+        },
+        {
+          "id": "pos-18",
+          "category": "exact_identifier",
+          "query": "城镇房屋租赁合同GF20252614",
+          "relevant_sources": [
+            "cn-contract"
+          ],
+          "retrieved_sources": [
+            "cn-contract",
+            "cn-contract",
+            "cn-civil"
+          ],
+          "recall_at_k": 1.0,
+          "reciprocal_rank": 1.0,
+          "hit_at_k": true,
+          "source_precision": 0.5,
+          "expect_evidence": true,
+          "emitted_evidence": true,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [
+            "cn-civil"
+          ],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 29.987
+        },
+        {
+          "id": "neg-01",
+          "category": "unrelated",
+          "query": "量子推进器的工作原理",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.034
+        },
+        {
+          "id": "neg-02",
+          "category": "live_data",
+          "query": "北京明天具体房源的成交租金是多少",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.006
+        },
+        {
+          "id": "neg-03",
+          "category": "missing_document",
+          "query": "我这份没有上传的合同是否合法",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        },
+        {
+          "id": "neg-04",
+          "category": "unrelated",
+          "query": "广州明天会下雨吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        },
+        {
+          "id": "neg-05",
+          "category": "prediction",
+          "query": "这套房子下个月一定涨价吗",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        },
+        {
+          "id": "neg-06",
+          "category": "unrelated",
+          "query": "我想服用什么药可以治好感冒",
+          "relevant_sources": [],
+          "retrieved_sources": [],
+          "recall_at_k": null,
+          "reciprocal_rank": null,
+          "hit_at_k": null,
+          "source_precision": null,
+          "expect_evidence": false,
+          "emitted_evidence": false,
+          "evidence_policy_passed": true,
+          "unlabeled_evidence_sources": [],
+          "jurisdiction_leaks": [],
+          "elapsed_ms": 0.008
+        }
+      ]
+    }
+  },
+  "release_gate": {
+    "mode": "hybrid",
+    "passed": true,
+    "checks": [
+      {
+        "metric": "hit_rate_at_k",
+        "threshold": 1.0,
+        "observed": 1.0,
+        "passed": true
+      },
+      {
+        "metric": "false_evidence_rate",
+        "threshold": 0.0,
+        "observed": 0.0,
+        "passed": true
+      },
+      {
+        "metric": "jurisdiction_leak_cases",
+        "threshold": 0,
+        "observed": 0,
+        "passed": true
+      }
+    ]
+  }
+}
