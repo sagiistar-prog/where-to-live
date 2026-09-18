@@ -820,5 +820,65 @@
       "不收取任何费用",
       "三十日"
     ]
+  },
+  {
+    "source_id": "bj-residence-guide",
+    "source_title": "北京市居住证申领办理指南",
+    "jurisdiction": "北京",
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/jzz/blzn/201806/t20180622_1857738.html",
+    "published_at": "2025-11-04",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "居住证",
+      "居住登记",
+      "搬家",
+      "办理材料"
+    ],
+    "applicability": "北京办事指南，按居住时间证明及申领路径分别核对材料；居住证不是工作居住证。页面带归档标识，办理前向居住地派出所复核。",
+    "required_markers": [
+      "居住时间证明",
+      "尚有6个月以上租期"
+    ]
+  },
+  {
+    "source_id": "sh-residence-update",
+    "source_title": "上海市居住证申办实施细则解读（2025年）",
+    "jurisdiction": "上海",
+    "source_url": "https://www.shanghai.gov.cn/wzjd/20251201/9115cdc996fa4fdfa577bb7ce1eaa5a2.html",
+    "published_at": "2025-12-01",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "居住证",
+      "居住登记",
+      "搬家",
+      "办理材料"
+    ],
+    "applicability": "上海2025年修订的官方解读，不能套用2023版材料要求；这是解读页面，个案资格及实际受理以主管部门核验为准。",
+    "required_markers": [
+      "当月仍在缴纳社会保险",
+      "亲属关系承诺书"
+    ]
+  },
+  {
+    "source_id": "gz-residence-guide",
+    "source_title": "广州穗好办电子居住证申领与签注指南",
+    "jurisdiction": "广州",
+    "source_url": "https://zsj.gz.gov.cn/zmhd/cjwt/shbapp/content/post_10146719.html",
+    "published_at": "2025-02-20",
+    "effective_from": null,
+    "valid_until": null,
+    "topics": [
+      "居住证",
+      "居住登记",
+      "搬家",
+      "办理材料"
+    ],
+    "applicability": "广州电子居住证办事指南；普通路径和绿色通道条件不同，绿色通道也须先办理居住登记。不能仅凭租房合同判断必然获批。",
+    "required_markers": [
+      "申请绿色通道条件",
+      "居住登记项目变更"
+    ]
   }
 ]

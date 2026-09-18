@@ -554,5 +554,44 @@
     "applicability": "调解是自愿解决民间纠纷的途径，不保证对方接受或达成协议。调解协议与经司法确认后的执行路径需要区分。",
     "text": "租房或邻里纠纷可向人民调解委员会申请调解，双方自愿，人民调解不收费。达成协议后，认为有必要的双方可在协议生效起三十日内共同申请司法确认。对方不同意调解时，仍可依法选择其他解决途径。",
     "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "bj-residence-guide",
+    "source_title": "北京市居住证申领办理指南",
+    "source_url": "https://www.beijing.gov.cn/fuwu/bmfw/bmzt/jzz/blzn/201806/t20180622_1857738.html",
+    "retrieved_at": "2026-09-18T17:02:34.843135+00:00",
+    "jurisdiction": "北京",
+    "published_at": "2025-11-04",
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "北京办事指南，按居住时间证明及申领路径分别核对材料；居住证不是工作居住证。页面带归档标识，办理前向居住地派出所复核。",
+    "text": "申领居住证要分别核对身份证明、居住时间证明及就业、住所或就读材料。以登记卡和租赁住所申请时，居民户房屋需要产权材料及剩余租期超过六个月的合同；其他申领路径的材料要求不同。可在京通申请，签发或签注后一年有效。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "sh-residence-update",
+    "source_title": "上海市居住证申办实施细则解读（2025年）",
+    "source_url": "https://www.shanghai.gov.cn/wzjd/20251201/9115cdc996fa4fdfa577bb7ce1eaa5a2.html",
+    "retrieved_at": "2026-09-18T17:02:30.361382+00:00",
+    "jurisdiction": "上海",
+    "published_at": "2025-12-01",
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "上海2025年修订的官方解读，不能套用2023版材料要求；这是解读页面，个案资格及实际受理以主管部门核验为准。",
+    "text": "已办居住登记、申请前连续六个月在上海缴社保且申请当月仍缴费的，可按登记满半年办理。租赁住所材料可使用房屋租赁合同，不仅限于备案证明；住近亲属住房还需关系证明或承诺书。可到社区事务受理服务中心或随申办办理。",
+    "content_kind": "authored_summary"
+  },
+  {
+    "source_id": "gz-residence-guide",
+    "source_title": "广州穗好办电子居住证申领与签注指南",
+    "source_url": "https://zsj.gz.gov.cn/zmhd/cjwt/shbapp/content/post_10146719.html",
+    "retrieved_at": "2026-09-18T17:02:40.910045+00:00",
+    "jurisdiction": "广州",
+    "published_at": "2025-02-20",
+    "effective_from": null,
+    "valid_until": null,
+    "applicability": "广州电子居住证办事指南；普通路径和绿色通道条件不同，绿色通道也须先办理居住登记。不能仅凭租房合同判断必然获批。",
+    "text": "普通申领路径需在广州登记满半年，并满足稳定住所、就业或连续就读之一。先登记后，符合近一年累计社保满半年等绿色通道条件的，可不等登记满半年。穗好办提供申领、签注和住址登记信息变更；居住证需按期签注。",
+    "content_kind": "authored_summary"
   }
 ]

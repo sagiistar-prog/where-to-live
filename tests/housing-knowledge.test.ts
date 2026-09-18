@@ -1,6 +1,40 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { housingQueryBoundary, searchHousingKnowledge } from "../lib/housing-knowledge";
+import sources from "../knowledge/sources.json";
+import notes from "../knowledge/reference-notes.json";
+
+test("every collected source has a shipped summary with matching provenance", () => {
+  assert.equal(new Set(sources.map(s => s.source_id)).size, sources.length);
+  assert.equal(notes.length, sources.length);
+  for (const source of sources) {
+    const note = notes.find(n => n.source_id === source.source_id);
+    assert.ok(note, source.source_id);
+    for (const key of ["source_title", "source_url", "jurisdiction", "published_at", "effective_from", "valid_until", "applicability"] as const) {
+      assert.equal(note[key], source[key], `${source.source_id}: ${key}`);
+    }
+    assert.ok(!note.text.includes("·"));
+  }
+});
+
+test("moving and residence tasks can be searched without adding the word housing", () => {
+  for (const [city, id, query] of [
+    ["北京", "bj-residence-guide", "居住证租赁住所申请材料"],
+    ["上海", "sh-residence-update", "居住登记未满半年但连续缴社保能申领居住证吗"],
+    ["广州", "gz-residence-guide", "电子居住证绿色通道要先办居住登记吗"],
+  ]) {
+    assert.equal(housingQueryBoundary(query), null);
+    const found = searchHousingKnowledge(query, city, new Date("2026-09-18"));
+    assert.ok(found.some(n => n.source_id === id), `${city}: ${query}`);
+    assert.ok(found.every(n => ["全国", city].includes(n.jurisdiction)));
+  }
+});
+
+test("a residence application does not pad its results with noise and property records", () => {
+  const found = searchHousingKnowledge("居住登记未满半年但连续缴社保能申领居住证吗", "上海", new Date("2026-09-18"));
+  assert.ok(found.some(n => n.source_id === "sh-residence-update"));
+  assert.ok(found.every(n => !["cn-noise", "cn-property-records"].includes(n.source_id)));
+});
 test("local policy never leaks into a different city", () => {
   const results = searchHousingKnowledge("押金托管退还", "上海");
   assert.ok(results.length);

@@ -1,0 +1,1528 @@
+{
+  "scope": "Same 45 summaries and 58 authored regression questions; baseline uses previous ranking with updated scope policy. No vector or legal accuracy measurement.",
+  "as_of": "2026-09-18",
+  "results": {
+    "baseline": {
+      "summary": {
+        "positive": 50,
+        "hits": 50,
+        "mean_source_precision": 0.23733333333333323,
+        "negative": 8,
+        "false_results": 0,
+        "region_leaks": 0
+      },
+      "rows": [
+        {
+          "id": "pos-01",
+          "positive": true,
+          "sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-deposit-case",
+            "cn-mortgage-repricing",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-02",
+          "positive": true,
+          "sources": [
+            "cn-contract",
+            "cn-deposit-case",
+            "cn-civil",
+            "cn-property-records",
+            "cn-civil-evidence"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-03",
+          "positive": true,
+          "sources": [
+            "cn-civil",
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-04",
+          "positive": true,
+          "sources": [
+            "cn-rental",
+            "cn-contract",
+            "cn-deposit-case",
+            "cn-civil-evidence",
+            "cn-legal-aid"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-05",
+          "positive": true,
+          "sources": [
+            "cn-tax",
+            "cn-loan-interest-tax",
+            "cn-contract",
+            "cn-broker-service",
+            "cn-rental"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-06",
+          "positive": true,
+          "sources": [
+            "bj-balance",
+            "bj-faq",
+            "bj-pay",
+            "cn-property-records",
+            "bj-funds"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-07",
+          "positive": true,
+          "sources": [
+            "bj-pay",
+            "bj-balance",
+            "bj-resale-funds",
+            "bj-funds",
+            "bj-faq"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-08",
+          "positive": true,
+          "sources": [
+            "bj-funds",
+            "bj-faq",
+            "bj-rental",
+            "bj-pay",
+            "bj-contract"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-09",
+          "positive": true,
+          "sources": [
+            "bj-withdraw",
+            "bj-benefits",
+            "cn-provident-loan-rate",
+            "bj-provident-loan-transition",
+            "bj-funds"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-10",
+          "positive": true,
+          "sources": [
+            "bj-contract",
+            "bj-benefits",
+            "bj-funds",
+            "cn-contract",
+            "bj-rental"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-11",
+          "positive": true,
+          "sources": [
+            "bj-benefits",
+            "bj-funds",
+            "bj-contract",
+            "cn-contract",
+            "bj-faq"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-12",
+          "positive": true,
+          "sources": [
+            "sh-platform",
+            "sh-residence-update",
+            "sh-rental",
+            "cn-broker-service",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-13",
+          "positive": true,
+          "sources": [
+            "sh-withdraw",
+            "cn-provident-loan-rate",
+            "sh-platform",
+            "cn-gas-safety",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-14",
+          "positive": true,
+          "sources": [
+            "sh-rental",
+            "sh-platform",
+            "cn-rental",
+            "sh-withdraw",
+            "cn-civil"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-15",
+          "positive": true,
+          "sources": [
+            "gz-rental",
+            "gz-tips",
+            "cn-property-records",
+            "cn-civil",
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-16",
+          "positive": true,
+          "sources": [
+            "gz-rental",
+            "cn-contract",
+            "gz-lease-filing-guide",
+            "gz-lease-management-rule",
+            "gz-tips"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-17",
+          "positive": true,
+          "sources": [
+            "sz-funds",
+            "cn-contract",
+            "cn-provident-loan-rate",
+            "cn-civil",
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-18",
+          "positive": true,
+          "sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-deposit-case",
+            "cn-property-records",
+            "cn-rental"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-01",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-02",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-03",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-04",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-05",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-06",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-gjj-extraction-rule",
+          "positive": true,
+          "sources": [
+            "gz-gjj-extraction-rule",
+            "gz-lease-filing-guide",
+            "gz-lease-management-rule",
+            "cn-provident-loan-rate",
+            "cn-civil"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-lease-filing-guide",
+          "positive": true,
+          "sources": [
+            "gz-lease-filing-guide",
+            "cn-contract",
+            "cn-rental",
+            "gz-lease-management-rule",
+            "cn-broker-service"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-lease-management-rule",
+          "positive": true,
+          "sources": [
+            "gz-lease-management-rule",
+            "gz-lease-filing-guide",
+            "cn-property-records",
+            "cn-rental",
+            "gz-tips"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-affordable-rental-rule",
+          "positive": true,
+          "sources": [
+            "gz-affordable-rental-rule",
+            "cn-contract",
+            "gz-gjj-extraction-rule",
+            "cn-property-records",
+            "gz-rental"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-gjj-rent-calculation",
+          "positive": true,
+          "sources": [
+            "sz-gjj-rent-calculation",
+            "sz-gjj-extraction-rule",
+            "cn-provident-loan-rate",
+            "sz-funds",
+            "cn-contract"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-gjj-extraction-rule",
+          "positive": true,
+          "sources": [
+            "sz-gjj-extraction-rule",
+            "cn-provident-loan-rate",
+            "sz-gjj-rent-calculation",
+            "sz-lease-online-guide",
+            "cn-contract"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-lease-online-guide",
+          "positive": true,
+          "sources": [
+            "sz-lease-online-guide",
+            "cn-broker-service",
+            "cn-civil",
+            "cn-rental",
+            "sz-gjj-extraction-rule"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-affordable-rental-rule",
+          "positive": true,
+          "sources": [
+            "sz-affordable-rental-rule",
+            "sz-gjj-rent-calculation",
+            "sz-gjj-extraction-rule",
+            "sz-lease-online-guide",
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-highrise-fire",
+          "positive": true,
+          "sources": [
+            "cn-highrise-fire",
+            "cn-purchase-deed-tax",
+            "cn-legal-aid",
+            "cn-civil-evidence"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-noise",
+          "positive": true,
+          "sources": [
+            "cn-noise",
+            "cn-people-mediation",
+            "cn-contract",
+            "cn-highrise-fire"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-broker-service",
+          "positive": true,
+          "sources": [
+            "cn-broker-service",
+            "cn-rental",
+            "cn-gas-safety",
+            "cn-provident-loan-rate",
+            "cn-legal-aid"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-deposit-case",
+          "positive": true,
+          "sources": [
+            "cn-deposit-case",
+            "cn-civil",
+            "cn-rental",
+            "cn-contract",
+            "cn-civil-evidence"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sh-noise",
+          "positive": true,
+          "sources": [
+            "sh-noise",
+            "sh-platform",
+            "cn-highrise-fire",
+            "cn-noise"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-gas-safety",
+          "positive": true,
+          "sources": [
+            "cn-gas-safety",
+            "cn-highrise-fire",
+            "cn-civil",
+            "cn-noise",
+            "cn-broker-service"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-01",
+          "positive": true,
+          "sources": [
+            "cn-purchase-deed-tax",
+            "cn-provident-loan-rate",
+            "cn-loan-interest-tax"
+          ],
+          "hit": true,
+          "precision": 0.3333333333333333,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-02",
+          "positive": true,
+          "sources": [
+            "cn-purchase-deed-tax",
+            "cn-property-records",
+            "cn-contract",
+            "cn-broker-service",
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-03",
+          "positive": true,
+          "sources": [
+            "cn-provident-loan-rate",
+            "cn-contract",
+            "cn-mortgage-repricing",
+            "cn-loan-interest-tax",
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-04",
+          "positive": true,
+          "sources": [
+            "bj-provident-loan-transition",
+            "cn-provident-loan-rate",
+            "bj-withdraw",
+            "bj-benefits",
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-05",
+          "positive": true,
+          "sources": [
+            "cn-mortgage-repricing",
+            "cn-loan-interest-tax",
+            "cn-tax",
+            "cn-deposit-case"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-06",
+          "positive": true,
+          "sources": [
+            "cn-legal-aid",
+            "cn-property-records",
+            "cn-people-mediation",
+            "cn-civil-evidence"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-07",
+          "positive": true,
+          "sources": [
+            "cn-people-mediation",
+            "cn-civil-evidence",
+            "cn-legal-aid",
+            "cn-noise",
+            "cn-highrise-fire"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-08",
+          "positive": true,
+          "sources": [
+            "cn-people-mediation",
+            "cn-legal-aid",
+            "cn-noise",
+            "cn-broker-service",
+            "cn-purchase-deed-tax"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-09",
+          "positive": true,
+          "sources": [
+            "cn-civil-evidence",
+            "cn-legal-aid",
+            "cn-contract",
+            "cn-deposit-case",
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-10",
+          "positive": true,
+          "sources": [
+            "cn-property-records",
+            "cn-purchase-deed-tax",
+            "cn-rental",
+            "cn-contract",
+            "cn-noise"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-11",
+          "positive": true,
+          "sources": [
+            "bj-resale-funds",
+            "bj-funds",
+            "bj-pay",
+            "bj-faq",
+            "cn-highrise-fire"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-12",
+          "positive": true,
+          "sources": [
+            "cn-loan-interest-tax",
+            "cn-tax",
+            "cn-mortgage-repricing",
+            "cn-provident-loan-rate"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-none-1",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-none-2",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-01",
+          "positive": true,
+          "sources": [
+            "bj-residence-guide",
+            "bj-rental",
+            "cn-property-records",
+            "cn-civil",
+            "bj-benefits"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-02",
+          "positive": true,
+          "sources": [
+            "bj-residence-guide",
+            "cn-property-records",
+            "bj-rental",
+            "bj-benefits",
+            "cn-noise"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-03",
+          "positive": true,
+          "sources": [
+            "sh-residence-update",
+            "cn-property-records",
+            "cn-noise"
+          ],
+          "hit": true,
+          "precision": 0.3333333333333333,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-04",
+          "positive": true,
+          "sources": [
+            "sh-residence-update",
+            "cn-property-records",
+            "cn-contract",
+            "sh-rental",
+            "sh-platform"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-05",
+          "positive": true,
+          "sources": [
+            "gz-residence-guide",
+            "cn-property-records",
+            "gz-lease-management-rule",
+            "cn-highrise-fire",
+            "cn-noise"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-06",
+          "positive": true,
+          "sources": [
+            "gz-residence-guide",
+            "cn-property-records",
+            "gz-lease-management-rule",
+            "cn-noise",
+            "cn-broker-service"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        }
+      ]
+    },
+    "current": {
+      "summary": {
+        "positive": 50,
+        "hits": 50,
+        "mean_source_precision": 0.6476666666666666,
+        "negative": 8,
+        "false_results": 0,
+        "region_leaks": 0
+      },
+      "rows": [
+        {
+          "id": "pos-01",
+          "positive": true,
+          "sources": [
+            "cn-contract",
+            "cn-civil",
+            "cn-deposit-case",
+            "cn-mortgage-repricing",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-02",
+          "positive": true,
+          "sources": [
+            "cn-contract",
+            "cn-deposit-case",
+            "cn-civil",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-03",
+          "positive": true,
+          "sources": [
+            "cn-civil",
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-04",
+          "positive": true,
+          "sources": [
+            "cn-rental"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-05",
+          "positive": true,
+          "sources": [
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-06",
+          "positive": true,
+          "sources": [
+            "bj-balance",
+            "bj-faq",
+            "bj-pay",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-07",
+          "positive": true,
+          "sources": [
+            "bj-pay",
+            "bj-balance",
+            "bj-resale-funds",
+            "bj-funds"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-08",
+          "positive": true,
+          "sources": [
+            "bj-funds",
+            "bj-faq",
+            "bj-rental",
+            "bj-pay"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-09",
+          "positive": true,
+          "sources": [
+            "bj-withdraw",
+            "bj-benefits"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-10",
+          "positive": true,
+          "sources": [
+            "bj-contract",
+            "bj-benefits",
+            "bj-funds",
+            "cn-contract",
+            "bj-rental"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-11",
+          "positive": true,
+          "sources": [
+            "bj-benefits",
+            "bj-funds",
+            "bj-contract",
+            "cn-contract"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-12",
+          "positive": true,
+          "sources": [
+            "sh-platform"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-13",
+          "positive": true,
+          "sources": [
+            "sh-withdraw",
+            "cn-provident-loan-rate"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-14",
+          "positive": true,
+          "sources": [
+            "sh-rental",
+            "sh-platform",
+            "cn-rental",
+            "sh-withdraw"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-15",
+          "positive": true,
+          "sources": [
+            "gz-rental",
+            "gz-tips",
+            "cn-property-records",
+            "cn-civil",
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 0.4,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-16",
+          "positive": true,
+          "sources": [
+            "gz-rental",
+            "cn-contract",
+            "gz-lease-filing-guide",
+            "gz-lease-management-rule",
+            "gz-tips"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-17",
+          "positive": true,
+          "sources": [
+            "sz-funds"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "pos-18",
+          "positive": true,
+          "sources": [
+            "cn-contract"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-01",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-02",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-03",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-04",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-05",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "neg-06",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-gjj-extraction-rule",
+          "positive": true,
+          "sources": [
+            "gz-gjj-extraction-rule",
+            "gz-lease-filing-guide",
+            "gz-lease-management-rule",
+            "cn-provident-loan-rate",
+            "cn-civil"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-lease-filing-guide",
+          "positive": true,
+          "sources": [
+            "gz-lease-filing-guide",
+            "cn-contract",
+            "cn-rental",
+            "gz-lease-management-rule",
+            "cn-broker-service"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-lease-management-rule",
+          "positive": true,
+          "sources": [
+            "gz-lease-management-rule",
+            "gz-lease-filing-guide",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.3333333333333333,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-gz-affordable-rental-rule",
+          "positive": true,
+          "sources": [
+            "gz-affordable-rental-rule",
+            "cn-contract"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-gjj-rent-calculation",
+          "positive": true,
+          "sources": [
+            "sz-gjj-rent-calculation",
+            "sz-gjj-extraction-rule",
+            "cn-provident-loan-rate"
+          ],
+          "hit": true,
+          "precision": 0.3333333333333333,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-gjj-extraction-rule",
+          "positive": true,
+          "sources": [
+            "sz-gjj-extraction-rule"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-lease-online-guide",
+          "positive": true,
+          "sources": [
+            "sz-lease-online-guide",
+            "cn-broker-service",
+            "cn-civil",
+            "cn-rental",
+            "sz-gjj-extraction-rule"
+          ],
+          "hit": true,
+          "precision": 0.2,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sz-affordable-rental-rule",
+          "positive": true,
+          "sources": [
+            "sz-affordable-rental-rule"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-highrise-fire",
+          "positive": true,
+          "sources": [
+            "cn-highrise-fire"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-noise",
+          "positive": true,
+          "sources": [
+            "cn-noise",
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-broker-service",
+          "positive": true,
+          "sources": [
+            "cn-broker-service"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-deposit-case",
+          "positive": true,
+          "sources": [
+            "cn-deposit-case",
+            "cn-civil"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-sh-noise",
+          "positive": true,
+          "sources": [
+            "sh-noise",
+            "sh-platform",
+            "cn-highrise-fire",
+            "cn-noise"
+          ],
+          "hit": true,
+          "precision": 0.25,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "expanded-cn-gas-safety",
+          "positive": true,
+          "sources": [
+            "cn-gas-safety"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-01",
+          "positive": true,
+          "sources": [
+            "cn-purchase-deed-tax"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-02",
+          "positive": true,
+          "sources": [
+            "cn-purchase-deed-tax",
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-03",
+          "positive": true,
+          "sources": [
+            "cn-provident-loan-rate"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-04",
+          "positive": true,
+          "sources": [
+            "bj-provident-loan-transition",
+            "cn-provident-loan-rate"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-05",
+          "positive": true,
+          "sources": [
+            "cn-mortgage-repricing"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-06",
+          "positive": true,
+          "sources": [
+            "cn-legal-aid"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-07",
+          "positive": true,
+          "sources": [
+            "cn-people-mediation",
+            "cn-civil-evidence",
+            "cn-legal-aid"
+          ],
+          "hit": true,
+          "precision": 0.3333333333333333,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-08",
+          "positive": true,
+          "sources": [
+            "cn-people-mediation"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-09",
+          "positive": true,
+          "sources": [
+            "cn-civil-evidence"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-10",
+          "positive": true,
+          "sources": [
+            "cn-property-records"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-11",
+          "positive": true,
+          "sources": [
+            "bj-resale-funds",
+            "bj-funds"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-12",
+          "positive": true,
+          "sources": [
+            "cn-loan-interest-tax",
+            "cn-tax"
+          ],
+          "hit": true,
+          "precision": 0.5,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-none-1",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "decision-none-2",
+          "positive": false,
+          "sources": [],
+          "hit": null,
+          "precision": null,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-01",
+          "positive": true,
+          "sources": [
+            "bj-residence-guide"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-02",
+          "positive": true,
+          "sources": [
+            "bj-residence-guide"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-03",
+          "positive": true,
+          "sources": [
+            "sh-residence-update"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-04",
+          "positive": true,
+          "sources": [
+            "sh-residence-update",
+            "cn-property-records",
+            "cn-contract"
+          ],
+          "hit": true,
+          "precision": 0.3333333333333333,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-05",
+          "positive": true,
+          "sources": [
+            "gz-residence-guide"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        },
+        {
+          "id": "residence-06",
+          "positive": true,
+          "sources": [
+            "gz-residence-guide"
+          ],
+          "hit": true,
+          "precision": 1,
+          "false_result": false,
+          "region_leak": false
+        }
+      ]
+    }
+  }
+}
